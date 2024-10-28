@@ -1,0 +1,195 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
+  <diagram name="Page-1" id="5byK5izdlYGcjZYnSR8d">
+    <mxGraphModel dx="4392" dy="3280" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-2" target="0d-3BoDaWkWoCKmmSgzT-40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-2" value="start" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="820" y="70" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-4" target="0d-3BoDaWkWoCKmmSgzT-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-4" value="pasažieri nastúpia do autobusu" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="785" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-6" target="0d-3BoDaWkWoCKmmSgzT-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-6" value="autobus ide na ďalšiu zastávku" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="875" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880" y="715" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="640" y="715" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-8" value="niektorí pasažieri vystúpia" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="785" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-13" target="0d-3BoDaWkWoCKmmSgzT-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-10" value="Nie" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="0d-3BoDaWkWoCKmmSgzT-9">
+          <mxGeometry x="-0.7857" y="-1" relative="1" as="geometry">
+            <mxPoint x="24" y="-9" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-13" target="0d-3BoDaWkWoCKmmSgzT-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-12" value="áno" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="0d-3BoDaWkWoCKmmSgzT-11">
+          <mxGeometry x="-0.7633" y="1" relative="1" as="geometry">
+            <mxPoint x="-21" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-13" value="zastávka je konečná" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="975" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-15" target="0d-3BoDaWkWoCKmmSgzT-42">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-15" value="všetci pasažieri vystúpia" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="1125" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-17" target="0d-3BoDaWkWoCKmmSgzT-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-17" value="vygenerujeme všetkých pasažierov na celý deň, ktorých treba obslúžiť" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="325" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-19" target="0d-3BoDaWkWoCKmmSgzT-22">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="875" y="525" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-19" value="vygenerujeme nový časový rozvrh pre všetky zastávky" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="780" y="415" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-22" target="0d-3BoDaWkWoCKmmSgzT-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-22" target="0d-3BoDaWkWoCKmmSgzT-26">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880" y="1395" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1020" y="635" />
+              <mxPoint x="1020" y="1400" />
+              <mxPoint x="880" y="1400" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-22" value="I = 1 do N (počet autobusov)" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="785" y="595" width="190" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-23" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-24" target="0d-3BoDaWkWoCKmmSgzT-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-24" value="pre algoritmus a optimalizáciu sú podstatné len odchody z prvej zastávky, ostatné sú rovnaké len posunuté o pár minút, slúžia len na export" style="shape=note;size=20;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="375" width="210" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-26" target="0d-3BoDaWkWoCKmmSgzT-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-26" value="ohodnotíme celkové čakanie všetkých pasažierov za deň" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="780" y="1490" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-28" target="0d-3BoDaWkWoCKmmSgzT-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-28" value="ohodnotíme celkovú zaplnenosť autobusu za deň" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="780" y="1580" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-30">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880" y="1774" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-30" value="ohodnotíme počet použitých autobusov" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="780" y="1670" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-33" target="0d-3BoDaWkWoCKmmSgzT-19">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="445" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="470" y="1814" />
+              <mxPoint x="470" y="445" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-33" target="0d-3BoDaWkWoCKmmSgzT-38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-33" value="&lt;div&gt;hodnotiaca podmienka&lt;/div&gt;&lt;div&gt;je splnená&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="1774" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-34" value="Nie" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="774.9966666666666" y="1800" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-35" value="áno" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="862" y="1859.9981481481482" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-36" value="koniec" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="820" y="2045" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-38" target="0d-3BoDaWkWoCKmmSgzT-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-38" value="používateľ upraví časy odchodov z prvej zastávky" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="1925" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-40" target="0d-3BoDaWkWoCKmmSgzT-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-40" value="používateľ zadá vstupné obmedzenia" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="230" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-42" target="0d-3BoDaWkWoCKmmSgzT-44">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-42" value="ohodnotíme čakanie pasažierov " style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="780" y="1210" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-44" target="0d-3BoDaWkWoCKmmSgzT-22">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="510" y="650" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="510" y="1330" />
+              <mxPoint x="510" y="635" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-44" value="ohodnotíme zaplnenosť autobusu" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="780" y="1299" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-47" target="0d-3BoDaWkWoCKmmSgzT-42">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-47" target="0d-3BoDaWkWoCKmmSgzT-44">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-47" value="Každý autobus ohodnotíme samostatne aby sme mohli spraviť heat mapu na ktorej uvidíme či niektoré z používateľských obmedzení spôsobujú neefektívnosť linky" style="shape=note;size=20;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="1210" width="210" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-51" target="0d-3BoDaWkWoCKmmSgzT-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-49" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-51" target="0d-3BoDaWkWoCKmmSgzT-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0d-3BoDaWkWoCKmmSgzT-51" target="0d-3BoDaWkWoCKmmSgzT-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0d-3BoDaWkWoCKmmSgzT-51" value="Celkové ohodnotenie linky bude slúžiť na zistenie v čom môžeme časový rozvrh zlepšiť" style="shape=note;size=20;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="1540" width="210" height="140" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
