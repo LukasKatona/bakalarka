@@ -1,0 +1,1298 @@
+5:1 - Lesná, Haškova: 0
+5:2 - Brechtova: 1
+5:3 - Blažkova: 2
+5:4 - Arbesova: 3
+5:5 - Heleny Malířové: 4
+5:6 - Lesná, nádraží: 5
+5:7 - Štefánikova čtvrť: 6
+5:8 - Provozníkova: 7
+5:10 - Lesnická: 9
+5:11 - Lesná, Haškova: 0
+5:11 - Zemědělská: 10
+5:12 - Brechtova: 1
+5:12 - Černá Pole, Erbenova: 11
+5:13 - Blažkova: 2
+5:14 - Arbesova: 3
+5:15 - Heleny Malířové: 4
+5:16 - Lesná, nádraží: 5
+5:17 - Štefánikova čtvrť: 6
+5:18 - Provozníkova: 7
+5:20 - Lesnická: 9
+5:21 - Lesná, Haškova: 0
+5:21 - Zemědělská: 10
+5:22 - Brechtova: 1
+5:22 - Černá Pole, Erbenova: 11
+5:23 - Blažkova: 2
+5:24 - Arbesova: 3
+5:25 - Heleny Malířové: 4
+5:26 - Lesná, nádraží: 5
+5:27 - Štefánikova čtvrť: 6
+5:28 - Provozníkova: 7
+5:30 - Lesnická: 9
+5:31 - Lesná, Haškova: 0
+5:31 - Zemědělská: 10
+5:32 - Brechtova: 1
+5:32 - Černá Pole, Erbenova: 11
+5:33 - Blažkova: 2
+5:34 - Arbesova: 3
+5:35 - Heleny Malířové: 4
+5:36 - Lesná, nádraží: 5
+5:37 - Štefánikova čtvrť: 6
+5:38 - Provozníkova: 7
+5:40 - Lesnická: 9
+5:41 - Lesná, Haškova: 0
+5:41 - Zemědělská: 10
+5:42 - Brechtova: 1
+5:42 - Černá Pole, Erbenova: 11
+5:43 - Blažkova: 2
+5:44 - Arbesova: 3
+5:45 - Heleny Malířové: 4
+5:46 - Lesná, nádraží: 5
+5:47 - Štefánikova čtvrť: 6
+5:48 - Provozníkova: 7
+5:50 - Lesnická: 9
+5:51 - Lesná, Haškova: 0
+5:51 - Zemědělská: 10
+5:52 - Brechtova: 1
+5:52 - Černá Pole, Erbenova: 11
+5:53 - Blažkova: 2
+5:54 - Arbesova: 3
+5:55 - Heleny Malířové: 4
+5:56 - Lesná, nádraží: 5
+5:57 - Štefánikova čtvrť: 6
+5:58 - Provozníkova: 7
+6:0 - Lesnická: 9
+6:1 - Lesná, Haškova: 0
+6:1 - Zemědělská: 10
+6:2 - Brechtova: 1
+6:2 - Černá Pole, Erbenova: 11
+6:3 - Blažkova: 2
+6:4 - Arbesova: 3
+6:5 - Heleny Malířové: 4
+6:6 - Lesná, nádraží: 5
+6:7 - Štefánikova čtvrť: 6
+6:8 - Lesná, Haškova: 0
+6:8 - Provozníkova: 7
+6:9 - Brechtova: 1
+6:10 - Blažkova: 2
+6:10 - Lesnická: 9
+6:11 - Arbesova: 3
+6:11 - Zemědělská: 10
+6:12 - Heleny Malířové: 4
+6:12 - Černá Pole, Erbenova: 11
+6:13 - Lesná, nádraží: 5
+6:14 - Lesná, Haškova: 0
+6:14 - Štefánikova čtvrť: 6
+6:15 - Brechtova: 1
+6:15 - Provozníkova: 7
+6:16 - Blažkova: 2
+6:17 - Arbesova: 3
+6:17 - Lesnická: 9
+6:18 - Heleny Malířové: 4
+6:18 - Zemědělská: 10
+6:19 - Lesná, nádraží: 5
+6:19 - Černá Pole, Erbenova: 11
+6:20 - Štefánikova čtvrť: 6
+6:21 - Lesná, Haškova: 0
+6:21 - Provozníkova: 7
+6:22 - Brechtova: 1
+6:23 - Blažkova: 2
+6:23 - Lesnická: 9
+6:24 - Arbesova: 3
+6:24 - Zemědělská: 10
+6:25 - Heleny Malířové: 4
+6:25 - Černá Pole, Erbenova: 11
+6:26 - Lesná, nádraží: 5
+6:27 - Štefánikova čtvrť: 6
+6:28 - Lesná, Haškova: 0
+6:28 - Provozníkova: 7
+6:29 - Brechtova: 1
+6:30 - Blažkova: 2
+6:30 - Lesnická: 9
+6:31 - Arbesova: 3
+6:31 - Zemědělská: 10
+6:32 - Heleny Malířové: 4
+6:32 - Černá Pole, Erbenova: 11
+6:33 - Lesná, nádraží: 5
+6:34 - Lesná, Haškova: 0
+6:34 - Štefánikova čtvrť: 6
+6:35 - Brechtova: 1
+6:35 - Provozníkova: 7
+6:36 - Blažkova: 2
+6:37 - Arbesova: 3
+6:37 - Lesnická: 9
+6:38 - Heleny Malířové: 4
+6:38 - Zemědělská: 10
+6:39 - Lesná, nádraží: 5
+6:39 - Černá Pole, Erbenova: 11
+6:40 - Štefánikova čtvrť: 6
+6:41 - Lesná, Haškova: 0
+6:41 - Provozníkova: 7
+6:42 - Brechtova: 1
+6:43 - Blažkova: 2
+6:43 - Lesnická: 9
+6:44 - Arbesova: 3
+6:44 - Zemědělská: 10
+6:45 - Heleny Malířové: 4
+6:45 - Černá Pole, Erbenova: 11
+6:46 - Lesná, nádraží: 5
+6:47 - Štefánikova čtvrť: 6
+6:48 - Lesná, Haškova: 0
+6:48 - Provozníkova: 7
+6:49 - Brechtova: 1
+6:50 - Blažkova: 2
+6:50 - Lesnická: 9
+6:51 - Arbesova: 3
+6:51 - Zemědělská: 10
+6:52 - Heleny Malířové: 4
+6:52 - Černá Pole, Erbenova: 11
+6:53 - Lesná, nádraží: 5
+6:54 - Lesná, Haškova: 0
+6:54 - Štefánikova čtvrť: 6
+6:55 - Brechtova: 1
+6:55 - Provozníkova: 7
+6:56 - Blažkova: 2
+6:57 - Arbesova: 3
+6:57 - Lesnická: 9
+6:58 - Heleny Malířové: 4
+6:58 - Zemědělská: 10
+6:59 - Lesná, nádraží: 5
+6:59 - Černá Pole, Erbenova: 11
+7:0 - Štefánikova čtvrť: 6
+7:1 - Lesná, Haškova: 0
+7:1 - Provozníkova: 7
+7:2 - Brechtova: 1
+7:3 - Blažkova: 2
+7:3 - Lesnická: 9
+7:4 - Arbesova: 3
+7:4 - Zemědělská: 10
+7:5 - Heleny Malířové: 4
+7:5 - Černá Pole, Erbenova: 11
+7:6 - Lesná, nádraží: 5
+7:7 - Štefánikova čtvrť: 6
+7:8 - Lesná, Haškova: 0
+7:8 - Provozníkova: 7
+7:9 - Brechtova: 1
+7:10 - Blažkova: 2
+7:10 - Lesnická: 9
+7:11 - Arbesova: 3
+7:11 - Zemědělská: 10
+7:12 - Heleny Malířové: 4
+7:12 - Černá Pole, Erbenova: 11
+7:13 - Lesná, nádraží: 5
+7:14 - Lesná, Haškova: 0
+7:14 - Štefánikova čtvrť: 6
+7:15 - Brechtova: 1
+7:15 - Provozníkova: 7
+7:16 - Blažkova: 2
+7:17 - Arbesova: 3
+7:17 - Lesnická: 9
+7:18 - Heleny Malířové: 4
+7:18 - Zemědělská: 10
+7:19 - Lesná, nádraží: 5
+7:19 - Černá Pole, Erbenova: 11
+7:20 - Štefánikova čtvrť: 6
+7:21 - Lesná, Haškova: 0
+7:21 - Provozníkova: 7
+7:22 - Brechtova: 1
+7:23 - Blažkova: 2
+7:23 - Lesnická: 9
+7:24 - Arbesova: 3
+7:24 - Zemědělská: 10
+7:25 - Heleny Malířové: 4
+7:25 - Černá Pole, Erbenova: 11
+7:26 - Lesná, nádraží: 5
+7:27 - Štefánikova čtvrť: 6
+7:28 - Lesná, Haškova: 0
+7:28 - Provozníkova: 7
+7:29 - Brechtova: 1
+7:30 - Blažkova: 2
+7:30 - Lesnická: 9
+7:31 - Arbesova: 3
+7:31 - Zemědělská: 10
+7:32 - Heleny Malířové: 4
+7:32 - Černá Pole, Erbenova: 11
+7:33 - Lesná, nádraží: 5
+7:34 - Lesná, Haškova: 0
+7:34 - Štefánikova čtvrť: 6
+7:35 - Brechtova: 1
+7:35 - Provozníkova: 7
+7:36 - Blažkova: 2
+7:37 - Arbesova: 3
+7:37 - Lesnická: 9
+7:38 - Heleny Malířové: 4
+7:38 - Zemědělská: 10
+7:39 - Lesná, nádraží: 5
+7:39 - Černá Pole, Erbenova: 11
+7:40 - Štefánikova čtvrť: 6
+7:41 - Lesná, Haškova: 0
+7:41 - Provozníkova: 7
+7:42 - Brechtova: 1
+7:43 - Blažkova: 2
+7:43 - Lesnická: 9
+7:44 - Arbesova: 3
+7:44 - Zemědělská: 10
+7:45 - Heleny Malířové: 4
+7:45 - Černá Pole, Erbenova: 11
+7:46 - Lesná, nádraží: 5
+7:47 - Štefánikova čtvrť: 6
+7:48 - Lesná, Haškova: 0
+7:48 - Provozníkova: 7
+7:49 - Brechtova: 1
+7:50 - Blažkova: 2
+7:50 - Lesnická: 9
+7:51 - Arbesova: 3
+7:51 - Zemědělská: 10
+7:52 - Heleny Malířové: 4
+7:52 - Černá Pole, Erbenova: 11
+7:53 - Lesná, nádraží: 5
+7:54 - Lesná, Haškova: 0
+7:54 - Štefánikova čtvrť: 6
+7:55 - Brechtova: 1
+7:55 - Provozníkova: 7
+7:56 - Blažkova: 2
+7:57 - Arbesova: 3
+7:57 - Lesnická: 9
+7:58 - Heleny Malířové: 4
+7:58 - Zemědělská: 10
+7:59 - Lesná, nádraží: 5
+7:59 - Černá Pole, Erbenova: 11
+8:0 - Štefánikova čtvrť: 6
+8:1 - Lesná, Haškova: 0
+8:1 - Provozníkova: 7
+8:2 - Brechtova: 1
+8:3 - Blažkova: 2
+8:3 - Lesnická: 9
+8:4 - Arbesova: 3
+8:4 - Zemědělská: 10
+8:5 - Heleny Malířové: 4
+8:5 - Černá Pole, Erbenova: 11
+8:6 - Lesná, nádraží: 5
+8:7 - Štefánikova čtvrť: 6
+8:8 - Lesná, Haškova: 0
+8:8 - Provozníkova: 7
+8:9 - Brechtova: 1
+8:10 - Blažkova: 2
+8:10 - Lesnická: 9
+8:11 - Arbesova: 3
+8:11 - Zemědělská: 10
+8:12 - Heleny Malířové: 4
+8:12 - Černá Pole, Erbenova: 11
+8:13 - Lesná, nádraží: 5
+8:14 - Štefánikova čtvrť: 6
+8:15 - Provozníkova: 7
+8:17 - Lesnická: 9
+8:18 - Lesná, Haškova: 0
+8:18 - Zemědělská: 10
+8:19 - Brechtova: 1
+8:19 - Černá Pole, Erbenova: 11
+8:20 - Blažkova: 2
+8:21 - Arbesova: 3
+8:22 - Heleny Malířové: 4
+8:23 - Lesná, nádraží: 5
+8:24 - Štefánikova čtvrť: 6
+8:25 - Provozníkova: 7
+8:27 - Lesnická: 9
+8:28 - Lesná, Haškova: 0
+8:28 - Zemědělská: 10
+8:29 - Brechtova: 1
+8:29 - Černá Pole, Erbenova: 11
+8:30 - Blažkova: 2
+8:31 - Arbesova: 3
+8:32 - Heleny Malířové: 4
+8:33 - Lesná, nádraží: 5
+8:34 - Štefánikova čtvrť: 6
+8:35 - Provozníkova: 7
+8:37 - Lesnická: 9
+8:38 - Lesná, Haškova: 0
+8:38 - Zemědělská: 10
+8:39 - Brechtova: 1
+8:39 - Černá Pole, Erbenova: 11
+8:40 - Blažkova: 2
+8:41 - Arbesova: 3
+8:42 - Heleny Malířové: 4
+8:43 - Lesná, nádraží: 5
+8:44 - Štefánikova čtvrť: 6
+8:45 - Provozníkova: 7
+8:47 - Lesnická: 9
+8:48 - Lesná, Haškova: 0
+8:48 - Zemědělská: 10
+8:49 - Brechtova: 1
+8:49 - Černá Pole, Erbenova: 11
+8:50 - Blažkova: 2
+8:51 - Arbesova: 3
+8:52 - Heleny Malířové: 4
+8:53 - Lesná, nádraží: 5
+8:54 - Štefánikova čtvrť: 6
+8:55 - Provozníkova: 7
+8:57 - Lesnická: 9
+8:58 - Lesná, Haškova: 0
+8:58 - Zemědělská: 10
+8:59 - Brechtova: 1
+8:59 - Černá Pole, Erbenova: 11
+9:0 - Blažkova: 2
+9:1 - Arbesova: 3
+9:2 - Heleny Malířové: 4
+9:3 - Lesná, nádraží: 5
+9:4 - Štefánikova čtvrť: 6
+9:5 - Provozníkova: 7
+9:7 - Lesnická: 9
+9:8 - Lesná, Haškova: 0
+9:8 - Zemědělská: 10
+9:9 - Brechtova: 1
+9:9 - Černá Pole, Erbenova: 11
+9:10 - Blažkova: 2
+9:11 - Arbesova: 3
+9:12 - Heleny Malířové: 4
+9:13 - Lesná, nádraží: 5
+9:14 - Štefánikova čtvrť: 6
+9:15 - Provozníkova: 7
+9:17 - Lesnická: 9
+9:18 - Lesná, Haškova: 0
+9:18 - Zemědělská: 10
+9:19 - Brechtova: 1
+9:19 - Černá Pole, Erbenova: 11
+9:20 - Blažkova: 2
+9:21 - Arbesova: 3
+9:22 - Heleny Malířové: 4
+9:23 - Lesná, nádraží: 5
+9:24 - Štefánikova čtvrť: 6
+9:25 - Provozníkova: 7
+9:27 - Lesnická: 9
+9:28 - Lesná, Haškova: 0
+9:28 - Zemědělská: 10
+9:29 - Brechtova: 1
+9:29 - Černá Pole, Erbenova: 11
+9:30 - Blažkova: 2
+9:31 - Arbesova: 3
+9:32 - Heleny Malířové: 4
+9:33 - Lesná, nádraží: 5
+9:34 - Štefánikova čtvrť: 6
+9:35 - Provozníkova: 7
+9:37 - Lesnická: 9
+9:38 - Lesná, Haškova: 0
+9:38 - Zemědělská: 10
+9:39 - Brechtova: 1
+9:39 - Černá Pole, Erbenova: 11
+9:40 - Blažkova: 2
+9:41 - Arbesova: 3
+9:42 - Heleny Malířové: 4
+9:43 - Lesná, nádraží: 5
+9:44 - Štefánikova čtvrť: 6
+9:45 - Provozníkova: 7
+9:47 - Lesnická: 9
+9:48 - Lesná, Haškova: 0
+9:48 - Zemědělská: 10
+9:49 - Brechtova: 1
+9:49 - Černá Pole, Erbenova: 11
+9:50 - Blažkova: 2
+9:51 - Arbesova: 3
+9:52 - Heleny Malířové: 4
+9:53 - Lesná, nádraží: 5
+9:54 - Štefánikova čtvrť: 6
+9:55 - Provozníkova: 7
+9:57 - Lesnická: 9
+9:58 - Lesná, Haškova: 0
+9:58 - Zemědělská: 10
+9:59 - Brechtova: 1
+9:59 - Černá Pole, Erbenova: 11
+10:0 - Blažkova: 2
+10:1 - Arbesova: 3
+10:2 - Heleny Malířové: 4
+10:3 - Lesná, nádraží: 5
+10:4 - Štefánikova čtvrť: 6
+10:5 - Provozníkova: 7
+10:7 - Lesnická: 9
+10:8 - Lesná, Haškova: 0
+10:8 - Zemědělská: 10
+10:9 - Brechtova: 1
+10:9 - Černá Pole, Erbenova: 11
+10:10 - Blažkova: 2
+10:11 - Arbesova: 3
+10:12 - Heleny Malířové: 4
+10:13 - Lesná, nádraží: 5
+10:14 - Štefánikova čtvrť: 6
+10:15 - Provozníkova: 7
+10:17 - Lesnická: 9
+10:18 - Lesná, Haškova: 0
+10:18 - Zemědělská: 10
+10:19 - Brechtova: 1
+10:19 - Černá Pole, Erbenova: 11
+10:20 - Blažkova: 2
+10:21 - Arbesova: 3
+10:22 - Heleny Malířové: 4
+10:23 - Lesná, nádraží: 5
+10:24 - Štefánikova čtvrť: 6
+10:25 - Provozníkova: 7
+10:27 - Lesnická: 9
+10:28 - Lesná, Haškova: 0
+10:28 - Zemědělská: 10
+10:29 - Brechtova: 1
+10:29 - Černá Pole, Erbenova: 11
+10:30 - Blažkova: 2
+10:31 - Arbesova: 3
+10:32 - Heleny Malířové: 4
+10:33 - Lesná, nádraží: 5
+10:34 - Štefánikova čtvrť: 6
+10:35 - Provozníkova: 7
+10:37 - Lesnická: 9
+10:38 - Lesná, Haškova: 0
+10:38 - Zemědělská: 10
+10:39 - Brechtova: 1
+10:39 - Černá Pole, Erbenova: 11
+10:40 - Blažkova: 2
+10:41 - Arbesova: 3
+10:42 - Heleny Malířové: 4
+10:43 - Lesná, nádraží: 5
+10:44 - Štefánikova čtvrť: 6
+10:45 - Provozníkova: 7
+10:47 - Lesnická: 9
+10:48 - Lesná, Haškova: 0
+10:48 - Zemědělská: 10
+10:49 - Brechtova: 1
+10:49 - Černá Pole, Erbenova: 11
+10:50 - Blažkova: 2
+10:51 - Arbesova: 3
+10:52 - Heleny Malířové: 4
+10:53 - Lesná, nádraží: 5
+10:54 - Štefánikova čtvrť: 6
+10:55 - Provozníkova: 7
+10:57 - Lesnická: 9
+10:58 - Lesná, Haškova: 0
+10:58 - Zemědělská: 10
+10:59 - Brechtova: 1
+10:59 - Černá Pole, Erbenova: 11
+11:0 - Blažkova: 2
+11:1 - Arbesova: 3
+11:2 - Heleny Malířové: 4
+11:3 - Lesná, nádraží: 5
+11:4 - Štefánikova čtvrť: 6
+11:5 - Provozníkova: 7
+11:7 - Lesnická: 9
+11:8 - Lesná, Haškova: 0
+11:8 - Zemědělská: 10
+11:9 - Brechtova: 1
+11:9 - Černá Pole, Erbenova: 11
+11:10 - Blažkova: 2
+11:11 - Arbesova: 3
+11:12 - Heleny Malířové: 4
+11:13 - Lesná, nádraží: 5
+11:14 - Štefánikova čtvrť: 6
+11:15 - Provozníkova: 7
+11:17 - Lesnická: 9
+11:18 - Lesná, Haškova: 0
+11:18 - Zemědělská: 10
+11:19 - Brechtova: 1
+11:19 - Černá Pole, Erbenova: 11
+11:20 - Blažkova: 2
+11:21 - Arbesova: 3
+11:22 - Heleny Malířové: 4
+11:23 - Lesná, nádraží: 5
+11:24 - Štefánikova čtvrť: 6
+11:25 - Provozníkova: 7
+11:27 - Lesnická: 9
+11:28 - Lesná, Haškova: 0
+11:28 - Zemědělská: 10
+11:29 - Brechtova: 1
+11:29 - Černá Pole, Erbenova: 11
+11:30 - Blažkova: 2
+11:31 - Arbesova: 3
+11:32 - Heleny Malířové: 4
+11:33 - Lesná, nádraží: 5
+11:34 - Štefánikova čtvrť: 6
+11:35 - Provozníkova: 7
+11:37 - Lesnická: 9
+11:38 - Lesná, Haškova: 0
+11:38 - Zemědělská: 10
+11:39 - Brechtova: 1
+11:39 - Černá Pole, Erbenova: 11
+11:40 - Blažkova: 2
+11:41 - Arbesova: 3
+11:42 - Heleny Malířové: 4
+11:43 - Lesná, nádraží: 5
+11:44 - Štefánikova čtvrť: 6
+11:45 - Provozníkova: 7
+11:47 - Lesnická: 9
+11:48 - Lesná, Haškova: 0
+11:48 - Zemědělská: 10
+11:49 - Brechtova: 1
+11:49 - Černá Pole, Erbenova: 11
+11:50 - Blažkova: 2
+11:51 - Arbesova: 3
+11:52 - Heleny Malířové: 4
+11:53 - Lesná, nádraží: 5
+11:54 - Štefánikova čtvrť: 6
+11:55 - Provozníkova: 7
+11:57 - Lesnická: 9
+11:58 - Lesná, Haškova: 0
+11:58 - Zemědělská: 10
+11:59 - Brechtova: 1
+11:59 - Černá Pole, Erbenova: 11
+12:0 - Blažkova: 2
+12:1 - Arbesova: 3
+12:2 - Heleny Malířové: 4
+12:3 - Lesná, nádraží: 5
+12:4 - Štefánikova čtvrť: 6
+12:5 - Provozníkova: 7
+12:7 - Lesnická: 9
+12:8 - Lesná, Haškova: 0
+12:8 - Zemědělská: 10
+12:9 - Brechtova: 1
+12:9 - Černá Pole, Erbenova: 11
+12:10 - Blažkova: 2
+12:11 - Arbesova: 3
+12:12 - Heleny Malířové: 4
+12:13 - Lesná, nádraží: 5
+12:14 - Štefánikova čtvrť: 6
+12:15 - Provozníkova: 7
+12:17 - Lesnická: 9
+12:18 - Lesná, Haškova: 0
+12:18 - Zemědělská: 10
+12:19 - Brechtova: 1
+12:19 - Černá Pole, Erbenova: 11
+12:20 - Blažkova: 2
+12:21 - Arbesova: 3
+12:22 - Heleny Malířové: 4
+12:23 - Lesná, nádraží: 5
+12:24 - Štefánikova čtvrť: 6
+12:25 - Provozníkova: 7
+12:27 - Lesnická: 9
+12:28 - Lesná, Haškova: 0
+12:28 - Zemědělská: 10
+12:29 - Brechtova: 1
+12:29 - Černá Pole, Erbenova: 11
+12:30 - Blažkova: 2
+12:31 - Arbesova: 3
+12:32 - Heleny Malířové: 4
+12:33 - Lesná, nádraží: 5
+12:34 - Štefánikova čtvrť: 6
+12:35 - Provozníkova: 7
+12:37 - Lesnická: 9
+12:38 - Lesná, Haškova: 0
+12:38 - Zemědělská: 10
+12:39 - Brechtova: 1
+12:39 - Černá Pole, Erbenova: 11
+12:40 - Blažkova: 2
+12:41 - Arbesova: 3
+12:42 - Heleny Malířové: 4
+12:43 - Lesná, nádraží: 5
+12:44 - Štefánikova čtvrť: 6
+12:45 - Provozníkova: 7
+12:47 - Lesnická: 9
+12:48 - Lesná, Haškova: 0
+12:48 - Zemědělská: 10
+12:49 - Brechtova: 1
+12:49 - Černá Pole, Erbenova: 11
+12:50 - Blažkova: 2
+12:51 - Arbesova: 3
+12:52 - Heleny Malířové: 4
+12:53 - Lesná, nádraží: 5
+12:54 - Štefánikova čtvrť: 6
+12:55 - Provozníkova: 7
+12:57 - Lesnická: 9
+12:58 - Lesná, Haškova: 0
+12:58 - Zemědělská: 10
+12:59 - Brechtova: 1
+12:59 - Černá Pole, Erbenova: 11
+13:0 - Blažkova: 2
+13:1 - Arbesova: 3
+13:2 - Heleny Malířové: 4
+13:3 - Lesná, nádraží: 5
+13:4 - Štefánikova čtvrť: 6
+13:5 - Provozníkova: 7
+13:7 - Lesnická: 9
+13:8 - Lesná, Haškova: 0
+13:8 - Zemědělská: 10
+13:9 - Brechtova: 1
+13:9 - Černá Pole, Erbenova: 11
+13:10 - Blažkova: 2
+13:11 - Arbesova: 3
+13:12 - Heleny Malířové: 4
+13:13 - Lesná, nádraží: 5
+13:14 - Štefánikova čtvrť: 6
+13:15 - Provozníkova: 7
+13:17 - Lesnická: 9
+13:18 - Lesná, Haškova: 0
+13:18 - Zemědělská: 10
+13:19 - Brechtova: 1
+13:19 - Černá Pole, Erbenova: 11
+13:20 - Blažkova: 2
+13:21 - Arbesova: 3
+13:22 - Heleny Malířové: 4
+13:23 - Lesná, nádraží: 5
+13:24 - Štefánikova čtvrť: 6
+13:25 - Provozníkova: 7
+13:27 - Lesnická: 9
+13:28 - Lesná, Haškova: 0
+13:28 - Zemědělská: 10
+13:29 - Brechtova: 1
+13:29 - Černá Pole, Erbenova: 11
+13:30 - Blažkova: 2
+13:31 - Arbesova: 3
+13:32 - Heleny Malířové: 4
+13:33 - Lesná, nádraží: 5
+13:34 - Štefánikova čtvrť: 6
+13:35 - Provozníkova: 7
+13:37 - Lesnická: 9
+13:38 - Lesná, Haškova: 0
+13:38 - Zemědělská: 10
+13:39 - Brechtova: 1
+13:39 - Černá Pole, Erbenova: 11
+13:40 - Blažkova: 2
+13:41 - Arbesova: 3
+13:42 - Heleny Malířové: 4
+13:43 - Lesná, nádraží: 5
+13:44 - Štefánikova čtvrť: 6
+13:45 - Provozníkova: 7
+13:47 - Lesnická: 9
+13:48 - Lesná, Haškova: 0
+13:48 - Zemědělská: 10
+13:49 - Brechtova: 1
+13:49 - Černá Pole, Erbenova: 11
+13:50 - Blažkova: 2
+13:51 - Arbesova: 3
+13:52 - Heleny Malířové: 4
+13:53 - Lesná, nádraží: 5
+13:54 - Štefánikova čtvrť: 6
+13:55 - Provozníkova: 7
+13:57 - Lesnická: 9
+13:58 - Lesná, Haškova: 0
+13:58 - Zemědělská: 10
+13:59 - Brechtova: 1
+13:59 - Černá Pole, Erbenova: 11
+14:0 - Blažkova: 2
+14:1 - Arbesova: 3
+14:2 - Heleny Malířové: 4
+14:3 - Lesná, nádraží: 5
+14:4 - Štefánikova čtvrť: 6
+14:5 - Provozníkova: 7
+14:7 - Lesnická: 9
+14:8 - Lesná, Haškova: 0
+14:8 - Zemědělská: 10
+14:9 - Brechtova: 1
+14:9 - Černá Pole, Erbenova: 11
+14:10 - Blažkova: 2
+14:11 - Arbesova: 3
+14:12 - Heleny Malířové: 4
+14:13 - Lesná, nádraží: 5
+14:14 - Štefánikova čtvrť: 6
+14:15 - Provozníkova: 7
+14:17 - Lesnická: 9
+14:18 - Lesná, Haškova: 0
+14:18 - Zemědělská: 10
+14:19 - Brechtova: 1
+14:19 - Černá Pole, Erbenova: 11
+14:20 - Blažkova: 2
+14:21 - Arbesova: 3
+14:22 - Heleny Malířové: 4
+14:23 - Lesná, nádraží: 5
+14:24 - Štefánikova čtvrť: 6
+14:25 - Provozníkova: 7
+14:27 - Lesnická: 9
+14:28 - Lesná, Haškova: 0
+14:28 - Zemědělská: 10
+14:29 - Brechtova: 1
+14:29 - Černá Pole, Erbenova: 11
+14:30 - Blažkova: 2
+14:31 - Arbesova: 3
+14:32 - Heleny Malířové: 4
+14:33 - Lesná, nádraží: 5
+14:34 - Štefánikova čtvrť: 6
+14:35 - Provozníkova: 7
+14:37 - Lesnická: 9
+14:38 - Lesná, Haškova: 0
+14:38 - Zemědělská: 10
+14:39 - Brechtova: 1
+14:39 - Černá Pole, Erbenova: 11
+14:40 - Blažkova: 2
+14:41 - Arbesova: 3
+14:42 - Heleny Malířové: 4
+14:43 - Lesná, nádraží: 5
+14:44 - Štefánikova čtvrť: 6
+14:45 - Provozníkova: 7
+14:47 - Lesnická: 9
+14:48 - Lesná, Haškova: 0
+14:48 - Zemědělská: 10
+14:49 - Brechtova: 1
+14:49 - Černá Pole, Erbenova: 11
+14:50 - Blažkova: 2
+14:51 - Arbesova: 3
+14:52 - Heleny Malířové: 4
+14:53 - Lesná, nádraží: 5
+14:54 - Lesná, Haškova: 0
+14:54 - Štefánikova čtvrť: 6
+14:55 - Brechtova: 1
+14:55 - Provozníkova: 7
+14:56 - Blažkova: 2
+14:57 - Arbesova: 3
+14:57 - Lesnická: 9
+14:58 - Heleny Malířové: 4
+14:58 - Zemědělská: 10
+14:59 - Lesná, nádraží: 5
+14:59 - Černá Pole, Erbenova: 11
+15:0 - Štefánikova čtvrť: 6
+15:1 - Lesná, Haškova: 0
+15:1 - Provozníkova: 7
+15:2 - Brechtova: 1
+15:3 - Blažkova: 2
+15:3 - Lesnická: 9
+15:4 - Arbesova: 3
+15:4 - Zemědělská: 10
+15:5 - Heleny Malířové: 4
+15:5 - Černá Pole, Erbenova: 11
+15:6 - Lesná, nádraží: 5
+15:7 - Štefánikova čtvrť: 6
+15:8 - Lesná, Haškova: 0
+15:8 - Provozníkova: 7
+15:9 - Brechtova: 1
+15:10 - Blažkova: 2
+15:10 - Lesnická: 9
+15:11 - Arbesova: 3
+15:11 - Zemědělská: 10
+15:12 - Heleny Malířové: 4
+15:12 - Černá Pole, Erbenova: 11
+15:13 - Lesná, nádraží: 5
+15:14 - Lesná, Haškova: 0
+15:14 - Štefánikova čtvrť: 6
+15:15 - Brechtova: 1
+15:15 - Provozníkova: 7
+15:16 - Blažkova: 2
+15:17 - Arbesova: 3
+15:17 - Lesnická: 9
+15:18 - Heleny Malířové: 4
+15:18 - Zemědělská: 10
+15:19 - Lesná, nádraží: 5
+15:19 - Černá Pole, Erbenova: 11
+15:20 - Štefánikova čtvrť: 6
+15:21 - Lesná, Haškova: 0
+15:21 - Provozníkova: 7
+15:22 - Brechtova: 1
+15:23 - Blažkova: 2
+15:23 - Lesnická: 9
+15:24 - Arbesova: 3
+15:24 - Zemědělská: 10
+15:25 - Heleny Malířové: 4
+15:25 - Černá Pole, Erbenova: 11
+15:26 - Lesná, nádraží: 5
+15:27 - Štefánikova čtvrť: 6
+15:28 - Lesná, Haškova: 0
+15:28 - Provozníkova: 7
+15:29 - Brechtova: 1
+15:30 - Blažkova: 2
+15:30 - Lesnická: 9
+15:31 - Arbesova: 3
+15:31 - Zemědělská: 10
+15:32 - Heleny Malířové: 4
+15:32 - Černá Pole, Erbenova: 11
+15:33 - Lesná, nádraží: 5
+15:34 - Lesná, Haškova: 0
+15:34 - Štefánikova čtvrť: 6
+15:35 - Brechtova: 1
+15:35 - Provozníkova: 7
+15:36 - Blažkova: 2
+15:37 - Arbesova: 3
+15:37 - Lesnická: 9
+15:38 - Heleny Malířové: 4
+15:38 - Zemědělská: 10
+15:39 - Lesná, nádraží: 5
+15:39 - Černá Pole, Erbenova: 11
+15:40 - Štefánikova čtvrť: 6
+15:41 - Lesná, Haškova: 0
+15:41 - Provozníkova: 7
+15:42 - Brechtova: 1
+15:43 - Blažkova: 2
+15:43 - Lesnická: 9
+15:44 - Arbesova: 3
+15:44 - Zemědělská: 10
+15:45 - Heleny Malířové: 4
+15:45 - Černá Pole, Erbenova: 11
+15:46 - Lesná, nádraží: 5
+15:47 - Štefánikova čtvrť: 6
+15:48 - Lesná, Haškova: 0
+15:48 - Provozníkova: 7
+15:49 - Brechtova: 1
+15:50 - Blažkova: 2
+15:50 - Lesnická: 9
+15:51 - Arbesova: 3
+15:51 - Zemědělská: 10
+15:52 - Heleny Malířové: 4
+15:52 - Černá Pole, Erbenova: 11
+15:53 - Lesná, nádraží: 5
+15:54 - Lesná, Haškova: 0
+15:54 - Štefánikova čtvrť: 6
+15:55 - Brechtova: 1
+15:55 - Provozníkova: 7
+15:56 - Blažkova: 2
+15:57 - Arbesova: 3
+15:57 - Lesnická: 9
+15:58 - Heleny Malířové: 4
+15:58 - Zemědělská: 10
+15:59 - Lesná, nádraží: 5
+15:59 - Černá Pole, Erbenova: 11
+16:0 - Štefánikova čtvrť: 6
+16:1 - Lesná, Haškova: 0
+16:1 - Provozníkova: 7
+16:2 - Brechtova: 1
+16:3 - Blažkova: 2
+16:3 - Lesnická: 9
+16:4 - Arbesova: 3
+16:4 - Zemědělská: 10
+16:5 - Heleny Malířové: 4
+16:5 - Černá Pole, Erbenova: 11
+16:6 - Lesná, nádraží: 5
+16:7 - Štefánikova čtvrť: 6
+16:8 - Lesná, Haškova: 0
+16:8 - Provozníkova: 7
+16:9 - Brechtova: 1
+16:10 - Blažkova: 2
+16:10 - Lesnická: 9
+16:11 - Arbesova: 3
+16:11 - Zemědělská: 10
+16:12 - Heleny Malířové: 4
+16:12 - Černá Pole, Erbenova: 11
+16:13 - Lesná, nádraží: 5
+16:14 - Lesná, Haškova: 0
+16:14 - Štefánikova čtvrť: 6
+16:15 - Brechtova: 1
+16:15 - Provozníkova: 7
+16:16 - Blažkova: 2
+16:17 - Arbesova: 3
+16:17 - Lesnická: 9
+16:18 - Heleny Malířové: 4
+16:18 - Zemědělská: 10
+16:19 - Lesná, nádraží: 5
+16:19 - Černá Pole, Erbenova: 11
+16:20 - Štefánikova čtvrť: 6
+16:21 - Lesná, Haškova: 0
+16:21 - Provozníkova: 7
+16:22 - Brechtova: 1
+16:23 - Blažkova: 2
+16:23 - Lesnická: 9
+16:24 - Arbesova: 3
+16:24 - Zemědělská: 10
+16:25 - Heleny Malířové: 4
+16:25 - Černá Pole, Erbenova: 11
+16:26 - Lesná, nádraží: 5
+16:27 - Štefánikova čtvrť: 6
+16:28 - Lesná, Haškova: 0
+16:28 - Provozníkova: 7
+16:29 - Brechtova: 1
+16:30 - Blažkova: 2
+16:30 - Lesnická: 9
+16:31 - Arbesova: 3
+16:31 - Zemědělská: 10
+16:32 - Heleny Malířové: 4
+16:32 - Černá Pole, Erbenova: 11
+16:33 - Lesná, nádraží: 5
+16:34 - Lesná, Haškova: 0
+16:34 - Štefánikova čtvrť: 6
+16:35 - Brechtova: 1
+16:35 - Provozníkova: 7
+16:36 - Blažkova: 2
+16:37 - Arbesova: 3
+16:37 - Lesnická: 9
+16:38 - Heleny Malířové: 4
+16:38 - Zemědělská: 10
+16:39 - Lesná, nádraží: 5
+16:39 - Černá Pole, Erbenova: 11
+16:40 - Štefánikova čtvrť: 6
+16:41 - Lesná, Haškova: 0
+16:41 - Provozníkova: 7
+16:42 - Brechtova: 1
+16:43 - Blažkova: 2
+16:43 - Lesnická: 9
+16:44 - Arbesova: 3
+16:44 - Zemědělská: 10
+16:45 - Heleny Malířové: 4
+16:45 - Černá Pole, Erbenova: 11
+16:46 - Lesná, nádraží: 5
+16:47 - Štefánikova čtvrť: 6
+16:48 - Lesná, Haškova: 0
+16:48 - Provozníkova: 7
+16:49 - Brechtova: 1
+16:50 - Blažkova: 2
+16:50 - Lesnická: 9
+16:51 - Arbesova: 3
+16:51 - Zemědělská: 10
+16:52 - Heleny Malířové: 4
+16:52 - Černá Pole, Erbenova: 11
+16:53 - Lesná, nádraží: 5
+16:54 - Lesná, Haškova: 0
+16:54 - Štefánikova čtvrť: 6
+16:55 - Brechtova: 1
+16:55 - Provozníkova: 7
+16:56 - Blažkova: 2
+16:57 - Arbesova: 3
+16:57 - Lesnická: 9
+16:58 - Heleny Malířové: 4
+16:58 - Zemědělská: 10
+16:59 - Lesná, nádraží: 5
+16:59 - Černá Pole, Erbenova: 11
+17:0 - Štefánikova čtvrť: 6
+17:1 - Lesná, Haškova: 0
+17:1 - Provozníkova: 7
+17:2 - Brechtova: 1
+17:3 - Blažkova: 2
+17:3 - Lesnická: 9
+17:4 - Arbesova: 3
+17:4 - Zemědělská: 10
+17:5 - Heleny Malířové: 4
+17:5 - Černá Pole, Erbenova: 11
+17:6 - Lesná, nádraží: 5
+17:7 - Štefánikova čtvrť: 6
+17:8 - Lesná, Haškova: 0
+17:8 - Provozníkova: 7
+17:9 - Brechtova: 1
+17:10 - Blažkova: 2
+17:10 - Lesnická: 9
+17:11 - Arbesova: 3
+17:11 - Zemědělská: 10
+17:12 - Heleny Malířové: 4
+17:12 - Černá Pole, Erbenova: 11
+17:13 - Lesná, nádraží: 5
+17:14 - Lesná, Haškova: 0
+17:14 - Štefánikova čtvrť: 6
+17:15 - Brechtova: 1
+17:15 - Provozníkova: 7
+17:16 - Blažkova: 2
+17:17 - Arbesova: 3
+17:17 - Lesnická: 9
+17:18 - Heleny Malířové: 4
+17:18 - Zemědělská: 10
+17:19 - Lesná, nádraží: 5
+17:19 - Černá Pole, Erbenova: 11
+17:20 - Štefánikova čtvrť: 6
+17:21 - Lesná, Haškova: 0
+17:21 - Provozníkova: 7
+17:22 - Brechtova: 1
+17:23 - Blažkova: 2
+17:23 - Lesnická: 9
+17:24 - Arbesova: 3
+17:24 - Zemědělská: 10
+17:25 - Heleny Malířové: 4
+17:25 - Černá Pole, Erbenova: 11
+17:26 - Lesná, nádraží: 5
+17:27 - Štefánikova čtvrť: 6
+17:28 - Lesná, Haškova: 0
+17:28 - Provozníkova: 7
+17:29 - Brechtova: 1
+17:30 - Blažkova: 2
+17:30 - Lesnická: 9
+17:31 - Arbesova: 3
+17:31 - Zemědělská: 10
+17:32 - Heleny Malířové: 4
+17:32 - Černá Pole, Erbenova: 11
+17:33 - Lesná, nádraží: 5
+17:34 - Lesná, Haškova: 0
+17:34 - Štefánikova čtvrť: 6
+17:35 - Brechtova: 1
+17:35 - Provozníkova: 7
+17:36 - Blažkova: 2
+17:37 - Arbesova: 3
+17:37 - Lesnická: 9
+17:38 - Heleny Malířové: 4
+17:38 - Zemědělská: 10
+17:39 - Lesná, nádraží: 5
+17:39 - Černá Pole, Erbenova: 11
+17:40 - Štefánikova čtvrť: 6
+17:41 - Lesná, Haškova: 0
+17:41 - Provozníkova: 7
+17:42 - Brechtova: 1
+17:43 - Blažkova: 2
+17:43 - Lesnická: 9
+17:44 - Arbesova: 3
+17:44 - Zemědělská: 10
+17:45 - Heleny Malířové: 4
+17:45 - Černá Pole, Erbenova: 11
+17:46 - Lesná, nádraží: 5
+17:47 - Štefánikova čtvrť: 6
+17:48 - Lesná, Haškova: 0
+17:48 - Provozníkova: 7
+17:49 - Brechtova: 1
+17:50 - Blažkova: 2
+17:50 - Lesnická: 9
+17:51 - Arbesova: 3
+17:51 - Zemědělská: 10
+17:52 - Heleny Malířové: 4
+17:52 - Černá Pole, Erbenova: 11
+17:53 - Lesná, nádraží: 5
+17:54 - Lesná, Haškova: 0
+17:54 - Štefánikova čtvrť: 6
+17:55 - Brechtova: 1
+17:55 - Provozníkova: 7
+17:56 - Blažkova: 2
+17:57 - Arbesova: 3
+17:57 - Lesnická: 9
+17:58 - Heleny Malířové: 4
+17:58 - Zemědělská: 10
+17:59 - Lesná, nádraží: 5
+17:59 - Černá Pole, Erbenova: 11
+18:0 - Štefánikova čtvrť: 6
+18:1 - Lesná, Haškova: 0
+18:1 - Provozníkova: 7
+18:2 - Brechtova: 1
+18:3 - Blažkova: 2
+18:3 - Lesnická: 9
+18:4 - Arbesova: 3
+18:4 - Zemědělská: 10
+18:5 - Heleny Malířové: 4
+18:5 - Černá Pole, Erbenova: 11
+18:6 - Lesná, nádraží: 5
+18:7 - Štefánikova čtvrť: 6
+18:8 - Provozníkova: 7
+18:10 - Lesnická: 9
+18:11 - Lesná, Haškova: 0
+18:11 - Zemědělská: 10
+18:12 - Brechtova: 1
+18:12 - Černá Pole, Erbenova: 11
+18:13 - Blažkova: 2
+18:14 - Arbesova: 3
+18:15 - Heleny Malířové: 4
+18:16 - Lesná, nádraží: 5
+18:17 - Štefánikova čtvrť: 6
+18:18 - Provozníkova: 7
+18:20 - Lesnická: 9
+18:21 - Lesná, Haškova: 0
+18:21 - Zemědělská: 10
+18:22 - Brechtova: 1
+18:22 - Černá Pole, Erbenova: 11
+18:23 - Blažkova: 2
+18:24 - Arbesova: 3
+18:25 - Heleny Malířové: 4
+18:26 - Lesná, nádraží: 5
+18:27 - Štefánikova čtvrť: 6
+18:28 - Provozníkova: 7
+18:30 - Lesnická: 9
+18:31 - Lesná, Haškova: 0
+18:31 - Zemědělská: 10
+18:32 - Brechtova: 1
+18:32 - Černá Pole, Erbenova: 11
+18:33 - Blažkova: 2
+18:34 - Arbesova: 3
+18:35 - Heleny Malířové: 4
+18:36 - Lesná, nádraží: 5
+18:37 - Štefánikova čtvrť: 6
+18:38 - Provozníkova: 7
+18:40 - Lesnická: 9
+18:41 - Lesná, Haškova: 0
+18:41 - Zemědělská: 10
+18:42 - Brechtova: 1
+18:42 - Černá Pole, Erbenova: 11
+18:43 - Blažkova: 2
+18:44 - Arbesova: 3
+18:45 - Heleny Malířové: 4
+18:46 - Lesná, nádraží: 5
+18:47 - Štefánikova čtvrť: 6
+18:48 - Provozníkova: 7
+18:50 - Lesnická: 9
+18:51 - Lesná, Haškova: 0
+18:51 - Zemědělská: 10
+18:52 - Brechtova: 1
+18:52 - Černá Pole, Erbenova: 11
+18:53 - Blažkova: 2
+18:54 - Arbesova: 3
+18:55 - Heleny Malířové: 4
+18:56 - Lesná, nádraží: 5
+18:57 - Štefánikova čtvrť: 6
+18:58 - Provozníkova: 7
+19:0 - Lesnická: 9
+19:1 - Lesná, Haškova: 0
+19:1 - Zemědělská: 10
+19:2 - Brechtova: 1
+19:2 - Černá Pole, Erbenova: 11
+19:3 - Blažkova: 2
+19:4 - Arbesova: 3
+19:5 - Heleny Malířové: 4
+19:6 - Lesná, nádraží: 5
+19:7 - Štefánikova čtvrť: 6
+19:8 - Provozníkova: 7
+19:10 - Lesnická: 9
+19:11 - Lesná, Haškova: 0
+19:11 - Zemědělská: 10
+19:12 - Brechtova: 1
+19:12 - Černá Pole, Erbenova: 11
+19:13 - Blažkova: 2
+19:14 - Arbesova: 3
+19:15 - Heleny Malířové: 4
+19:16 - Lesná, nádraží: 5
+19:17 - Štefánikova čtvrť: 6
+19:18 - Provozníkova: 7
+19:20 - Lesnická: 9
+19:21 - Lesná, Haškova: 0
+19:21 - Zemědělská: 10
+19:22 - Brechtova: 1
+19:22 - Černá Pole, Erbenova: 11
+19:23 - Blažkova: 2
+19:24 - Arbesova: 3
+19:25 - Heleny Malířové: 4
+19:26 - Lesná, nádraží: 5
+19:27 - Štefánikova čtvrť: 6
+19:28 - Provozníkova: 7
+19:30 - Lesnická: 9
+19:31 - Lesná, Haškova: 0
+19:31 - Zemědělská: 10
+19:32 - Brechtova: 1
+19:32 - Černá Pole, Erbenova: 11
+19:33 - Blažkova: 2
+19:34 - Arbesova: 3
+19:35 - Heleny Malířové: 4
+19:36 - Lesná, nádraží: 5
+19:37 - Štefánikova čtvrť: 6
+19:38 - Provozníkova: 7
+19:40 - Lesnická: 9
+19:41 - Lesná, Haškova: 0
+19:41 - Zemědělská: 10
+19:42 - Brechtova: 1
+19:42 - Černá Pole, Erbenova: 11
+19:43 - Blažkova: 2
+19:44 - Arbesova: 3
+19:45 - Heleny Malířové: 4
+19:46 - Lesná, nádraží: 5
+19:47 - Štefánikova čtvrť: 6
+19:48 - Provozníkova: 7
+19:50 - Lesnická: 9
+19:51 - Lesná, Haškova: 0
+19:51 - Zemědělská: 10
+19:52 - Brechtova: 1
+19:52 - Černá Pole, Erbenova: 11
+19:53 - Blažkova: 2
+19:54 - Arbesova: 3
+19:55 - Heleny Malířové: 4
+19:56 - Lesná, nádraží: 5
+19:57 - Štefánikova čtvrť: 6
+19:58 - Provozníkova: 7
+20:0 - Lesnická: 9
+20:1 - Lesná, Haškova: 0
+20:1 - Zemědělská: 10
+20:2 - Brechtova: 1
+20:2 - Černá Pole, Erbenova: 11
+20:3 - Blažkova: 2
+20:4 - Arbesova: 3
+20:5 - Heleny Malířové: 4
+20:6 - Lesná, nádraží: 5
+20:7 - Štefánikova čtvrť: 6
+20:8 - Provozníkova: 7
+20:10 - Lesnická: 9
+20:11 - Lesná, Haškova: 0
+20:11 - Zemědělská: 10
+20:12 - Brechtova: 1
+20:12 - Černá Pole, Erbenova: 11
+20:13 - Blažkova: 2
+20:14 - Arbesova: 3
+20:15 - Heleny Malířové: 4
+20:16 - Lesná, nádraží: 5
+20:17 - Štefánikova čtvrť: 6
+20:18 - Provozníkova: 7
+20:20 - Lesnická: 9
+20:21 - Lesná, Haškova: 0
+20:21 - Zemědělská: 10
+20:22 - Brechtova: 1
+20:22 - Černá Pole, Erbenova: 11
+20:23 - Blažkova: 2
+20:24 - Arbesova: 3
+20:25 - Heleny Malířové: 4
+20:26 - Lesná, nádraží: 5
+20:27 - Štefánikova čtvrť: 6
+20:28 - Provozníkova: 7
+20:30 - Lesnická: 9
+20:31 - Zemědělská: 10
+20:32 - Černá Pole, Erbenova: 11
+20:35 - Lesná, Haškova: 0
+20:36 - Brechtova: 1
+20:37 - Blažkova: 2
+20:38 - Arbesova: 3
+20:39 - Heleny Malířové: 4
+20:40 - Lesná, nádraží: 5
+20:41 - Štefánikova čtvrť: 6
+20:42 - Provozníkova: 7
+20:44 - Lesnická: 9
+20:45 - Zemědělská: 10
+20:46 - Černá Pole, Erbenova: 11
+20:50 - Lesná, Haškova: 0
+20:51 - Brechtova: 1
+20:52 - Blažkova: 2
+20:53 - Arbesova: 3
+20:54 - Heleny Malířové: 4
+20:55 - Lesná, nádraží: 5
+20:56 - Štefánikova čtvrť: 6
+20:57 - Provozníkova: 7
+20:59 - Lesnická: 9
+21:0 - Zemědělská: 10
+21:1 - Černá Pole, Erbenova: 11
+21:5 - Lesná, Haškova: 0
+21:6 - Brechtova: 1
+21:7 - Blažkova: 2
+21:8 - Arbesova: 3
+21:9 - Heleny Malířové: 4
+21:10 - Lesná, nádraží: 5
+21:11 - Štefánikova čtvrť: 6
+21:12 - Provozníkova: 7
+21:14 - Lesnická: 9
+21:15 - Zemědělská: 10
+21:16 - Černá Pole, Erbenova: 11
+21:20 - Lesná, Haškova: 0
+21:21 - Brechtova: 1
+21:22 - Blažkova: 2
+21:23 - Arbesova: 3
+21:24 - Heleny Malířové: 4
+21:25 - Lesná, nádraží: 5
+21:26 - Štefánikova čtvrť: 6
+21:27 - Provozníkova: 7
+21:29 - Lesnická: 9
+21:30 - Zemědělská: 10
+21:31 - Černá Pole, Erbenova: 11
+21:35 - Lesná, Haškova: 0
+21:36 - Brechtova: 1
+21:37 - Blažkova: 2
+21:38 - Arbesova: 3
+21:39 - Heleny Malířové: 4
+21:40 - Lesná, nádraží: 5
+21:41 - Štefánikova čtvrť: 6
+21:42 - Provozníkova: 7
+21:44 - Lesnická: 9
+21:45 - Zemědělská: 10
+21:46 - Černá Pole, Erbenova: 11
+21:50 - Lesná, Haškova: 0
+21:51 - Brechtova: 1
+21:52 - Blažkova: 2
+21:53 - Arbesova: 3
+21:54 - Heleny Malířové: 4
+21:55 - Lesná, nádraží: 5
+21:56 - Štefánikova čtvrť: 6
+21:57 - Provozníkova: 7
+21:59 - Lesnická: 9
+22:0 - Zemědělská: 10
+22:1 - Černá Pole, Erbenova: 11
+22:5 - Lesná, Haškova: 0
+22:6 - Brechtova: 1
+22:7 - Blažkova: 2
+22:8 - Arbesova: 3
+22:9 - Heleny Malířové: 4
+22:10 - Lesná, nádraží: 5
+22:11 - Štefánikova čtvrť: 6
+22:12 - Provozníkova: 7
+22:14 - Lesnická: 9
+22:15 - Zemědělská: 10
+22:16 - Černá Pole, Erbenova: 11
+22:20 - Lesná, Haškova: 0
+22:21 - Brechtova: 1
+22:22 - Blažkova: 2
+22:23 - Arbesova: 3
+22:24 - Heleny Malířové: 4
+22:25 - Lesná, nádraží: 5
+22:26 - Štefánikova čtvrť: 6
+22:27 - Provozníkova: 7
+22:29 - Lesnická: 9
+22:30 - Zemědělská: 10
+22:31 - Černá Pole, Erbenova: 11
+22:35 - Lesná, Haškova: 0
+22:36 - Brechtova: 1
+22:37 - Blažkova: 2
+22:38 - Arbesova: 3
+22:39 - Heleny Malířové: 4
+22:40 - Lesná, nádraží: 5
+22:41 - Štefánikova čtvrť: 6
+22:42 - Provozníkova: 7
+22:44 - Lesnická: 9
+22:45 - Zemědělská: 10
+22:46 - Černá Pole, Erbenova: 11
