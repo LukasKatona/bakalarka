@@ -1,13 +1,53 @@
 from enum import Enum
-from Time import forwardModelTime, printCurrentTimeAndMessage
 
 # ------------------------------ BUSSTOP ------------------------------
 class BusStop:
+
+    # STATES
+    class State(Enum):
+        Idle = 1
+        BusArrived = 2
+        Boarding = 3
+
+    # INPUT SIGNALS
+    class InputSignals(Enum):
+        BusArrived = 1
+        StartBoarding = 2
+        FinishBoarding = 3
+
+    def triggerInputSignal(self, signal):
+        if signal == BusStop.InputSignals.BusArrived:
+            self.busArrived()
+        elif signal == BusStop.InputSignals.StartBoarding:
+            self.startBoarding()
+        elif signal == BusStop.InputSignals.FinishBoarding:
+            self.finishBoarding()
+
+    # OUTPUT SIGNALS
+    def initOutputSignals(self):
+        pass
+
+    def triggerOutputSignal(self, signal):
+        pass
+
     # INIT
     def __init__(self, name, timeDeltaToArrive):
         self.name = name
         self.timeDeltaToArrive = timeDeltaToArrive
+        self.state = BusStop.State.Idle
+        self.initOutputSignals()
 
+    # METHODS
+    def busArrived(self):
+        self.state = BusStop.State.BusArrived
+
+    def startBoarding(self):
+        self.state = BusStop.State.Boarding
+        
+    def finishBoarding(self):
+        self.state = BusStop.State.Idle
+
+    # STR
     def __str__(self):
         return f"{self.name}: {self.timeDeltaToArrive}"
 
@@ -38,130 +78,80 @@ class TimeTable:
     def __str__(self):
         return "\n".join([f"{row.hour:02}: " + ", ".join([f"{minute:02}" for minute in row.minutes]) for row in self.rows])
 
-# ------------------------------ BUSSTOP ------------------------------
-# class BusStop:
-#     # STATES
-#     class State(Enum):
-#         Idle = 1
-#         Bus_arrived = 2
-#         Boarding = 3
 
-#     # INPUT SIGNALS
-#     class InputSignals(Enum):
-#         Bus_arrived = 1
-#         Start_boarding = 2
-#         Finish_boarding = 3
-#     def trigger_input_signal(self, signal):
-#         if signal == BusStop.InputSignals.Bus_arrived:
-#             self.bus_arrived()
-#         elif signal == BusStop.InputSignals.Start_boarding:
-#             self.start_boarding()
-#         elif signal == BusStop.InputSignals.Finish_boarding:
-#             self.finish_boarding
+# -------------------------------- BUS --------------------------------
+class Bus:
+    # STATES
+    class State(Enum):
+        Starting = 1
+        Traveling = 2
+        Arrived = 3
+        Boarding = 4
+        Departed = 5
+        Finished = 6
 
-#     # OUTPUT SIGNALS
-#     def init_output_signals(self):
-#         pass
-#     def trigger_output_signal(self, signal):
-#         pass
+    # INPUT SIGNALS
+    def triggerInputSignal(self, signal):
+        pass
 
-#     # INIT
-#     def __init__(self, name, passengers, boarding_time_per_passenger):
-#         self.name = name
-#         self.passengers = passengers
-#         self.boarding_time_per_passenger = boarding_time_per_passenger
-#         self.state = BusStop.State.Idle
-#         self.init_output_signals()
+    # OUTPUT SIGNALS
+    class OutputSignals(Enum):
+        Arrival = 1
+        Boarding = 2
+        Departure = 3
 
-#     # METHODS
-#     def time_to_board_passengers(self, passengers_boarding_at_once):
-#         return int(round((self.passengers * self.boarding_time_per_passenger) / passengers_boarding_at_once))
-    
-#     def bus_arrived(self):
-#         self.state = BusStop.State.Bus_arrived
-#         printCurrentTimeAndMessage(f"At {self.name} there are {self.passengers} passengers waiting")
+    def initOutputSignals(self):
+        self.signals =  {
+            Bus.OutputSignals.Arrival: [(self.currentBusStop, BusStop.InputSignals.BusArrived)],
+            Bus.OutputSignals.Boarding: [(self.currentBusStop, BusStop.InputSignals.StartBoarding)],
+            Bus.OutputSignals.Departure: [(self.currentBusStop, BusStop.InputSignals.FinishBoarding)]
+        }
 
-#     def start_boarding(self):
-#         self.state = BusStop.State.Boarding
+    def triggerOutputSignal(self, signal):
+        for inputSignal in self.signals[signal]:
+            inputSignal[0].triggerInputSignal(inputSignal[1])
+
+    # INIT
+    def __init__(self, firstBusStop, capacity):
+        self.state = Bus.State.Starting
+        self.currentBusStop = firstBusStop
+        self.capacity = capacity
+        self.load = 0
+        self.initOutputSignals()
+
+    # STATE MACHINE
+    def runBusStopSequence(self, busStop):
+
+        self.state = Bus.State.Traveling
+        self.currentBusStop = busStop
+
+        while self.state != Bus.State.Departed:
+            if self.state == Bus.State.Traveling:
+                self.arriveAtStop()
+            elif self.state == Bus.State.Arrived:
+                self.boardPassengers()
+            elif self.state == Bus.State.Boarding:
+                self.departFromStop()
+
+    # METHODS
+    def arriveAtStop(self):
+        self.state = Bus.State.Arrived
+        self.triggerOutputSignal(Bus.OutputSignals.Arrival)
+
+        print(self)
         
-#     def finish_boarding(self):
-#         self.state = BusStop.State.Idle
-#         self.passengers = 0
-    
+    def boardPassengers(self):
+        self.state = Bus.State.Boarding
+        self.triggerOutputSignal(Bus.OutputSignals.Boarding)
 
-# # -------------------------------- BUS --------------------------------
-# class Bus:
-#     # STATES
-#     class State(Enum):
-#         Starting = 1
-#         Traveling = 2
-#         Arrived = 3
-#         Boarding = 4
-#         Departed = 5
-#         Finished = 6
+        print(self)
 
-#     # INPUT SIGNALS
-#     def trigger_input_signal(self, signal):
-#         pass
+    def departFromStop(self):
+        self.state = Bus.State.Departed
+        self.triggerOutputSignal(Bus.OutputSignals.Departure)    
 
-#     # OUTPUT SIGNALS
-#     class OutputSignals(Enum):
-#         Arrival = 1
-#         Boarding = 2
-#         Departure = 3
-#     def init_output_signals(self):
-#         self.signals =  {
-#             Bus.OutputSignals.Arrival: [(self.current_bus_stop, BusStop.InputSignals.Bus_arrived)],
-#             Bus.OutputSignals.Boarding: [(self.current_bus_stop, BusStop.InputSignals.Start_boarding)],
-#             Bus.OutputSignals.Departure: [(self.current_bus_stop, BusStop.InputSignals.Finish_boarding)]
-#         }
-#     def trigger_output_signal(self, signal):
-#         for input_signal in self.signals[signal]:
-#             input_signal[0].trigger_input_signal(input_signal[1])
+        print(self)
 
-#     # INIT
-#     def __init__(self, passangers_boarding_at_once, bus_line):
-#         self.passangers_boarding_at_once = passangers_boarding_at_once
-#         self.state = Bus.State.Starting
-#         self.bus_line = bus_line
-#         self.current_bus_stop = bus_line.bus_stops[0]
-#         self.init_output_signals()
-
-#     # METHODS
-#     def start(self):
-#         printCurrentTimeAndMessage(f"Bus {self.bus_line.number} has started its route at {self.current_bus_stop.name}")
-#         self.trigger_output_signal(Bus.OutputSignals.Arrival)
-#         self.state = Bus.State.Boarding 
-
-#     def travel_to_next_stop(self):
-#         if self.current_bus_stop == self.bus_line.bus_stops[-1]:
-#             printCurrentTimeAndMessage(f"Bus {self.bus_line.number} has finished its route")
-#             self.state = Bus.State.Finished
-#         else:
-#             current_stop_index = self.bus_line.bus_stops.index(self.current_bus_stop)
-#             travel_time = self.bus_line.travel_tiems_between_stops[current_stop_index]
-#             printCurrentTimeAndMessage(f"Bus {self.bus_line.number} is traveling to {self.bus_line.bus_stops[current_stop_index + 1].name} for {travel_time} minutes")
-#             forwardModelTime(travel_time)
-#             self.state = Bus.State.Arrived
-
-#     def arrive_at_stop(self):
-#         if self.state == Bus.State.Arrived:
-#             current_stop_index = self.bus_line.bus_stops.index(self.current_bus_stop)
-#             self.current_bus_stop = self.bus_line.bus_stops[current_stop_index + 1]
-#             printCurrentTimeAndMessage(f"Bus {self.bus_line.number} has arrived at {self.current_bus_stop.name}")
-#             self.trigger_output_signal(Bus.OutputSignals.Arrival)
-#             self.state = Bus.State.Boarding
-
-#     def board_passengers(self):
-#         if self.state == Bus.State.Boarding:
-#             self.trigger_output_signal(Bus.OutputSignals.Boarding)
-#             boarding_time = self.current_bus_stop.time_to_board_passengers(self.passangers_boarding_at_once)
-#             printCurrentTimeAndMessage(f"Bus {self.bus_line.number} is boarding passengers at {self.current_bus_stop.name} for {boarding_time} minutes")
-#             forwardModelTime(boarding_time)
-#             self.trigger_output_signal(Bus.OutputSignals.Departure)
-#             self.state = Bus.State.Departed
-
-#     def depart_stop(self):
-#         if self.state == Bus.State.Departed:
-#             printCurrentTimeAndMessage(f"Bus {self.bus_line.number} has departed {self.current_bus_stop.name}")
-#             self.state = Bus.State.Traveling
+    # STR
+    def __str__(self):
+        return f"Bus: {self.currentBusStop.name}, {self.state}, {self.load}/{self.capacity}"

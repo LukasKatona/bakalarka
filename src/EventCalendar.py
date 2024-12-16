@@ -1,8 +1,10 @@
 class EventCalendar:
-    def __init__(self, initialTime):
+    def __init__(self):
         self.events = []
-        self.currentTime = initialTime
         self.maxId = 0
+
+    def isEmpty(self):
+        return len(self.events) == 0
 
     def addEvent(self, event):
         self.events.append(event)
@@ -21,10 +23,17 @@ class EventCalendar:
         return "\n".join([str(event) for event in self.events])
             
 class Event:
-    def __init__(self, time, action):
+    def __init__(self, time, action, actionArgument):
         self.id = None
         self.time = time
         self.action = action
+        self.actionArgument = actionArgument
 
     def __str__(self):
         return f"{int(self.time/60)}:{int(self.time%60)} - {self.action}"
+
+    def __call__(self):
+        if callable(self.action):
+            self.action(self.actionArgument)
+        else:
+            print(self.action)
