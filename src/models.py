@@ -81,6 +81,8 @@ class TimeTable:
 
 # -------------------------------- BUS --------------------------------
 class Bus:
+    busCounter = 1
+
     # STATES
     class State(Enum):
         Starting = 1
@@ -113,6 +115,8 @@ class Bus:
 
     # INIT
     def __init__(self, firstBusStop, capacity):
+        self.busNumber = Bus.busCounter
+        Bus.busCounter += 1
         self.state = Bus.State.Starting
         self.currentBusStop = firstBusStop
         self.capacity = capacity
@@ -124,6 +128,8 @@ class Bus:
 
         self.state = Bus.State.Traveling
         self.currentBusStop = busStop
+
+        print(self)
 
         while self.state != Bus.State.Departed:
             if self.state == Bus.State.Traveling:
@@ -137,21 +143,15 @@ class Bus:
     def arriveAtStop(self):
         self.state = Bus.State.Arrived
         self.triggerOutputSignal(Bus.OutputSignals.Arrival)
-
-        print(self)
         
     def boardPassengers(self):
         self.state = Bus.State.Boarding
         self.triggerOutputSignal(Bus.OutputSignals.Boarding)
 
-        print(self)
-
     def departFromStop(self):
         self.state = Bus.State.Departed
         self.triggerOutputSignal(Bus.OutputSignals.Departure)    
 
-        print(self)
-
     # STR
     def __str__(self):
-        return f"Bus: {self.currentBusStop.name}, {self.state}, {self.load}/{self.capacity}"
+        return f"Bus #{self.busNumber}: {self.currentBusStop.name}, {self.state}, {self.load}/{self.capacity}"

@@ -1,5 +1,4 @@
-import time
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 class SimulationTime:
     # INIT

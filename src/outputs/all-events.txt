@@ -1,22 +1,22 @@
-5:1 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840A00>>
-5:2 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840A00>>
-5:3 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840A00>>
-5:4 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840A00>>
-5:5 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840A00>>
-5:6 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840A00>>
-5:7 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840A00>>
-5:8 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840A00>>
-5:10 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840A00>>
-5:11 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840A00>>
-5:11 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840BE0>>
-5:12 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840A00>>
-5:12 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840BE0>>
-5:13 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840BE0>>
-5:14 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840BE0>>
-5:15 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840BE0>>
-5:16 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840BE0>>
-5:17 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840BE0>>
-5:18 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840BE0>>
-5:20 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840BE0>>
-5:21 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840BE0>>
-5:22 - <bound method Bus.runBusStopSequence of <models.Bus object at 0x000002043B840BE0>>
+5:1 - Bus #1 (Lesná, Haškova: 0)
+5:2 - Bus #1 (Brechtova: 1)
+5:3 - Bus #1 (Blažkova: 2)
+5:4 - Bus #1 (Arbesova: 3)
+5:5 - Bus #1 (Heleny Malířové: 4)
+5:6 - Bus #1 (Lesná, nádraží: 5)
+5:7 - Bus #1 (Štefánikova čtvrť: 6)
+5:8 - Bus #1 (Provozníkova: 7)
+5:10 - Bus #1 (Lesnická: 9)
+5:11 - Bus #1 (Zemědělská: 10)
+5:11 - Bus #2 (Lesná, Haškova: 0)
+5:12 - Bus #1 (Černá Pole, Erbenova: 11)
+5:12 - Bus #2 (Brechtova: 1)
+5:13 - Bus #2 (Blažkova: 2)
+5:14 - Bus #2 (Arbesova: 3)
+5:15 - Bus #2 (Heleny Malířové: 4)
+5:16 - Bus #2 (Lesná, nádraží: 5)
+5:17 - Bus #2 (Štefánikova čtvrť: 6)
+5:18 - Bus #2 (Provozníkova: 7)
+5:20 - Bus #2 (Lesnická: 9)
+5:21 - Bus #2 (Zemědělská: 10)
+5:22 - Bus #2 (Černá Pole, Erbenova: 11)
