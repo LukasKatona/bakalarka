@@ -1,4 +1,6 @@
 from models import BusStop, TimeTable
+from collections import namedtuple
+import ast
 
 def parseBusStopsFromFile(file):
     busStops = []
@@ -8,8 +10,10 @@ def parseBusStopsFromFile(file):
         if line.startswith("#") or line == "":
             continue
 
-        (name, timeDeltaToArrive) = line.split(":")
-        busStops.append(BusStop(name.strip(), int(timeDeltaToArrive.strip())))
+        (name, timeDeltaToArrive, passengerArrivalRatesPerHour, leavingPassengersRate) = line.split(":")
+        HourRate = namedtuple('HourRate', ['hour', 'rate'])
+        parsedHourRate = [HourRate(hour, rate) for hour, rate in ast.literal_eval(passengerArrivalRatesPerHour)]
+        busStops.append(BusStop(name.strip(), int(timeDeltaToArrive.strip()), parsedHourRate, float(leavingPassengersRate.strip())))
         
     return busStops
 

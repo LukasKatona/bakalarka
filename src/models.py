@@ -1,4 +1,6 @@
 from enum import Enum
+from SimulationTime import SimulationTime
+import numpy as np
 
 # ------------------------------ BUSSTOP ------------------------------
 class BusStop:
@@ -24,32 +26,74 @@ class BusStop:
             self.finishBoarding()
 
     # OUTPUT SIGNALS
-    def initOutputSignals(self):
+    def setOutputSignals(self):
         pass
 
     def triggerOutputSignal(self, signal):
         pass
 
     # INIT
-    def __init__(self, name, timeDeltaToArrive):
+    def __init__(self, name, timeDeltaToArrive, passengerArrivalRatesPerHour, leavingPassengersRate):
         self.name = name
         self.timeDeltaToArrive = timeDeltaToArrive
+        self.passengerArrivalRatesPerHour = passengerArrivalRatesPerHour
+        self.leavingPassengersRate = leavingPassengersRate
         self.state = BusStop.State.Idle
-        self.initOutputSignals()
+        self.timeOfLastBusArrival = SimulationTime.startTime
+        self.timeIntervalBetweenBuses = 0
+        self.waitingPassangersArrivalTimes = []
+        self.setOutputSignals()
 
     # METHODS
     def busArrived(self):
         self.state = BusStop.State.BusArrived
+        self.timeIntervalBetweenBuses = SimulationTime.currentTime - self.timeOfLastBusArrival
 
     def startBoarding(self):
         self.state = BusStop.State.Boarding
+        self.waitingPassangersArrivalTimes = self.generatePassengers()
+        self.waitingPassangersArrivalTimes.sort()
+
         
     def finishBoarding(self):
         self.state = BusStop.State.Idle
+        self.timeOfLastBusArrival = SimulationTime.currentTime
+
+    def generatePassengers(self):
+        # find the rate for the current hour
+        lambdaValue = 0
+        currentHour = SimulationTime.getHour()
+        for hourRate in self.passengerArrivalRatesPerHour:
+            if hourRate.hour == currentHour:
+                lambdaValue = hourRate.rate / 60
+                break
+
+        # if there is no rate for the current hour, no passengers will arrive
+        if lambdaValue == 0:
+            return []
+        
+        # restrict the waiting time for the first bus to 15 minutes
+        if self.timeOfLastBusArrival == SimulationTime.startTime:
+            self.timeOfLastBusArrival = SimulationTime.currentTime - 15
+
+        # generate passengers
+        arrivalTimes = []
+        currentTime = self.timeOfLastBusArrival
+        while currentTime < SimulationTime.currentTime:
+            interArrivalTime = np.random.exponential(1 / lambdaValue)
+            currentTime += interArrivalTime
+
+            if currentTime < SimulationTime.currentTime:
+                arrivalTimes.append(currentTime)
+
+        return arrivalTimes
 
     # STR
     def __str__(self):
         return f"{self.name}: {self.timeDeltaToArrive}"
+    
+    def printAllInfo(self):
+        print(f"{self.name}: {self.timeDeltaToArrive}, {self.passengerArrivalRatesPerHour}, {self.leavingPassengersRate}")
 
 
 # ----------------------------- TIMETABLE -----------------------------
@@ -102,7 +146,7 @@ class Bus:
         Boarding = 2
         Departure = 3
 
-    def initOutputSignals(self):
+    def setOutputSignals(self):
         self.signals =  {
             Bus.OutputSignals.Arrival: [(self.currentBusStop, BusStop.InputSignals.BusArrived)],
             Bus.OutputSignals.Boarding: [(self.currentBusStop, BusStop.InputSignals.StartBoarding)],
@@ -121,15 +165,13 @@ class Bus:
         self.currentBusStop = firstBusStop
         self.capacity = capacity
         self.load = 0
-        self.initOutputSignals()
+        self.setOutputSignals()
 
     # STATE MACHINE
     def runBusStopSequence(self, busStop):
-
         self.state = Bus.State.Traveling
         self.currentBusStop = busStop
-
-        print(self)
+        self.setOutputSignals()
 
         while self.state != Bus.State.Departed:
             if self.state == Bus.State.Traveling:
@@ -142,14 +184,25 @@ class Bus:
     # METHODS
     def arriveAtStop(self):
         self.state = Bus.State.Arrived
+        # notify bus stop that new bus has arrived
         self.triggerOutputSignal(Bus.OutputSignals.Arrival)
+        # number of passengers leaving the bus
+        self.load = max(0, round(self.load * (1 - self.currentBusStop.leavingPassengersRate)))
         
     def boardPassengers(self):
         self.state = Bus.State.Boarding
+        # notify bus stop to generate new passengers
         self.triggerOutputSignal(Bus.OutputSignals.Boarding)
+        # board passengers, if there is capacity and there are passengers waiting
+        while self.load < self.capacity and len(self.currentBusStop.waitingPassangersArrivalTimes) > 0 and self.currentBusStop.waitingPassangersArrivalTimes[0] <= SimulationTime.currentTime:
+            self.load += 1
+            self.currentBusStop.waitingPassangersArrivalTimes.pop(0)
+        
+        print(self)
 
     def departFromStop(self):
         self.state = Bus.State.Departed
+        # notify bus stop that bus has departed
         self.triggerOutputSignal(Bus.OutputSignals.Departure)    
 
     # STR

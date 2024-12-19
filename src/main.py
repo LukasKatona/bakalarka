@@ -8,6 +8,11 @@ from models import Bus
 T_START = 0
 T_END = 24*60
 
+# initialize variables
+SimulationTime(T_START, T_END)
+eventCalendar = EventCalendar()
+buses = []
+
 # parse bus stops input file
 busStopsFile = open(sys.argv[1], "r")
 busStops = parseBusStopsFromFile(busStopsFile)
@@ -17,11 +22,6 @@ busStopsFile.close()
 timeTableFile = open(sys.argv[2], "r")
 timeTable = parseTimeTableFromFile(timeTableFile)
 timeTableFile.close()
-
-# initialize variables
-simulationTime = SimulationTime(T_START, T_END)
-eventCalendar = EventCalendar()
-buses = []
 
 # populate event calendar with bus arrival events
 for time in timeTable.getAllTimes():
@@ -49,7 +49,7 @@ while eventCalendar.isEmpty() == False:
         break
 
     # advance time
-    simulationTime.forward(event.time)
+    SimulationTime.forward(event.time)
 
     # execute event
     event()

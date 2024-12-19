@@ -1,18 +1,28 @@
 from datetime import timedelta
-
 class SimulationTime:
+    # Static global variables
+    startTime = None
+    currentTime = None
+    endTime = None
+
     # INIT
     def __init__(self, initialTime, endTime):
-        self.startTime = initialTime
-        self.currentTime = initialTime
-        self.endTime = endTime
+        SimulationTime.startTime = initialTime
+        SimulationTime.currentTime = initialTime
+        SimulationTime.endTime = endTime
 
     # METHODS
-    def printCurrentTime(self):
-        print(f"{(self.startTime + timedelta(minutes=self.currentTime)).time().strftime('%H:%M')}")
+    @staticmethod
+    def printCurrentTime():
+        print(f"{(SimulationTime.startTime + timedelta(minutes=SimulationTime.currentTime)).time().strftime('%H:%M')}")
 
-    def printCurrentTimeAndMessage(self, message):
-        print(f"{(self.startTime + timedelta(minutes=self.currentTime)).time().strftime('%H:%M')}: {message}")
+    @staticmethod
+    def printCurrentTimeAndMessage(message):
+        print(f"{(SimulationTime.startTime + timedelta(minutes=SimulationTime.currentTime)).time().strftime('%H:%M')}: {message}")
 
-    def forward(self, eventTime):
-        self.currentTime = eventTime
+    @staticmethod
+    def forward(eventTime):
+        SimulationTime.currentTime = eventTime
+
+    def getHour():
+        return SimulationTime.currentTime // 60 % 24
