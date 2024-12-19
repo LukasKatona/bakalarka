@@ -1,6 +1,6 @@
 from enum import Enum
+from RandomNumberGenerator import RandomNumberGenerator
 from SimulationTime import SimulationTime
-import numpy as np
 
 # ------------------------------ BUSSTOP ------------------------------
 class BusStop:
@@ -80,7 +80,7 @@ class BusStop:
         arrivalTimes = []
         currentTime = self.timeOfLastBusArrival
         while currentTime < SimulationTime.currentTime:
-            interArrivalTime = np.random.exponential(1 / lambdaValue)
+            interArrivalTime = RandomNumberGenerator.exponential(1 / lambdaValue)
             currentTime += interArrivalTime
 
             if currentTime < SimulationTime.currentTime:
@@ -198,8 +198,6 @@ class Bus:
             self.load += 1
             self.currentBusStop.waitingPassangersArrivalTimes.pop(0)
         
-        print(self)
-
     def departFromStop(self):
         self.state = Bus.State.Departed
         # notify bus stop that bus has departed
