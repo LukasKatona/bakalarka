@@ -2,7 +2,8 @@ import sys
 from InputParser import parseBusStopsFromFile, parseTimeTableFromFile
 from EventCalendar import EventCalendar, Event
 from SimulationTime import SimulationTime
-from models import Bus
+from Statistics import Statistics
+from models import Bus, BusStop
 
 # constants
 T_START = 0
@@ -53,3 +54,20 @@ while eventCalendar.isEmpty() == False:
 
     # execute event
     event()
+
+# update statistics
+busStopStats = []
+for busStop in busStops:
+    if isinstance(busStop, BusStop):
+        busStop.stats.updateTotalPassangersLeftUnboarded(len(busStop.waitingPassangersArrivalTimes))
+        busStop.stats.agregateTotal()
+        busStopStats.append(busStop.stats)
+
+busStats = []
+for bus in buses:
+    if isinstance(bus, Bus):
+        bus.stats.agregateTotal()
+        busStats.append(bus.stats)
+
+Statistics(len(buses), busStopStats, busStats)
+Statistics.print()

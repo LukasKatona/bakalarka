@@ -24,5 +24,6 @@ class SimulationTime:
     def forward(eventTime):
         SimulationTime.currentTime = eventTime
 
+    @staticmethod
     def getHour():
         return SimulationTime.currentTime // 60 % 24
