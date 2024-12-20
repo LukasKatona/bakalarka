@@ -69,5 +69,7 @@ for bus in buses:
         bus.stats.agregateTotal()
         busStats.append(bus.stats)
 
+
 Statistics(len(buses), busStopStats, busStats)
 Statistics.print()
+Statistics.busStopStatistics.plotTimeSpentWaitingPerHour()

@@ -1,3 +1,6 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
 class Statistics:
     # Static global variables
     totalNumberOfBuses = 0
@@ -135,6 +138,63 @@ class BusStopStatistics:
         self.passengersWaitingForNextBusPerHour = []
         self.timeSpentWaitingPerHour = []
 
+    # PLOT
+    def plotPassengersArrivedPerHour(self):
+        x = [x[0] for x in self.passengersArrivedPerHour]
+        y = [x[1] for x in self.passengersArrivedPerHour]
+        plt.bar(x, y)
+        plt.xlabel('Hour')
+        plt.ylabel('Passengers')
+        plt.xlim(0, 24)
+        plt.xticks(np.arange(0, 25, 1))
+        if self.name != "Agregated":
+            plt.title(f'Passengers Arrived at {self.name}')
+        else:
+            plt.title(f'Passengers Arrived at All Bus Stops')
+        plt.show()
+
+    def plotPassengersDepartedPerHour(self):
+        x = [x[0] for x in self.passengersDepartedPerHour]
+        y = [x[1] for x in self.passengersDepartedPerHour]
+        plt.bar(x, y)
+        plt.xlabel('Hour')
+        plt.ylabel('Passengers')
+        plt.xlim(0, 24)
+        plt.xticks(np.arange(0, 25, 1))
+        if self.name != "Agregated":
+            plt.title(f'Passengers Departed at {self.name}')
+        else:
+            plt.title(f'Passengers Departed at All Bus Stops')
+        plt.show()
+
+    def plotPassengersWaitingForNextBusPerHour(self):
+        x = [x[0] for x in self.passengersWaitingForNextBusPerHour]
+        y = [x[1] for x in self.passengersWaitingForNextBusPerHour]
+        plt.bar(x, y)
+        plt.xlabel('Hour')
+        plt.ylabel('Passengers')
+        plt.xlim(0, 24)
+        plt.xticks(np.arange(0, 25, 1))
+        if self.name != "Agregated":
+            plt.title(f'Passengers Waiting for Next Bus at {self.name}')
+        else:
+            plt.title(f'Passengers Waiting for Next Bus at All Bus Stops')
+        plt.show()
+
+    def plotTimeSpentWaitingPerHour(self):
+        x = [x[0] for x in self.timeSpentWaitingPerHour]
+        y = [x[1] for x in self.timeSpentWaitingPerHour]
+        plt.bar(x, y)
+        plt.xlabel('Hour')
+        plt.ylabel('Time (minutes)')
+        plt.xlim(0, 24)
+        plt.xticks(np.arange(0, 25, 1))
+        if self.name != "Agregated":
+            plt.title(f'Time Passengers Spent Waiting at {self.name}')
+        else:
+            plt.title(f'Time Passengers Spent Waiting at All Bus Stops')
+        plt.show()
+
     # STR
     def __str__(self):
         return "=============================================================\n" + \
@@ -143,12 +203,12 @@ class BusStopStatistics:
                f"Total passengers arrived: {self.totalPassengersArrived}\n" + \
                f"Total passengers departed: {self.totalPassengersDeparted}\n" + \
                f"Total passengers waited for next bus: {self.totalPassengersWaitingForNextBus}\n" + \
-               f"Total time spent waiting: {self.totalTimeSpentWaiting}\n" + \
+               f"Total time spent waiting: {self.totalTimeSpentWaiting} minutes\n" + \
                f"Total passangers left unboarded: {self.totalPassangersLeftUnboarded}\n" + \
                f"Passengers arrived per hour:\n{Statistics.keyValuePairArrayToString(self.passengersArrivedPerHour)}\n" + \
                f"Passengers departed per hour:\n{Statistics.keyValuePairArrayToString(self.passengersDepartedPerHour)}\n" + \
                f"Passengers waiting for next bus per hour:\n{Statistics.keyValuePairArrayToString(self.passengersWaitingForNextBusPerHour)}\n" + \
-               f"Time spent waiting per hour:\n{Statistics.keyValuePairArrayToString(self.timeSpentWaitingPerHour)}\n" + \
+               f"Time spent waiting per hour (in minutes):\n{Statistics.keyValuePairArrayToString(self.timeSpentWaitingPerHour)}\n" + \
                "=============================================================\n"
     
 # -------------------------------- BUS --------------------------------
@@ -185,6 +245,40 @@ class BusStatistics:
         self.totalPassengersTransported = 0
         self.loadPerBusStop = []
         self.LoadInPercentPerBusStop = []
+
+    # PLOT
+    def plotLoadPerBusStop(self):
+        x = np.arange(len(self.loadPerBusStop))
+        y = [x[1] for x in self.loadPerBusStop]
+        plt.barh(x, y)
+        plt.yticks(x, [x[0] for x in self.loadPerBusStop])
+        plt.axvline(self.averageLoad, color='r', linestyle='--', label=f'Average Load: {self.averageLoad:.2f}')
+        plt.xlabel('Load')
+        plt.ylabel('Bus Stop')
+        plt.xlim(0, self.capacity)
+        plt.legend()
+        if self.busNumber != "Agregated":
+            plt.title(f'Bus #{self.busNumber} Load per Bus Stop')
+        else:
+            plt.title(f'Average Bus Load per Bus Stop')
+        plt.show()
+
+    def plotLoadInPercentPerBusStop(self):
+        x = np.arange(len(self.LoadInPercentPerBusStop))
+        y = [x[1] for x in self.LoadInPercentPerBusStop]
+        plt.barh(x, y)
+        plt.yticks(x, [x[0] for x in self.LoadInPercentPerBusStop])
+        plt.axvline(self.averageLoadInPercent, color='r', linestyle='--', label=f'Average Load: {round(self.averageLoadInPercent * 100)}%')
+        plt.xlabel('Load')
+        plt.ylabel('Bus Stop')
+        plt.xlim(0, 1)
+        plt.xticks(np.linspace(0, 1, 11), [f'{int(x*100)}%' for x in np.linspace(0, 1, 11)])
+        plt.legend()
+        if self.busNumber != "Agregated":
+            plt.title(f'Bus #{self.busNumber} Load in Percent per Bus Stop')
+        else:
+            plt.title(f'Average Bus Load in Percent per Bus Stop')
+        plt.show()
 
     # STR
     def __str__(self):
