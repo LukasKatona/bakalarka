@@ -53,6 +53,7 @@ class Statistics:
         Statistics.busStatistics.clear()
 
     # STR
+    @staticmethod
     def print():
         print( "================================================================\n" + \
                "Statistics\n" + \
@@ -61,6 +62,10 @@ class Statistics:
                f"Bus stop statistics:\n{Statistics.busStopStatistics}\n" + \
                f"Bus statistics:\n{Statistics.busStatistics}\n" + \
                "================================================================\n")
+
+    @staticmethod
+    def keyValuePairArrayToString(keyValuePairArray):
+        return "\n".join([f"{x[0]}: {x[1]}" for x in keyValuePairArray])
 
 # ------------------------------ BUSSTOP ------------------------------
 class BusStopStatistics:
@@ -140,14 +145,11 @@ class BusStopStatistics:
                f"Total passengers waited for next bus: {self.totalPassengersWaitingForNextBus}\n" + \
                f"Total time spent waiting: {self.totalTimeSpentWaiting}\n" + \
                f"Total passangers left unboarded: {self.totalPassangersLeftUnboarded}\n" + \
-               f"Passengers arrived per hour:\n{self.hourValuePairArrayToString(self.passengersArrivedPerHour)}\n" + \
-               f"Passengers departed per hour:\n{self.hourValuePairArrayToString(self.passengersDepartedPerHour)}\n" + \
-               f"Passengers waiting for next bus per hour:\n{self.hourValuePairArrayToString(self.passengersWaitingForNextBusPerHour)}\n" + \
-               f"Time spent waiting per hour:\n{self.hourValuePairArrayToString(self.timeSpentWaitingPerHour)}\n" + \
+               f"Passengers arrived per hour:\n{Statistics.keyValuePairArrayToString(self.passengersArrivedPerHour)}\n" + \
+               f"Passengers departed per hour:\n{Statistics.keyValuePairArrayToString(self.passengersDepartedPerHour)}\n" + \
+               f"Passengers waiting for next bus per hour:\n{Statistics.keyValuePairArrayToString(self.passengersWaitingForNextBusPerHour)}\n" + \
+               f"Time spent waiting per hour:\n{Statistics.keyValuePairArrayToString(self.timeSpentWaitingPerHour)}\n" + \
                "=============================================================\n"
-    
-    def hourValuePairArrayToString(self, hourValuePairArray):
-        return "\n".join([f"{x[0]}: {x[1]}" for x in hourValuePairArray])
     
 # -------------------------------- BUS --------------------------------
 class BusStatistics:
@@ -192,9 +194,6 @@ class BusStatistics:
                f"Average load: {self.averageLoad}\n" + \
                f"Average load in percent: {self.averageLoadInPercent}\n" + \
                f"Total passengers transported: {self.totalPassengersTransported}\n" + \
-               f"Load per bus stop:\n{self.nameValuePairArrayToString(self.loadPerBusStop)}\n" + \
-               f"Load in percent per bus stop:\n{self.nameValuePairArrayToString(self.LoadInPercentPerBusStop)}\n" + \
+               f"Load per bus stop:\n{Statistics.keyValuePairArrayToString(self.loadPerBusStop)}\n" + \
+               f"Load in percent per bus stop:\n{Statistics.keyValuePairArrayToString(self.LoadInPercentPerBusStop)}\n" + \
                "=============================================================\n"
-    
-    def nameValuePairArrayToString(self, nameValuePairArray):
-        return "\n".join([f"{x[0]}: {x[1]}" for x in nameValuePairArray])

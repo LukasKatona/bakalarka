@@ -53,7 +53,7 @@ class BusStop:
 
     def startBoarding(self):
         self.state = BusStop.State.Boarding
-        self.waitingPassangersArrivalTimes = self.generatePassengers()
+        self.waitingPassangersArrivalTimes += self.generatePassengers()
         self.waitingPassangersArrivalTimes.sort()
 
         
@@ -173,7 +173,7 @@ class Bus:
         self.capacity = capacity
         self.load = 0
         self.setOutputSignals()
-        self.stats = BusStatistics(Bus.busCounter, capacity)
+        self.stats = BusStatistics(self.busNumber, capacity)
 
     # STATE MACHINE
     def runBusStopSequence(self, busStop):
