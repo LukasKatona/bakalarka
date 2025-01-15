@@ -10,7 +10,7 @@ class BusStop:
     class State(Enum):
         Idle = 1
         BusArrived = 2
-        Boarding = 3
+        BusBoarding = 3
 
     # INPUT SIGNALS
     class InputSignals(Enum):
@@ -52,7 +52,7 @@ class BusStop:
         self.timeIntervalBetweenBuses = SimulationTime.currentTime - self.timeOfLastBusArrival
 
     def startBoarding(self):
-        self.state = BusStop.State.Boarding
+        self.state = BusStop.State.BusBoarding
         self.waitingPassangersArrivalTimes += self.generatePassengers()
         self.waitingPassangersArrivalTimes.sort()
 
@@ -136,12 +136,9 @@ class Bus:
 
     # STATES
     class State(Enum):
-        Starting = 1
-        Traveling = 2
-        Arrived = 3
-        Boarding = 4
-        Departed = 5
-        Finished = 6
+        Traveling = 1
+        Arrived = 2
+        Boarding = 3
 
     # INPUT SIGNALS
     def triggerInputSignal(self, signal):
@@ -168,7 +165,7 @@ class Bus:
     def __init__(self, firstBusStop, capacity):
         self.busNumber = Bus.busCounter
         Bus.busCounter += 1
-        self.state = Bus.State.Starting
+        self.state = Bus.State.Traveling
         self.currentBusStop = firstBusStop
         self.capacity = capacity
         self.load = 0
@@ -177,17 +174,11 @@ class Bus:
 
     # STATE MACHINE
     def runBusStopSequence(self, busStop):
-        self.state = Bus.State.Traveling
         self.currentBusStop = busStop
         self.setOutputSignals()
-
-        while self.state != Bus.State.Departed:
-            if self.state == Bus.State.Traveling:
-                self.arriveAtStop()
-            elif self.state == Bus.State.Arrived:
-                self.boardPassengers()
-            elif self.state == Bus.State.Boarding:
-                self.departFromStop()
+        self.arriveAtStop()
+        self.boardPassengers()
+        self.departFromStop()
 
     # METHODS
     def arriveAtStop(self):
@@ -216,7 +207,7 @@ class Bus:
         self.stats.updateLoadPerBusStop(self.load, self.currentBusStop.name)
         
     def departFromStop(self):
-        self.state = Bus.State.Departed
+        self.state = Bus.State.Traveling
         # notify bus stop that bus has departed
         self.triggerOutputSignal(Bus.OutputSignals.Departure)    
 
