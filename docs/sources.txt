@@ -1,14 +1,3 @@
-\documentclass{article}
-
-\begin{document}
-
-Hello, World!
-
-\end{document}
-
-
-
-
 % Ako funguje DEVS modelovanie
 % https://www.researchgate.net/publication/264004946_DEVS-based_combat_modeling_for_engagement-level_simulation
 
