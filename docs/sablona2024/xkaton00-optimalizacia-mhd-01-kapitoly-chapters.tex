@@ -198,6 +198,7 @@ Ako je vidieť na obrázku \ref{fig:model_zastavky}, model zastávky má tri sta
   \item \textbf{Vozidlo na zastávke} --- na zastávku práve prišlo vozidlo
   \item \textbf{Cestujúci nastupojú} --- cestujúci nastupujú do vozidla
 \end{itemize}
+
 Dôleťitejšie sú však vstupné signály, ktorími je celý stavový automat riadený.
 Zároveň sa pri prechodoch medzi stavmi vykonávajú akcie pre obsluhu cestujúcich.
 
@@ -291,13 +292,50 @@ Parametre tejto udalosti sú:
   \item \textbf{Zastávka} --- zastávka, na ktorej sa udalosť vykonáva
   \item \textbf{Vozidlo} --- vozidlo, ktoré prichádza na zastávku
 \end{itemize}
+
 Vozidlo začína udalosť v stave \textbf{Na ceste}, príde na zastávku uvedenú v parametri udalosti, vykoná rutinu nástupu a výstupu cestujúcich a odíte na ďalšiu zastávku.
 Za jednu udalosť teda vozidlo prejde všetkými svojimi vnútorným stavmi, udalosť končí v opaäť v stave \textbf{Na ceste}.
 Zastávka ktorá je uvedená v parametri udalosti tiež prejde všetkými svojimi vnútornými stavmi na základe posielaných signálov od vozidla.
 
-
 \section{Implementácia simulačného modelu}
+
+Simulačný model je implementovaný v jazyku Python bez využitia externých knižníc.
+Trieda \texttt{EventCalendar} obsahuje kód základných operácií nad kalendárom udalostí:
+\begin{itemize}
+  \item \texttt{isEmpty()} --- vráti \texttt{True} ak je kalendár udalostí prázdny, inak \texttt{False}
+  \item \texttt{addEvent(event)} --- pridá udalosť do kalendára
+  \item \texttt{getNextEvent()} --- vráti udalosť s najmenším časom v kalendári a odstráni ju z kalendára
+\end{itemize}
+
+Trieda \texttt{Event} reprezentuje jednu udalosť.
+Obsahuje:
+\begin{itemize}
+  \item metóda \texttt{\_\_call\_\_()} --- vykoná akciu
+  \item atribúty \texttt{action} a \texttt{actionArgument}
+\end{itemize}
+
+len metódu \texttt{\_\_call\_\_()}, ktorá vykoná udalosť uloženú v atribúte \texttt{action} s argumentami volania uloženými v \texttt{actionArgument}.
+
+Modelový čas je implementovaný v triede \texttt{SimulationTime}.
+Obsahuje:
+\begin{itemize}
+  \item metódy \texttt{forward(time)} a \texttt{getHour()}
+  \item atribúty \texttt{startTime}, \texttt{currentTime} a \texttt{endTime}
+\end{itemize}
+
+Trieda \texttt{BusStop} reprezentuje jednu zastávku, rovnako tak trieda \texttt{Bus} reprezentuje jedno vozidlo.
+Tieto dve triedy sú písané podľa vzoru DEVS formalizmu. Obsahujú stavy, vstupné a výstupné signály a metódy, v ktorých sa nachádzjú akcie pre jednotlivé prechody medzi stavmi.
+Cestujúci sú uložení ako pole čisel, časov ich príchodu, v jednotliv7ch zast8vkach v atribúte \texttt{waitingPassangersArrivalTimes}.
+
+Na generovanie náhodného príchodu cestujúcich slúži trieda \texttt{RandomNumberGenerator}, ktorá obsahuje statické metódy na generovanie náhodných čísel.
+
+Zber a agregácia štatistík (viď kapitola \ref{vystupy_simulacneho_modelu}) sú implementované v triedach \texttt{Statistics}, \texttt{BusStatistics} a \texttt{BusStopStatistics}.
+
+Potrobnejšie informácie o kóde sa nachádzajú v programovej dokumentácii, v prílohe \ref{prilohy_programova_dokumentacia}.
+Programová dokumentácia bola vygenerovaná pomocou nástroja Sphynx.
+
 \section{Výstupy simulačného modelu}
+\label{vystupy_simulacneho_modelu}
 
 \chapter{Optimalizácia časového rozpisu linky mestskej hormadnej dopravy} % 15 strán
 \label{optimalizacia}
