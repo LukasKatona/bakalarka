@@ -127,7 +127,7 @@ Dôležitá je trasa, ktorú prejdu, preto jedna inštancia modelu vozidla repre
 Cestujúcich v modeli nie je potrebné reprezentovať ako samostatný model, sú reprezentovaní len jedným číslom, časom kedy prišli na zastávku.
 Sú súčasťou modelu zastávky, konkrétne tej na ktorej čakajú.
 
-\subsection*{Kalendár udalostí}
+\subsection{Kalendár udalostí}
 
 Kalendár udalostí je základným prvkom modelu, ktorý riadi priebeh simulácie.
 V kalendári sú uložené všetky udalosti, ktoré sa majú v modeli stať.
@@ -178,7 +178,7 @@ Pseudokód riadenia simulácie je popísaný v algoritme \ref{algoritmus_riadeni
 Pre potreby časového rozpisu stačí simulovať jeden deň, v prípade rôznych rozpisov v čase pracovnýh dní a v čase sviatkov a víkendov ide o kompletne iný rozpis, ktorý sa musí simulovať a optimalizovať samostatne.
 Všetky naplánované udalsti by mali byť v rámci jedného dňa, preto by simulácia mala končiť vždy vyprázdnením kalendára udalostí a nie prekročením koncového času.
 
-\subsection*{Model zastávky}
+\subsection{Model zastávky}
 \label{model_zastavky}
 
 Model zastávky slúži na reprezentáciu jednotlivých zastávok na linke.
@@ -232,7 +232,7 @@ V algoritme \ref{algoritmus_generovanie_cestujucich} je popísaný proces genero
 \end{algorithmic}
 \end{algorithm}
 
-\subsection*{Model vozidla}
+\subsection{Model vozidla}
 \label{model_vozidla}
 
 Každé vozidlo, respektíve jedna trasa ktorú vozidlo podľa časového rozpisu prejde, je reprezentovaná jednou inštanciou modelu vozidla.
@@ -283,7 +283,7 @@ Proces ktorý vozidlo vykoná pri príchode na každú zastávku je popísaný v
 \end{algorithmic}
 \end{algorithm}
 
-\subsection*{Udalosť príchodu vozidla na zastávku}
+\subsection{Udalosť príchodu vozidla na zastávku}
 
 V rámci jednej udalosti sa vykoná rutina obslúženia cestujúcich, ktorí čakajú na zastávke. Táto rutina je popísaná v algoritme \ref{algoritmus_obsluha_zastavky}.
 Parametre tejto udalosti sú:
@@ -325,13 +325,13 @@ Obsahuje:
 
 Trieda \texttt{BusStop} reprezentuje jednu zastávku, rovnako tak trieda \texttt{Bus} reprezentuje jedno vozidlo.
 Tieto dve triedy sú písané podľa vzoru DEVS formalizmu. Obsahujú stavy, vstupné a výstupné signály a metódy, v ktorých sa nachádzjú akcie pre jednotlivé prechody medzi stavmi.
-Cestujúci sú uložení ako pole čisel, časov ich príchodu, v jednotlivých zastávkach v atribúte \texttt{waitingPassangersArrivalTimes}.
+Cestujúci sú uložení ako pole čisel, časov ich príchodu, v jednotliv7ch zast8vkach v atribúte \texttt{waitingPassangersArrivalTimes}.
 
 Na generovanie náhodného príchodu cestujúcich slúži trieda \texttt{RandomNumberGenerator}, ktorá obsahuje statické metódy na generovanie náhodných čísel.
 
 Zber a agregácia štatistík (viď kapitola \ref{vystupy_simulacneho_modelu}) sú implementované v triedach \texttt{Statistics}, \texttt{BusStatistics} a \texttt{BusStopStatistics}.
 
-Podrobnejšie informácie o kóde sa nachádzajú v programovej dokumentácii, v prílohe~\ref{prilohy_programova_dokumentacia}.
+Potrobnejšie informácie o kóde sa nachádzajú v programovej dokumentácii, v prílohe \ref{prilohy_programova_dokumentacia}.
 Programová dokumentácia bola vygenerovaná pomocou nástroja Sphynx.
 
 \section{Výstupy simulačného modelu}
