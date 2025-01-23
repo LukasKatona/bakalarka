@@ -91,9 +91,6 @@ class BusStop:
                 self.stats.updatePassengersArrivedPerHour(1, currentTime // 60 % 24)
 
         return arrivalTimes
-    
-    # STATISTICS
-
 
     # STR
     def __str__(self):
