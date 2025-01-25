@@ -467,11 +467,39 @@ Naopak na prave strane grafu \ref{fig:timeSpentWaitingPerHour}, ktorý je výstu
 \end{figure}
 
 \subsection*{Kapacita vozidla}
+Tento parameter je dôležitý, pretože na základe neho sa rozhoduje, koľko cestujúcich môže nastúpiť do vozidla.
+Zároveň slúži pre výpočet naplnenosti vozidla v percentách.
+Príliš malá alebo príliš veľká naplnenosť vozidla môže byť nežiaduca.
+Na ohodnotenie toho, ako moc je vozidlo naplnené teda treba poznať aj jeho kapacitu.
+
 \subsection*{Priemerná naplnenosť vozidla}
-\subsection*{Priemerná naplnenosť vozidla v percentách}
+Priemerná naplnenosť vozidla je dôležitý parameter, ktorý nám hovorí, ako moc sú vozidlá využívané.
+Z pohľadu cestujúcich je lepšie, ak je vozidlo prázdnejšie, ale z pohľadu dopravného podniku je to nevyužitý potenciál.
+Preto je potrebné nájsť kompromis medzi týmito dvoma požiadavkami.
+To aká naplnenosť je optimálna je už úlohou analytika, ktorý bude tento program využívať.
+Povedzme, že sa rozhodne pre naplnenosť 70\%.
+Potom čim ďalej bude priemerná naplnenosť vozidiel od tejto hodnoty, tým horšie bude rozpis ohodnotený.
+
 \subsection*{Celkový počet prevezených cestujúcich}
+Celkový počet prevezených cestujúcich záleží od toho, koľko cestujúcich prišlo na jednotlivé zastávky a či sa im podarilo nastúpiť do vozidiel.
+V ideálnom prípade sa tento počet bude rovnať počtu cestujúcich, ktorí prišli na zastávky.
+V extrémnych prípadoch sa môže stať, že niektorí cestujúci zostanú na zastávkach a nezoberie ich žiadne vozidlo.
+V prípade štatistiky jednotlivých vozidiel, môže byť tento počet použitý na ich porovnanie.
+Počas dňa by mali všetky vozidlá prepraviť približne rovnaký počet cestujúcich.
+Ak tomu tak nie je a sú vyťažené nerovnomerne, rozpis by sa mal ohodnotiť negatívne.
+
 \subsection*{Naplnenosť vozidla na jednotlivých zastávkach}
-\subsection*{Naplnenosť vozidla na jednotlivých zastávkach v percentách}
+Na grafe \ref{fig:averageLoad} je znázornené ako sa naplnenosť vozidiel mení počas ich jazdy.
+Konkrétne sa jedná o linku 46 v Brne.
+Naplnenosť sa postupne zvyšuje až kým nepríde na jednu z hlavných prestupných zastávok, Štefánikova čtvrť.
+Tu vystúpi veľké množstvo cestujúcich a naplnenosť vozidla sa zníži.
+Pokiaľ má linka príliš veľké výkivy v naplnenosti vozidiel naprieč svojou trasou, môže to byť znakom toho, že je potrebné trasu na určitých úsekoch posilniť inou linkou.
+\begin{figure}[h]
+  \label{fig:averageLoad}
+  \centering
+  \includegraphics[width=\textwidth]{loadInPercentPerBusStop.png}
+  \caption{Priemerná naplnenosť vozidla na jednotlivých zastávkach}
+\end{figure}
 
 \chapter{Optimalizácia časového rozpisu linky mestskej hormadnej dopravy} % 15 strán
 \label{optimalizacia}
