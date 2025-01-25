@@ -337,6 +337,142 @@ Programová dokumentácia bola vygenerovaná pomocou nástroja Sphynx.
 \section{Výstupy simulačného modelu}
 \label{vystupy_simulacneho_modelu}
 
+Hlavný zmisel simulácie je zber informácií, ktoré by sme inak museli získať z pozorovania reélnej prevádzky linky.
+Efektivitu každého jedného časového rozpisu, ktorý program vytvorí je potrebné otestovať a ohodnotiť aby sme našli ten najlepší z nich, skôr ako ho začneme používať v reálnej prevádzke.
+Na ohodnotenie jednotlivých rozpisov slúžia štatistiky získané počas simulácie.
+Štatistiky sa zbierajú pre každú zastávku aj pre každý autobus osobitne.
+Následne sa agregujú do jednoho objektu \texttt{Statistics}, ktorý obsahuje:
+\begin{itemize}
+  \item \texttt{totalNumberOfBuses} --- počet spojov v priebehu dňa na linke
+  \item \texttt{busStopStatistics} --- agregované štatistiky zastávok
+  \item \texttt{busStatistics} --- agregované štatistiky vozidiel
+\end{itemize}
+
+Trieda \texttt{busStopStatistics} slúži na ukladanie informácii o jednotlivých zastávkach, ale ako bolo spomenuté vyššie tak aj na uloženie agregovaných dát.
+Táto trieda slúži na zber následujúcich informácií:
+\begin{itemize}
+  \item \texttt{totalPassengersArrived} --- počet cestujúcich, ktorí prišli na zastávku za celý deň
+  \item \texttt{totalPassengersDeparted} --- počet cestujúcich, ktorí vystúpili na zastávke za celý deň
+  \item \texttt{totalPassengersWaitingForNextBus} --- počet cestujúcich, ktorí museli čakať na ďalší spoj
+  \item \texttt{totalTimeSpentWaiting} --- celkový čas, ktorý cestujúci strávili čakaním na zastávke
+  \item \texttt{totalPassangersLeftUnboarded} --- počet cestujúcich, ktorých po celom dni nezobral žiaden spoj
+  \item \texttt{passengersArrivedPerHour} --- počet cestujúcich, ktorí prišli na zastávku v jednotlivých hodinách
+  \item \texttt{passengersDepartedPerHour} --- počet cestujúcich, ktorí vystúpili na zastávke v jednotlivých hodinách
+  \item \texttt{passengersWaitingForNextBusPerHour} --- počet cestujúcich, ktorí museli čakať na ďalší spoj v jednotlivých hodinách
+  \item \texttt{timeSpentWaitingPerHour} --- čas, ktorý cestujúci strávili čakaním na zastávke v jednotlivých hodinách
+\end{itemize}
+
+Trieda \texttt{busStatistics} má rovnaký účel ako trieda \texttt{busStopStatistics}, ale pre vozidlá.
+Zbiera informácie:
+\begin{itemize}
+  \item \texttt{capacity} --- kapacita vozidla
+  \item \texttt{averageLoad} --- priemerná naplnenosť vozidla
+  \item \texttt{averageLoadInPercent} --- priemerná naplnenosť vozidla v percentách
+  \item \texttt{totalPassengersTransported} --- celkový počet prevezených cestujúcich
+  \item \texttt{loadPerBusStop} --- naplnenosť vozidla na jednotlivých zastávkach
+  \item \texttt{loadInPercentPerBusStop} --- naplnenosť vozidla na jednotlivých zastávkach v percentách
+\end{itemize}
+
+\subsection*{Počet spojov v priebehu dňa na linke}
+Tento údaj slúži pre optimalizáciu, z pohľadu dopravného podniku chceme, aby bol pocet spojov čo najmenší aby ušetrili na prevádzkových nákladoch.
+Z pohľadu cestujúcich chceme aby bol počet spojov čo najväčší, aby nemuseli čakať na spoj dlhšie ako je nutné.
+Je potrebné nájsť kompromis medzi týmito dvoma extrémami.
+
+\subsection*{Počet cestujúcich, ktorí prišli na zastávku za celý deň}
+Celkový počet cestujúcich za deň je dobrím indikátorom toho, ako sú namáhané jednotlivé časti linky.
+V prípadoch, kedy na zastávky v strede trasy prichádza oveľa viac cestujúcich ako na koncové zastávky, posilňuje dopravný podnik práve túto strednú časť ďalšími spojmi.
+Tieto spoje však na koncové zastávky už nechodia.
+
+\subsection*{Počet cestujúcich, ktorí vystúpili na zastávke za celý deň}
+Je potrebné aby sme v rámci simulácie rátali aj s cestujúcimi, ktorí z vozidiel vystupujú, inak by sa kapacita vozidla hneď naplnila.
+Ide o dôležitú časť reálneho systému, ktorú nemôžeme zanedbať ani pri simulácii.
+Slúži na validáciu modelu.
+
+\subsection*{Počet cestujúcich, ktorí museli čakať na ďalší spoj}
+Občas sa stane, že je vozidlo tak preplnené, že nie všetci cestujúci, ktorí čakali na zastávke do neho nastúpia.
+V reálnom živote ide asi o subjektívny pocit, či nastúpiť alebo nie.
+V simulačnom modeli cestujúci prestanú nastupovať v momente keď naplnenosť vozidla dosiahne jeho maximálnu kapacitu.
+Rozpisy, pri ktorých sa tento jav vyskytne budú mať horšie hodnotenie.
+
+\subsection*{Celkový čas, ktorý cestujúci strávili čakaním na zastávke}
+Z pohľadu optimalizácie chceme, aby bol tento čas čo najnižší.
+Príliš dlhé čakanie na zastávke bude rozpisy ohodnocovať negatívne.
+V prípade, že cestujúci musel čakať na ďalší spoj, tento šas bude ešte dlhší.
+Treba rátať aj s cestujúcimi, ktorí na zastávku prídu tesne pred odchodom vozidla.
+Napríklad ak chodí spoj dvakrát za hodinu, je oveľa vyššia pravdepodobnosť, že cestujúci nepríde v náhodný čas, ale svoj príchod na zastávku si naplánuje.
+
+\subsection*{Počet cestujúcich, ktorých po celom dni nezobral žiaden spoj}
+Podobne ako v prípade cestujúcich, ktorí museli čakať na ďalší spoj, aj týchto cestujúcich by sme mali rátať a rozpis by mal byť ohodnotený veľmi negatívne.
+Tento jav by mohol v reálnom svete nastať asi iba ak by cestujúci išiel na posledný spoj v dni a toto vozidlo by bolo úplne preplnené.
+Ale keďže optimalizácia v tomto programe je riešená genetickým algoritmom, je veľká šanca že sa tento jav vyskytne častejšie.
+Táto vlastnosť je nežiaduca a je potrebné ju eliminovať.
+
+\subsection*{Počet cestujúcich, ktorí prišli na zastávku v jednotlivých hodinách}
+Tento údaj má skôr informatívny charakter, pretože ide o vstup programu.
+Algoritmus sa snaží vytvoriť rozpis, ktorý by bol schopný prepraviť všetkých cestujúcich.
+Na grafe \ref{fig:passengersArrivedPerHour} je vidieť, že v priebehu dňa sa počet cestujúcich prichádzajúcich na zastávku mení.
+Obzvlášť v ranných a poobedných hodinách je tento počet výrazne vyšší ako počas dňa.
+V týchto časoch by malo chodiť viac spojov.
+\begin{figure}[h]
+  \label{fig:passengersArrivedPerHour}
+  \centering
+  \includegraphics[width=0.5\textwidth]{passengersArrivedPerHour.png}
+  \caption{Počet cestujúcich, ktorí prišli na zastávku v jednotlivých hodinách}
+\end{figure}
+
+\subsection*{Počet cestujúcich, ktorí vystúpili na zastávke v jednotlivých hodinách}
+Ide o rovnaký údaj ako bol počet cestujúcich, ktorí vystúpili na zastávke za celý deň, ale rozdelený na jednotlivé hodiny dňa.
+Je vidieť, že graf \ref{fig:passengersDepartedPerHour} má podobný tvar ako graf \ref{fig:passengersArrivedPerHour}.
+To je správne, pretože počet cestujúcich, ktorí vystúpili na zastávke by mal byť rovnaký ako počet cestujúcich, ktorí prišli na zastávku.
+Mohlo by sa stať, že tieto dve hodnoty by sa líšili, v prípade, že ostatnú cestujúci, ktorí sa v priebehu dňa nezmestili do žiadneho vozidla.
+\begin{figure}[h]
+  \label{fig:passengersDepartedPerHour}
+  \centering
+  \includegraphics[width=0.5\textwidth]{passengersDepartedPerHour.png}
+  \caption{Počet cestujúcich, ktorí vystúpili na zastávke v jednotlivých hodinách}
+\end{figure}
+
+\subsection*{Počet cestujúcich, ktorí museli čakať na ďalší spoj v jednotlivých hodinách}
+Na ľavej strane grafu \ref{fig:passengersWaitingForNextBusPerHour} je vidieť, že v priebehu ďňa žiaden z cestujúcich nemusel čakať na ďalší spoj.
+Toto je ideálny stav.
+Na pravej strane grafu \ref{fig:passengersWaitingForNextBusPerHour} je vidieť, že v priebehu dňa sa počet cestujúcich, ktorí museli čakať na ďalší spoj mení.
+Ráno a okolo obeda nemusel na ďalší spoj čakať nikto, ale v poobednej špičke je vidieť zjavný nedostatok spojov, pretože cestujúci musia čakať na ďalší spoj.
+\begin{figure}[h]
+  \label{fig:passengersWaitingForNextBusPerHour}
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{passengersWaitingForNextBusPerHour.png}
+  \end{minipage}
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{passengersWaitingForNextBusPerHour_nonoptimal.png}
+  \end{minipage}
+  \caption{Počet cestujúcich, ktorí museli čakať na ďalší spoj v jednotlivých hodinách}
+\end{figure}
+
+\subsection*{Čas, ktorý cestujúci strávili čakaním na zastávke v jednotlivých hodinách}
+Čas strávený čakaním na zastávke by mal byť počas celého dňa približne rovnaký.
+Na ľavej strane grafu \ref{fig:timeSpentWaitingPerHour} je tento optimálny stav vidieť.
+Bez ohľadu na to, kedy cestujúci prídu na zastávku, čakajú na spoj rovnako dlho.
+Naopak na prave strane grafu \ref{fig:timeSpentWaitingPerHour}, ktorý je výstupom rovnakej simulácie ako pravá strana grafu \ref{fig:passengersWaitingForNextBusPerHour}, je zrejmé, že čas čakania na zastávke sa v poobedných hodinách výrazne zvýšil práve kvoli tomu, že cestujúci museli čakať na ďalší spoj.
+\begin{figure}[h]
+  \label{fig:timeSpentWaitingPerHour}
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{timeSpentWaitingPerHour.png}
+  \end{minipage}
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{timeSpentWaitingPerHour_nonoptimal.png}
+  \end{minipage}
+  \caption{Čas, ktorý cestujúci strávili čakaním na zastávke v jednotlivých hodinách}
+\end{figure}
+
+\subsection*{Kapacita vozidla}
+\subsection*{Priemerná naplnenosť vozidla}
+\subsection*{Priemerná naplnenosť vozidla v percentách}
+\subsection*{Celkový počet prevezených cestujúcich}
+\subsection*{Naplnenosť vozidla na jednotlivých zastávkach}
+\subsection*{Naplnenosť vozidla na jednotlivých zastávkach v percentách}
+
 \chapter{Optimalizácia časového rozpisu linky mestskej hormadnej dopravy} % 15 strán
 \label{optimalizacia}
 \section{Vstupné obmedzenia zo strany používateľa}
