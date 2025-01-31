@@ -1,6 +1,6 @@
 from enum import Enum
 from RandomNumberGenerator import RandomNumberGenerator
-from SimulationTime import SimulationTime
+from Simulation import Simulation
 from Statistics import BusStatistics, BusStopStatistics
 
 # ------------------------------ BUSSTOP ------------------------------
@@ -40,7 +40,7 @@ class BusStop:
         self.passengerArrivalRatesPerHour = passengerArrivalRatesPerHour
         self.leavingPassengersRate = leavingPassengersRate
         self.state = BusStop.State.Idle
-        self.timeOfLastBusArrival = SimulationTime.startTime
+        self.timeOfLastBusArrival = Simulation.startTime
         self.timeIntervalBetweenBuses = 0
         self.waitingPassangersArrivalTimes = []
         self.setOutputSignals()
@@ -49,7 +49,7 @@ class BusStop:
     # METHODS
     def busArrived(self):
         self.state = BusStop.State.BusArrived
-        self.timeIntervalBetweenBuses = SimulationTime.currentTime - self.timeOfLastBusArrival
+        self.timeIntervalBetweenBuses = Simulation.currentTime - self.timeOfLastBusArrival
 
     def startBoarding(self):
         self.state = BusStop.State.BusBoarding
@@ -59,12 +59,12 @@ class BusStop:
         
     def finishBoarding(self):
         self.state = BusStop.State.Idle
-        self.timeOfLastBusArrival = SimulationTime.currentTime
+        self.timeOfLastBusArrival = Simulation.currentTime
 
     def generatePassengers(self):
         # find the rate for the current hour
         lambdaValue = 0
-        currentHour = SimulationTime.getHour()
+        currentHour = Simulation.getHour()
         for hourRate in self.passengerArrivalRatesPerHour:
             if hourRate.hour == currentHour:
                 lambdaValue = hourRate.rate / 60
@@ -75,17 +75,17 @@ class BusStop:
             return []
         
         # restrict the waiting time for the first bus to 15 minutes
-        if self.timeOfLastBusArrival == SimulationTime.startTime:
-            self.timeOfLastBusArrival = SimulationTime.currentTime - 15
+        if self.timeOfLastBusArrival == Simulation.startTime:
+            self.timeOfLastBusArrival = Simulation.currentTime - 15
 
         # generate passengers
         arrivalTimes = []
         currentTime = self.timeOfLastBusArrival
-        while currentTime < SimulationTime.currentTime:
+        while currentTime < Simulation.currentTime:
             interArrivalTime = RandomNumberGenerator.exponential(1 / lambdaValue)
             currentTime += interArrivalTime
 
-            if currentTime < SimulationTime.currentTime:
+            if currentTime < Simulation.currentTime:
                 arrivalTimes.append(currentTime)
                 # update statistics
                 self.stats.updatePassengersArrivedPerHour(1, currentTime // 60 % 24)
@@ -186,21 +186,21 @@ class Bus:
         numberOfLeavingPassengers = round(self.load * self.currentBusStop.leavingPassengersRate)
         self.load = max(0, self.load - numberOfLeavingPassengers)
         # update statistics
-        self.currentBusStop.stats.updatePassengersDepartedPerHour(numberOfLeavingPassengers, SimulationTime.getHour())
+        self.currentBusStop.stats.updatePassengersDepartedPerHour(numberOfLeavingPassengers, Simulation.getHour())
         
     def boardPassengers(self):
         self.state = Bus.State.Boarding
         # notify bus stop to generate new passengers
         self.triggerOutputSignal(Bus.OutputSignals.Boarding)
         # board passengers, if there is capacity and there are passengers waiting
-        while self.load < self.capacity and len(self.currentBusStop.waitingPassangersArrivalTimes) > 0 and self.currentBusStop.waitingPassangersArrivalTimes[0] <= SimulationTime.currentTime:
+        while self.load < self.capacity and len(self.currentBusStop.waitingPassangersArrivalTimes) > 0 and self.currentBusStop.waitingPassangersArrivalTimes[0] <= Simulation.currentTime:
             self.load += 1
             passengerArrivalTime = self.currentBusStop.waitingPassangersArrivalTimes.pop(0)
             # update statistics
-            self.currentBusStop.stats.updateTimeSpentWaitingPerHour(SimulationTime.currentTime - passengerArrivalTime, SimulationTime.getHour())
+            self.currentBusStop.stats.updateTimeSpentWaitingPerHour(Simulation.currentTime - passengerArrivalTime, Simulation.getHour())
             self.stats.updateTotalPassengersTransported(1)
         # update statistics
-        self.currentBusStop.stats.updatePassengersWaitingForNextBusPerHour(len(self.currentBusStop.waitingPassangersArrivalTimes), SimulationTime.getHour())
+        self.currentBusStop.stats.updatePassengersWaitingForNextBusPerHour(len(self.currentBusStop.waitingPassangersArrivalTimes), Simulation.getHour())
         self.stats.updateLoadPerBusStop(self.load, self.currentBusStop.name)
         
     def departFromStop(self):

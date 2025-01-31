@@ -23,3 +23,6 @@
 
 % plot
 % https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html
+
+% geneticky algoritmus izu
+% https://moodle.vut.cz/pluginfile.php/803426/mod_page/content/2/20230519-opora-IZU.pdf?time=1714219993762
