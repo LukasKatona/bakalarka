@@ -81,8 +81,4 @@ class Simulation:
                 bus.stats.agregateTotal()
                 busStats.append(bus.stats)
 
-        Statistics(len(buses), busStopStats, busStats, "sk")
-
-        # print statistics
-        Statistics.print()
-        Statistics.saveAllGraphs()
+        return Statistics(len(buses), busStopStats, busStats, "sk")

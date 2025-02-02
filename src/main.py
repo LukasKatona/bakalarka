@@ -1,15 +1,19 @@
 import sys
+from Genetics import Genetics
 from InputParser import InputParser
-from EventCalendar import EventCalendar, Event
-from Simulation import Simulation
-from Statistics import Statistics
-from models import Bus, BusStop
+from models import TimeTable
 
-# initialize variables
-# parse bus stops input file
 busStops = InputParser.parseBusStopsFromFile(sys.argv[1])
-# parse time table input file
-timeTable = InputParser.parseTimeTableFromFile(sys.argv[2])
-Simulation.run(0, 24*60, busStops, timeTable)
+# timeTable = InputParser.parseTimeTableFromFile(sys.argv[2])
+# Simulation.run(0, 24*60, busStops, timeTable)
 
+genetics = Genetics(20, 0.01, 0.9, 2, busStops)
+
+
+for i in range(500):
+    print(str(i) + " generation\n")
+    genetics.updateGeneration()
+
+timeTable = TimeTable(genetics.generation[0].chromosome)
+print(timeTable)
 

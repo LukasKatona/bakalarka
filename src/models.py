@@ -105,6 +105,9 @@ class TimeTable:
     # INIT
     def __init__(self):
         self.rows = []
+    def __init__(self, chromosome):
+        self.rows = []
+        self.generateFromChromosome(chromosome)
 
     class TimeTableRow:
         # INIT
@@ -122,6 +125,20 @@ class TimeTable:
             for minute in row.minutes:
                 times.append(row.hour * 60 + minute)
         return times
+    
+    def getChromosome(self):
+        chromosome = [0] * 24
+        for row in self.rows:
+            chromosome[row.hour] = len(row.minutes)
+        return chromosome
+    
+    def generateFromChromosome(self, chromosome):
+        for i in range(len(chromosome)):
+            if chromosome[i] != "0":
+                # generate array of minutes equally distributed in one hour based on number in parts[i]
+                minutes = [int((j + 1) * 60 / (int(chromosome[i]) + 1)) for j in range(int(chromosome[i]))]
+                self.addRow(i, minutes)
+
 
     def __str__(self):
         return "\n".join([f"{row.hour:02}: " + ", ".join([f"{minute:02}" for minute in row.minutes]) for row in self.rows])
