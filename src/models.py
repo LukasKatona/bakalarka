@@ -45,6 +45,12 @@ class BusStop:
         self.waitingPassangersArrivalTimes = []
         self.setOutputSignals()
         self.stats = BusStopStatistics(name)
+    
+    def clear(self):
+        self.timeOfLastBusArrival = Simulation.startTime
+        self.timeIntervalBetweenBuses = 0
+        self.waitingPassangersArrivalTimes = []
+        self.stats.clear()
 
     # METHODS
     def busArrived(self):
@@ -103,11 +109,10 @@ class BusStop:
 # ----------------------------- TIMETABLE -----------------------------
 class TimeTable:
     # INIT
-    def __init__(self):
+    def __init__(self, chromosome=None):
         self.rows = []
-    def __init__(self, chromosome):
-        self.rows = []
-        self.generateFromChromosome(chromosome)
+        if chromosome is not None:
+            self.generateFromChromosome(chromosome)
 
     class TimeTableRow:
         # INIT

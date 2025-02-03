@@ -1,25 +1,34 @@
 import sys
 from Genetics import Genetics
 from InputParser import InputParser
+from Simulation import Simulation
 from models import TimeTable
 
 busStops = InputParser.parseBusStopsFromFile(sys.argv[1])
-# timeTable = InputParser.parseTimeTableFromFile(sys.argv[2])
-# Simulation.run(0, 24*60, busStops, timeTable)
+timeTable = InputParser.parseTimeTableFromFile(sys.argv[2])
+#Simulation.run(0, 24*60, busStops, timeTable)
 
-genetics = Genetics(20, 1.0, 0, busStops)
+constraints = [0,0,0,0,0,'x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x',0]
+#constraints = ['x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x']
+genetics = Genetics(10, 0.1, 2, busStops, constraints)
 
-last3Chromosomes = []
-for i in range(500):
-    print(str(i) + " generation: best fitness: " + str(genetics.generation[0].fitness))
-    timeTable = TimeTable(genetics.generation[0].chromosome)
-    print(timeTable)
+lastChromosomes = []
+for i in range(10):
+    print(str(i) + " generation - best score: " + str(genetics.generation[0].totalScore))
+    if genetics.generation[0].totalScore < 0.2:
+        break
+    print(genetics)
     genetics.updateGeneration()
-    last3Chromosomes.append(genetics.generation[0].chromosome)
-    if len(last3Chromosomes) == 3:
-        if last3Chromosomes[0] == last3Chromosomes[1] == last3Chromosomes[2]:
+    lastChromosomes.append(genetics.generation[0].chromosome)
+    if len(lastChromosomes) == 5:
+        if lastChromosomes[0] == lastChromosomes[1] == lastChromosomes[2] == lastChromosomes[3] == lastChromosomes[4]:
             break
-        last3Chromosomes.pop(0)
+        lastChromosomes.pop(0)
+
+timeTable = TimeTable(genetics.generation[0].chromosome)
+print(timeTable)
+stats = Simulation.run(0, 24*60, busStops, timeTable)
+stats.saveAllGraphs()
 
 
     

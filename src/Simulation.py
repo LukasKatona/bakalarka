@@ -37,8 +37,13 @@ class Simulation:
     def run(startTime, endTime, busStops, timeTable):
         from models import Bus, BusStop
 
+        for busStop in busStops:
+            busStop.clear()
+
         # initialize variables
-        Simulation(startTime, endTime)
+        Simulation.startTime = startTime
+        Simulation.currentTime = startTime
+        Simulation.endTime = endTime
         eventCalendar = EventCalendar()
         buses = []
 

@@ -1,3 +1,3 @@
 all: run
 run:
-	python main.py .\inputs\bus-stops.txt
+	python main.py .\inputs\bus-stops.txt .\inputs\time-table.txt

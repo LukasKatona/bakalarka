@@ -2,23 +2,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 class Statistics:
-    # Static global variables
-    totalNumberOfBuses = 0
-    busStopStatistics = None
-    busStatistics = None
-    language = "en"
-
     # INIT
-    def __init__(self, totalNumberOfBuses, busStopStatistics, busStatistics, language):
-        Statistics.totalNumberOfBuses = totalNumberOfBuses
-        Statistics.busStopStatistics = Statistics.agregateBusStopStatistics(busStopStatistics)
-        Statistics.busStatistics = Statistics.agregateBusStatistics(busStatistics)
-        Statistics.language = language
-
+    def __init__(self, totalNumberOfBuses=0, busStopStatistics=None, busStatistics=None, language="en"):
+        self.totalNumberOfBuses = totalNumberOfBuses
+        self.language = language
+        self.busStopStatistics = self.agregateBusStopStatistics(busStopStatistics)
+        self.busStatistics = self.agregateBusStatistics(busStatistics)
+        
     # METHODS
-    @staticmethod
-    def agregateBusStopStatistics(busStopStatistics):
-        busStopStatisticsAgregated = BusStopStatistics("Agregated")
+    def agregateBusStopStatistics(self, busStopStatistics):
+        busStopStatisticsAgregated = BusStopStatistics("Agregated", self.language)
         for busStop in busStopStatistics:
             for hourValuePair in busStop.passengersArrivedPerHour:
                 busStopStatisticsAgregated.updatePassengersArrivedPerHour(hourValuePair[1], hourValuePair[0])
@@ -32,9 +25,8 @@ class Statistics:
         busStopStatisticsAgregated.agregateTotal()
         return busStopStatisticsAgregated
 
-    @staticmethod
-    def agregateBusStatistics(busStatistics):
-        busStatisticsAgregated = BusStatistics("Agregated", 80)
+    def agregateBusStatistics(self, busStatistics):
+        busStatisticsAgregated = BusStatistics("Agregated", 80, self.language)
         loadPerBusStop = {}
         for bus in busStatistics:
             for nameValuePair in bus.loadPerBusStop:
@@ -51,51 +43,45 @@ class Statistics:
         return busStatisticsAgregated
     
     # CLEAR
-    @staticmethod
-    def clear():
-        Statistics.totalNumberOfBuses = 0
-        Statistics.busStopStatistics.clear()
-        Statistics.busStatistics.clear()
+    def clear(self):
+        self.totalNumberOfBuses = 0
+        self.busStopStatistics.clear()
+        self.busStatistics.clear()
 
     # SAVE GRAPHS
-    @staticmethod
-    def saveAllGraphs():
-        Statistics.busStopStatistics.savePassengersArrivedPerHour("outputs/passengersArrivedPerHour.png")
-        Statistics.busStopStatistics.savePassengersDepartedPerHour("outputs/passengersDepartedPerHour.png")
-        Statistics.busStopStatistics.savePassengersWaitingForNextBusPerHour("outputs/passengersWaitingForNextBusPerHour.png")
-        Statistics.busStopStatistics.saveTimeSpentWaitingPerHour("outputs/timeSpentWaitingPerHour.png")
-        Statistics.busStatistics.saveLoadPerBusStop("outputs/loadPerBusStop.png")
-        Statistics.busStatistics.saveLoadInPercentPerBusStop("outputs/loadInPercentPerBusStop.png")
+    def saveAllGraphs(self):
+        self.busStopStatistics.savePassengersArrivedPerHour("outputs/passengersArrivedPerHour.png")
+        self.busStopStatistics.savePassengersDepartedPerHour("outputs/passengersDepartedPerHour.png")
+        self.busStopStatistics.savePassengersWaitingForNextBusPerHour("outputs/passengersWaitingForNextBusPerHour.png")
+        self.busStopStatistics.saveTimeSpentWaitingPerHour("outputs/timeSpentWaitingPerHour.png")
+        self.busStatistics.saveLoadPerBusStop("outputs/loadPerBusStop.png")
+        self.busStatistics.saveLoadInPercentPerBusStop("outputs/loadInPercentPerBusStop.png")
 
     # STR
-    @staticmethod
-    def print():
-        if (Statistics.language == "sk"):
+    def print(self):
+        if (self.language == "sk"):
             print( "================================================================\n" + \
                 "Štatistiky\n" + \
                 "================================================================\n" + \
-                f"Celkový počet autobusov: {Statistics.totalNumberOfBuses}\n" + \
-                f"Štatistiky zastávok:\n{Statistics.busStopStatistics}\n" + \
-                f"Štatistiky autobusov:\n{Statistics.busStatistics}\n" + \
+                f"Celkový počet autobusov: {self.totalNumberOfBuses}\n" + \
+                f"Štatistiky zastávok:\n{self.busStopStatistics}\n" + \
+                f"Štatistiky autobusov:\n{self.busStatistics}\n" + \
                 "================================================================\n")
         else:
             print( "================================================================\n" + \
                 "Statistics\n" + \
                 "================================================================\n" + \
-                f"Total number of buses: {Statistics.totalNumberOfBuses}\n" + \
-                f"Bus stop statistics:\n{Statistics.busStopStatistics}\n" + \
-                f"Bus statistics:\n{Statistics.busStatistics}\n" + \
+                f"Total number of buses: {self.totalNumberOfBuses}\n" + \
+                f"Bus stop statistics:\n{self.busStopStatistics}\n" + \
+                f"Bus statistics:\n{self.busStatistics}\n" + \
                 "================================================================\n")
-
-    @staticmethod
-    def keyValuePairArrayToString(keyValuePairArray):
-        return "\n".join([f"{x[0]}: {x[1]}" for x in keyValuePairArray])
 
 # ------------------------------ BUSSTOP ------------------------------
 class BusStopStatistics:
     # INIT
-    def __init__(self, name):
+    def __init__(self, name, language="en"):
         self.name = name
+        self.language = language
         # total
         self.totalPassengersArrived = 0
         self.totalPassengersDeparted = 0
@@ -202,57 +188,57 @@ class BusStopStatistics:
         x = [x[0] for x in self.passengersArrivedPerHour]
         y = [x[1] for x in self.passengersArrivedPerHour]
         plt.bar(x, y)
-        plt.xlabel('Hodina' if Statistics.language == "sk" else 'Hour')
-        plt.ylabel('Cestujúci' if Statistics.language == "sk" else 'Passengers')
+        plt.xlabel('Hodina' if self.language == "sk" else 'Hour')
+        plt.ylabel('Cestujúci' if self.language == "sk" else 'Passengers')
         plt.xlim(0, 24)
         plt.xticks(np.arange(0, 25, 1))
         if self.name != "Agregated":
-            plt.title(f'Cestujúci prichádzajúci na {self.name}' if Statistics.language == "sk" else f'Passengers Arrived at {self.name}')
+            plt.title(f'Cestujúci prichádzajúci na {self.name}' if self.language == "sk" else f'Passengers Arrived at {self.name}')
         else:
-            plt.title('Cestujúci prichádzajúci na všetky zastávky' if Statistics.language == "sk" else 'Passengers Arrived at All Bus Stops')
+            plt.title('Cestujúci prichádzajúci na všetky zastávky' if self.language == "sk" else 'Passengers Arrived at All Bus Stops')
 
     def plotPassengersDepartedPerHour(self):
         x = [x[0] for x in self.passengersDepartedPerHour]
         y = [x[1] for x in self.passengersDepartedPerHour]
         plt.bar(x, y)
-        plt.xlabel('Hodina' if Statistics.language == "sk" else 'Hour')
-        plt.ylabel('Cestujúci' if Statistics.language == "sk" else 'Passengers')
+        plt.xlabel('Hodina' if self.language == "sk" else 'Hour')
+        plt.ylabel('Cestujúci' if self.language == "sk" else 'Passengers')
         plt.xlim(0, 24)
         plt.xticks(np.arange(0, 25, 1))
         if self.name != "Agregated":
-            plt.title(f'Cestujúci odchádzajúci z {self.name}' if Statistics.language == "sk" else f'Passengers Departed at {self.name}')
+            plt.title(f'Cestujúci odchádzajúci z {self.name}' if self.language == "sk" else f'Passengers Departed at {self.name}')
         else:
-            plt.title('Cestujúci odchádzajúci zo všetkých zastávok' if Statistics.language == "sk" else 'Passengers Departed at All Bus Stops')
+            plt.title('Cestujúci odchádzajúci zo všetkých zastávok' if self.language == "sk" else 'Passengers Departed at All Bus Stops')
 
     def plotPassengersWaitingForNextBusPerHour(self):
         x = [x[0] for x in self.passengersWaitingForNextBusPerHour]
         y = [x[1] for x in self.passengersWaitingForNextBusPerHour]
         plt.bar(x, y)
-        plt.xlabel('Hodina' if Statistics.language == "sk" else 'Hour')
-        plt.ylabel('Cestujúci' if Statistics.language == "sk" else 'Passengers')
+        plt.xlabel('Hodina' if self.language == "sk" else 'Hour')
+        plt.ylabel('Cestujúci' if self.language == "sk" else 'Passengers')
         plt.xlim(0, 24)
         plt.xticks(np.arange(0, 25, 1))
         if self.name != "Agregated":
-            plt.title(f'Cestujúci čakajúci na ďalší autobus na {self.name}' if Statistics.language == "sk" else f'Passengers Waiting for Next Bus at {self.name}')
+            plt.title(f'Cestujúci čakajúci na ďalší autobus na {self.name}' if self.language == "sk" else f'Passengers Waiting for Next Bus at {self.name}')
         else:
-            plt.title('Cestujúci čakajúci na ďalší autobus na všetkých zastávkach' if Statistics.language == "sk" else 'Passengers Waiting for Next Bus at All Bus Stops')
+            plt.title('Cestujúci čakajúci na ďalší autobus na všetkých zastávkach' if self.language == "sk" else 'Passengers Waiting for Next Bus at All Bus Stops')
 
     def plotTimeSpentWaitingPerHour(self):
         x = [x[0] for x in self.timeSpentWaitingPerHour]
         y = [x[1] for x in self.timeSpentWaitingPerHour]
         plt.bar(x, y)
-        plt.xlabel('Hodina' if Statistics.language == "sk" else 'Hour')
-        plt.ylabel('Čas (minúty)' if Statistics.language == "sk" else 'Time (minutes)')
+        plt.xlabel('Hodina' if self.language == "sk" else 'Hour')
+        plt.ylabel('Čas (minúty)' if self.language == "sk" else 'Time (minutes)')
         plt.xlim(0, 24)
         plt.xticks(np.arange(0, 25, 1))
         if self.name != "Agregated":
-            plt.title(f'Čas strávený čakaním cestujúcich na {self.name}' if Statistics.language == "sk" else f'Time Passengers Spent Waiting at {self.name}')
+            plt.title(f'Čas strávený čakaním cestujúcich na {self.name}' if self.language == "sk" else f'Time Passengers Spent Waiting at {self.name}')
         else:
-            plt.title('Čas strávený čakaním cestujúcich na všetkých zastávkach' if Statistics.language == "sk" else 'Time Passengers Spent Waiting at All Bus Stops')
+            plt.title('Čas strávený čakaním cestujúcich na všetkých zastávkach' if self.language == "sk" else 'Time Passengers Spent Waiting at All Bus Stops')
 
     # STR
     def __str__(self):
-        if (Statistics.language == "sk"):
+        if (self.language == "sk"):
             return "=============================================================\n" + \
                 f"Zastávka: {self.name}\n" + \
                 "=============================================================\n" + \
@@ -261,10 +247,10 @@ class BusStopStatistics:
                 f"Celkový počet cestujúcich čakajúcich na ďalší autobus: {self.totalPassengersWaitingForNextBus}\n" + \
                 f"Celkový čas strávený čakaním: {self.totalTimeSpentWaiting} minút\n" + \
                 f"Celkový počet cestujúcich, ktorí ostali neobslúžení: {self.totalPassangersLeftUnboarded}\n" + \
-                f"Prichádzajúci cestujúci za hodinu:\n{Statistics.keyValuePairArrayToString(self.passengersArrivedPerHour)}\n" + \
-                f"Odchádzajúci cestujúci za hodinu:\n{Statistics.keyValuePairArrayToString(self.passengersDepartedPerHour)}\n" + \
-                f"Cestujúci čakajúci na ďalší autobus za hodinu:\n{Statistics.keyValuePairArrayToString(self.passengersWaitingForNextBusPerHour)}\n" + \
-                f"Čas strávený čakaním za hodinu (v minútach):\n{Statistics.keyValuePairArrayToString(self.timeSpentWaitingPerHour)}\n" + \
+                f"Prichádzajúci cestujúci za hodinu:\n{self.keyValuePairArrayToString(self.passengersArrivedPerHour)}\n" + \
+                f"Odchádzajúci cestujúci za hodinu:\n{self.keyValuePairArrayToString(self.passengersDepartedPerHour)}\n" + \
+                f"Cestujúci čakajúci na ďalší autobus za hodinu:\n{self.keyValuePairArrayToString(self.passengersWaitingForNextBusPerHour)}\n" + \
+                f"Čas strávený čakaním za hodinu (v minútach):\n{self.keyValuePairArrayToString(self.timeSpentWaitingPerHour)}\n" + \
                 "=============================================================\n"
         else:
             return "=============================================================\n" + \
@@ -275,18 +261,22 @@ class BusStopStatistics:
                 f"Total passengers waited for next bus: {self.totalPassengersWaitingForNextBus}\n" + \
                 f"Total time spent waiting: {self.totalTimeSpentWaiting} minutes\n" + \
                 f"Total passangers left unboarded: {self.totalPassangersLeftUnboarded}\n" + \
-                f"Passengers arrived per hour:\n{Statistics.keyValuePairArrayToString(self.passengersArrivedPerHour)}\n" + \
-                f"Passengers departed per hour:\n{Statistics.keyValuePairArrayToString(self.passengersDepartedPerHour)}\n" + \
-                f"Passengers waiting for next bus per hour:\n{Statistics.keyValuePairArrayToString(self.passengersWaitingForNextBusPerHour)}\n" + \
-                f"Time spent waiting per hour (in minutes):\n{Statistics.keyValuePairArrayToString(self.timeSpentWaitingPerHour)}\n" + \
+                f"Passengers arrived per hour:\n{self.keyValuePairArrayToString(self.passengersArrivedPerHour)}\n" + \
+                f"Passengers departed per hour:\n{self.keyValuePairArrayToString(self.passengersDepartedPerHour)}\n" + \
+                f"Passengers waiting for next bus per hour:\n{self.keyValuePairArrayToString(self.passengersWaitingForNextBusPerHour)}\n" + \
+                f"Time spent waiting per hour (in minutes):\n{self.keyValuePairArrayToString(self.timeSpentWaitingPerHour)}\n" + \
                 "=============================================================\n"
+    
+    def keyValuePairArrayToString(keyValuePairArray):
+        return "\n".join([f"{x[0]}: {x[1]}" for x in keyValuePairArray])
     
 # -------------------------------- BUS --------------------------------
 class BusStatistics:
     # INIT
-    def __init__(self, busNumber, capacity):
+    def __init__(self, busNumber, capacity, language="en"):
         self.busNumber = busNumber
         self.capacity = capacity
+        self.language = language
         # total
         self.averageLoad = 0
         self.averageLoadInPercent = 0
@@ -343,15 +333,15 @@ class BusStatistics:
         plt.figure(figsize=(15, 6))
         plt.barh(x, y)
         plt.yticks(x, [x[0] for x in self.loadPerBusStop][::-1])
-        plt.axvline(self.averageLoad, color='r', linestyle='--', label=f'Priemerná naplnenosť: {self.averageLoad:.2f}' if Statistics.language == "sk" else f'Average Load: {self.averageLoad:.2f}')
-        plt.xlabel('Naplnenosť' if Statistics.language == "sk" else 'Load')
-        plt.ylabel('Autobusová zastávka' if Statistics.language == "sk" else 'Bus Stop')
+        plt.axvline(self.averageLoad, color='r', linestyle='--', label=f'Priemerná naplnenosť: {self.averageLoad:.2f}' if self.language == "sk" else f'Average Load: {self.averageLoad:.2f}')
+        plt.xlabel('Naplnenosť' if self.language == "sk" else 'Load')
+        plt.ylabel('Autobusová zastávka' if self.language == "sk" else 'Bus Stop')
         plt.xlim(0, self.capacity)
         plt.legend()
         if self.busNumber != "Agregated":
-            plt.title(f'Naplnenosť autobusu #{self.busNumber} na zastávku' if Statistics.language == "sk" else f'Bus #{self.busNumber} Load per Bus Stop')
+            plt.title(f'Naplnenosť autobusu #{self.busNumber} na zastávku' if self.language == "sk" else f'Bus #{self.busNumber} Load per Bus Stop')
         else:
-            plt.title(f'Priemerná naplnenosť autobusov na zastávku' if Statistics.language == "sk" else f'Average Bus Load per Bus Stop')
+            plt.title(f'Priemerná naplnenosť autobusov na zastávku' if self.language == "sk" else f'Average Bus Load per Bus Stop')
 
     def plotLoadInPercentPerBusStop(self):
         x = np.arange(len(self.LoadInPercentPerBusStop))
@@ -359,28 +349,28 @@ class BusStatistics:
         plt.figure(figsize=(15, 6))
         plt.barh(x, y)
         plt.yticks(x, [x[0] for x in self.LoadInPercentPerBusStop][::-1])
-        plt.axvline(self.averageLoadInPercent, color='r', linestyle='--', label=f'Priemerná naplnenosť: {round(self.averageLoadInPercent * 100)}%' if Statistics.language == "sk" else f'Average Load: {round(self.averageLoadInPercent * 100)}%')
-        plt.xlabel('Naplnenosť' if Statistics.language == "sk" else 'Load')
-        plt.ylabel('Autobusová zastávka' if Statistics.language == "sk" else 'Bus Stop')
+        plt.axvline(self.averageLoadInPercent, color='r', linestyle='--', label=f'Priemerná naplnenosť: {round(self.averageLoadInPercent * 100)}%' if self.language == "sk" else f'Average Load: {round(self.averageLoadInPercent * 100)}%')
+        plt.xlabel('Naplnenosť' if self.language == "sk" else 'Load')
+        plt.ylabel('Autobusová zastávka' if self.language == "sk" else 'Bus Stop')
         plt.xlim(0, 1)
         plt.xticks(np.linspace(0, 1, 11), [f'{int(x*100)}%' for x in np.linspace(0, 1, 11)])
         plt.legend()
         if self.busNumber != "Agregated":
-            plt.title(f'Naplnenosť autobusu #{self.busNumber} v percentách na zastávku' if Statistics.language == "sk" else f'Bus #{self.busNumber} Load in Percent per Bus Stop')
+            plt.title(f'Naplnenosť autobusu #{self.busNumber} v percentách na zastávku' if self.language == "sk" else f'Bus #{self.busNumber} Load in Percent per Bus Stop')
         else:
-            plt.title(f'Priemerná naplnenosť autobusov v percentách na zastávku' if Statistics.language == "sk" else f'Average Bus Load in Percent per Bus Stop')
+            plt.title(f'Priemerná naplnenosť autobusov v percentách na zastávku' if self.language == "sk" else f'Average Bus Load in Percent per Bus Stop')
 
     # STR
     def __str__(self):
-        if (Statistics.language == "sk"):
+        if (self.language == "sk"):
             return "=============================================================\n" + \
                f"Autobus #{self.busNumber}\n" + \
                "=============================================================\n" + \
                f"Priemerná naplnenosť: {self.averageLoad}\n" + \
                f"Priemerná naplnenosť v percentách: {self.averageLoadInPercent}\n" + \
                f"Celkový počet prepravených cestujúcich: {self.totalPassengersTransported}\n" + \
-               f"Naplnenosť na zastávku:\n{Statistics.keyValuePairArrayToString(self.loadPerBusStop)}\n" + \
-               f"Naplnenosť v percentách na zastávku:\n{Statistics.keyValuePairArrayToString(self.LoadInPercentPerBusStop)}\n" + \
+               f"Naplnenosť na zastávku:\n{self.keyValuePairArrayToString(self.loadPerBusStop)}\n" + \
+               f"Naplnenosť v percentách na zastávku:\n{self.keyValuePairArrayToString(self.LoadInPercentPerBusStop)}\n" + \
                "=============================================================\n"
         else:
             return "=============================================================\n" + \
@@ -389,6 +379,9 @@ class BusStatistics:
                f"Average load: {self.averageLoad}\n" + \
                f"Average load in percent: {self.averageLoadInPercent}\n" + \
                f"Total passengers transported: {self.totalPassengersTransported}\n" + \
-               f"Load per bus stop:\n{Statistics.keyValuePairArrayToString(self.loadPerBusStop)}\n" + \
-               f"Load in percent per bus stop:\n{Statistics.keyValuePairArrayToString(self.LoadInPercentPerBusStop)}\n" + \
+               f"Load per bus stop:\n{self.keyValuePairArrayToString(self.loadPerBusStop)}\n" + \
+               f"Load in percent per bus stop:\n{self.keyValuePairArrayToString(self.LoadInPercentPerBusStop)}\n" + \
                "=============================================================\n"
+        
+    def keyValuePairArrayToString(keyValuePairArray):
+        return "\n".join([f"{x[0]}: {x[1]}" for x in keyValuePairArray])
