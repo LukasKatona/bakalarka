@@ -5,10 +5,9 @@ from models import TimeTable
 
 class Genetics:
     # INIT
-    def __init__(self, populationSize, mutationRate, crossoverRate, elitismCount, busStops):
+    def __init__(self, populationSize, mutationRate, elitismCount, busStops):
         self.populationSize = populationSize
         self.mutationRate = mutationRate
-        self.crossoverRate = crossoverRate
         self.elitismCount = elitismCount
         self.busStops = busStops
         self.generation = []
@@ -18,6 +17,10 @@ class Genetics:
     def initPopulation(self):
         for i in range(self.populationSize):
             self.generation.append(Individual(self.busStops))
+
+        for individual in self.generation:
+            individual.calculateFitness()
+        self.generation.sort(key=lambda x: x.fitness)
 
     def crossover(self, parent1, parent2):
         index = RandomNumberGenerator.integers(0, 24)
@@ -32,11 +35,8 @@ class Genetics:
         return parent2
         
     def updateGeneration(self):
-        for i in range(self.populationSize):
-            self.generation[i].calculateFitness()
-        self.generation.sort(key=lambda x: x.fitness)
-        
         newGeneration = []
+
         for i in range(self.elitismCount):
             newGeneration.append(self.generation[i])
 
@@ -45,7 +45,15 @@ class Genetics:
             parent2 = self.parentSelection()
             newGeneration.append(self.crossover(parent1, parent2))
 
+        for individual in newGeneration:
+            if RandomNumberGenerator.uniform() < self.mutationRate:
+                individual.mutate()
+
         self.generation = newGeneration
+
+        for individual in self.generation:
+            individual.calculateFitness()
+        self.generation.sort(key=lambda x: x.fitness)
 
     # STR
     def __str__(self):
