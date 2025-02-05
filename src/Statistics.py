@@ -267,7 +267,7 @@ class BusStopStatistics:
                 f"Time spent waiting per hour (in minutes):\n{self.keyValuePairArrayToString(self.timeSpentWaitingPerHour)}\n" + \
                 "=============================================================\n"
     
-    def keyValuePairArrayToString(keyValuePairArray):
+    def keyValuePairArrayToString(self, keyValuePairArray):
         return "\n".join([f"{x[0]}: {x[1]}" for x in keyValuePairArray])
     
 # -------------------------------- BUS --------------------------------
@@ -383,5 +383,5 @@ class BusStatistics:
                f"Load in percent per bus stop:\n{self.keyValuePairArrayToString(self.LoadInPercentPerBusStop)}\n" + \
                "=============================================================\n"
         
-    def keyValuePairArrayToString(keyValuePairArray):
+    def keyValuePairArrayToString(self, keyValuePairArray):
         return "\n".join([f"{x[0]}: {x[1]}" for x in keyValuePairArray])

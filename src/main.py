@@ -10,13 +10,11 @@ timeTable = InputParser.parseTimeTableFromFile(sys.argv[2])
 
 constraints = [0,0,0,0,0,'x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x',0]
 #constraints = ['x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x']
-genetics = Genetics(10, 0.1, 2, busStops, constraints)
+genetics = Genetics(10, 0.3, 2, busStops, constraints)
 
 lastChromosomes = []
-for i in range(10):
+for i in range(100):
     print(str(i) + " generation - best score: " + str(genetics.generation[0].totalScore))
-    if genetics.generation[0].totalScore < 0.2:
-        break
     print(genetics)
     genetics.updateGeneration()
     lastChromosomes.append(genetics.generation[0].chromosome)
