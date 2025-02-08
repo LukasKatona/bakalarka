@@ -6,7 +6,9 @@ from .footer import footer
 def layout(content: rx.Component) -> rx.Component:
     return rx.vstack(
         navbar(),
-        rx.box(content, padding="1em", flex="1"),
+        rx.box(content, padding="1em", flex="1", width="70%"),
         footer(),
-        height="100vh",
+        padding_top="5em",
+        min_height="100vh",
+        align_items="center",
     )

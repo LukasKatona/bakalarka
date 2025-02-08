@@ -10,7 +10,6 @@ def navbar_item(icon: str, text: str, url: str) -> rx.Component:
         style={"text-decoration": "none"},
     )
 
-
 def navbar() -> rx.Component:
     return rx.box(
         rx.hstack(
@@ -43,11 +42,13 @@ def navbar() -> rx.Component:
             ),
             justify="between",
             align_items="center",
+            height="100%",
         ),
         bg=rx.color("accent", 5),
         padding="1em",
-        # position="fixed",
-        # top="0px",
-        # z_index="5",
+        position="fixed",
+        top="0px",
+        z_index="5",
         width="100%",
+        height="5em",
     )

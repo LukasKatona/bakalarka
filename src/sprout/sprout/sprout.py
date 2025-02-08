@@ -24,7 +24,6 @@ def optimizePage() -> rx.Component:
         optimize(),
     )
 
-
 app = rx.App(
     theme=rx.theme(
         appearance="light",
