@@ -6,7 +6,6 @@ from ..backend.Simulation import Simulation
 from ..backend.Statistics import Statistics
 
 from ..components.layout import layout
-from ..components.fileUpload import fileUpload
 from ..components.infoCard import infoCard
 from ..components.hourChart import hourChart
 from ..components.busStopChart import busStopChart
@@ -21,7 +20,9 @@ def getFilePath(fileName: str) -> str:
     return os.path.join(os.path.dirname(__file__), fileName)
 
 class AnalyzePageState(rx.State):
+    bus_sops_filename: str = ""
     bus_stops_filecontent: str = ""
+    time_table_filename: str = ""
     time_table_filecontent: str = ""
 
     numberOfBusStops: int
@@ -50,10 +51,12 @@ class AnalyzePageState(rx.State):
 
     @rx.event
     async def handle_upload_bus_stops(self, uploadBusStops: list[rx.UploadFile]):
+        self.bus_sops_filename = uploadBusStops[0].filename
         self.bus_stops_filecontent = uploadBusStops[0].file.read().decode('utf-8')
 
     @rx.event
     async def handle_upload_time_table(self, uploadTimeTable: list[rx.UploadFile]):
+        self.time_table_filename = uploadTimeTable[0].filename
         self.time_table_filecontent = uploadTimeTable[0].file.read().decode('utf-8')
 
     @rx.event
@@ -138,12 +141,26 @@ def analyze() -> rx.Component:
                     ),
                     align_items="center",
                 ),
-                fileUpload(
-                "upload_bus_stops",
-                "Nahrajte .txt súbor s infomáciami o zastávkach.",
-                "Nahrať súbor",
-                ),
-                
+                rx.upload(
+                    rx.vstack(
+                        rx.text("Nahrajte .txt súbor s infomáciami o zastávkach."),
+                        rx.button("Nahrať súbor"),
+                        rx.cond(
+                            AnalyzePageState.bus_sops_filename != "",
+                            rx.text(AnalyzePageState.bus_sops_filename),
+                            rx.text("\u00A0"),
+                        ),
+                        align_items="center",
+                    ),
+                    id="upload_bus_stops",
+                    accept=".txt",
+                    max_files=1,
+                    padding="2em",
+                    multiple=False,
+                    width="100%",
+                    height="100%",
+                    on_drop=AnalyzePageState.handle_upload_bus_stops(rx.upload_files("upload_bus_stops")),
+                ),              
                 flex="1",
             ),
             rx.vstack(
@@ -178,12 +195,26 @@ def analyze() -> rx.Component:
                     ),
                     align_items="center",
                 ),
-                fileUpload(
-                    "upload_time_table",
-                    "Nahrajte .txt súbor s infomáciami o časovom rozpise linky.",
-                    "Nahrať súbor",
-                ),
-                
+                rx.upload(
+                    rx.vstack(
+                        rx.text("Nahrajte .txt súbor s infomáciami o časovom rozpise linky."),
+                        rx.button("Nahrať súbor"),
+                        rx.cond(
+                            AnalyzePageState.time_table_filename != "",
+                            rx.text(AnalyzePageState.time_table_filename),
+                            rx.text("\u00A0"),
+                        ),
+                        align_items="center",
+                    ),
+                    id="upload_time_table",
+                    accept=".txt",
+                    max_files=1,
+                    padding="2em",
+                    multiple=False,
+                    width="100%",
+                    height="100%",
+                    on_drop=AnalyzePageState.handle_upload_time_table(rx.upload_files("upload_time_table")),
+                ),                   
                 flex="1",
             ),
             spacing="5",
@@ -193,11 +224,7 @@ def analyze() -> rx.Component:
         rx.hstack(
             rx.button(
                 rx.heading("Analyzovať"),
-                on_click=[
-                    AnalyzePageState.handle_upload_bus_stops(rx.upload_files("upload_bus_stops")),
-                    AnalyzePageState.handle_upload_time_table(rx.upload_files("upload_time_table")),
-                    AnalyzePageState.handle_analyze(),
-                ],
+                on_click=AnalyzePageState.handle_analyze(),
                 size="4",
             ),
             width="100%",
@@ -206,6 +233,12 @@ def analyze() -> rx.Component:
         rx.cond(
             AnalyzePageState.showAnalysis,
             rx.vstack(
+                rx.hstack(
+                    rx.heading("Výsledky analýzy", size="8"),
+                    padding_y="1em",
+                    width="100%",
+                    justify="center",
+                ),
                 rx.hstack(
                     infoCard("Celkový počet príchodov cestujúcich", AnalyzePageState.totalPassengersArrived),
                     infoCard("Celkový počet prevezených cestujúcich", AnalyzePageState.totalPassengersTransported),
