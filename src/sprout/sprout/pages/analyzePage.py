@@ -9,6 +9,7 @@ from ..components.layout import layout
 from ..components.fileUpload import fileUpload
 from ..components.infoCard import infoCard
 from ..components.hourChart import hourChart
+from ..components.busStopChart import busStopChart
 
 def getTextFromTXT(fileName: str) -> rx.Component:
     file_path = os.path.join(os.path.dirname(__file__), fileName)
@@ -22,6 +23,9 @@ def getFilePath(fileName: str) -> str:
 class AnalyzePageState(rx.State):
     bus_stops_filecontent: str = ""
     time_table_filecontent: str = ""
+
+    numberOfBusStops: int
+    longestBusStopNameLength: int
 
     totalNumberOfBuses: int
     totalPassengersArrived: int
@@ -58,6 +62,9 @@ class AnalyzePageState(rx.State):
         timeTable = InputParser.parseTimeTableFromString(self.time_table_filecontent)
         stats = Simulation.run(0, 24*60, busStops, timeTable)
 
+        self.numberOfBusStops = len(busStops)
+        self.longestBusStopNameLength = max([len(busStop.name) for busStop in busStops])
+
         self.totalNumberOfBuses = stats.totalNumberOfBuses
 
         self.totalPassengersArrived = stats.busStopStatistics.totalPassengersArrived
@@ -87,10 +94,12 @@ class AnalyzePageState(rx.State):
 
         self.loadPerBusStop = []
         for stat in stats.busStatistics.loadPerBusStop:
-            self.loadPerBusStop.append({"name": stat[0], "load": int(round(stat[1]))})
+            name = stat[0].replace(" ", "\u00A0")
+            self.loadPerBusStop.append({"name": name, "load": int(round(stat[1]))})
         self.loadInPercentPerBusStop = []
         for stat in stats.busStatistics.loadInPercentPerBusStop:
-            self.loadInPercentPerBusStop.append({"name": stat[0], "load": int(round(stat[1]*100))})
+            name = stat[0].replace(" ", "\u00A0")
+            self.loadInPercentPerBusStop.append({"name": name, "load": int(round(stat[1]*100))})
 
         self.showAnalysis = True
 
@@ -177,6 +186,8 @@ def analyze() -> rx.Component:
                 
                 flex="1",
             ),
+            spacing="5",
+            align_items="stretch",
             width="100%",
         ),
         rx.hstack(
@@ -211,8 +222,8 @@ def analyze() -> rx.Component:
                     align_items="stretch",
                 ),
                 rx.hstack(
-                    infoCard("Celkový počet cestujúcich čakajúcich na ďalší spoj", AnalyzePageState.totalPassengersWaitingForNextBus),
-                    infoCard("Celkový počet cestujúcich, ktorí nenastúpili", AnalyzePageState.totalPassangersLeftUnboarded),
+                    infoCard("Počet prípadov kedy sa cestujúci nezmestil do vozidla", AnalyzePageState.totalPassengersWaitingForNextBus),
+                    infoCard("Počet cestujúcich, ktorí sa za celý deň nezmestili do jediného vozidla", AnalyzePageState.totalPassangersLeftUnboarded),
                     spacing="5",
                     width="100%",
                     align_items="stretch",
@@ -229,60 +240,8 @@ def analyze() -> rx.Component:
                     width="100%",
                     align_items="stretch",
                 ),
-                rx.card(
-                    rx.vstack(
-                        rx.heading("Priemerná naplnenosť naprieč zastávkami", size="4"),
-                        rx.recharts.bar_chart(
-                            rx.recharts.bar(
-                                data_key="load",
-                                fill=rx.color("accent", 8),
-                            ),
-                            rx.recharts.x_axis(type_="number", domain=[0, AnalyzePageState.capacity]),
-                            rx.recharts.y_axis(data_key="name", type_="category"),
-                            data=AnalyzePageState.loadPerBusStop,
-                            width="100%",
-                            height=250,
-                            layout="vertical",
-                            margin={
-                                "top": 20,
-                                "right": 20,
-                                "left": 100,
-                                "bottom": 20,
-                            },
-                        ),
-                        rx.text("Hodina"),
-                        align_items="center",
-                    ),
-                    size="3",
-                    width="100%",
-                ),
-                rx.card(
-                    rx.vstack(
-                        rx.heading("Priemerná naplnenosť naprieč zastávkami v percent8ch", size="4"),
-                        rx.recharts.bar_chart(
-                            rx.recharts.bar(
-                                data_key="load",
-                                fill=rx.color("accent", 8),
-                            ),
-                            rx.recharts.x_axis(type_="number", domain=[0, 100]),
-                            rx.recharts.y_axis(data_key="name", type_="category"),
-                            data=AnalyzePageState.loadInPercentPerBusStop,
-                            width="100%",
-                            height=250,
-                            layout="vertical",
-                            margin={
-                                "top": 20,
-                                "right": 20,
-                                "left": 100,
-                                "bottom": 20,
-                            },
-                        ),
-                        rx.text("Hodina"),
-                        align_items="center",
-                    ),
-                    size="3",
-                    width="100%",
-                ),
+                busStopChart("Priemerná naplnenosť naprieč zastávkami", AnalyzePageState.loadPerBusStop, AnalyzePageState.capacity, AnalyzePageState.numberOfBusStops, AnalyzePageState.longestBusStopNameLength),
+                busStopChart("Priemerná naplnenosť naprieč zastávkami v percentách", AnalyzePageState.loadInPercentPerBusStop, 100, AnalyzePageState.numberOfBusStops, AnalyzePageState.longestBusStopNameLength),
                 spacing="5",
                 width="100%",
             ),
