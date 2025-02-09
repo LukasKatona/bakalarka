@@ -1,8 +1,8 @@
 from datetime import timedelta
 import sys
 
-from EventCalendar import Event, EventCalendar
-from Statistics import Statistics
+from .EventCalendar import Event, EventCalendar
+from .Statistics import Statistics
 
 class Simulation:
     # Static global variables
@@ -35,7 +35,7 @@ class Simulation:
     
     @staticmethod
     def run(startTime, endTime, busStops, timeTable):
-        from models import Bus, BusStop
+        from .models import Bus, BusStop
 
         for busStop in busStops:
             busStop.clear()

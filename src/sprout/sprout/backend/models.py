@@ -1,7 +1,7 @@
 from enum import Enum
-from RandomNumberGenerator import RandomNumberGenerator
-from Simulation import Simulation
-from Statistics import BusStatistics, BusStopStatistics
+from .RandomNumberGenerator import RandomNumberGenerator
+from .Simulation import Simulation
+from .Statistics import BusStatistics, BusStopStatistics
 
 # ------------------------------ BUSSTOP ------------------------------
 class BusStop:

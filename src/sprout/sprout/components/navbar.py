@@ -17,24 +17,29 @@ def navbar() -> rx.Component:
                 rx.color_mode_cond(
                     light=rx.image(
                         src="/logo-black.svg",
-                        width="2.25em",
+                        width="2.5em",
                         height="auto",
                     ),
                     dark=rx.image(
                         src="/logo-white.svg",
-                        width="2.25em",
+                        width="2.5em",
                         height="auto",
                     ),
                 ),
-                rx.heading(
-                    "Sprout", size="7", weight="bold",
+                rx.vstack(
+                    rx.heading(
+                        "SPROUT", size="5", weight="bold",
+                    ),
+                    rx.text("Smart Performance & Resource Optimization for Urban Transport", size="2"),
+                    justify="center",
+                    spacing="0",
                 ),
                 align_items="center",
                 on_click=rx.redirect("/"),
             ),
             rx.hstack(
-                navbar_item("chart-column", "Analýza", "/analyze"),
-                navbar_item("cog", "Optimalizácia", "/optimize"),
+                navbar_item("chart-column", "Analýza linky", "/analyze"),
+                navbar_item("cog", "Optimalizácia linky", "/optimize"),
                 rx.color_mode.button(),
                 justify="end",
                 align_items="center",

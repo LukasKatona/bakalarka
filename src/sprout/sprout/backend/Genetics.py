@@ -1,6 +1,6 @@
 from RandomNumberGenerator import RandomNumberGenerator
-from Simulation import Simulation
-from models import TimeTable
+from .Simulation import Simulation
+from .models import TimeTable
 
 
 class Genetics:

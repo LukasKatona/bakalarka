@@ -283,17 +283,17 @@ class BusStatistics:
         self.totalPassengersTransported = 0
         # per bus stop
         self.loadPerBusStop = []
-        self.LoadInPercentPerBusStop = []
+        self.loadInPercentPerBusStop = []
     
     # PER BUS STOP
     def updateLoadPerBusStop(self, load, busStopName):
         self.loadPerBusStop.append((busStopName, load))
-        self.LoadInPercentPerBusStop.append((busStopName, load / self.capacity))
+        self.loadInPercentPerBusStop.append((busStopName, load / self.capacity))
 
     # TOTAL
     def agregateTotal(self):
         self.averageLoad = sum([x[1] for x in self.loadPerBusStop]) / len(self.loadPerBusStop)
-        self.averageLoadInPercent = sum([x[1] for x in self.LoadInPercentPerBusStop]) / len(self.LoadInPercentPerBusStop)
+        self.averageLoadInPercent = sum([x[1] for x in self.loadInPercentPerBusStop]) / len(self.loadInPercentPerBusStop)
     
     def updateTotalPassengersTransported(self, passengersTransported):
         self.totalPassengersTransported += passengersTransported
@@ -304,7 +304,7 @@ class BusStatistics:
         self.averageLoadInPercent = 0
         self.totalPassengersTransported = 0
         self.loadPerBusStop = []
-        self.LoadInPercentPerBusStop = []
+        self.loadInPercentPerBusStop = []
 
     # SHOW GRAPHS
     def showLoadPerBusStop(self):
@@ -344,11 +344,11 @@ class BusStatistics:
             plt.title(f'Priemerná naplnenosť autobusov na zastávku' if self.language == "sk" else f'Average Bus Load per Bus Stop')
 
     def plotLoadInPercentPerBusStop(self):
-        x = np.arange(len(self.LoadInPercentPerBusStop))
-        y = [x[1] for x in self.LoadInPercentPerBusStop][::-1]
+        x = np.arange(len(self.loadInPercentPerBusStop))
+        y = [x[1] for x in self.loadInPercentPerBusStop][::-1]
         plt.figure(figsize=(15, 6))
         plt.barh(x, y)
-        plt.yticks(x, [x[0] for x in self.LoadInPercentPerBusStop][::-1])
+        plt.yticks(x, [x[0] for x in self.loadInPercentPerBusStop][::-1])
         plt.axvline(self.averageLoadInPercent, color='r', linestyle='--', label=f'Priemerná naplnenosť: {round(self.averageLoadInPercent * 100)}%' if self.language == "sk" else f'Average Load: {round(self.averageLoadInPercent * 100)}%')
         plt.xlabel('Naplnenosť' if self.language == "sk" else 'Load')
         plt.ylabel('Autobusová zastávka' if self.language == "sk" else 'Bus Stop')
@@ -370,7 +370,7 @@ class BusStatistics:
                f"Priemerná naplnenosť v percentách: {self.averageLoadInPercent}\n" + \
                f"Celkový počet prepravených cestujúcich: {self.totalPassengersTransported}\n" + \
                f"Naplnenosť na zastávku:\n{self.keyValuePairArrayToString(self.loadPerBusStop)}\n" + \
-               f"Naplnenosť v percentách na zastávku:\n{self.keyValuePairArrayToString(self.LoadInPercentPerBusStop)}\n" + \
+               f"Naplnenosť v percentách na zastávku:\n{self.keyValuePairArrayToString(self.loadInPercentPerBusStop)}\n" + \
                "=============================================================\n"
         else:
             return "=============================================================\n" + \
@@ -380,7 +380,7 @@ class BusStatistics:
                f"Average load in percent: {self.averageLoadInPercent}\n" + \
                f"Total passengers transported: {self.totalPassengersTransported}\n" + \
                f"Load per bus stop:\n{self.keyValuePairArrayToString(self.loadPerBusStop)}\n" + \
-               f"Load in percent per bus stop:\n{self.keyValuePairArrayToString(self.LoadInPercentPerBusStop)}\n" + \
+               f"Load in percent per bus stop:\n{self.keyValuePairArrayToString(self.loadInPercentPerBusStop)}\n" + \
                "=============================================================\n"
         
     def keyValuePairArrayToString(self, keyValuePairArray):
