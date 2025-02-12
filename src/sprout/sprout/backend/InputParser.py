@@ -4,7 +4,7 @@ import ast
 
 class InputParser:
     @staticmethod
-    def parseBusStopsFromFile(file):
+    def parseBusStopsFromFile(file) -> list[BusStop]:
         busStopsFile = open(file, "r")
         busStops = []
 
@@ -22,7 +22,7 @@ class InputParser:
         return busStops
     
     @staticmethod
-    def parseBusStopsFromString(string):
+    def parseBusStopsFromString(string) -> list[BusStop]:
         busStops = []
         lines = string.split("\n")
         for line in lines:
@@ -38,7 +38,7 @@ class InputParser:
         return busStops
 
     @staticmethod
-    def parseTimeTableFromFile(file):
+    def parseTimeTableFromFile(file) -> TimeTable:
         timeTableFile = open(file, "r")
         timeTable = TimeTable()
 
@@ -63,7 +63,7 @@ class InputParser:
         return timeTable
     
     @staticmethod
-    def parseTimeTableFromString(string):
+    def parseTimeTableFromString(string) -> TimeTable:
         timeTable = TimeTable()
 
         lines = string.split("\n")

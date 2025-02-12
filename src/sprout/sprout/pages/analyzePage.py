@@ -9,6 +9,7 @@ from ..components.layout import layout
 from ..components.infoCard import infoCard
 from ..components.hourChart import hourChart
 from ..components.busStopChart import busStopChart
+from ..components.timeTable import timeTable
 
 def getTextFromTXT(fileName: str) -> rx.Component:
     file_path = os.path.join(os.path.dirname(__file__), fileName)
@@ -24,6 +25,8 @@ class AnalyzePageState(rx.State):
     bus_stops_filecontent: str = ""
     time_table_filename: str = ""
     time_table_filecontent: str = ""
+
+    timeTable: list[tuple[str, str, bool]] = []
 
     numberOfBusStops: int
     longestBusStopNameLength: int
@@ -49,6 +52,19 @@ class AnalyzePageState(rx.State):
 
     showAnalysis: bool = False
 
+    def parseTimeTableToTuple(self) -> list[tuple[str, str, bool]]:
+        timeTable = InputParser.parseTimeTableFromString(self.time_table_filecontent)
+        timeTableTuple: list[tuple[str, str, bool]] = []
+        for hour in range(24):
+            hourStr = str(hour).zfill(2) + ":" if hour < 10 else str(hour) + ":"
+            minutes = next((row.minutes for row in timeTable.rows if row.hour == hour), None)
+            minutesStr = ""
+            if minutes is not None:
+                for minute in minutes:
+                    minutesStr += str(minute).zfill(2) + "\u00A0\u00A0"
+            timeTableTuple.append((hourStr, minutesStr, hour % 2 == 0))
+        return timeTableTuple
+
     @rx.event
     async def handle_upload_bus_stops(self, uploadBusStops: list[rx.UploadFile]):
         self.bus_sops_filename = uploadBusStops[0].filename
@@ -58,6 +74,7 @@ class AnalyzePageState(rx.State):
     async def handle_upload_time_table(self, uploadTimeTable: list[rx.UploadFile]):
         self.time_table_filename = uploadTimeTable[0].filename
         self.time_table_filecontent = uploadTimeTable[0].file.read().decode('utf-8')
+        self.timeTable = self.parseTimeTableToTuple()
 
     @rx.event
     async def handle_analyze(self):
@@ -221,6 +238,9 @@ def analyze() -> rx.Component:
             align_items="stretch",
             width="100%",
         ),
+
+        timeTable(AnalyzePageState.timeTable),
+
         rx.hstack(
             rx.button(
                 rx.heading("Analyzovať"),
