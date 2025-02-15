@@ -10,6 +10,7 @@ from ..components.infoCard import infoCard
 from ..components.hourChart import hourChart
 from ..components.busStopChart import busStopChart
 from ..components.timeTable import timeTable
+from ..components.busStopTable import busStopTable
 
 def getTextFromTXT(fileName: str) -> rx.Component:
     file_path = os.path.join(os.path.dirname(__file__), fileName)
@@ -26,7 +27,8 @@ class AnalyzePageState(rx.State):
     time_table_filename: str = ""
     time_table_filecontent: str = ""
 
-    timeTable: list[tuple[str, str, bool]] = []
+    busStopTable: list[tuple[str, str, bool]]
+    timeTable: list[tuple[str, str, bool]]
 
     numberOfBusStops: int
     longestBusStopNameLength: int
@@ -52,6 +54,15 @@ class AnalyzePageState(rx.State):
 
     showAnalysis: bool = False
 
+    def parseBusStopsToTuple(self) -> list[tuple[str, str, bool]]:
+        busStops = InputParser.parseBusStopsFromString(self.bus_stops_filecontent)
+        busStopTuple: list[tuple[str, str, bool]] = []
+        even = True
+        for busStop in busStops:
+            busStopTuple.append((busStop.timeDeltaToArrive, busStop.name, even))
+            even = not even
+        return busStopTuple
+
     def parseTimeTableToTuple(self) -> list[tuple[str, str, bool]]:
         timeTable = InputParser.parseTimeTableFromString(self.time_table_filecontent)
         timeTableTuple: list[tuple[str, str, bool]] = []
@@ -69,6 +80,7 @@ class AnalyzePageState(rx.State):
     async def handle_upload_bus_stops(self, uploadBusStops: list[rx.UploadFile]):
         self.bus_sops_filename = uploadBusStops[0].filename
         self.bus_stops_filecontent = uploadBusStops[0].file.read().decode('utf-8')
+        self.busStopTable = self.parseBusStopsToTuple()
 
     @rx.event
     async def handle_upload_time_table(self, uploadTimeTable: list[rx.UploadFile]):
@@ -239,7 +251,32 @@ def analyze() -> rx.Component:
             width="100%",
         ),
 
-        timeTable(AnalyzePageState.timeTable),
+        rx.hstack(
+            rx.vstack(
+                rx.cond(
+                    AnalyzePageState.busStopTable,
+                    rx.box(
+                        busStopTable(AnalyzePageState.busStopTable),
+                    ),
+                    rx.text("\u00A0"),
+                    
+                ),
+                align_items="end",
+                flex="1",
+            ),
+            rx.vstack(
+                rx.cond(
+                    AnalyzePageState.timeTable,
+                    rx.box(
+                        timeTable(AnalyzePageState.timeTable),
+                    ),
+                    rx.text("\u00A0"),
+                ),
+                flex="1",
+            ),
+            spacing="5",
+            width="100%",
+        ),
 
         rx.hstack(
             rx.button(

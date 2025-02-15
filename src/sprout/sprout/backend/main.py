@@ -1,8 +1,8 @@
 import sys
-from Genetics import Genetics
-from InputParser import InputParser
-from Simulation import Simulation
-from models import TimeTable
+from .Genetics import Genetics
+from .InputParser import InputParser
+from .Simulation import Simulation
+from .models import TimeTable
 
 busStops = InputParser.parseBusStopsFromFile(sys.argv[1])
 timeTable = InputParser.parseTimeTableFromFile(sys.argv[2])
