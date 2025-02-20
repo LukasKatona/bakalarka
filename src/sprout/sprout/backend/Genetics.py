@@ -1,4 +1,4 @@
-from RandomNumberGenerator import RandomNumberGenerator
+from .RandomNumberGenerator import RandomNumberGenerator
 from .Simulation import Simulation
 from .models import TimeTable
 
