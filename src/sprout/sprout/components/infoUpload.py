@@ -5,6 +5,7 @@ import reflex as rx
 from ..backend.InputParser import InputParser
 from .busStopTable import busStopTable
 from .timeTable import timeTable
+from .analyzeLine import AnalyzeLineState
 
 def getTextFromTXT(fileName: str) -> rx.Component:
     file_path = os.path.join(os.path.dirname(__file__), fileName)
@@ -50,12 +51,16 @@ class InfoUploadState(rx.State):
         self.bus_sops_filename = uploadBusStops[0].filename
         self.bus_stops_filecontent = uploadBusStops[0].file.read().decode('utf-8')
         self.busStopTable = self.parseBusStopsToTuple()
+        state = await self.get_state(AnalyzeLineState)
+        state.busStopFile = self.bus_stops_filecontent
 
     @rx.event
     async def handle_upload_time_table(self, uploadTimeTable: list[rx.UploadFile]):
         self.time_table_filename = uploadTimeTable[0].filename
         self.time_table_filecontent = uploadTimeTable[0].file.read().decode('utf-8')
         self.timeTable = self.parseTimeTableToTuple()
+        state = await self.get_state(AnalyzeLineState)
+        state.timeTableFile = self.time_table_filecontent
 
 def infoUpload() -> rx.Component:
     return rx.vstack(

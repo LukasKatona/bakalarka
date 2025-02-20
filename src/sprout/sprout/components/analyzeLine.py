@@ -7,9 +7,11 @@ from ..backend.Statistics import Statistics
 from .infoCard import infoCard
 from .hourChart import hourChart
 from .busStopChart import busStopChart
-from .infoUpload import InfoUploadState
 
 class AnalyzeLineState(rx.State):
+    busStopFile: str
+    timeTableFile: str
+
     numberOfBusStops: int
     longestBusStopNameLength: int
 
@@ -35,9 +37,12 @@ class AnalyzeLineState(rx.State):
     showAnalysis: bool = False
 
     @rx.event
-    async def handle_analyze(self, busStopFile: str, timeTableFile: str):
-        busStops = InputParser.parseBusStopsFromString(busStopFile)
-        timeTable = InputParser.parseTimeTableFromString(timeTableFile)
+    async def handle_analyze(self):
+        if not self.busStopFile or not self.timeTableFile:
+            return
+
+        busStops = InputParser.parseBusStopsFromString(self.busStopFile)
+        timeTable = InputParser.parseTimeTableFromString(self.timeTableFile)
         stats = Simulation.run(0, 24*60, busStops, timeTable)
 
         self.numberOfBusStops = len(busStops)
@@ -87,7 +92,7 @@ def analyzeLine() -> rx.Component:
         rx.hstack(
             rx.button(
                 rx.heading("Analyzovať"),
-                on_click=AnalyzeLineState.handle_analyze(InfoUploadState.bus_stops_filecontent, InfoUploadState.time_table_filecontent),
+                on_click=AnalyzeLineState.handle_analyze(),
                 size="4",
             ),
             width="100%",
