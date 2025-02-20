@@ -51,7 +51,8 @@ class InfoUploadState(rx.State):
         self.bus_sops_filename = uploadBusStops[0].filename
         self.bus_stops_filecontent = uploadBusStops[0].file.read().decode('utf-8')
         self.busStopTable = self.parseBusStopsToTuple()
-        state = await self.get_state(AnalyzeLineState)
+        global stateClazz
+        state = await self.get_state(stateClazz)
         state.busStopFile = self.bus_stops_filecontent
 
     @rx.event
@@ -59,10 +60,15 @@ class InfoUploadState(rx.State):
         self.time_table_filename = uploadTimeTable[0].filename
         self.time_table_filecontent = uploadTimeTable[0].file.read().decode('utf-8')
         self.timeTable = self.parseTimeTableToTuple()
-        state = await self.get_state(AnalyzeLineState)
+        global stateClazz
+        state = await self.get_state(stateClazz)
         state.timeTableFile = self.time_table_filecontent
 
-def infoUpload() -> rx.Component:
+stateClazz: any
+
+def infoUpload(stateClass) -> rx.Component:
+    global stateClazz
+    stateClazz = stateClass
     return rx.vstack(
         rx.hstack(
             rx.vstack(
