@@ -1,11 +1,13 @@
 import os
-
 import reflex as rx
 
 from ..backend.InputParser import InputParser
+
 from .busStopTable import busStopTable
 from .timeTable import timeTable
 from .analyzeLine import AnalyzeLineState
+from .optimizeLine import OptimizeLineState
+
 
 def getTextFromTXT(fileName: str) -> rx.Component:
     file_path = os.path.join(os.path.dirname(__file__), fileName)
@@ -17,15 +19,8 @@ def getFilePath(fileName: str) -> str:
     return os.path.join(os.path.dirname(__file__), fileName)
 
 class InfoUploadState(rx.State):
-    bus_sops_filename: str = ""
-    bus_stops_filecontent: str = ""
-    time_table_filename: str = ""
-    time_table_filecontent: str = ""
-    busStopTable: list[tuple[str, str, bool]]
-    timeTable: list[tuple[str, str, bool]]
-
-    def parseBusStopsToTuple(self) -> list[tuple[str, str, bool]]:
-        busStops = InputParser.parseBusStopsFromString(self.bus_stops_filecontent)
+    def parseBusStopsToTuple(self, bus_stops_filecontent: str) -> list[tuple[str, str, bool]]:
+        busStops = InputParser.parseBusStopsFromString(bus_stops_filecontent)
         busStopTuple: list[tuple[str, str, bool]] = []
         even = True
         for busStop in busStops:
@@ -33,8 +28,8 @@ class InfoUploadState(rx.State):
             even = not even
         return busStopTuple
 
-    def parseTimeTableToTuple(self) -> list[tuple[str, str, bool]]:
-        timeTable = InputParser.parseTimeTableFromString(self.time_table_filecontent)
+    def parseTimeTableToTuple(self, time_table_filecontent: str) -> list[tuple[str, str, bool]]:
+        timeTable = InputParser.parseTimeTableFromString(time_table_filecontent)
         timeTableTuple: list[tuple[str, str, bool]] = []
         for hour in range(24):
             hourStr = str(hour).zfill(2) + ":" if hour < 10 else str(hour) + ":"
@@ -48,27 +43,27 @@ class InfoUploadState(rx.State):
 
     @rx.event
     async def handle_upload_bus_stops(self, uploadBusStops: list[rx.UploadFile]):
-        self.bus_sops_filename = uploadBusStops[0].filename
-        self.bus_stops_filecontent = uploadBusStops[0].file.read().decode('utf-8')
-        self.busStopTable = self.parseBusStopsToTuple()
-        global stateClazz
-        state = await self.get_state(stateClazz)
-        state.busStopFile = self.bus_stops_filecontent
-
+        if self.router.page.path == "/analyze":
+            stateClass = AnalyzeLineState
+        if self.router.page.path == "/optimize":
+            stateClass = OptimizeLineState
+        state = await self.get_state(stateClass)
+        state.bus_sops_filename = uploadBusStops[0].filename
+        state.bus_stops_filecontent = uploadBusStops[0].file.read().decode('utf-8')
+        state.busStopTable = self.parseBusStopsToTuple(state.bus_stops_filecontent)
+        
     @rx.event
     async def handle_upload_time_table(self, uploadTimeTable: list[rx.UploadFile]):
-        self.time_table_filename = uploadTimeTable[0].filename
-        self.time_table_filecontent = uploadTimeTable[0].file.read().decode('utf-8')
-        self.timeTable = self.parseTimeTableToTuple()
-        global stateClazz
-        state = await self.get_state(stateClazz)
-        state.timeTableFile = self.time_table_filecontent
-
-stateClazz: any
-
+        if self.router.page.path == "/analyze":
+            stateClass = AnalyzeLineState
+        if self.router.page.path == "/optimize":
+            stateClass = OptimizeLineState
+        state = await self.get_state(stateClass)
+        state.time_table_filename = uploadTimeTable[0].filename
+        state.time_table_filecontent = uploadTimeTable[0].file.read().decode('utf-8')
+        state.timeTable = self.parseTimeTableToTuple(state.time_table_filecontent)
+        
 def infoUpload(stateClass) -> rx.Component:
-    global stateClazz
-    stateClazz = stateClass
     return rx.vstack(
         rx.hstack(
             rx.vstack(
@@ -108,8 +103,8 @@ def infoUpload(stateClass) -> rx.Component:
                         rx.text("Nahrajte .txt súbor s infomáciami o zastávkach."),
                         rx.button("Nahrať súbor"),
                         rx.cond(
-                            InfoUploadState.bus_sops_filename != "",
-                            rx.text(InfoUploadState.bus_sops_filename),
+                            stateClass.bus_sops_filename != "",
+                            rx.text(stateClass.bus_sops_filename),
                             rx.text("\u00A0"),
                         ),
                         align_items="center",
@@ -162,8 +157,8 @@ def infoUpload(stateClass) -> rx.Component:
                         rx.text("Nahrajte .txt súbor s infomáciami o časovom rozpise linky."),
                         rx.button("Nahrať súbor"),
                         rx.cond(
-                            InfoUploadState.time_table_filename != "",
-                            rx.text(InfoUploadState.time_table_filename),
+                            stateClass.time_table_filename != "",
+                            rx.text(stateClass.time_table_filename),
                             rx.text("\u00A0"),
                         ),
                         align_items="center",
@@ -187,9 +182,9 @@ def infoUpload(stateClass) -> rx.Component:
         rx.hstack(
             rx.vstack(
                 rx.cond(
-                    InfoUploadState.busStopTable,
+                    stateClass.busStopTable,
                     rx.box(
-                        busStopTable(InfoUploadState.busStopTable),
+                        busStopTable(stateClass.busStopTable),
                     ),
                     rx.text("\u00A0"),
                     
@@ -199,9 +194,9 @@ def infoUpload(stateClass) -> rx.Component:
             ),
             rx.vstack(
                 rx.cond(
-                    InfoUploadState.timeTable,
+                    stateClass.timeTable,
                     rx.box(
-                        timeTable(InfoUploadState.timeTable),
+                        timeTable(stateClass.timeTable),
                     ),
                     rx.text("\u00A0"),
                 ),

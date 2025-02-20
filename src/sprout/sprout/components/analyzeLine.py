@@ -9,9 +9,13 @@ from .hourChart import hourChart
 from .busStopChart import busStopChart
 
 class AnalyzeLineState(rx.State):
-    busStopFile: str
-    timeTableFile: str
-
+    bus_sops_filename: str = ""
+    bus_stops_filecontent: str = ""
+    time_table_filename: str = ""
+    time_table_filecontent: str = ""
+    busStopTable: list[tuple[str, str, bool]] = []
+    timeTable: list[tuple[str, str, bool]] = []
+    
     numberOfBusStops: int
     longestBusStopNameLength: int
 
@@ -37,12 +41,22 @@ class AnalyzeLineState(rx.State):
     showAnalysis: bool = False
 
     @rx.event
+    async def clear_files(self):
+        self.bus_sops_filename = ""
+        self.bus_stops_filecontent = ""
+        self.time_table_filename = ""
+        self.time_table_filecontent = ""
+        self.busStopTable = []
+        self.timeTable = []
+        self.showAnalysis = False
+
+    @rx.event
     async def handle_analyze(self):
-        if not self.busStopFile or not self.timeTableFile:
+        if not self.bus_stops_filecontent or not self.time_table_filecontent:
             return
 
-        busStops = InputParser.parseBusStopsFromString(self.busStopFile)
-        timeTable = InputParser.parseTimeTableFromString(self.timeTableFile)
+        busStops = InputParser.parseBusStopsFromString(self.bus_stops_filecontent)
+        timeTable = InputParser.parseTimeTableFromString(self.time_table_filecontent)
         stats = Simulation.run(0, 24*60, busStops, timeTable)
 
         self.numberOfBusStops = len(busStops)
@@ -91,9 +105,19 @@ def analyzeLine() -> rx.Component:
     return rx.vstack(
         rx.hstack(
             rx.button(
+                rx.heading("Vymazať súbory"),
+                on_click=AnalyzeLineState.clear_files(),
+                size="4",
+            ),
+            rx.button(
                 rx.heading("Analyzovať"),
                 on_click=AnalyzeLineState.handle_analyze(),
                 size="4",
+                disabled=rx.cond(
+                    (AnalyzeLineState.bus_stops_filecontent == "") | (AnalyzeLineState.time_table_filecontent == ""),
+                    True,
+                    False,
+                ),
             ),
             width="100%",
             justify="center",
