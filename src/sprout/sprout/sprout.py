@@ -2,26 +2,26 @@ import reflex as rx
 from rxconfig import config
 
 from .components.layout import layout
-from .pages.homePage import home
-from .pages.analyzePage import analyze
-from .pages.optimizePage import optimize
+from .pages.homePage import homePage
+from .pages.analyzePage import analyzePage
+from .pages.optimizePage import optimizePage
 
 @rx.page(route="/", title="Home")
-def homePage() -> rx.Component:
+def home() -> rx.Component:
     return layout(
-        home(),
+        homePage(),
     )
 
 @rx.page(route="/analyze", title="Analyze")
-def analyzePage() -> rx.Component:
+def analyze() -> rx.Component:
     return layout(
-        analyze(),
+        analyzePage(),
     )
 
 @rx.page(route="/optimize", title="Optimize")
-def optimizePage() -> rx.Component:
+def optimize() -> rx.Component:
     return layout(
-        optimize(),
+        optimizePage(),
     )
 
 app = rx.App(
