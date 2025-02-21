@@ -1,4 +1,5 @@
 import reflex as rx
+from datetime import datetime
 
 from ..backend.models import TimeTable
 from ..backend.InputParser import InputParser
@@ -23,6 +24,9 @@ class OptimizeLineState(rx.State):
 
     optimizationRunning: bool = False
     _n_tasks: int = 0
+    startTime: int = 0
+    endTime: int = 0
+    duration: int = 0
 
     def parseTimeTableToTuple(self, timeTable: TimeTable) -> list[tuple[str, str, bool]]:
         timeTableTuple: list[tuple[str, str, bool]] = []
@@ -47,6 +51,10 @@ class OptimizeLineState(rx.State):
 
         self.generationNumber = 0
         self.optimizationRunning = False
+        self._n_tasks = 0
+        self.startTime = 0
+        self.endTime = 0
+        self.duration = 0
 
     @rx.event(background=True)
     async def handle_optimize(self):
@@ -72,23 +80,29 @@ class OptimizeLineState(rx.State):
         for i in range(self.numberOfGenerations):
             genetics.updateGeneration()
             lastChromosomes.append(genetics.generation[0].chromosome)
+            timeTableTuple = self.parseTimeTableToTuple(TimeTable(genetics.generation[0].chromosome))
 
             async with self:
+                self.timeTable = timeTableTuple
+                self.generationNumber = i
                 if len(lastChromosomes) == 5:
                     if lastChromosomes[0] == lastChromosomes[1] == lastChromosomes[2] == lastChromosomes[3] == lastChromosomes[4]:
                         self.optimizationRunning = False
                     lastChromosomes.pop(0)
                 if not self.optimizationRunning:
-                    self._n_tasks -= 1
-                    return
-                self.generationNumber = i
-                self.timeTable = self.parseTimeTableToTuple(TimeTable(genetics.generation[0].chromosome))
+                    break
+                
+        async with self:
+            self._n_tasks -= 1
+            self.endTime = datetime.now().timestamp()
+            self.duration = self.endTime - self.startTime
 
 
     @rx.event
     async def toggle_optimization_run(self):
         self.optimizationRunning = not self.optimizationRunning
         if self.optimizationRunning:
+            self.startTime = datetime.now().timestamp()
             return OptimizeLineState.handle_optimize
 
 def optimizeLine() -> rx.Component:
@@ -114,6 +128,9 @@ def optimizeLine() -> rx.Component:
         ),
         rx.text(OptimizeLineState.generationNumber),
         rx.text(OptimizeLineState.optimizationRunning),
+        rx.text(OptimizeLineState.startTime),
+        rx.text(OptimizeLineState.endTime),
+        rx.text(OptimizeLineState.duration),
         spacing="5",
         width="100%",
     ),

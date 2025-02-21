@@ -60,50 +60,19 @@ class Genetics:
             newGeneration.append(child2)
 
         for individual in newGeneration:
-            if RandomNumberGenerator.uniform() < self.mutationRate:
-                individual.mutate()
-
+            individual.mutate()
+                
         self.generation = newGeneration
 
         for individual in self.generation:
             individual.calculateFitness()
+
         self.sortGeneration()
 
     def sortGeneration(self):
-        
         for individual in self.generation:
             individual.totalScore = individual.totalNumberOfBusesFitness
 
-        # self.generation.sort(key=lambda x: x.passengerWaitingTimeFitness, reverse=True)
-        # topIndividual = self.generation[0]
-        # if topIndividual.passengerWaitingTimeFitness != 0:
-        #     for individual in self.generation:
-        #         individual.totalScore += individual.passengerWaitingTimeFitness / topIndividual.passengerWaitingTimeFitness
-
-        # self.generation.sort(key=lambda x: x.passengerWaitingForNextBusFitness, reverse=True)
-        # topIndividual = self.generation[0]
-        # if topIndividual.passengerWaitingForNextBusFitness != 0:
-        #     for individual in self.generation:
-        #         individual.totalScore += individual.passengerWaitingForNextBusFitness / topIndividual.passengerWaitingForNextBusFitness
-
-        # self.generation.sort(key=lambda x: x.passengersLeftUnboardedFitness, reverse=True)
-        # topIndividual = self.generation[0]
-        # if topIndividual.passengersLeftUnboardedFitness != 0:
-        #     for individual in self.generation:
-        #         individual.totalScore += individual.passengersLeftUnboardedFitness / topIndividual.passengersLeftUnboardedFitness
-
-        # self.generation.sort(key=lambda x: x.totalNumberOfBusesFitness, reverse=True)
-        # topIndividual = self.generation[0]
-        # if topIndividual.totalNumberOfBusesFitness != 0:
-        #     for individual in self.generation:
-        #         individual.totalScore += individual.totalNumberOfBusesFitness / topIndividual.totalNumberOfBusesFitness
-
-        # self.generation.sort(key=lambda x: x.averageLoadDeviationFitness, reverse=True)
-        # topIndividual = self.generation[0]
-        # if topIndividual.averageLoadDeviationFitness != 0:
-        #     for individual in self.generation:
-        #         individual.totalScore += individual.averageLoadDeviationFitness / topIndividual.averageLoadDeviationFitness
-        
         self.generation.sort(key=lambda x: x.totalScore)
 
         
