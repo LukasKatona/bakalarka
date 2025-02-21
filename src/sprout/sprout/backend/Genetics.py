@@ -1,4 +1,4 @@
-import multiprocessing
+from multiprocessing import Pool
 import numpy as np
 
 from .RandomNumberGenerator import RandomNumberGenerator
@@ -26,8 +26,7 @@ class Genetics:
             self.generation.pop(0)
             self.generation.append(Individual(self.mutationRate, self.busStops, self.constraints, initialChromosome))
 
-        with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
-            self.generation = pool.map(self.calculateFitnessWrapper, self.generation)
+        self.generation = Pool().map(self.calculateFitnessWrapper, self.generation)
             
         self.sortGeneration()
 
@@ -68,8 +67,7 @@ class Genetics:
                 
         self.generation = newGeneration
 
-        with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
-            self.generation = pool.map(self.calculateFitnessWrapper, self.generation)
+        self.generation = Pool().map(self.calculateFitnessWrapper, self.generation)
 
         self.sortGeneration()
     

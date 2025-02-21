@@ -13,7 +13,7 @@ class OptimizeLineState(rx.State):
     busStopTable: list[tuple[str, str, bool]] = []
     timeTable: list[tuple[str, str, bool]] = []
 
-    populationSize: int = 10
+    populationSize: int = 50
     mutationRate: float = 0.3
     elitismCount: int = 2
     constraints = [0,0,0,0,0,'x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x',0]
@@ -78,10 +78,11 @@ class OptimizeLineState(rx.State):
 
         lastChromosomes = []
         for i in range(self.numberOfGenerations):
+            time = datetime.now().timestamp()
             genetics.updateGeneration()
+            print("time to update generation: ", datetime.now().timestamp() - time)
             lastChromosomes.append(genetics.generation[0].chromosome)
             timeTableTuple = self.parseTimeTableToTuple(TimeTable(genetics.generation[0].chromosome))
-            print(genetics)
             async with self:
                 self.timeTable = timeTableTuple
                 self.generationNumber = i
