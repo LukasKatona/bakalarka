@@ -21,6 +21,9 @@ class OptimizeLineState(rx.State):
 
     generationNumber: int = 0
 
+    optimizationRunning: bool = False
+    _n_tasks: int = 0
+
     def parseTimeTableToTuple(self, timeTable: TimeTable) -> list[tuple[str, str, bool]]:
         timeTableTuple: list[tuple[str, str, bool]] = []
         for hour in range(24):
@@ -43,36 +46,50 @@ class OptimizeLineState(rx.State):
         self.timeTable = []
 
         self.generationNumber = 0
+        self.optimizationRunning = False
 
     @rx.event(background=True)
     async def handle_optimize(self):
+        async with self:
+            if self._n_tasks > 0:
+                return
+            self._n_tasks += 1
+
         if not self.bus_stops_filecontent:
             return
 
         busStops = InputParser.parseBusStopsFromString(self.bus_stops_filecontent)
 
         if not self.time_table_filecontent:
-            timeTable = None
+            initialChromosome = None
         else:
             timeTable = InputParser.parseTimeTableFromString(self.time_table_filecontent)
+            initialChromosome = timeTable.getChromosome()
 
-        genetics = Genetics(self.populationSize, self.mutationRate, self.elitismCount, busStops, self.constraints, timeTable)
+        genetics = Genetics(self.populationSize, self.mutationRate, self.elitismCount, busStops, self.constraints, initialChromosome)
 
         lastChromosomes = []
         for i in range(self.numberOfGenerations):
-            async with self:
-                self.generationNumber = i
-                self.timeTable = self.parseTimeTableToTuple(TimeTable(genetics.generation[0].chromosome))
-            print(str(i) + " generation - best score: " + str(genetics.generation[0].totalScore))
-            print(genetics)
             genetics.updateGeneration()
             lastChromosomes.append(genetics.generation[0].chromosome)
-            if len(lastChromosomes) == 5:
-                if lastChromosomes[0] == lastChromosomes[1] == lastChromosomes[2] == lastChromosomes[3] == lastChromosomes[4]:
-                    break
-                lastChromosomes.pop(0)
 
-        print("finished")
+            async with self:
+                if len(lastChromosomes) == 5:
+                    if lastChromosomes[0] == lastChromosomes[1] == lastChromosomes[2] == lastChromosomes[3] == lastChromosomes[4]:
+                        self.optimizationRunning = False
+                    lastChromosomes.pop(0)
+                if not self.optimizationRunning:
+                    self._n_tasks -= 1
+                    return
+                self.generationNumber = i
+                self.timeTable = self.parseTimeTableToTuple(TimeTable(genetics.generation[0].chromosome))
+
+
+    @rx.event
+    async def toggle_optimization_run(self):
+        self.optimizationRunning = not self.optimizationRunning
+        if self.optimizationRunning:
+            return OptimizeLineState.handle_optimize
 
 def optimizeLine() -> rx.Component:
     return rx.vstack(
@@ -83,8 +100,8 @@ def optimizeLine() -> rx.Component:
                 size="4",
             ),
             rx.button(
-                rx.heading("Optimalizovať"),
-                on_click=OptimizeLineState.handle_optimize(),
+                rx.cond(OptimizeLineState.optimizationRunning, rx.heading("Zastaviť"), rx.heading("Optimalizovať")),
+                on_click=OptimizeLineState.toggle_optimization_run(),
                 size="4",
                 disabled=rx.cond(
                     (OptimizeLineState.bus_stops_filecontent == ""),
@@ -96,6 +113,7 @@ def optimizeLine() -> rx.Component:
             justify="center",
         ),
         rx.text(OptimizeLineState.generationNumber),
+        rx.text(OptimizeLineState.optimizationRunning),
         spacing="5",
         width="100%",
     ),
