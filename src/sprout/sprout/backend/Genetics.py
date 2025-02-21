@@ -1,3 +1,5 @@
+import multiprocessing
+
 from .RandomNumberGenerator import RandomNumberGenerator
 from .Simulation import Simulation
 from .models import TimeTable
@@ -23,8 +25,12 @@ class Genetics:
             self.generation.pop(0)
             self.generation.append(Individual(self.mutationRate, self.busStops, self.constraints, initialChromosome))
 
-        for individual in self.generation:
-            individual.calculateFitness()
+        proccesses = [multiprocessing.Process(target=self._calculate_fitness_wrapper, args=[individual]) for individual in self.generation]
+        for process in proccesses:
+            process.start()
+        for process in proccesses:
+            process.join()
+            
         self.sortGeneration()
 
     def crossover(self, parent1, parent2):
@@ -64,10 +70,16 @@ class Genetics:
                 
         self.generation = newGeneration
 
-        for individual in self.generation:
-            individual.calculateFitness()
+        proccesses = [multiprocessing.Process(target=self._calculate_fitness_wrapper, args=[individual]) for individual in self.generation]
+        for process in proccesses:
+            process.start()
+        for process in proccesses:
+            process.join()
 
         self.sortGeneration()
+    
+    def _calculate_fitness_wrapper(individual):
+        individual.calculateFitness()
 
     def sortGeneration(self):
         for individual in self.generation:

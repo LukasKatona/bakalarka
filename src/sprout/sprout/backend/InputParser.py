@@ -2,6 +2,7 @@ from .models import BusStop, TimeTable
 from collections import namedtuple
 import ast
 
+HourRate = namedtuple('HourRate', ['hour', 'rate'])
 class InputParser:
     @staticmethod
     def parseBusStopsFromFile(file) -> list[BusStop]:
@@ -31,7 +32,7 @@ class InputParser:
                 continue
 
             (name, timeDeltaToArrive, passengerArrivalRatesPerHour, leavingPassengersRate) = line.split(":")
-            HourRate = namedtuple('HourRate', ['hour', 'rate'])
+            
             parsedHourRate = [HourRate(hour, rate) for hour, rate in ast.literal_eval(passengerArrivalRatesPerHour)]
             busStops.append(BusStop(name.strip(), int(timeDeltaToArrive.strip()), parsedHourRate, float(leavingPassengersRate.strip())))
             
