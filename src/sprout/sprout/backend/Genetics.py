@@ -1,4 +1,5 @@
 import multiprocessing
+import numpy as np
 
 from .RandomNumberGenerator import RandomNumberGenerator
 from .Simulation import Simulation
@@ -25,11 +26,8 @@ class Genetics:
             self.generation.pop(0)
             self.generation.append(Individual(self.mutationRate, self.busStops, self.constraints, initialChromosome))
 
-        proccesses = [multiprocessing.Process(target=self._calculate_fitness_wrapper, args=[individual]) for individual in self.generation]
-        for process in proccesses:
-            process.start()
-        for process in proccesses:
-            process.join()
+        with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
+            self.generation = pool.map(self.calculateFitnessWrapper, self.generation)
             
         self.sortGeneration()
 
@@ -48,7 +46,7 @@ class Genetics:
     def parentSelection(self):
         parent1 = self.generation[RandomNumberGenerator.integers(0, self.populationSize)]
         parent2 = self.generation[RandomNumberGenerator.integers(0, self.populationSize)]
-        if parent1.totalScore < parent2.totalScore:
+        if parent1.fitness < parent2.fitness:
             return parent1
         return parent2
         
@@ -70,24 +68,17 @@ class Genetics:
                 
         self.generation = newGeneration
 
-        proccesses = [multiprocessing.Process(target=self._calculate_fitness_wrapper, args=[individual]) for individual in self.generation]
-        for process in proccesses:
-            process.start()
-        for process in proccesses:
-            process.join()
+        with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
+            self.generation = pool.map(self.calculateFitnessWrapper, self.generation)
 
         self.sortGeneration()
     
-    def _calculate_fitness_wrapper(individual):
+    def calculateFitnessWrapper(self, individual):
         individual.calculateFitness()
+        return individual
 
     def sortGeneration(self):
-        for individual in self.generation:
-            individual.totalScore = individual.totalNumberOfBusesFitness
-
-        self.generation.sort(key=lambda x: x.totalScore)
-
-        
+        self.generation.sort(key=lambda x: x.fitness)    
 
     # STR
     def __str__(self):
@@ -96,7 +87,6 @@ class Genetics:
             output += f"{individual}\n"
         return output
 
-    
 class Individual:
     # INIT
     def __init__(self, mutationRate, busStops, constraints, chromosome=None):
@@ -107,36 +97,20 @@ class Individual:
             self.chromosome = self.generateRandomChromosome()
         else:
             self.chromosome = chromosome
-        self.passengerWaitingTimeFitness = 0
-        self.passengerWaitingForNextBusFitness = 0
-        self.passengersLeftUnboardedFitness = 0
-        self.totalNumberOfBusesFitness = 0
-        self.averageLoadDeviationFitness = 0
-        self.totalScore = 0
         self.fitness = 0
 
     # METHODS
     def generateRandomChromosome(self):
-        chromosome = [0] * 24
-        for i in range(24):
-            if self.constraints[i] != 'x':
-                chromosome[i] = self.constraints[i]
-            else:
-                chromosome[i] = RandomNumberGenerator.integers(1, 30)
-        return chromosome
+        chromosome = np.full(24, fill_value=0)
+        mask = np.array(self.constraints) != 'x'
+        chromosome[mask] = np.array(self.constraints)[mask]
+        chromosome[~mask] = RandomNumberGenerator.integers(1, 30)
+        return chromosome.tolist()
 
     def calculateFitness(self):
         timeTable = TimeTable(self.chromosome)
         stats = Simulation.run(0, 24*60, self.busStops, timeTable)
-        self.passengerWaitingForNextBusFitness = stats.busStopStatistics.totalPassengersWaitingForNextBus / stats.busStopStatistics.totalPassengersArrived    # should be minimized
-        self.passengerWaitingTimeFitness = stats.busStopStatistics.totalTimeSpentWaiting / stats.busStopStatistics.totalPassengersArrived                        # should be minimized
-        self.passengersLeftUnboardedFitness = stats.busStopStatistics.totalPassangersLeftUnboarded / stats.busStopStatistics.totalPassengersArrived            # should be minimized
-        self.totalNumberOfBusesFitness = stats.totalNumberOfBuses                                                                                                       # should be minimized                                                      
-        self.averageLoadDeviationFitness = stats.busStatistics.averageLoadInPercent                                                                                     # should be minimized
-        if (self.averageLoadDeviationFitness < 0.7):
-            self.averageLoadDeviationFitness = 1 - self.averageLoadDeviationFitness / 0.7;
-        else:
-            self.averageLoadDeviationFitness = (self.averageLoadDeviationFitness - 0.7) / 0.3;
+        self.fitness = stats.totalNumberOfBuses
         
     def mutate(self):
         for i in range(24):
@@ -145,4 +119,4 @@ class Individual:
 
     # STR
     def __str__(self):
-        return f"{self.chromosome}: {self.totalScore}"
+        return f"{self.chromosome}: {self.fitness}"

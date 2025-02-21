@@ -81,7 +81,7 @@ class OptimizeLineState(rx.State):
             genetics.updateGeneration()
             lastChromosomes.append(genetics.generation[0].chromosome)
             timeTableTuple = self.parseTimeTableToTuple(TimeTable(genetics.generation[0].chromosome))
-
+            print(genetics)
             async with self:
                 self.timeTable = timeTableTuple
                 self.generationNumber = i
