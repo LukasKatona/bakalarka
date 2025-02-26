@@ -19,8 +19,27 @@ def getFilePath(fileName: str) -> str:
     return os.path.join(os.path.dirname(__file__), fileName)
 
 class InfoUploadState(rx.State):
-    def parseBusStopsToTuple(self, bus_stops_filecontent: str) -> list[tuple[str, str, bool]]:
-        busStops = InputParser.parseBusStopsFromString(bus_stops_filecontent)
+    options: list[tuple[str, str]] = []
+    dropdownOptions: list[str] = []
+
+    @rx.event
+    async def selectTimeTableFromDropdown(self, value: str): 
+        if self.router.page.path == "/analyze":
+            stateClass = AnalyzeLineState
+        if self.router.page.path == "/optimize":
+            stateClass = OptimizeLineState
+        state = await self.get_state(stateClass)
+        state.selectedTimeTableName = value
+        state.selectedTimeTable = next((option[1] for option in self.options if option[0] == value), None)
+        state.timeTableFilename = ''
+        state.timeTable = self.parseTimeTableToTuple(state.selectedTimeTable)
+
+    def insertNewTimeTable(self, timeTable: tuple[str, str]):
+        self.options.append(timeTable)
+        self.dropdownOptions.append(timeTable[0])
+
+    def parseBusStopsToTuple(self, selectedBusStops: str) -> list[tuple[str, str, bool]]:
+        busStops = InputParser.parseBusStopsFromString(selectedBusStops)
         busStopTuple: list[tuple[str, str, bool]] = []
         even = True
         for busStop in busStops:
@@ -28,8 +47,8 @@ class InfoUploadState(rx.State):
             even = not even
         return busStopTuple
 
-    def parseTimeTableToTuple(self, time_table_filecontent: str) -> list[tuple[str, str, bool]]:
-        timeTable = InputParser.parseTimeTableFromString(time_table_filecontent)
+    def parseTimeTableToTuple(self, selectedTimeTable: str) -> list[tuple[str, str, bool]]:
+        timeTable = InputParser.parseTimeTableFromString(selectedTimeTable)
         timeTableTuple: list[tuple[str, str, bool]] = []
         for hour in range(24):
             hourStr = str(hour).zfill(2) + ":" if hour < 10 else str(hour) + ":"
@@ -48,9 +67,9 @@ class InfoUploadState(rx.State):
         if self.router.page.path == "/optimize":
             stateClass = OptimizeLineState
         state = await self.get_state(stateClass)
-        state.bus_sops_filename = uploadBusStops[0].filename
-        state.bus_stops_filecontent = uploadBusStops[0].file.read().decode('utf-8')
-        state.busStopTable = self.parseBusStopsToTuple(state.bus_stops_filecontent)
+        state.busSopsFilename = uploadBusStops[0].filename
+        state.selectedBusStops = uploadBusStops[0].file.read().decode('utf-8')
+        state.busStopTable = self.parseBusStopsToTuple(state.selectedBusStops)
         
     @rx.event
     async def handle_upload_time_table(self, uploadTimeTable: list[rx.UploadFile]):
@@ -59,9 +78,10 @@ class InfoUploadState(rx.State):
         if self.router.page.path == "/optimize":
             stateClass = OptimizeLineState
         state = await self.get_state(stateClass)
-        state.time_table_filename = uploadTimeTable[0].filename
-        state.time_table_filecontent = uploadTimeTable[0].file.read().decode('utf-8')
-        state.timeTable = self.parseTimeTableToTuple(state.time_table_filecontent)
+        state.selectedTimeTableName = ''
+        state.timeTableFilename = uploadTimeTable[0].filename
+        state.selectedTimeTable = uploadTimeTable[0].file.read().decode('utf-8')
+        state.timeTable = self.parseTimeTableToTuple(state.selectedTimeTable)
         
 def infoUpload(stateClass) -> rx.Component:
     return rx.vstack(
@@ -103,8 +123,8 @@ def infoUpload(stateClass) -> rx.Component:
                         rx.text("Nahrajte .txt súbor s infomáciami o zastávkach."),
                         rx.button("Nahrať súbor"),
                         rx.cond(
-                            stateClass.bus_sops_filename != "",
-                            rx.text(stateClass.bus_sops_filename),
+                            stateClass.busSopsFilename != "",
+                            rx.text(stateClass.busSopsFilename),
                             rx.text("\u00A0"),
                         ),
                         align_items="center",
@@ -157,8 +177,8 @@ def infoUpload(stateClass) -> rx.Component:
                         rx.text("Nahrajte .txt súbor s infomáciami o časovom rozpise linky."),
                         rx.button("Nahrať súbor"),
                         rx.cond(
-                            stateClass.time_table_filename != "",
-                            rx.text(stateClass.time_table_filename),
+                            stateClass.timeTableFilename != "",
+                            rx.text(stateClass.timeTableFilename),
                             rx.text("\u00A0"),
                         ),
                         align_items="center",
@@ -171,7 +191,21 @@ def infoUpload(stateClass) -> rx.Component:
                     width="100%",
                     height="100%",
                     on_drop=InfoUploadState.handle_upload_time_table(rx.upload_files("upload_time_table")),
-                ),                   
+                ),
+                rx.center(
+                    rx.divider(),
+                    rx.text("alebo"),
+                    rx.divider(),
+                    width="100%",
+                    spacing="3",
+                ),
+                rx.select(
+                    InfoUploadState.dropdownOptions,  
+                    value=stateClass.selectedTimeTableName,
+                    on_change=InfoUploadState.selectTimeTableFromDropdown,
+                    size='3',
+                    width="100%",
+                ),                 
                 flex="1",
             ),
             spacing="5",

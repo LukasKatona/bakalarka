@@ -5,20 +5,27 @@ from ..backend.models import TimeTable
 from ..backend.InputParser import InputParser
 from ..backend.Genetics import Genetics
 
+from ..components.timeTable import timeTable
+
 class OptimizeLineState(rx.State):
-    bus_sops_filename: str = ""
-    bus_stops_filecontent: str = ""
-    time_table_filename: str = ""
-    time_table_filecontent: str = ""
+    selectedTimeTableName: str
+    selectedTimeTable: str
+
+    busSopsFilename: str = ""
+    selectedBusStops: str = ""
+    timeTableFilename: str = ""
     busStopTable: list[tuple[str, str, bool]] = []
     timeTable: list[tuple[str, str, bool]] = []
 
+    bestTimeTable: list[tuple[str, str, bool]] = []
+    bestTimeTableString: str = ""
+
     populationSize: int = 50
     mutationRate: float = 0.3
-    elitismCount: int = 2
+    elitismCount: int = 6
     constraints = [0,0,0,0,0,'x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x',0]
     #constraints = ['x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x']
-    numberOfGenerations: int = 5
+    numberOfGenerations: int = 100
 
     generationNumber: int = 0
 
@@ -42,10 +49,11 @@ class OptimizeLineState(rx.State):
 
     @rx.event
     async def clear_files(self):
-        self.bus_sops_filename = ""
-        self.bus_stops_filecontent = ""
-        self.time_table_filename = ""
-        self.time_table_filecontent = ""
+        self.busSopsFilename = ""
+        self.selectedBusStops = ""
+        self.timeTableFilename = ""
+        self.selectedTimeTable = ""
+        self.selectedTimeTableName = ""
         self.busStopTable = []
         self.timeTable = []
 
@@ -63,15 +71,15 @@ class OptimizeLineState(rx.State):
                 return
             self._n_tasks += 1
 
-        if not self.bus_stops_filecontent:
+        if not self.selectedBusStops:
             return
 
-        busStops = InputParser.parseBusStopsFromString(self.bus_stops_filecontent)
+        busStops = InputParser.parseBusStopsFromString(self.selectedBusStops)
 
-        if not self.time_table_filecontent:
+        if not self.selectedTimeTable:
             initialChromosome = None
         else:
-            timeTable = InputParser.parseTimeTableFromString(self.time_table_filecontent)
+            timeTable = InputParser.parseTimeTableFromString(self.selectedTimeTable)
             initialChromosome = timeTable.getChromosome()
 
         genetics = Genetics(self.populationSize, self.mutationRate, self.elitismCount, busStops, self.constraints, initialChromosome)
@@ -83,8 +91,12 @@ class OptimizeLineState(rx.State):
             print("time to update generation: ", datetime.now().timestamp() - time)
             lastChromosomes.append(genetics.generation[0].chromosome)
             timeTableTuple = self.parseTimeTableToTuple(TimeTable(genetics.generation[0].chromosome))
+            bestTimeTableTuple = self.parseTimeTableToTuple(TimeTable(genetics.bestIndividual.chromosome))
+            print(genetics)
             async with self:
                 self.timeTable = timeTableTuple
+                self.bestTimeTable = bestTimeTableTuple
+                self.bestTimeTableString = str(TimeTable(genetics.generation[0].chromosome))
                 self.generationNumber = i
                 if len(lastChromosomes) == 5:
                     if lastChromosomes[0] == lastChromosomes[1] == lastChromosomes[2] == lastChromosomes[3] == lastChromosomes[4]:
@@ -105,6 +117,13 @@ class OptimizeLineState(rx.State):
         if self.optimizationRunning:
             self.startTime = datetime.now().timestamp()
             return OptimizeLineState.handle_optimize
+        
+    @rx.event
+    async def saveTimeTableToDropdown(self):
+        print("saving")
+        from ..components.infoUpload import InfoUploadState
+        state = await self.get_state(InfoUploadState)
+        state.insertNewTimeTable((str(datetime.now()), self.bestTimeTableString))
 
 def optimizeLine() -> rx.Component:
     return rx.vstack(
@@ -119,7 +138,7 @@ def optimizeLine() -> rx.Component:
                 on_click=OptimizeLineState.toggle_optimization_run(),
                 size="4",
                 disabled=rx.cond(
-                    (OptimizeLineState.bus_stops_filecontent == ""),
+                    (OptimizeLineState.selectedBusStops == ""),
                     True,
                     False,
                 ),
@@ -132,6 +151,11 @@ def optimizeLine() -> rx.Component:
         rx.text(OptimizeLineState.startTime),
         rx.text(OptimizeLineState.endTime),
         rx.text(OptimizeLineState.duration),
+        timeTable(OptimizeLineState.bestTimeTable),
+        rx.button(
+            rx.heading("Uložiť do dropdownu"),
+            on_click=OptimizeLineState.saveTimeTableToDropdown(),
+        ),
         spacing="5",
         width="100%",
     ),

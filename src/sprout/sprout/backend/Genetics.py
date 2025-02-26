@@ -15,6 +15,7 @@ class Genetics:
         self.busStops = busStops
         self.constraints = constraints
         self.generation = []
+        self.bestIndividual = None
         self.initPopulation(initialChromosome)
 
     # METHODS
@@ -43,9 +44,9 @@ class Genetics:
         return Individual(self.mutationRate, self.busStops, self.constraints, newChromosome1), Individual(self.mutationRate, self.busStops, self.constraints, newChromosome2)
     
     def parentSelection(self):
-        parent1 = self.generation[RandomNumberGenerator.integers(0, self.populationSize)]
-        parent2 = self.generation[RandomNumberGenerator.integers(0, self.populationSize)]
-        if parent1.fitness < parent2.fitness:
+        parent1 = self.generation[RandomNumberGenerator.integers(0, len(self.generation))]
+        parent2 = self.generation[RandomNumberGenerator.integers(0, len(self.generation))]
+        if parent1.fitness > parent2.fitness:
             return parent1
         return parent2
         
@@ -55,15 +56,19 @@ class Genetics:
         for i in range(self.elitismCount):
             newGeneration.append(self.generation[i])
 
+        filteredGeneration = list(filter(lambda x: x.fitness > 0, self.generation))
+        print(len(filteredGeneration))
+        if len(filteredGeneration) >= 2:
+            self.generation = filteredGeneration
+
         for i in range(int((self.populationSize - self.elitismCount)/2)):
             parent1 = self.parentSelection()
             parent2 = self.parentSelection()
             child1, child2 = self.crossover(parent1, parent2)
+            child1.mutate()
+            child2.mutate()
             newGeneration.append(child1)
             newGeneration.append(child2)
-
-        for individual in newGeneration:
-            individual.mutate()
                 
         self.generation = newGeneration
 
@@ -76,7 +81,10 @@ class Genetics:
         return individual
 
     def sortGeneration(self):
-        self.generation.sort(key=lambda x: x.fitness)    
+        self.generation.sort(key=lambda x: x.fitness, reverse=True)
+        if self.bestIndividual is None or self.generation[0].fitness > self.bestIndividual.fitness:
+            self.bestIndividual = self.generation[0]
+
 
     # STR
     def __str__(self):
@@ -99,21 +107,30 @@ class Individual:
 
     # METHODS
     def generateRandomChromosome(self):
-        chromosome = np.full(24, fill_value=0)
-        mask = np.array(self.constraints) != 'x'
-        chromosome[mask] = np.array(self.constraints)[mask]
-        chromosome[~mask] = RandomNumberGenerator.integers(1, 30)
-        return chromosome.tolist()
+        chromosome = []
+        for i in range(24):
+            if self.constraints[i] == 'x':
+                chromosome.append(RandomNumberGenerator.integers(1, 15))
+            else:
+                chromosome.append(self.constraints[i])
+        return chromosome
 
     def calculateFitness(self):
+        self.fitness = 0
         timeTable = TimeTable(self.chromosome)
         stats = Simulation.run(0, 24*60, self.busStops, timeTable)
-        self.fitness = stats.totalNumberOfBuses
+        self.fitness -= round(stats.totalNumberOfBuses * stats.busStatistics.capacity)
+        self.fitness += stats.busStatistics.totalPassengersTransported
+        self.fitness -= stats.busStopStatistics.totalPassengersWaitingForNextBus
+        self.fitness -= stats.busStopStatistics.totalTimeSpentWaiting / stats.busStopStatistics.totalPassengersArrived
+        
+        if stats.busStopStatistics.totalPassangersLeftUnboarded != 0:
+            self.fitness = -1000000
         
     def mutate(self):
         for i in range(24):
             if RandomNumberGenerator.uniform() < self.mutationRate and self.constraints[i] == 'x':
-                self.chromosome[i] = RandomNumberGenerator.integers(1, 30)
+                self.chromosome[i] = RandomNumberGenerator.integers(1, 15)
 
     # STR
     def __str__(self):

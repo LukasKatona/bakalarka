@@ -9,10 +9,12 @@ from .hourChart import hourChart
 from .busStopChart import busStopChart
 
 class AnalyzeLineState(rx.State):
-    bus_sops_filename: str = ""
-    bus_stops_filecontent: str = ""
-    time_table_filename: str = ""
-    time_table_filecontent: str = ""
+    selectedTimeTableName: str
+    selectedTimeTable: str
+
+    busSopsFilename: str = ""
+    selectedBusStops: str = ""
+    timeTableFilename: str = ""
     busStopTable: list[tuple[str, str, bool]] = []
     timeTable: list[tuple[str, str, bool]] = []
     
@@ -42,21 +44,22 @@ class AnalyzeLineState(rx.State):
 
     @rx.event
     async def clear_files(self):
-        self.bus_sops_filename = ""
-        self.bus_stops_filecontent = ""
-        self.time_table_filename = ""
-        self.time_table_filecontent = ""
+        self.busSopsFilename = ""
+        self.selectedBusStops = ""
+        self.timeTableFilename = ""
+        self.selectedTimeTable = ""
+        self.selectedTimeTableName = ""
         self.busStopTable = []
         self.timeTable = []
         self.showAnalysis = False
 
     @rx.event
     async def handle_analyze(self):
-        if not self.bus_stops_filecontent or not self.time_table_filecontent:
+        if not self.selectedBusStops or not self.selectedTimeTable:
             return
 
-        busStops = InputParser.parseBusStopsFromString(self.bus_stops_filecontent)
-        timeTable = InputParser.parseTimeTableFromString(self.time_table_filecontent)
+        busStops = InputParser.parseBusStopsFromString(self.selectedBusStops)
+        timeTable = InputParser.parseTimeTableFromString(self.selectedTimeTable)
         stats = Simulation.run(0, 24*60, busStops, timeTable)
 
         self.numberOfBusStops = len(busStops)
@@ -114,7 +117,7 @@ def analyzeLine() -> rx.Component:
                 on_click=AnalyzeLineState.handle_analyze(),
                 size="4",
                 disabled=rx.cond(
-                    (AnalyzeLineState.bus_stops_filecontent == "") | (AnalyzeLineState.time_table_filecontent == ""),
+                    (AnalyzeLineState.selectedBusStops == "") | (AnalyzeLineState.selectedTimeTable == ""),
                     True,
                     False,
                 ),
