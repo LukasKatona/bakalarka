@@ -1,5 +1,6 @@
 import reflex as rx
 
+
 def constraintHourInput(hour: int) -> rx.Component:
     from .optimizeLine import OptimizeLineState
     return rx.vstack(
@@ -8,7 +9,19 @@ def constraintHourInput(hour: int) -> rx.Component:
             value=OptimizeLineState.constraints[hour],
             on_change=lambda val: OptimizeLineState.changeConstraints(val, hour),
             size="3",
-            radius="none"
+            radius="none",
+            disabled=OptimizeLineState.optimizationRunning,
+            min="0",
+            color_scheme=rx.cond(
+                OptimizeLineState.constraints[hour] < 0,
+                "red",
+                "dark"
+            ),
+            variant=rx.cond(
+                OptimizeLineState.constraints[hour] < 0,
+                "soft",
+                "classic"
+            ),
         ),
         rx.text(hour),
         align="center",

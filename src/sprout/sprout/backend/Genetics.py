@@ -108,7 +108,7 @@ class Individual:
     def generateRandomChromosome(self):
         chromosome = []
         for i in range(24):
-            if self.constraints[i] == 'x':
+            if self.constraints[i] == None:
                 chromosome.append(RandomNumberGenerator.integers(1, 15))
             else:
                 chromosome.append(self.constraints[i])
@@ -128,7 +128,7 @@ class Individual:
         
     def mutate(self):
         for i in range(24):
-            if RandomNumberGenerator.uniform() < self.mutationRate and self.constraints[i] == 'x':
+            if RandomNumberGenerator.uniform() < self.mutationRate and self.constraints[i] == None:
                 self.chromosome[i] = RandomNumberGenerator.integers(1, 15)
 
     # STR

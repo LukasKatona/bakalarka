@@ -70,6 +70,8 @@ class InfoUploadState(rx.State):
         state.busSopsFilename = uploadBusStops[0].filename
         state.selectedBusStops = uploadBusStops[0].file.read().decode('utf-8')
         state.busStopTable = self.parseBusStopsToTuple(state.selectedBusStops)
+        if self.router.page.path == "/optimize":
+            state.initConstraints()
         
     @rx.event
     async def handle_upload_time_table(self, uploadTimeTable: list[rx.UploadFile]):

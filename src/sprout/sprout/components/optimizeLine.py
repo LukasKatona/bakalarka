@@ -26,7 +26,7 @@ class OptimizeLineState(rx.State):
     populationSize: int = 50
     mutationRate: float = 0.3
     elitismCount: int = 6
-    constraints: list[str] = ["x"]*24
+    constraints: list[int|None] = [None]*24
     numberOfGenerations: int = 100
 
     generationNumber: str = "0" + "/" + str(numberOfGenerations)
@@ -67,7 +67,7 @@ class OptimizeLineState(rx.State):
         self.populationSize: int = 50
         self.mutationRate: float = 0.3
         self.elitismCount: int = 6
-        self.constraints: list[str] = ["x"]*24
+        self.constraints: list[int|None] = [None]*24
         self.numberOfGenerations: int = 100
 
         self.generationNumber = "0/" + str(self.numberOfGenerations)
@@ -82,10 +82,9 @@ class OptimizeLineState(rx.State):
     @rx.event
     async def changeConstraints(self, val, hour: int) -> None:
         if val == "":
-            self.constraints[hour] = "x"
+            self.constraints[hour] = None
         else:
-            self.constraints[hour] = val
-        print(self.constraints)
+            self.constraints[hour] = int(val)
 
     @rx.event(background=True)
     async def handle_optimize(self):
@@ -133,7 +132,7 @@ class OptimizeLineState(rx.State):
             self._n_tasks -= 1
             self.endTime = datetime.now().strftime("%H:%M:%S")
             self.duration = str(datetime.strptime(self.endTime, "%H:%M:%S") - datetime.strptime(self.startTime, "%H:%M:%S"))
-
+            yield rx.toast.success("Optimalizácia dokončená")
 
     @rx.event
     async def toggle_optimization_run(self):
@@ -143,8 +142,13 @@ class OptimizeLineState(rx.State):
             self.showOptimization = True
             return OptimizeLineState.handle_optimize
         
+    def initConstraints(self):
+        busStops = InputParser.parseBusStopsFromString(self.selectedBusStops)
+        busStopRates = {rate[0] for busStop in busStops for rate in busStop.passengerArrivalRatesPerHour}
+        self.constraints = [0 if hour not in busStopRates else self.constraints[hour] for hour in range(24)]
+        
     @rx.event
-    async def saveTimeTableToDropdown(self):
+    async def saveTimeTable(self):
         from ..components.infoUpload import InfoUploadState
         state = await self.get_state(InfoUploadState)
         state.insertNewTimeTable((str(datetime.now()), self.bestTimeTableString))
@@ -277,7 +281,10 @@ def optimizeLine() -> rx.Component:
             ),
             rx.button(
                 rx.cond(OptimizeLineState.optimizationRunning, rx.heading("Zastaviť"), rx.heading("Optimalizovať")),
-                on_click=OptimizeLineState.toggle_optimization_run(),
+                on_click=[
+                    OptimizeLineState.toggle_optimization_run(),
+                    rx.cond(OptimizeLineState.optimizationRunning, rx.toast.info("Optimalizácia zastavená"), rx.toast.info("Optimalizácia spustená")),
+                ],
                 size="4",
                 disabled=rx.cond(
                     (OptimizeLineState.selectedBusStops == ""),
@@ -292,6 +299,12 @@ def optimizeLine() -> rx.Component:
             OptimizeLineState.showOptimization,
             rx.vstack(
                 rx.hstack(
+                    rx.heading("Optimalizácia", size="8"),
+                    padding_y="1em",
+                    width="100%",
+                    justify="center",
+                ),
+                rx.hstack(
                     infoCard("Generácia", OptimizeLineState.generationNumber),
                     infoCard("Začiatok", OptimizeLineState.startTime),
                     infoCard("Koniec", OptimizeLineState.endTime, loading=rx.cond(OptimizeLineState.optimizationRunning, True, False)),
@@ -303,8 +316,11 @@ def optimizeLine() -> rx.Component:
                 timeTable(OptimizeLineState.currentGenerationBestTimeTable),
                 timeTable(OptimizeLineState.bestTimeTable),
                 rx.button(
-                    rx.heading("Uložiť do dropdownu"),
-                    on_click=OptimizeLineState.saveTimeTableToDropdown(),
+                    rx.heading("Uložiť rozpis"),
+                    on_click=[
+                        OptimizeLineState.saveTimeTable(),
+                        rx.toast.success("Rozpis bol uložený"),
+                    ],
                 ),
                 width="100%",
                 spacing="5",
