@@ -7,6 +7,7 @@ from ..backend.Genetics import Genetics
 
 from ..components.timeTable import timeTable
 from ..components.infoCard import infoCard
+from ..components.constraintInput import constraintInput
 
 class OptimizeLineState(rx.State):
     selectedTimeTableName: str
@@ -25,8 +26,7 @@ class OptimizeLineState(rx.State):
     populationSize: int = 50
     mutationRate: float = 0.3
     elitismCount: int = 6
-    constraints = [0,0,0,0,0,'x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x',0]
-    #constraints = ['x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x']
+    constraints: list[str] = ["x"]*24
     numberOfGenerations: int = 100
 
     generationNumber: str = "0" + "/" + str(numberOfGenerations)
@@ -67,7 +67,7 @@ class OptimizeLineState(rx.State):
         self.populationSize: int = 50
         self.mutationRate: float = 0.3
         self.elitismCount: int = 6
-        # TODO remove comment, constraints = ['x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x']
+        self.constraints: list[str] = ["x"]*24
         self.numberOfGenerations: int = 100
 
         self.generationNumber = "0/" + str(self.numberOfGenerations)
@@ -78,6 +78,14 @@ class OptimizeLineState(rx.State):
         self.duration = ''
 
         self.showOptimization = False
+
+    @rx.event
+    async def changeConstraints(self, val, hour: int) -> None:
+        if val == "":
+            self.constraints[hour] = "x"
+        else:
+            self.constraints[hour] = val
+        print(self.constraints)
 
     @rx.event(background=True)
     async def handle_optimize(self):
@@ -260,7 +268,7 @@ def optimizeLine() -> rx.Component:
             width="100%",
             spacing="5",
         ),
-        
+        constraintInput(),
         rx.hstack(
             rx.button(
                 rx.heading("Resetovať"),
