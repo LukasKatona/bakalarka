@@ -57,7 +57,6 @@ class Genetics:
             newGeneration.append(self.generation[i])
 
         filteredGeneration = list(filter(lambda x: x.fitness > 0, self.generation))
-        print(len(filteredGeneration))
         if len(filteredGeneration) >= 2:
             self.generation = filteredGeneration
 

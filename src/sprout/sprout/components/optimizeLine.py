@@ -6,6 +6,7 @@ from ..backend.InputParser import InputParser
 from ..backend.Genetics import Genetics
 
 from ..components.timeTable import timeTable
+from ..components.infoCard import infoCard
 
 class OptimizeLineState(rx.State):
     selectedTimeTableName: str
@@ -17,6 +18,7 @@ class OptimizeLineState(rx.State):
     busStopTable: list[tuple[str, str, bool]] = []
     timeTable: list[tuple[str, str, bool]] = []
 
+    currentGenerationBestTimeTable: list[tuple[str, str, bool]] = []
     bestTimeTable: list[tuple[str, str, bool]] = []
     bestTimeTableString: str = ""
 
@@ -27,13 +29,15 @@ class OptimizeLineState(rx.State):
     #constraints = ['x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x']
     numberOfGenerations: int = 100
 
-    generationNumber: int = 0
+    generationNumber: str = "0" + "/" + str(numberOfGenerations)
 
     optimizationRunning: bool = False
     _n_tasks: int = 0
-    startTime: int = 0
-    endTime: int = 0
-    duration: int = 0
+    startTime: str = ''
+    endTime: str = ''
+    duration: str = ''
+
+    showOptimization: bool = False
 
     def parseTimeTableToTuple(self, timeTable: TimeTable) -> list[tuple[str, str, bool]]:
         timeTableTuple: list[tuple[str, str, bool]] = []
@@ -48,7 +52,7 @@ class OptimizeLineState(rx.State):
         return timeTableTuple
 
     @rx.event
-    async def clear_files(self):
+    async def resetOptimization(self):
         self.busSopsFilename = ""
         self.selectedBusStops = ""
         self.timeTableFilename = ""
@@ -56,13 +60,24 @@ class OptimizeLineState(rx.State):
         self.selectedTimeTableName = ""
         self.busStopTable = []
         self.timeTable = []
+        self.currentGenerationBestTimeTable = []
+        self.bestTimeTable = []
+        self.bestTimeTableString = ""
 
-        self.generationNumber = 0
+        self.populationSize: int = 50
+        self.mutationRate: float = 0.3
+        self.elitismCount: int = 6
+        # TODO remove comment, constraints = ['x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x']
+        self.numberOfGenerations: int = 100
+
+        self.generationNumber = "0/" + str(self.numberOfGenerations)
         self.optimizationRunning = False
         self._n_tasks = 0
-        self.startTime = 0
-        self.endTime = 0
-        self.duration = 0
+        self.startTime = ''
+        self.endTime = ''
+        self.duration = ''
+
+        self.showOptimization = False
 
     @rx.event(background=True)
     async def handle_optimize(self):
@@ -70,6 +85,7 @@ class OptimizeLineState(rx.State):
             if self._n_tasks > 0:
                 return
             self._n_tasks += 1
+            self.generationNumber = "0/" + str(self.numberOfGenerations)
 
         if not self.selectedBusStops:
             return
@@ -86,41 +102,41 @@ class OptimizeLineState(rx.State):
 
         lastChromosomes = []
         for i in range(self.numberOfGenerations):
-            time = datetime.now().timestamp()
-            genetics.updateGeneration()
-            print("time to update generation: ", datetime.now().timestamp() - time)
-            lastChromosomes.append(genetics.generation[0].chromosome)
             timeTableTuple = self.parseTimeTableToTuple(TimeTable(genetics.generation[0].chromosome))
             bestTimeTableTuple = self.parseTimeTableToTuple(TimeTable(genetics.bestIndividual.chromosome))
-            print(genetics)
             async with self:
-                self.timeTable = timeTableTuple
-                self.bestTimeTable = bestTimeTableTuple
-                self.bestTimeTableString = str(TimeTable(genetics.generation[0].chromosome))
-                self.generationNumber = i
-                if len(lastChromosomes) == 5:
-                    if lastChromosomes[0] == lastChromosomes[1] == lastChromosomes[2] == lastChromosomes[3] == lastChromosomes[4]:
-                        self.optimizationRunning = False
-                    lastChromosomes.pop(0)
                 if not self.optimizationRunning:
                     break
+                self.currentGenerationBestTimeTable = timeTableTuple
+                self.bestTimeTable = bestTimeTableTuple
+                self.bestTimeTableString = str(TimeTable(genetics.generation[0].chromosome))
+                self.generationNumber = str(i+1) + "/" + str(self.numberOfGenerations)
+
+            genetics.updateGeneration()
+            lastChromosomes.append(genetics.generation[0].chromosome)
+
+            if len(lastChromosomes) == 5:
+                if lastChromosomes[0] == lastChromosomes[1] == lastChromosomes[2] == lastChromosomes[3] == lastChromosomes[4]:
+                    break
+                lastChromosomes.pop(0)
                 
         async with self:
+            self.optimizationRunning = False
             self._n_tasks -= 1
-            self.endTime = datetime.now().timestamp()
-            self.duration = self.endTime - self.startTime
+            self.endTime = datetime.now().strftime("%H:%M:%S")
+            self.duration = str(datetime.strptime(self.endTime, "%H:%M:%S") - datetime.strptime(self.startTime, "%H:%M:%S"))
 
 
     @rx.event
     async def toggle_optimization_run(self):
         self.optimizationRunning = not self.optimizationRunning
         if self.optimizationRunning:
-            self.startTime = datetime.now().timestamp()
+            self.startTime = datetime.now().strftime("%H:%M:%S")
+            self.showOptimization = True
             return OptimizeLineState.handle_optimize
         
     @rx.event
     async def saveTimeTableToDropdown(self):
-        print("saving")
         from ..components.infoUpload import InfoUploadState
         state = await self.get_state(InfoUploadState)
         state.insertNewTimeTable((str(datetime.now()), self.bestTimeTableString))
@@ -128,9 +144,127 @@ class OptimizeLineState(rx.State):
 def optimizeLine() -> rx.Component:
     return rx.vstack(
         rx.hstack(
+            rx.vstack(
+                rx.text("Veľkosť populácie"),
+                rx.input(
+                    placeholder="Veľkosť populácie",
+                    value=OptimizeLineState.populationSize,
+                    on_change=OptimizeLineState.set_populationSize,
+                    width="100%",
+                    size="3",
+                    min="1",
+                    type="number",
+                    color_scheme=rx.cond(
+                        OptimizeLineState.populationSize < 1,
+                        "red",
+                        "dark"
+                    ),
+                    variant=rx.cond(
+                        OptimizeLineState.populationSize < 1,
+                        "soft",
+                        "classic"
+                    ),
+                    disabled=rx.cond(
+                        OptimizeLineState.optimizationRunning,
+                        True,
+                        False,
+                    ),
+                ),
+                width="100%"
+            ),
+            rx.vstack(
+                rx.text("Počet generácií"),
+                rx.input(
+                    placeholder="Počet generácií",
+                    value=OptimizeLineState.numberOfGenerations,
+                    on_change=OptimizeLineState.set_numberOfGenerations,
+                    width="100%",
+                    size="3",
+                    min="1",
+                    type="number",
+                    color_scheme=rx.cond(
+                        OptimizeLineState.numberOfGenerations < 1,
+                        "red",
+                        "dark"
+                    ),
+                    variant=rx.cond(
+                        OptimizeLineState.numberOfGenerations < 1,
+                        "soft",
+                        "classic"
+                    ),
+                    disabled=rx.cond(
+                        OptimizeLineState.optimizationRunning,
+                        True,
+                        False,
+                    ),
+                ),
+                width="100%"
+            ),
+            rx.vstack(
+                rx.text("Pravdepodobnosť mutácie"),
+                rx.input(
+                    placeholder="Pravdepodobnosť mutácie",
+                    value=OptimizeLineState.mutationRate,
+                    on_change=OptimizeLineState.set_mutationRate,
+                    width="100%",
+                    size="3",
+                    min="0",
+                    max="1",
+                    type="number",
+                    color_scheme=rx.cond(
+                        (OptimizeLineState.mutationRate < 0) | (OptimizeLineState.mutationRate > 1),
+                        "red",
+                        "dark"
+                    ),
+                    variant=rx.cond(
+                        (OptimizeLineState.mutationRate < 0) | (OptimizeLineState.mutationRate > 1),
+                        "soft",
+                        "classic"
+                    ),
+                    disabled=rx.cond(
+                        OptimizeLineState.optimizationRunning,
+                        True,
+                        False,
+                    ),
+                ),
+                width="100%"
+            ),
+            rx.vstack(
+                rx.text("Elitizmus"),
+                rx.input(
+                    placeholder="Elitizmus",
+                    value=OptimizeLineState.elitismCount,
+                    on_change=OptimizeLineState.set_elitismCount,
+                    width="100%",
+                    size="3",
+                    min="0",
+                    type="number",
+                    color_scheme=rx.cond(
+                        OptimizeLineState.elitismCount < 0,
+                        "red",
+                        "dark"
+                    ),
+                    variant=rx.cond(
+                        OptimizeLineState.elitismCount < 0,
+                        "soft",
+                        "classic"
+                    ),
+                    disabled=rx.cond(
+                        OptimizeLineState.optimizationRunning,
+                        True,
+                        False,
+                    ),
+                ),
+                width="100%"
+            ),
+            width="100%",
+            spacing="5",
+        ),
+        
+        rx.hstack(
             rx.button(
-                rx.heading("Vymazať súbory"),
-                on_click=OptimizeLineState.clear_files(),
+                rx.heading("Resetovať"),
+                on_click=OptimizeLineState.resetOptimization(),
                 size="4",
             ),
             rx.button(
@@ -146,15 +280,27 @@ def optimizeLine() -> rx.Component:
             width="100%",
             justify="center",
         ),
-        rx.text(OptimizeLineState.generationNumber),
-        rx.text(OptimizeLineState.optimizationRunning),
-        rx.text(OptimizeLineState.startTime),
-        rx.text(OptimizeLineState.endTime),
-        rx.text(OptimizeLineState.duration),
-        timeTable(OptimizeLineState.bestTimeTable),
-        rx.button(
-            rx.heading("Uložiť do dropdownu"),
-            on_click=OptimizeLineState.saveTimeTableToDropdown(),
+        rx.cond(
+            OptimizeLineState.showOptimization,
+            rx.vstack(
+                rx.hstack(
+                    infoCard("Generácia", OptimizeLineState.generationNumber),
+                    infoCard("Začiatok", OptimizeLineState.startTime),
+                    infoCard("Koniec", OptimizeLineState.endTime, loading=rx.cond(OptimizeLineState.optimizationRunning, True, False)),
+                    infoCard("Trvanie", OptimizeLineState.duration, loading=rx.cond(OptimizeLineState.optimizationRunning, True, False)),
+                    width="100%",
+                    spacing="5",
+                    align="stretch",
+                ),
+                timeTable(OptimizeLineState.currentGenerationBestTimeTable),
+                timeTable(OptimizeLineState.bestTimeTable),
+                rx.button(
+                    rx.heading("Uložiť do dropdownu"),
+                    on_click=OptimizeLineState.saveTimeTableToDropdown(),
+                ),
+                width="100%",
+                spacing="5",
+            ),
         ),
         spacing="5",
         width="100%",
