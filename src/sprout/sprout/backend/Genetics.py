@@ -8,10 +8,11 @@ from .models import TimeTable
 
 class Genetics:
     # INIT
-    def __init__(self, populationSize, mutationRate, elitismCount, busStops, constraints, initialChromosome=None,):
+    def __init__(self, populationSize, mutationRate, elitismCount, maxConnectionsPerHour, busStops, constraints, initialChromosome=None,):
         self.populationSize = populationSize
         self.mutationRate = mutationRate
         self.elitismCount = elitismCount
+        self.maxConnectionsPerHour = maxConnectionsPerHour
         self.busStops = busStops
         self.constraints = constraints
         self.generation = []
@@ -21,11 +22,11 @@ class Genetics:
     # METHODS
     def initPopulation(self, initialChromosome=None):
         for i in range(self.populationSize):
-            self.generation.append(Individual(self.mutationRate, self.busStops, self.constraints))
+            self.generation.append(Individual(self.mutationRate, self.maxConnectionsPerHour, self.busStops, self.constraints))
 
         if initialChromosome is not None:
             self.generation.pop(0)
-            self.generation.append(Individual(self.mutationRate, self.busStops, self.constraints, initialChromosome))
+            self.generation.append(Individual(self.mutationRate, self.maxConnectionsPerHour, self.busStops, self.constraints, initialChromosome))
 
         self.generation = Pool().map(self.calculateFitnessWrapper, self.generation)
             
@@ -41,7 +42,7 @@ class Genetics:
             else:
                 newChromosome1[i] = parent2.chromosome[i]
                 newChromosome2[i] = parent1.chromosome[i]
-        return Individual(self.mutationRate, self.busStops, self.constraints, newChromosome1), Individual(self.mutationRate, self.busStops, self.constraints, newChromosome2)
+        return Individual(self.mutationRate, self.maxConnectionsPerHour, self.busStops, self.constraints, newChromosome1), Individual(self.mutationRate, self.maxConnectionsPerHour, self.busStops, self.constraints, newChromosome2)
     
     def parentSelection(self):
         parent1 = self.generation[RandomNumberGenerator.integers(0, len(self.generation))]
@@ -94,8 +95,9 @@ class Genetics:
 
 class Individual:
     # INIT
-    def __init__(self, mutationRate, busStops, constraints, chromosome=None):
+    def __init__(self, mutationRate, maxConnectionsPerHour, busStops, constraints, chromosome=None):
         self.mutationRate = mutationRate
+        self.maxConnectionsPerHour = maxConnectionsPerHour
         self.busStops = busStops
         self.constraints = constraints
         if chromosome is None:
@@ -109,7 +111,7 @@ class Individual:
         chromosome = []
         for i in range(24):
             if self.constraints[i] == None:
-                chromosome.append(RandomNumberGenerator.integers(1, 15))
+                chromosome.append(RandomNumberGenerator.integers(1, self.maxConnectionsPerHour+1))
             else:
                 chromosome.append(self.constraints[i])
         return chromosome
@@ -120,8 +122,7 @@ class Individual:
         stats = Simulation.run(0, 24*60, self.busStops, timeTable)
         self.fitness -= round(stats.totalNumberOfBuses * stats.busStatistics.capacity)
         self.fitness += stats.busStatistics.totalPassengersTransported
-        self.fitness -= stats.busStopStatistics.totalPassengersWaitingForNextBus
-        self.fitness -= stats.busStopStatistics.totalTimeSpentWaiting / stats.busStopStatistics.totalPassengersArrived
+        self.fitness -= stats.busStopStatistics.totalPassengersWaitingForNextBus*20
         
         if stats.busStopStatistics.totalPassangersLeftUnboarded != 0:
             self.fitness = -1000000
@@ -129,7 +130,7 @@ class Individual:
     def mutate(self):
         for i in range(24):
             if RandomNumberGenerator.uniform() < self.mutationRate and self.constraints[i] == None:
-                self.chromosome[i] = RandomNumberGenerator.integers(1, 15)
+                self.chromosome[i] = RandomNumberGenerator.integers(1, self.maxConnectionsPerHour+1)
 
     # STR
     def __str__(self):

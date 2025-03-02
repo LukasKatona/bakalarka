@@ -108,14 +108,14 @@ def analyzeLine() -> rx.Component:
     return rx.vstack(
         rx.hstack(
             rx.button(
-                rx.heading("Vymazať súbory"),
+                rx.heading("Vymazať súbory", size="3"),
                 on_click=AnalyzeLineState.clear_files(),
-                size="4",
+                size="3",
             ),
             rx.button(
-                rx.heading("Analyzovať"),
+                rx.heading("Analyzovať", size="3"),
                 on_click=AnalyzeLineState.handle_analyze(),
-                size="4",
+                size="3",
                 disabled=rx.cond(
                     (AnalyzeLineState.selectedBusStops == "") | (AnalyzeLineState.selectedTimeTable == ""),
                     True,

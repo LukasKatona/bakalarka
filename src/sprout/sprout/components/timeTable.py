@@ -35,10 +35,10 @@ def timeTableRows(rows):
         spacing="0",
     )
 
-def timeTable(timeTable) -> rx.Component:
+def timeTable(timeTable, heading: str = "Časový rozpis linky") -> rx.Component:
     return rx.card(
         rx.vstack(
-            rx.heading("Časový rozvrh linky", size="4", padding_x="3em"),
+            rx.heading(heading, size="4", padding_x="3em"),
             timeTableRows(timeTable),
         ),
         size="3",
