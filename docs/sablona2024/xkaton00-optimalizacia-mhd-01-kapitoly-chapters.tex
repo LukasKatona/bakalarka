@@ -325,7 +325,7 @@ Obsahuje:
 
 Trieda \texttt{BusStop} reprezentuje jednu zastávku, rovnako tak trieda \texttt{Bus} reprezentuje jedno vozidlo.
 Tieto dve triedy sú písané podľa vzoru DEVS formalizmu. Obsahujú stavy, vstupné a výstupné signály a metódy, v ktorých sa nachádzjú akcie pre jednotlivé prechody medzi stavmi.
-Cestujúci sú uložení ako pole čisel, časov ich príchodu, v jednotlivých zastávkach v atribúte \texttt{waitingPassangersArrivalTimes}.
+Cestujúci sú uložení ako pole čisel, časov ich príchodu, v jednotlivých zastávkach v atribúte \texttt{waitingPassengersArrivalTimes}.
 
 Na generovanie náhodného príchodu cestujúcich slúži trieda \texttt{RandomNumberGenerator}, ktorá obsahuje statické metódy na generovanie náhodných čísel.
 
@@ -353,12 +353,12 @@ Táto trieda slúži na zber následujúcich informácií:
 \begin{itemize}
   \item \texttt{totalPassengersArrived} --- počet cestujúcich, ktorí prišli na zastávku za celý deň
   \item \texttt{totalPassengersDeparted} --- počet cestujúcich, ktorí vystúpili na zastávke za celý deň
-  \item \texttt{totalPassengersWaitingForNextBus} --- počet cestujúcich, ktorí museli čakať na ďalší spoj
+  \item \texttt{totalPassengersLeftUnboarded} --- počet cestujúcich, ktorí museli čakať na ďalší spoj
   \item \texttt{totalTimeSpentWaiting} --- celkový čas, ktorý cestujúci strávili čakaním na zastávke
-  \item \texttt{totalPassangersLeftUnboarded} --- počet cestujúcich, ktorých po celom dni nezobral žiaden spoj
+  \item \texttt{totalPassengersLeftUnboarded} --- počet cestujúcich, ktorých po celom dni nezobral žiaden spoj
   \item \texttt{passengersArrivedPerHour} --- počet cestujúcich, ktorí prišli na zastávku v jednotlivých hodinách
   \item \texttt{passengersDepartedPerHour} --- počet cestujúcich, ktorí vystúpili na zastávke v jednotlivých hodinách
-  \item \texttt{passengersWaitingForNextBusPerHour} --- počet cestujúcich, ktorí museli čakať na ďalší spoj v jednotlivých hodinách
+  \item \texttt{passengersLeftUnboardedPerHour} --- počet cestujúcich, ktorí museli čakať na ďalší spoj v jednotlivých hodinách
   \item \texttt{timeSpentWaitingPerHour} --- čas, ktorý cestujúci strávili čakaním na zastávke v jednotlivých hodinách
 \end{itemize}
 
@@ -433,18 +433,18 @@ Mohlo by sa stať, že tieto dve hodnoty by sa líšili, v prípade, že ostatn�
 \end{figure}
 
 \subsection*{Počet cestujúcich, ktorí museli čakať na ďalší spoj v jednotlivých hodinách}
-Na ľavej strane grafu \ref{fig:passengersWaitingForNextBusPerHour} je vidieť, že v priebehu ďňa žiaden z cestujúcich nemusel čakať na ďalší spoj.
+Na ľavej strane grafu \ref{fig:passengersLeftUnboardedPerHour} je vidieť, že v priebehu ďňa žiaden z cestujúcich nemusel čakať na ďalší spoj.
 Toto je ideálny stav.
-Na pravej strane grafu \ref{fig:passengersWaitingForNextBusPerHour} je vidieť, že v priebehu dňa sa počet cestujúcich, ktorí museli čakať na ďalší spoj mení.
+Na pravej strane grafu \ref{fig:passengersLeftUnboardedPerHour} je vidieť, že v priebehu dňa sa počet cestujúcich, ktorí museli čakať na ďalší spoj mení.
 Ráno a okolo obeda nemusel na ďalší spoj čakať nikto, ale v poobednej špičke je vidieť zjavný nedostatok spojov, pretože cestujúci musia čakať na ďalší spoj.
 \begin{figure}[h]
-  \label{fig:passengersWaitingForNextBusPerHour}
+  \label{fig:passengersLeftUnboardedPerHour}
   \centering
   \begin{minipage}{0.49\textwidth}
-    \includegraphics[width=\textwidth]{passengersWaitingForNextBusPerHour.png}
+    \includegraphics[width=\textwidth]{passengersLeftUnboardedPerHour.png}
   \end{minipage}
   \begin{minipage}{0.49\textwidth}
-    \includegraphics[width=\textwidth]{passengersWaitingForNextBusPerHour_nonoptimal.png}
+    \includegraphics[width=\textwidth]{passengersLeftUnboardedPerHour_nonoptimal.png}
   \end{minipage}
   \caption{Počet cestujúcich, ktorí museli čakať na ďalší spoj v jednotlivých hodinách}
 \end{figure}
@@ -453,7 +453,7 @@ Ráno a okolo obeda nemusel na ďalší spoj čakať nikto, ale v poobednej špi
 Čas strávený čakaním na zastávke by mal byť počas celého dňa približne rovnaký.
 Na ľavej strane grafu \ref{fig:timeSpentWaitingPerHour} je tento optimálny stav vidieť.
 Bez ohľadu na to, kedy cestujúci prídu na zastávku, čakajú na spoj rovnako dlho.
-Naopak na prave strane grafu \ref{fig:timeSpentWaitingPerHour}, ktorý je výstupom rovnakej simulácie ako pravá strana grafu \ref{fig:passengersWaitingForNextBusPerHour}, je zrejmé, že čas čakania na zastávke sa v poobedných hodinách výrazne zvýšil práve kvoli tomu, že cestujúci museli čakať na ďalší spoj.
+Naopak na prave strane grafu \ref{fig:timeSpentWaitingPerHour}, ktorý je výstupom rovnakej simulácie ako pravá strana grafu \ref{fig:passengersLeftUnboardedPerHour}, je zrejmé, že čas čakania na zastávke sa v poobedných hodinách výrazne zvýšil práve kvoli tomu, že cestujúci museli čakať na ďalší spoj.
 \begin{figure}[h]
   \label{fig:timeSpentWaitingPerHour}
   \centering

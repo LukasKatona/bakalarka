@@ -42,14 +42,14 @@ class BusStop:
         self.state = BusStop.State.Idle
         self.timeOfLastBusArrival = Simulation.startTime
         self.timeIntervalBetweenBuses = 0
-        self.waitingPassangersArrivalTimes = []
+        self.waitingPassengersArrivalTimes = []
         self.setOutputSignals()
         self.stats = BusStopStatistics(name)
     
     def clear(self):
         self.timeOfLastBusArrival = Simulation.startTime
         self.timeIntervalBetweenBuses = 0
-        self.waitingPassangersArrivalTimes = []
+        self.waitingPassengersArrivalTimes = []
         self.stats.clear()
 
     # METHODS
@@ -59,13 +59,14 @@ class BusStop:
 
     def startBoarding(self):
         self.state = BusStop.State.BusBoarding
-        self.waitingPassangersArrivalTimes += self.generatePassengers()
-        self.waitingPassangersArrivalTimes.sort()
+        self.waitingPassengersArrivalTimes += self.generatePassengers()
+        self.waitingPassengersArrivalTimes.sort()
 
         
     def finishBoarding(self):
         self.state = BusStop.State.Idle
         self.timeOfLastBusArrival = Simulation.currentTime
+        self.waitingPassengersArrivalTimes = []
 
     def generatePassengers(self):
         # find the rate for the current hour
@@ -181,15 +182,16 @@ class Bus:
             inputSignal[0].triggerInputSignal(inputSignal[1])
 
     # INIT
-    def __init__(self, firstBusStop, capacity):
+    def __init__(self, firstBusStop, capacity, seats):
         self.busNumber = Bus.busCounter
         Bus.busCounter += 1
         self.state = Bus.State.Traveling
         self.currentBusStop = firstBusStop
         self.capacity = capacity
+        self.seats = seats
         self.load = 0
         self.setOutputSignals()
-        self.stats = BusStatistics(self.busNumber, capacity)
+        self.stats = BusStatistics(self.busNumber, capacity, seats)
 
     # STATE MACHINE
     def runBusStopSequence(self, busStop):
@@ -215,20 +217,32 @@ class Bus:
         # notify bus stop to generate new passengers
         self.triggerOutputSignal(Bus.OutputSignals.Boarding)
         # board passengers, if there is capacity and there are passengers waiting
-        while self.load < self.capacity and len(self.currentBusStop.waitingPassangersArrivalTimes) > 0 and self.currentBusStop.waitingPassangersArrivalTimes[0] <= Simulation.currentTime:
+        while len(self.currentBusStop.waitingPassengersArrivalTimes) > 0 and self.currentBusStop.waitingPassengersArrivalTimes[0] <= Simulation.currentTime:
+            self.updatePassengerSatisfaction()
+            if self.load == self.capacity:
+                break;
             self.load += 1
-            passengerArrivalTime = self.currentBusStop.waitingPassangersArrivalTimes.pop(0)
+            passengerArrivalTime = self.currentBusStop.waitingPassengersArrivalTimes.pop(0)
             # update statistics
             self.currentBusStop.stats.updateTimeSpentWaitingPerHour(Simulation.currentTime - passengerArrivalTime, Simulation.getHour())
             self.stats.updateTotalPassengersTransported(1)
         # update statistics
-        self.currentBusStop.stats.updatePassengersWaitingForNextBusPerHour(len(self.currentBusStop.waitingPassangersArrivalTimes), Simulation.getHour())
+        self.currentBusStop.stats.updatePassengersLeftUnboardedPerHour(len(self.currentBusStop.waitingPassengersArrivalTimes), Simulation.getHour())
         self.stats.updateLoadPerBusStop(self.load, self.currentBusStop.name)
         
     def departFromStop(self):
         self.state = Bus.State.Traveling
         # notify bus stop that bus has departed
         self.triggerOutputSignal(Bus.OutputSignals.Departure)    
+
+    def updatePassengerSatisfaction(self):
+        if self.load <= self.seats:
+            satisfaction = 1
+        elif self.load > self.seats:
+            satisfaction = 1 - (self.load - self.seats)/(self.capacity - self.seats)
+        elif self.load == self.capacity:
+            satisfaction = 0
+        self.stats.updatePassengerSatisfactions(satisfaction)
 
     # STR
     def __str__(self):

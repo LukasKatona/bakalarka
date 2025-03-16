@@ -34,7 +34,7 @@ class Simulation:
         return Simulation.currentTime // 60 % 24
     
     @staticmethod
-    def run(startTime, endTime, busStops, timeTable, vehicleCapacity):
+    def run(startTime, endTime, busStops, timeTable, vehicleCapacity, vehicleSeats):
         from .models import Bus, BusStop
 
         for busStop in busStops:
@@ -50,7 +50,7 @@ class Simulation:
         # populate event calendar with bus arrival events
         for time in timeTable.getAllTimes():
             # create bus
-            bus = Bus(busStops[0], vehicleCapacity)
+            bus = Bus(busStops[0], vehicleCapacity, vehicleSeats)
             buses.append(bus)
 
             # add bus arrival events
@@ -76,7 +76,6 @@ class Simulation:
         busStopStats = []
         for busStop in busStops:
             if isinstance(busStop, BusStop):
-                busStop.stats.updateTotalPassangersLeftUnboarded(len(busStop.waitingPassangersArrivalTimes))
                 busStop.stats.agregateTotal()
                 busStopStats.append(busStop.stats)
 

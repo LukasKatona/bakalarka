@@ -24,19 +24,21 @@ class AnalyzeLineState(rx.State):
     totalNumberOfBuses: int
     totalPassengersArrived: int
     totalPassengersDeparted: int
-    totalPassengersWaitingForNextBus: int
+    totalPassengersLeftUnboarded: int
     totalTimeSpentWaiting: str
     averageTimeSpentWaiting: str
-    totalPassangersLeftUnboarded: int
     passengersArrivedPerHour = []
     passengersDepartedPerHour = []
-    passengersWaitingForNextBusPerHour = []
+    passengersLeftUnboardedPerHour = []
     timeSpentWaitingPerHour = []
 
-    capacity: int
+    vehicleCapacity: int = 80
+    vehicleSeats: int = 30
+
     averageLoad: str
     averageLoadInPercent: str
     totalPassengersTransported: int
+    averagePassengerSatisfaction: str
     loadPerBusStop = []
     loadInPercentPerBusStop = []
 
@@ -52,6 +54,8 @@ class AnalyzeLineState(rx.State):
         self.busStopTable = []
         self.timeTable = []
         self.showAnalysis = False
+        self.vehicleCapacity = 80
+        self.vehicleSeats = 30
 
     @rx.event
     async def handle_analyze(self):
@@ -60,7 +64,7 @@ class AnalyzeLineState(rx.State):
 
         busStops = InputParser.parseBusStopsFromString(self.selectedBusStops)
         timeTable = InputParser.parseTimeTableFromString(self.selectedTimeTable)
-        stats = Simulation.run(0, 24*60, busStops, timeTable)
+        stats = Simulation.run(0, 24*60, busStops, timeTable, self.vehicleCapacity, self.vehicleSeats)
 
         self.numberOfBusStops = len(busStops)
         self.longestBusStopNameLength = max([len(busStop.name) for busStop in busStops])
@@ -69,10 +73,9 @@ class AnalyzeLineState(rx.State):
 
         self.totalPassengersArrived = stats.busStopStatistics.totalPassengersArrived
         self.totalPassengersDeparted = stats.busStopStatistics.totalPassengersDeparted
-        self.totalPassengersWaitingForNextBus = stats.busStopStatistics.totalPassengersWaitingForNextBus
+        self.totalPassengersLeftUnboarded = stats.busStopStatistics.totalPassengersLeftUnboarded
         self.totalTimeSpentWaiting = str(int(round(stats.busStopStatistics.totalTimeSpentWaiting)))
         self.averageTimeSpentWaiting = str(int(round(stats.busStopStatistics.totalTimeSpentWaiting / stats.busStopStatistics.totalPassengersArrived)))
-        self.totalPassangersLeftUnboarded = stats.busStopStatistics.totalPassangersLeftUnboarded
 
         self.passengersArrivedPerHour = [{"hour": hour, "count": 0} for hour in range(24)]
         for stat in stats.busStopStatistics.passengersArrivedPerHour:
@@ -80,17 +83,17 @@ class AnalyzeLineState(rx.State):
         self.passengersDepartedPerHour = [{"hour": hour, "count": 0} for hour in range(24)]
         for stat in stats.busStopStatistics.passengersDepartedPerHour:
             self.passengersDepartedPerHour[int(stat[0])]["count"] = stat[1]
-        self.passengersWaitingForNextBusPerHour = [{"hour": hour, "count": 0} for hour in range(24)]
-        for stat in stats.busStopStatistics.passengersWaitingForNextBusPerHour:
-            self.passengersWaitingForNextBusPerHour[int(stat[0])]["count"] = stat[1]
+        self.passengersLeftUnboardedPerHour = [{"hour": hour, "count": 0} for hour in range(24)]
+        for stat in stats.busStopStatistics.passengersLeftUnboardedPerHour:
+            self.passengersLeftUnboardedPerHour[int(stat[0])]["count"] = stat[1]
         self.timeSpentWaitingPerHour = [{"hour": hour, "count": 0} for hour in range(24)]
         for stat in stats.busStopStatistics.timeSpentWaitingPerHour:
             self.timeSpentWaitingPerHour[int(stat[0])]["count"] = stat[1]
 
-        self.capacity = stats.busStatistics.capacity
         self.averageLoad = str(int(round(stats.busStatistics.averageLoad)))
         self.averageLoadInPercent = str(int(round(stats.busStatistics.averageLoadInPercent*100)))
         self.totalPassengersTransported = stats.busStatistics.totalPassengersTransported
+        self.averagePassengerSatisfaction = str(int(round(stats.averagePassengerSatisfaction*100)))
 
         self.loadPerBusStop = []
         for stat in stats.busStatistics.loadPerBusStop:
@@ -101,11 +104,66 @@ class AnalyzeLineState(rx.State):
             name = stat[0].replace(" ", "\u00A0")
             self.loadInPercentPerBusStop.append({"name": name, "load": int(round(stat[1]*100))})
 
+        
+
         self.showAnalysis = True
 
 
 def analyzeLine() -> rx.Component:
     return rx.vstack(
+        rx.hstack(
+            rx.vstack(
+                rx.text("Kapacita vozidla"),
+                rx.input(
+                    placeholder="Kapacita vozidla",
+                    value=AnalyzeLineState.vehicleCapacity,
+                    on_change=AnalyzeLineState.set_vehicleCapacity,
+                    width="100%",
+                    size="3",
+                    min="0",
+                    type="number",
+                    color_scheme=rx.cond(
+                        AnalyzeLineState.vehicleCapacity < 1,
+                        "red",
+                        "dark"
+                    ),
+                    variant=rx.cond(
+                        AnalyzeLineState.vehicleCapacity < 1,
+                        "soft",
+                        "classic"
+                    ),
+                ),
+                width="100%",
+                justify="between",
+            ),
+            rx.vstack(
+                rx.text("Miest na sedenie"),
+                rx.input(
+                    placeholder="Miest na sedenie",
+                    value=AnalyzeLineState.vehicleSeats,
+                    on_change=AnalyzeLineState.set_vehicleSeats,
+                    width="100%",
+                    size="3",
+                    min="0",
+                    type="number",
+                    color_scheme=rx.cond(
+                        AnalyzeLineState.vehicleSeats < 0,
+                        "red",
+                        "dark"
+                    ),
+                    variant=rx.cond(
+                        AnalyzeLineState.vehicleSeats < 0,
+                        "soft",
+                        "classic"
+                    ),
+                ),
+                width="100%",
+                justify="between",
+            ),
+            width="100%",
+            spacing="5",
+            align="stretch",
+        ),
         rx.hstack(
             rx.button(
                 rx.heading("Vymazať súbory", size="3"),
@@ -150,8 +208,8 @@ def analyzeLine() -> rx.Component:
                     align_items="stretch",
                 ),
                 rx.hstack(
-                    infoCard("Počet prípadov kedy sa cestujúci nezmestil do vozidla", AnalyzeLineState.totalPassengersWaitingForNextBus),
-                    infoCard("Počet cestujúcich, ktorí sa za celý deň nezmestili do jediného vozidla", AnalyzeLineState.totalPassangersLeftUnboarded),
+                    infoCard("Počet prípadov kedy sa cestujúci nezmestil do vozidla", AnalyzeLineState.totalPassengersLeftUnboarded),
+                    infoCard("Priemerná spokojnosť cestujúcich", AnalyzeLineState.averagePassengerSatisfaction + "%"),
                     spacing="5",
                     width="100%",
                     align_items="stretch",
@@ -159,7 +217,7 @@ def analyzeLine() -> rx.Component:
                 hourChart("Cestujúci prichádzajúci za hodinu", AnalyzeLineState.passengersArrivedPerHour),
                 hourChart("Cestujúci vystupujúci za hodinu", AnalyzeLineState.passengersDepartedPerHour),
                 hourChart("Čas strávený čakaním za hodinu", AnalyzeLineState.timeSpentWaitingPerHour),
-                hourChart("Počet prípadov kedy sa cestujúci nezmestil do vozidla za hodinu", AnalyzeLineState.passengersWaitingForNextBusPerHour),
+                hourChart("Počet prípadov kedy sa cestujúci nezmestil do vozidla za hodinu", AnalyzeLineState.passengersLeftUnboardedPerHour),
                 rx.hstack(
                     infoCard("Celkový počet vozidiel", AnalyzeLineState.totalNumberOfBuses),
                     infoCard("Priemerná naplnenosť vozidiel", AnalyzeLineState.averageLoad + " cestujúcich"),
@@ -168,7 +226,7 @@ def analyzeLine() -> rx.Component:
                     width="100%",
                     align_items="stretch",
                 ),
-                busStopChart("Priemerná naplnenosť naprieč zastávkami", AnalyzeLineState.loadPerBusStop, AnalyzeLineState.capacity, AnalyzeLineState.numberOfBusStops, AnalyzeLineState.longestBusStopNameLength),
+                busStopChart("Priemerná naplnenosť naprieč zastávkami", AnalyzeLineState.loadPerBusStop, AnalyzeLineState.vehicleCapacity, AnalyzeLineState.numberOfBusStops, AnalyzeLineState.longestBusStopNameLength),
                 busStopChart("Priemerná naplnenosť naprieč zastávkami v percentách", AnalyzeLineState.loadInPercentPerBusStop, 100, AnalyzeLineState.numberOfBusStops, AnalyzeLineState.longestBusStopNameLength),
                 spacing="5",
                 width="100%",

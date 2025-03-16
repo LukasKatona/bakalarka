@@ -8,6 +8,7 @@ class Statistics:
         self.language = language
         self.busStopStatistics = self.agregateBusStopStatistics(busStopStatistics)
         self.busStatistics = self.agregateBusStatistics(busStatistics)
+        self.averagePassengerSatisfaction = sum(self.busStatistics.passengerSatisfactions)/len(self.busStatistics.passengerSatisfactions)
         
     # METHODS
     def agregateBusStopStatistics(self, busStopStatistics):
@@ -17,16 +18,15 @@ class Statistics:
                 busStopStatisticsAgregated.updatePassengersArrivedPerHour(hourValuePair[1], hourValuePair[0])
             for hourValuePair in busStop.passengersDepartedPerHour:
                 busStopStatisticsAgregated.updatePassengersDepartedPerHour(hourValuePair[1], hourValuePair[0])
-            for hourValuePair in busStop.passengersWaitingForNextBusPerHour:
-                busStopStatisticsAgregated.updatePassengersWaitingForNextBusPerHour(hourValuePair[1], hourValuePair[0])
+            for hourValuePair in busStop.passengersLeftUnboardedPerHour:
+                busStopStatisticsAgregated.updatePassengersLeftUnboardedPerHour(hourValuePair[1], hourValuePair[0])
             for hourValuePair in busStop.timeSpentWaitingPerHour:
                 busStopStatisticsAgregated.updateTimeSpentWaitingPerHour(hourValuePair[1], hourValuePair[0])
-            busStopStatisticsAgregated.updateTotalPassangersLeftUnboarded(busStop.totalPassangersLeftUnboarded)
         busStopStatisticsAgregated.agregateTotal()
         return busStopStatisticsAgregated
 
     def agregateBusStatistics(self, busStatistics):
-        busStatisticsAgregated = BusStatistics("Agregated", 80, self.language)
+        busStatisticsAgregated = BusStatistics("Agregated", busStatistics[0].capacity, busStatistics[0].seats, self.language)
         loadPerBusStop = {}
         for bus in busStatistics:
             for nameValuePair in bus.loadPerBusStop:
@@ -34,6 +34,7 @@ class Statistics:
                     loadPerBusStop[nameValuePair[0]] = []
                 loadPerBusStop[nameValuePair[0]].append(nameValuePair[1])
             busStatisticsAgregated.updateTotalPassengersTransported(bus.totalPassengersTransported)
+            busStatisticsAgregated.passengerSatisfactions += bus.passengerSatisfactions
         
         for busStopName, loads in loadPerBusStop.items():
             averageLoad = sum(loads) / len(loads)
@@ -52,7 +53,7 @@ class Statistics:
     def saveAllGraphs(self):
         self.busStopStatistics.savePassengersArrivedPerHour("outputs/passengersArrivedPerHour.png")
         self.busStopStatistics.savePassengersDepartedPerHour("outputs/passengersDepartedPerHour.png")
-        self.busStopStatistics.savePassengersWaitingForNextBusPerHour("outputs/passengersWaitingForNextBusPerHour.png")
+        self.busStopStatistics.savePassengersLeftUnboardedPerHour("outputs/passengersLeftUnboardedPerHour.png")
         self.busStopStatistics.saveTimeSpentWaitingPerHour("outputs/timeSpentWaitingPerHour.png")
         self.busStatistics.saveLoadPerBusStop("outputs/loadPerBusStop.png")
         self.busStatistics.saveLoadInPercentPerBusStop("outputs/loadInPercentPerBusStop.png")
@@ -85,13 +86,12 @@ class BusStopStatistics:
         # total
         self.totalPassengersArrived = 0
         self.totalPassengersDeparted = 0
-        self.totalPassengersWaitingForNextBus = 0
+        self.totalPassengersLeftUnboarded = 0
         self.totalTimeSpentWaiting = 0
-        self.totalPassangersLeftUnboarded = 0
         # per hour
         self.passengersArrivedPerHour = []
         self.passengersDepartedPerHour = []
-        self.passengersWaitingForNextBusPerHour = []
+        self.passengersLeftUnboardedPerHour = []
         self.timeSpentWaitingPerHour = []
 
     # PER HOUR
@@ -109,12 +109,12 @@ class BusStopStatistics:
                 return
         self.passengersDepartedPerHour.append((hour, passengersDeparted))
 
-    def updatePassengersWaitingForNextBusPerHour(self, passengersWaiting, hour):
-        for i in range(len(self.passengersWaitingForNextBusPerHour)):
-            if self.passengersWaitingForNextBusPerHour[i][0] == hour:
-                self.passengersWaitingForNextBusPerHour[i] = (hour, self.passengersWaitingForNextBusPerHour[i][1] + passengersWaiting)
+    def updatePassengersLeftUnboardedPerHour(self, passengersWaiting, hour):
+        for i in range(len(self.passengersLeftUnboardedPerHour)):
+            if self.passengersLeftUnboardedPerHour[i][0] == hour:
+                self.passengersLeftUnboardedPerHour[i] = (hour, self.passengersLeftUnboardedPerHour[i][1] + passengersWaiting)
                 return
-        self.passengersWaitingForNextBusPerHour.append((hour, passengersWaiting))
+        self.passengersLeftUnboardedPerHour.append((hour, passengersWaiting))
 
     def updateTimeSpentWaitingPerHour(self, timeSpentWaiting, hour):
         for i in range(len(self.timeSpentWaitingPerHour)):
@@ -127,22 +127,18 @@ class BusStopStatistics:
     def agregateTotal(self):
         self.totalPassengersArrived = sum([x[1] for x in self.passengersArrivedPerHour])
         self.totalPassengersDeparted = sum([x[1] for x in self.passengersDepartedPerHour])
-        self.totalPassengersWaitingForNextBus = sum([x[1] for x in self.passengersWaitingForNextBusPerHour])
+        self.totalPassengersLeftUnboarded = sum([x[1] for x in self.passengersLeftUnboardedPerHour])
         self.totalTimeSpentWaiting = sum([x[1] for x in self.timeSpentWaitingPerHour])
-    
-    def updateTotalPassangersLeftUnboarded(self, passengersLeftUnboarded):
-        self.totalPassangersLeftUnboarded += passengersLeftUnboarded
 
     # CLEAR
     def clear(self):
         self.totalPassengersArrived = 0
         self.totalPassengersDeparted = 0
-        self.totalPassengersWaitingForNextBus = 0
+        self.totalPassengersLeftUnboarded = 0
         self.totalTimeSpentWaiting = 0
-        self.totalPassangersLeftUnboarded = 0
         self.passengersArrivedPerHour = []
         self.passengersDepartedPerHour = []
-        self.passengersWaitingForNextBusPerHour = []
+        self.passengersLeftUnboardedPerHour = []
         self.timeSpentWaitingPerHour = []
 
     # SHOW GRAPHS
@@ -154,8 +150,8 @@ class BusStopStatistics:
         self.plotPassengersDepartedPerHour()
         plt.show()
     
-    def showPassengersWaitingForNextBusPerHour(self):
-        self.plotPassengersWaitingForNextBusPerHour()
+    def showPassengersLeftUnboardedPerHour(self):
+        self.plotPassengersLeftUnboardedPerHour()
         plt.show()
     
     def showTimeSpentWaitingPerHour(self):
@@ -173,8 +169,8 @@ class BusStopStatistics:
         plt.savefig(filename)
         plt.close()
     
-    def savePassengersWaitingForNextBusPerHour(self, filename):
-        self.plotPassengersWaitingForNextBusPerHour()
+    def savePassengersLeftUnboardedPerHour(self, filename):
+        self.plotPassengersLeftUnboardedPerHour()
         plt.savefig(filename)
         plt.close()
     
@@ -210,9 +206,9 @@ class BusStopStatistics:
         else:
             plt.title('Cestujúci odchádzajúci zo všetkých zastávok' if self.language == "sk" else 'Passengers Departed at All Bus Stops')
 
-    def plotPassengersWaitingForNextBusPerHour(self):
-        x = [x[0] for x in self.passengersWaitingForNextBusPerHour]
-        y = [x[1] for x in self.passengersWaitingForNextBusPerHour]
+    def plotPassengersLeftUnboardedPerHour(self):
+        x = [x[0] for x in self.passengersLeftUnboardedPerHour]
+        y = [x[1] for x in self.passengersLeftUnboardedPerHour]
         plt.bar(x, y)
         plt.xlabel('Hodina' if self.language == "sk" else 'Hour')
         plt.ylabel('Cestujúci' if self.language == "sk" else 'Passengers')
@@ -244,12 +240,11 @@ class BusStopStatistics:
                 "=============================================================\n" + \
                 f"Celkový počet prichádzajúcich cestujúcich: {self.totalPassengersArrived}\n" + \
                 f"Celkový počet odchádzajúcich cestujúcich: {self.totalPassengersDeparted}\n" + \
-                f"Celkový počet cestujúcich čakajúcich na ďalší autobus: {self.totalPassengersWaitingForNextBus}\n" + \
                 f"Celkový čas strávený čakaním: {self.totalTimeSpentWaiting} minút\n" + \
-                f"Celkový počet cestujúcich, ktorí ostali neobslúžení: {self.totalPassangersLeftUnboarded}\n" + \
+                f"Celkový počet cestujúcich, ktorí ostali neobslúžení: {self.totalPassengersLeftUnboarded}\n" + \
                 f"Prichádzajúci cestujúci za hodinu:\n{self.keyValuePairArrayToString(self.passengersArrivedPerHour)}\n" + \
                 f"Odchádzajúci cestujúci za hodinu:\n{self.keyValuePairArrayToString(self.passengersDepartedPerHour)}\n" + \
-                f"Cestujúci čakajúci na ďalší autobus za hodinu:\n{self.keyValuePairArrayToString(self.passengersWaitingForNextBusPerHour)}\n" + \
+                f"Cestujúci čakajúci na ďalší autobus za hodinu:\n{self.keyValuePairArrayToString(self.passengersLeftUnboardedPerHour)}\n" + \
                 f"Čas strávený čakaním za hodinu (v minútach):\n{self.keyValuePairArrayToString(self.timeSpentWaitingPerHour)}\n" + \
                 "=============================================================\n"
         else:
@@ -258,12 +253,11 @@ class BusStopStatistics:
                 "=============================================================\n" + \
                 f"Total passengers arrived: {self.totalPassengersArrived}\n" + \
                 f"Total passengers departed: {self.totalPassengersDeparted}\n" + \
-                f"Total passengers waited for next bus: {self.totalPassengersWaitingForNextBus}\n" + \
                 f"Total time spent waiting: {self.totalTimeSpentWaiting} minutes\n" + \
-                f"Total passangers left unboarded: {self.totalPassangersLeftUnboarded}\n" + \
+                f"Total passengers left unboarded: {self.totalPassengersLeftUnboarded}\n" + \
                 f"Passengers arrived per hour:\n{self.keyValuePairArrayToString(self.passengersArrivedPerHour)}\n" + \
                 f"Passengers departed per hour:\n{self.keyValuePairArrayToString(self.passengersDepartedPerHour)}\n" + \
-                f"Passengers waiting for next bus per hour:\n{self.keyValuePairArrayToString(self.passengersWaitingForNextBusPerHour)}\n" + \
+                f"Passengers waiting for next bus per hour:\n{self.keyValuePairArrayToString(self.passengersLeftUnboardedPerHour)}\n" + \
                 f"Time spent waiting per hour (in minutes):\n{self.keyValuePairArrayToString(self.timeSpentWaitingPerHour)}\n" + \
                 "=============================================================\n"
     
@@ -273,9 +267,10 @@ class BusStopStatistics:
 # -------------------------------- BUS --------------------------------
 class BusStatistics:
     # INIT
-    def __init__(self, busNumber, capacity, language="en"):
+    def __init__(self, busNumber, capacity, seats, language="en"):
         self.busNumber = busNumber
         self.capacity = capacity
+        self.seats = seats
         self.language = language
         # total
         self.averageLoad = 0
@@ -284,11 +279,17 @@ class BusStatistics:
         # per bus stop
         self.loadPerBusStop = []
         self.loadInPercentPerBusStop = []
+        # passengers
+        self.passengerSatisfactions = []
     
     # PER BUS STOP
     def updateLoadPerBusStop(self, load, busStopName):
         self.loadPerBusStop.append((busStopName, load))
         self.loadInPercentPerBusStop.append((busStopName, load / self.capacity))
+
+    # PASSENGERS
+    def updatePassengerSatisfactions(self, satisfaction):
+        self.passengerSatisfactions.append(satisfaction)
 
     # TOTAL
     def agregateTotal(self):

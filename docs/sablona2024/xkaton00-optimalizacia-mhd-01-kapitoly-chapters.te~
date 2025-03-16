@@ -325,7 +325,7 @@ Obsahuje:
 
 Trieda \texttt{BusStop} reprezentuje jednu zastávku, rovnako tak trieda \texttt{Bus} reprezentuje jedno vozidlo.
 Tieto dve triedy sú písané podľa vzoru DEVS formalizmu. Obsahujú stavy, vstupné a výstupné signály a metódy, v ktorých sa nachádzjú akcie pre jednotlivé prechody medzi stavmi.
-Cestujúci sú uložení ako pole čisel, časov ich príchodu, v jednotliv7ch zast8vkach v atribúte \texttt{waitingPassangersArrivalTimes}.
+Cestujúci sú uložení ako pole čisel, časov ich príchodu, v jednotliv7ch zast8vkach v atribúte \texttt{waitingPassengersArrivalTimes}.
 
 Na generovanie náhodného príchodu cestujúcich slúži trieda \texttt{RandomNumberGenerator}, ktorá obsahuje statické metódy na generovanie náhodných čísel.
 

@@ -30,6 +30,9 @@ class OptimizeLineState(rx.State):
     numberOfGenerations: int = 100
     maxConnectionsPerHour: int = 15
     vehicleCapacity: int = 80
+    vehicleSeats: int = 30
+    pricePerVehicleRoute: int = 5000
+    pricePerTicket: int = 25
 
     generationNumber: str = "0" + "/" + str(numberOfGenerations)
 
@@ -79,6 +82,9 @@ class OptimizeLineState(rx.State):
         self.numberOfGenerations = 100
         self.maxConnectionsPerHour = 15
         self.vehicleCapacity = 80
+        self.vehicleSeats = 30
+        self.pricePerVehicleRoute = 5000
+        self.pricePerTicket = 25
 
         self.generationNumber = "0/" + str(self.numberOfGenerations)
         self.optimizationRunning = False
@@ -128,7 +134,7 @@ class OptimizeLineState(rx.State):
             timeTable = InputParser.parseTimeTableFromString(self.selectedTimeTable)
             initialChromosome = timeTable.getChromosome()
 
-        genetics = Genetics(self.populationSize, self.mutationRate, self.elitismCount, self.maxConnectionsPerHour, self.vehicleCapacity, busStops, self.constraints, initialChromosome)
+        genetics = Genetics(self.populationSize, self.mutationRate, self.elitismCount, self.maxConnectionsPerHour, self.vehicleCapacity, self.vehicleSeats, self.pricePerVehicleRoute, self.pricePerTicket, busStops, self.constraints, initialChromosome)
 
         for i in range(self.numberOfGenerations):
             timeTableTuple = self.parseTimeTableToTuple(TimeTable(genetics.generation[0].chromosome))
@@ -295,6 +301,11 @@ def optimizeLine() -> rx.Component:
                 width="100%",
                 justify="between",
             ),
+            width="100%",
+            spacing="5",
+            align="stretch",
+        ),
+        rx.hstack(
             rx.vstack(
                 rx.text("Maximálny počet spojov za hodinu"),
                 rx.input(
@@ -341,6 +352,93 @@ def optimizeLine() -> rx.Component:
                     ),
                     variant=rx.cond(
                         OptimizeLineState.vehicleCapacity < 1,
+                        "soft",
+                        "classic"
+                    ),
+                    disabled=rx.cond(
+                        OptimizeLineState.optimizationRunning,
+                        True,
+                        False,
+                    ),
+                ),
+                width="100%",
+                justify="between",
+            ),
+            rx.vstack(
+                rx.text("Miest na sedenie"),
+                rx.input(
+                    placeholder="Miest na sedenie",
+                    value=OptimizeLineState.vehicleSeats,
+                    on_change=OptimizeLineState.set_vehicleSeats,
+                    width="100%",
+                    size="3",
+                    min="0",
+                    type="number",
+                    color_scheme=rx.cond(
+                        OptimizeLineState.vehicleSeats < 0,
+                        "red",
+                        "dark"
+                    ),
+                    variant=rx.cond(
+                        OptimizeLineState.vehicleSeats < 0,
+                        "soft",
+                        "classic"
+                    ),
+                    disabled=rx.cond(
+                        OptimizeLineState.optimizationRunning,
+                        True,
+                        False,
+                    ),
+                ),
+                width="100%",
+                justify="between",
+            ),
+            rx.vstack(
+                rx.text("Cena jednej cesty"),
+                rx.input(
+                    placeholder="Cena jednej cesty",
+                    value=OptimizeLineState.pricePerVehicleRoute,
+                    on_change=OptimizeLineState.set_pricePerVehicleRoute,
+                    width="100%",
+                    size="3",
+                    min="0",
+                    type="number",
+                    color_scheme=rx.cond(
+                        OptimizeLineState.pricePerVehicleRoute < 0,
+                        "red",
+                        "dark"
+                    ),
+                    variant=rx.cond(
+                        OptimizeLineState.pricePerVehicleRoute < 0,
+                        "soft",
+                        "classic"
+                    ),
+                    disabled=rx.cond(
+                        OptimizeLineState.optimizationRunning,
+                        True,
+                        False,
+                    ),
+                ),
+                width="100%",
+                justify="between",
+            ),
+            rx.vstack(
+                rx.text("Cena lístka"),
+                rx.input(
+                    placeholder="Cena lístka",
+                    value=OptimizeLineState.pricePerTicket,
+                    on_change=OptimizeLineState.set_pricePerTicket,
+                    width="100%",
+                    size="3",
+                    min="0",
+                    type="number",
+                    color_scheme=rx.cond(
+                        OptimizeLineState.pricePerTicket < 0,
+                        "red",
+                        "dark"
+                    ),
+                    variant=rx.cond(
+                        OptimizeLineState.pricePerTicket < 0,
                         "soft",
                         "classic"
                     ),
