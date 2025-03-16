@@ -8,11 +8,12 @@ from .models import TimeTable
 
 class Genetics:
     # INIT
-    def __init__(self, populationSize, mutationRate, elitismCount, maxConnectionsPerHour, busStops, constraints, initialChromosome=None,):
+    def __init__(self, populationSize, mutationRate, elitismCount, maxConnectionsPerHour, vehicleCapacity, busStops, constraints, initialChromosome=None,):
         self.populationSize = populationSize
         self.mutationRate = mutationRate
         self.elitismCount = elitismCount
         self.maxConnectionsPerHour = maxConnectionsPerHour
+        self.vehicleCapacity = vehicleCapacity
         self.busStops = busStops
         self.constraints = constraints
         self.generation = []
@@ -22,11 +23,11 @@ class Genetics:
     # METHODS
     def initPopulation(self, initialChromosome=None):
         for i in range(self.populationSize):
-            self.generation.append(Individual(self.mutationRate, self.maxConnectionsPerHour, self.busStops, self.constraints))
+            self.generation.append(Individual(self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.busStops, self.constraints))
 
         if initialChromosome is not None:
             self.generation.pop(0)
-            self.generation.append(Individual(self.mutationRate, self.maxConnectionsPerHour, self.busStops, self.constraints, initialChromosome))
+            self.generation.append(Individual(self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.busStops, self.constraints, initialChromosome))
 
         self.generation = Pool().map(self.calculateFitnessWrapper, self.generation)
             
@@ -42,7 +43,7 @@ class Genetics:
             else:
                 newChromosome1[i] = parent2.chromosome[i]
                 newChromosome2[i] = parent1.chromosome[i]
-        return Individual(self.mutationRate, self.maxConnectionsPerHour, self.busStops, self.constraints, newChromosome1), Individual(self.mutationRate, self.maxConnectionsPerHour, self.busStops, self.constraints, newChromosome2)
+        return Individual(self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.busStops, self.constraints, newChromosome1), Individual(self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.busStops, self.constraints, newChromosome2)
     
     def parentSelection(self):
         parent1 = self.generation[RandomNumberGenerator.integers(0, len(self.generation))]
@@ -95,9 +96,10 @@ class Genetics:
 
 class Individual:
     # INIT
-    def __init__(self, mutationRate, maxConnectionsPerHour, busStops, constraints, chromosome=None):
+    def __init__(self, mutationRate, maxConnectionsPerHour, vehicleCapacity, busStops, constraints, chromosome=None):
         self.mutationRate = mutationRate
         self.maxConnectionsPerHour = maxConnectionsPerHour
+        self.vehicleCapacity = vehicleCapacity
         self.busStops = busStops
         self.constraints = constraints
         if chromosome is None:
@@ -119,7 +121,7 @@ class Individual:
     def calculateFitness(self):
         self.fitness = 0
         timeTable = TimeTable(self.chromosome)
-        stats = Simulation.run(0, 24*60, self.busStops, timeTable)
+        stats = Simulation.run(0, 24*60, self.busStops, timeTable, self.vehicleCapacity)
         self.fitness -= round(stats.totalNumberOfBuses * stats.busStatistics.capacity)
         self.fitness += stats.busStatistics.totalPassengersTransported
         self.fitness -= stats.busStopStatistics.totalPassengersWaitingForNextBus*20

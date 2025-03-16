@@ -29,6 +29,7 @@ class OptimizeLineState(rx.State):
     constraints: list[int|None] = [None]*24
     numberOfGenerations: int = 100
     maxConnectionsPerHour: int = 15
+    vehicleCapacity: int = 80
 
     generationNumber: str = "0" + "/" + str(numberOfGenerations)
 
@@ -77,6 +78,7 @@ class OptimizeLineState(rx.State):
         self.constraints = [None]*24
         self.numberOfGenerations = 100
         self.maxConnectionsPerHour = 15
+        self.vehicleCapacity = 80
 
         self.generationNumber = "0/" + str(self.numberOfGenerations)
         self.optimizationRunning = False
@@ -126,7 +128,7 @@ class OptimizeLineState(rx.State):
             timeTable = InputParser.parseTimeTableFromString(self.selectedTimeTable)
             initialChromosome = timeTable.getChromosome()
 
-        genetics = Genetics(self.populationSize, self.mutationRate, self.elitismCount, self.maxConnectionsPerHour, busStops, self.constraints, initialChromosome)
+        genetics = Genetics(self.populationSize, self.mutationRate, self.elitismCount, self.maxConnectionsPerHour, self.vehicleCapacity, busStops, self.constraints, initialChromosome)
 
         for i in range(self.numberOfGenerations):
             timeTableTuple = self.parseTimeTableToTuple(TimeTable(genetics.generation[0].chromosome))
@@ -310,6 +312,35 @@ def optimizeLine() -> rx.Component:
                     ),
                     variant=rx.cond(
                         OptimizeLineState.maxConnectionsPerHour < 1,
+                        "soft",
+                        "classic"
+                    ),
+                    disabled=rx.cond(
+                        OptimizeLineState.optimizationRunning,
+                        True,
+                        False,
+                    ),
+                ),
+                width="100%",
+                justify="between",
+            ),
+            rx.vstack(
+                rx.text("Kapacita vozidla"),
+                rx.input(
+                    placeholder="Kapacita vozidla",
+                    value=OptimizeLineState.vehicleCapacity,
+                    on_change=OptimizeLineState.set_vehicleCapacity,
+                    width="100%",
+                    size="3",
+                    min="0",
+                    type="number",
+                    color_scheme=rx.cond(
+                        OptimizeLineState.vehicleCapacity < 1,
+                        "red",
+                        "dark"
+                    ),
+                    variant=rx.cond(
+                        OptimizeLineState.vehicleCapacity < 1,
                         "soft",
                         "classic"
                     ),
