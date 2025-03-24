@@ -24,7 +24,7 @@ class AnalyzeLineState(rx.State):
     totalNumberOfBuses: int
     totalPassengersArrived: int
     totalPassengersDeparted: int
-    totalPassengersLeftUnboarded: int
+    totalPassengersLeftUnboarded: str
     totalTimeSpentWaiting: str
     averageTimeSpentWaiting: str
     passengersArrivedPerHour = []
@@ -73,7 +73,7 @@ class AnalyzeLineState(rx.State):
 
         self.totalPassengersArrived = stats.busStopStatistics.totalPassengersArrived
         self.totalPassengersDeparted = stats.busStopStatistics.totalPassengersDeparted
-        self.totalPassengersLeftUnboarded = stats.busStopStatistics.totalPassengersLeftUnboarded
+        self.totalPassengersLeftUnboarded = str(stats.busStopStatistics.totalPassengersLeftUnboarded) + " (" + str(round(stats.busStopStatistics.totalPassengersLeftUnboarded / stats.busStopStatistics.totalPassengersArrived * 100, 2)) + "%)"
         self.totalTimeSpentWaiting = str(int(round(stats.busStopStatistics.totalTimeSpentWaiting)))
         self.averageTimeSpentWaiting = str(int(round(stats.busStopStatistics.totalTimeSpentWaiting / stats.busStopStatistics.totalPassengersArrived)))
 
