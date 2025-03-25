@@ -19,14 +19,14 @@ class OptimizeLineState(rx.State):
     busStopTable: list[tuple[str, str, bool]] = []
     timeTable: list[tuple[str, str, bool]] = []
 
-    populationSize: int = 50
-    mutationRate: float = 0.3
+    populationSize: int = 100
+    mutationRate: float = 0.05
     constraints: list[int|None] = [None]*24
     numberOfGenerations: int = 100
     maxConnectionsPerHour: int = 15
     vehicleCapacity: int = 80
     vehicleSeats: int = 30
-    pricePerVehicleRoute: int = 5000
+    pricePerVehicleRoute: int = 2500
     pricePerTicket: int = 25
 
     generationNumber: str = "0" + "/" + str(numberOfGenerations)
@@ -38,11 +38,15 @@ class OptimizeLineState(rx.State):
     duration: str = ''
 
     generation = []
+    generationChromosomes: list[list[int]] = []
+    selectedChromosomeIndex: int
+    selectedScatterPoint = {}
 
     showOptimization: bool = False
 
     bestTimeTable: list[tuple[str, str, bool]] = []
     bestTimeTableString: str = ""
+    bestTimeTableChromosome: list[int] = []
     saveTimeTableName: str = ""
 
     def parseTimeTableToTuple(self, timeTable: TimeTable) -> list[tuple[str, str, bool]]:
@@ -65,14 +69,14 @@ class OptimizeLineState(rx.State):
         self.busStopTable = []
         self.timeTable = []
 
-        self.populationSize = 50
-        self.mutationRate = 0.3
+        self.populationSize = 100
+        self.mutationRate = 0.05
         self.constraints = [None]*24
         self.numberOfGenerations = 100
         self.maxConnectionsPerHour = 15
         self.vehicleCapacity = 80
         self.vehicleSeats = 30
-        self.pricePerVehicleRoute = 5000
+        self.pricePerVehicleRoute = 2500
         self.pricePerTicket = 25
 
         self.generationNumber = "0/" + str(self.numberOfGenerations)
@@ -83,6 +87,9 @@ class OptimizeLineState(rx.State):
         self.duration = ''
 
         self.generation = []
+        self.generationChromosomes = []
+        self.selectedChromosomeIndex = int(round(self.numberOfGenerations / 2))
+        selectedScatterPoint = {}
 
         self.showOptimization = False
 
@@ -116,10 +123,15 @@ class OptimizeLineState(rx.State):
                     break
                 self.generationNumber = str(i+1) + "/" + str(self.numberOfGenerations)
                 self.generation = []
-                for individual in genetics.generation:
+                self.generationChromosomes = []
+                sortedGeneration = genetics.generation.copy()
+                sortedGeneration = sorted(sortedGeneration, key=lambda individual: individual.profit)
+                for individual in sortedGeneration:
                     self.generation.append({"profit": individual.profit, "satisfaction": individual.satisfaction})
-                self.bestTimeTableString = str(TimeTable(genetics.generation[int(round(len(genetics.generation)/2))].chromosome))
-                self.bestTimeTable = self.parseTimeTableToTuple(TimeTable(genetics.generation[int(round(len(genetics.generation)/2))].chromosome))
+                    self.generationChromosomes.append(individual.chromosome)
+                self.bestTimeTableChromosome = genetics.generation[int(round(len(genetics.generation)/2))].chromosome
+                self.bestTimeTableString = str(TimeTable(self.bestTimeTableChromosome))
+                self.bestTimeTable = self.parseTimeTableToTuple(TimeTable(self.bestTimeTableChromosome))
             genetics.updateGeneration()
                 
         async with self:
@@ -141,6 +153,28 @@ class OptimizeLineState(rx.State):
         busStops = InputParser.parseBusStopsFromString(self.selectedBusStops)
         busStopRates = {rate[0] for busStop in busStops for rate in busStop.passengerArrivalRatesPerHour}
         self.constraints = [0 if hour not in busStopRates else self.constraints[hour] for hour in range(24)]
+
+    @rx.event
+    def setTimeTable(self, value: list[int]):
+        self.selectedChromosomeIndex = value[0] - 1
+        self.bestTimeTableChromosome = self.generationChromosomes[self.selectedChromosomeIndex]
+        self.selectedScatterPoint = self.generation[self.selectedChromosomeIndex]
+        self.bestTimeTableString = str(TimeTable(self.bestTimeTableChromosome))
+        self.bestTimeTable = self.parseTimeTableToTuple(TimeTable(self.bestTimeTableChromosome))
+
+
+    @rx.event
+    async def smoothTimeTable(self):
+        self.smoothChromosome()
+        self.bestTimeTableString = str(TimeTable(self.bestTimeTableChromosome))
+        self.bestTimeTable = self.parseTimeTableToTuple(TimeTable(self.bestTimeTableChromosome))
+
+    def smoothChromosome(self):
+        smoothedChromosome = self.bestTimeTableChromosome.copy()
+        for i in range(1, len(self.bestTimeTableChromosome) - 1):
+            if self.constraints[i] == None:
+                smoothedChromosome[i] = round((self.bestTimeTableChromosome[i - 1] + self.bestTimeTableChromosome[i] + self.bestTimeTableChromosome[i + 1]) / 3)
+        self.bestTimeTableChromosome = smoothedChromosome
         
     @rx.event
     async def saveTimeTable(self):
@@ -445,8 +479,11 @@ def optimizeLine() -> rx.Component:
                         rx.heading("Generácia " + OptimizeLineState.generationNumber, size="4"),
                         rx.recharts.scatter_chart(
                             rx.recharts.scatter(data=OptimizeLineState.generation),
+                            rx.recharts.scatter(data=[OptimizeLineState.selectedScatterPoint], fill="orange", ),
                             rx.recharts.x_axis(data_key="profit", type_="number"),
                             rx.recharts.y_axis(data_key="satisfaction", type_="number"),
+                            rx.recharts.legend(),
+                            rx.recharts.graphing_tooltip(),
                             width="100%",
                             height=300,
                         ),
@@ -455,51 +492,70 @@ def optimizeLine() -> rx.Component:
                     size="3",
                     width="100%",
                 ),
-                rx.vstack(
-                    rx.cond(
-                        OptimizeLineState.bestTimeTable,
-                        rx.vstack(
-                            timeTable(OptimizeLineState.bestTimeTable, "Najlepší rozpis celkovo"),
-                            rx.vstack(
-                                rx.text("Názov rozpisu"),
-                                rx.input(
-                                    placeholder="Názov rozpisu",
-                                    value=OptimizeLineState.saveTimeTableName,
-                                    on_change=OptimizeLineState.set_saveTimeTableName,
-                                    width="100%",
-                                    size="3",
-                                    type="text",
-                                    disabled=rx.cond(
-                                        OptimizeLineState.optimizationRunning,
-                                        True,
-                                        False,
-                                    ),
-                                ),
-                                width="100%"
+                rx.slider(
+                    min_=1,
+                    max=100,
+                    on_change=OptimizeLineState.setTimeTable.throttle(100),
+                    width="100%",
+                ),
+                rx.cond(
+                    OptimizeLineState.bestTimeTable,
+                    rx.vstack(   
+                        timeTable(OptimizeLineState.bestTimeTable, "Najlepší rozpis"),
+                        rx.button(
+                            rx.heading("Vyhladiť", size="3"),
+                            on_click=[
+                                OptimizeLineState.smoothTimeTable(),
+                                rx.toast.success("Rozpis bol vyhladený"),
+                            ],
+                            disabled=rx.cond(
+                                OptimizeLineState.optimizationRunning,
+                                True,
+                                False,
                             ),
-                            rx.button(
-                                rx.heading("Uložiť najlepší rozpis", size="3"),
-                                on_click=[
-                                    OptimizeLineState.saveTimeTable(),
-                                    rx.toast.success("Rozpis bol uložený"),
-                                ],
+                            size="3",
+                            width="100%",
+                        ),
+                        rx.vstack(
+                            rx.text("Názov rozpisu"),
+                            rx.input(
+                                placeholder="Názov rozpisu",
+                                value=OptimizeLineState.saveTimeTableName,
+                                on_change=OptimizeLineState.set_saveTimeTableName,
+                                width="100%",
+                                size="3",
+                                type="text",
                                 disabled=rx.cond(
                                     OptimizeLineState.optimizationRunning,
                                     True,
                                     False,
                                 ),
-                                size="3",
-                                width="100%",
                             ),
+                            width="100%"
                         ),
-                        rx.text(""),
-                    ),
-                    flex="1",
-                ),       
+                        rx.button(
+                            rx.heading("Uložiť najlepší rozpis", size="3"),
+                            on_click=[
+                                OptimizeLineState.saveTimeTable(),
+                                rx.toast.success("Rozpis bol uložený"),
+                            ],
+                            disabled=rx.cond(
+                                OptimizeLineState.optimizationRunning,
+                                True,
+                                False,
+                            ),
+                            size="3",
+                            width="100%",
+                        ),
+                    ),    
+                    rx.text(""),
+                ),      
                 width="100%",
                 spacing="5",
+                align="center",
             ),
         ),
         spacing="5",
         width="100%",
+        align="center",
     ),
