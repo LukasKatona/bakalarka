@@ -85,9 +85,9 @@ class Genetics:
             p.dominatesOver = []
             p.dominationCount = 0
             for q in self.generation:
-                if p.dominates(q):
+                if p.constraintDominates(q):
                     p.dominatesOver.append(q)
-                elif q.dominates(p):
+                elif q.constraintDominates(p):
                     p.dominationCount +=1
             if p.dominationCount == 0:
                 p.rank = 1
@@ -123,7 +123,6 @@ class Genetics:
         front[0].distance = front[length-1].distance = float('inf')
         for i in range(1, length - 2):
             front[i].distance += (front[i+1].satisfaction - front[i-1].satisfaction) / (max - min)
-    
     # STR
     def __str__(self):
         output = ""
@@ -151,6 +150,7 @@ class Individual:
         self.dominationCount = 0
         self.rank = 0
         self.distance = 0
+        self.totalPassengersLeftUnboarded = 0
 
     # METHODS
     def generateRandomChromosome(self):
@@ -170,6 +170,13 @@ class Individual:
         self.profit -= stats.totalNumberOfBuses * self.pricePerVehicleRoute
         self.profit += stats.busStatistics.totalPassengersTransported * self.pricePerTicket
         self.satisfaction = stats.averagePassengerSatisfaction
+        self.totalPassengersLeftUnboarded = stats.busStopStatistics.totalPassengersLeftUnboarded
+
+    def constraintDominates(self, other):
+        if self.totalPassengersLeftUnboarded == 0 and other.totalPassengersLeftUnboarded == 0:
+            return self.dominates(other)
+        else:
+            return self.totalPassengersLeftUnboarded < other.totalPassengersLeftUnboarded
 
     def dominates(self, other) -> bool:
         return (self.profit >= other.profit and self.satisfaction >= other.satisfaction) and (self.profit > other.profit or self.satisfaction > other.satisfaction)
