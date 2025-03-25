@@ -1,4 +1,4 @@
 all: run
 
 run:
-	.\venv\Scripts\activate && cd .\src\sprout\ && reflex run
+	./venv/Scripts/activate && cd ./src/sprout/ && reflex run
