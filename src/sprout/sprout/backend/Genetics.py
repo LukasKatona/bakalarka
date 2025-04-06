@@ -8,13 +8,14 @@ from .models import TimeTable
 
 class Genetics:
     # INIT
-    def __init__(self, populationSize, mutationRate, maxConnectionsPerHour, vehicleCapacity, vehicleSeats, pricePerVehicleRoute, pricePerTicket, busStops, constraints):
+    def __init__(self, populationSize, mutationRate, maxConnectionsPerHour, vehicleCapacity, vehicleSeats, vehiclePriceCompensation, routeLength, pricePerTicket, busStops, constraints):
         self.populationSize = populationSize
         self.mutationRate = mutationRate
         self.maxConnectionsPerHour = maxConnectionsPerHour
         self.vehicleCapacity = vehicleCapacity
         self.vehicleSeats = vehicleSeats
-        self.pricePerVehicleRoute = pricePerVehicleRoute
+        self.vehiclePriceCompensation = vehiclePriceCompensation
+        self.routeLength = routeLength
         self.pricePerTicket = pricePerTicket
         self.busStops = busStops
         self.constraints = constraints
@@ -26,7 +27,7 @@ class Genetics:
     # METHODS
     def initPopulation(self):
         for i in range(self.populationSize):
-            self.generation.append(Individual(self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.vehicleSeats, self.pricePerVehicleRoute, self.pricePerTicket, self.busStops, self.constraints))
+            self.generation.append(Individual(self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.vehicleSeats, self.vehiclePriceCompensation, self.routeLength, self.pricePerTicket, self.busStops, self.constraints))
         self.nonDominatedSort()
         for front in self.fronts:
             self.crowdingDistanceAssignment(front)
@@ -76,7 +77,7 @@ class Genetics:
             else:
                 newChromosome1[i] = parent2.chromosome[i]
                 newChromosome2[i] = parent1.chromosome[i]
-        return Individual(self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.vehicleSeats, self.pricePerVehicleRoute, self.pricePerTicket, self.busStops, self.constraints, newChromosome1), Individual(self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.vehicleSeats, self.pricePerVehicleRoute, self.pricePerTicket, self.busStops, self.constraints, newChromosome2)
+        return Individual(self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.vehicleSeats, self.vehiclePriceCompensation, self.routeLength, self.pricePerTicket, self.busStops, self.constraints, newChromosome1), Individual(self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.vehicleSeats, self.vehiclePriceCompensation, self.routeLength, self.pricePerTicket, self.busStops, self.constraints, newChromosome2)
 
     def nonDominatedSort(self):
         self.fronts = []
@@ -132,12 +133,13 @@ class Genetics:
 
 class Individual:
     # INIT
-    def __init__(self, mutationRate, maxConnectionsPerHour, vehicleCapacity, vehicleSeats, pricePerVehicleRoute, pricePerTicket, busStops, constraints, chromosome=None):
+    def __init__(self, mutationRate, maxConnectionsPerHour, vehicleCapacity, vehicleSeats, vehiclePriceCompensation, routeLength, pricePerTicket, busStops, constraints, chromosome=None):
         self.mutationRate = mutationRate
         self.maxConnectionsPerHour = maxConnectionsPerHour
         self.vehicleCapacity = vehicleCapacity
         self.vehicleSeats = vehicleSeats
-        self.pricePerVehicleRoute = pricePerVehicleRoute
+        self.vehiclePriceCompensation = vehiclePriceCompensation
+        self.routeLength = routeLength
         self.pricePerTicket = pricePerTicket
         self.busStops = busStops
         self.constraints = constraints
@@ -157,7 +159,7 @@ class Individual:
         chromosome = []
         for i in range(24):
             if self.constraints[i] == None:
-                chromosome.append(RandomNumberGenerator.integers(1, self.maxConnectionsPerHour+1))
+                chromosome.append(RandomNumberGenerator.integers(0, self.maxConnectionsPerHour+1))
             else:
                 chromosome.append(self.constraints[i])
         return chromosome
@@ -167,8 +169,7 @@ class Individual:
         self.satisfaction = 0
         timeTable = TimeTable(self.chromosome)
         stats = Simulation.run(0, 24*60, self.busStops, timeTable, self.vehicleCapacity, self.vehicleSeats)
-        self.profit -= stats.totalNumberOfBuses * self.pricePerVehicleRoute
-        self.profit += stats.busStatistics.totalPassengersTransported * self.pricePerTicket
+        self.profit = - (self.routeLength * stats.totalNumberOfBuses * self.vehicleCapacity / 100 * self.vehiclePriceCompensation) + self.pricePerTicket * stats.busStatistics.totalPassengersTransported
         self.satisfaction = stats.averagePassengerSatisfaction
         self.totalPassengersLeftUnboarded = stats.busStopStatistics.totalPassengersLeftUnboarded
 
@@ -184,7 +185,7 @@ class Individual:
     def mutate(self):
         for i in range(24):
             if RandomNumberGenerator.uniform() < self.mutationRate and self.constraints[i] == None:
-                self.chromosome[i] = RandomNumberGenerator.integers(1, self.maxConnectionsPerHour+1)
+                self.chromosome[i] = RandomNumberGenerator.integers(0, self.maxConnectionsPerHour+1)
             
     def __lt__(self, other):
         return (self.rank < other.rank) or ((self.rank == other.rank) and (self.distance > other.distance))

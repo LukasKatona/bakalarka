@@ -26,8 +26,11 @@ class OptimizeLineState(rx.State):
     maxConnectionsPerHour: int = 15
     vehicleCapacity: int = 80
     vehicleSeats: int = 30
-    pricePerVehicleRoute: int = 2500
+    vehiclePriceCompensation: float = 66.35
+    routeLength: float = 3.8
     pricePerTicket: int = 25
+
+    
 
     generationNumber: str = "0" + "/" + str(numberOfGenerations)
 
@@ -76,7 +79,8 @@ class OptimizeLineState(rx.State):
         self.maxConnectionsPerHour = 15
         self.vehicleCapacity = 80
         self.vehicleSeats = 30
-        self.pricePerVehicleRoute = 2500
+        self.vehiclePriceCompensation = 66.35
+        self.routeLength = 3.8
         self.pricePerTicket = 25
 
         self.generationNumber = "0/" + str(self.numberOfGenerations)
@@ -115,7 +119,7 @@ class OptimizeLineState(rx.State):
             self._n_tasks += 1
             self.generationNumber = "0/" + str(self.numberOfGenerations)
 
-        genetics = Genetics(self.populationSize, self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.vehicleSeats, self.pricePerVehicleRoute, self.pricePerTicket, InputParser.parseBusStopsFromString(self.selectedBusStops), self.constraints)
+        genetics = Genetics(self.populationSize, self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.vehicleSeats, self.vehiclePriceCompensation, self.routeLength, self.pricePerTicket, InputParser.parseBusStopsFromString(self.selectedBusStops), self.constraints)
 
         for i in range(self.numberOfGenerations):
             async with self:
@@ -369,22 +373,51 @@ def optimizeLine() -> rx.Component:
                 justify="between",
             ),
             rx.vstack(
-                rx.text("Cena jednej cesty vozidla"),
+                rx.text("Kompenzácia vozidla"),
                 rx.input(
-                    placeholder="Cena jednej cesty vozidla",
-                    value=OptimizeLineState.pricePerVehicleRoute,
-                    on_change=OptimizeLineState.set_pricePerVehicleRoute,
+                    placeholder="Kompenzácia vozidla",
+                    value=OptimizeLineState.vehiclePriceCompensation,
+                    on_change=OptimizeLineState.set_vehiclePriceCompensation,
                     width="100%",
                     size="3",
                     min="0",
                     type="number",
                     color_scheme=rx.cond(
-                        OptimizeLineState.pricePerVehicleRoute < 0,
+                        OptimizeLineState.vehiclePriceCompensation < 0,
                         "red",
                         "dark"
                     ),
                     variant=rx.cond(
-                        OptimizeLineState.pricePerVehicleRoute < 0,
+                        OptimizeLineState.vehiclePriceCompensation < 0,
+                        "soft",
+                        "classic"
+                    ),
+                    disabled=rx.cond(
+                        OptimizeLineState.optimizationRunning,
+                        True,
+                        False,
+                    ),
+                ),
+                width="100%",
+                justify="between",
+            ),
+            rx.vstack(
+                rx.text("Dĺžka trasy"),
+                rx.input(
+                    placeholder="Dĺžka trasy",
+                    value=OptimizeLineState.routeLength,
+                    on_change=OptimizeLineState.set_routeLength,
+                    width="100%",
+                    size="3",
+                    min="0",
+                    type="number",
+                    color_scheme=rx.cond(
+                        OptimizeLineState.routeLength < 0,
+                        "red",
+                        "dark"
+                    ),
+                    variant=rx.cond(
+                        OptimizeLineState.routeLength < 0,
                         "soft",
                         "classic"
                     ),
