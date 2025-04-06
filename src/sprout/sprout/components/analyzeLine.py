@@ -64,7 +64,7 @@ class AnalyzeLineState(rx.State):
 
         busStops = InputParser.parseBusStopsFromString(self.selectedBusStops)
         timeTable = InputParser.parseTimeTableFromString(self.selectedTimeTable)
-        stats = Simulation.run(0, 24*60, busStops, timeTable, self.vehicleCapacity, self.vehicleSeats)
+        stats = Simulation.runMultipleThanAverage(0, 24*60, busStops, timeTable, self.vehicleCapacity, self.vehicleSeats, 50)
 
         self.numberOfBusStops = len(busStops)
         self.longestBusStopNameLength = max([len(busStop.name) for busStop in busStops])

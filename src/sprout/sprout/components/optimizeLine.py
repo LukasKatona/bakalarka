@@ -20,6 +20,7 @@ class OptimizeLineState(rx.State):
     timeTable: list[tuple[str, str, bool]] = []
 
     populationSize: int = 100
+    sliderMax: int = populationSize - 1
     mutationRate: float = 0.05
     constraints: list[int|None] = [None]*24
     numberOfGenerations: int = 100
@@ -73,6 +74,7 @@ class OptimizeLineState(rx.State):
         self.timeTable = []
 
         self.populationSize = 100
+        self.sliderMax = self.populationSize - 1
         self.mutationRate = 0.05
         self.constraints = [None]*24
         self.numberOfGenerations = 100
@@ -160,7 +162,7 @@ class OptimizeLineState(rx.State):
 
     @rx.event
     def setTimeTable(self, value: list[int]):
-        self.selectedChromosomeIndex = value[0] - 1
+        self.selectedChromosomeIndex = value[0]
         self.bestTimeTableChromosome = self.generationChromosomes[self.selectedChromosomeIndex]
         self.selectedScatterPoint = self.generation[self.selectedChromosomeIndex]
         self.bestTimeTableString = str(TimeTable(self.bestTimeTableChromosome))
@@ -188,6 +190,10 @@ class OptimizeLineState(rx.State):
             self.saveTimeTableName = "Rozpis " + str(datetime.now())
         state.insertNewTimeTable((self.saveTimeTableName, self.bestTimeTableString))
         self.saveTimeTableName = ""
+    
+    def setPopulationSize(self, value: str):
+        self.populationSize = int(value)
+        self.sliderMax = self.populationSize - 1
 
 def optimizeLine() -> rx.Component:
     return rx.vstack(
@@ -197,7 +203,7 @@ def optimizeLine() -> rx.Component:
                 rx.input(
                     placeholder="Veľkosť populácie",
                     value=OptimizeLineState.populationSize,
-                    on_change=OptimizeLineState.set_populationSize,
+                    on_change=OptimizeLineState.setPopulationSize,
                     width="100%",
                     size="3",
                     min="1",
@@ -527,7 +533,7 @@ def optimizeLine() -> rx.Component:
                 ),
                 rx.slider(
                     min_=1,
-                    max=100,
+                    max=OptimizeLineState.sliderMax,
                     on_change=OptimizeLineState.setTimeTable.throttle(100),
                     width="100%",
                 ),

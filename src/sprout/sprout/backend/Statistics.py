@@ -1,14 +1,57 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+def averageStatistics(statsList):
+    totalNumberOfBuses = 0
+    busStopStatistics = []
+    busStatistics = []
+
+    averageStat = Statistics()
+    averageStat.language = statsList[0].language
+    averageStat.totalNumberOfBuses = sum([x.totalNumberOfBuses for x in statsList]) / len(statsList)
+    averageBusStopStat = BusStopStatistics("Agregated", statsList[0].language)
+    averageBusStat = BusStatistics("Agregated", statsList[0].busStatistics.capacity, statsList[0].busStatistics.seats, statsList[0].language)
+
+    for i in range(len(statsList[0].busStopStatistics.passengersArrivedPerHour)):
+        averageBusStopStat.passengersArrivedPerHour.append((statsList[0].busStopStatistics.passengersArrivedPerHour[i][0], int(sum([x.busStopStatistics.passengersArrivedPerHour[i][1] for x in statsList]) / len(statsList))))
+    for i in range(len(statsList[0].busStopStatistics.passengersDepartedPerHour)):
+        averageBusStopStat.passengersDepartedPerHour.append((statsList[0].busStopStatistics.passengersDepartedPerHour[i][0], int(sum([x.busStopStatistics.passengersDepartedPerHour[i][1] for x in statsList]) / len(statsList))))
+    for i in range(len(statsList[0].busStopStatistics.passengersLeftUnboardedPerHour)):
+        averageBusStopStat.passengersLeftUnboardedPerHour.append((statsList[0].busStopStatistics.passengersLeftUnboardedPerHour[i][0], int(sum([x.busStopStatistics.passengersLeftUnboardedPerHour[i][1] for x in statsList]) / len(statsList))))
+    for i in range(len(statsList[0].busStopStatistics.timeSpentWaitingPerHour)):
+        averageBusStopStat.timeSpentWaitingPerHour.append((statsList[0].busStopStatistics.timeSpentWaitingPerHour[i][0], int(sum([x.busStopStatistics.timeSpentWaitingPerHour[i][1] for x in statsList]) / len(statsList))))
+    averageBusStopStat.agregateTotal()
+    averageBusStopStat.totalPassengersDeparted = averageBusStopStat.totalPassengersArrived - averageBusStopStat.totalPassengersLeftUnboarded
+    averageStat.busStopStatistics = averageBusStopStat
+    
+    averageBusStat.totalPassengersTransported = averageBusStopStat.totalPassengersDeparted
+    for i in range(len(statsList[0].busStatistics.loadPerBusStop)):
+        averageBusStat.loadPerBusStop.append((statsList[0].busStatistics.loadPerBusStop[i][0], int(sum([x.busStatistics.loadPerBusStop[i][1] for x in statsList]) / len(statsList))))
+    for i in range(len(statsList[0].busStatistics.loadInPercentPerBusStop)):
+        averageBusStat.loadInPercentPerBusStop.append((statsList[0].busStatistics.loadInPercentPerBusStop[i][0], sum([x.busStatistics.loadInPercentPerBusStop[i][1] for x in statsList]) / len(statsList)))
+    averageBusStat.agregateTotal()
+    averageStat.busStatistics = averageBusStat
+    
+    averageStat.averagePassengerSatisfaction = sum([x.averagePassengerSatisfaction for x in statsList]) / len(statsList)
+    
+    return averageStat
+
+
 class Statistics:
     # INIT
     def __init__(self, totalNumberOfBuses=0, busStopStatistics=None, busStatistics=None, language="en"):
         self.totalNumberOfBuses = totalNumberOfBuses
         self.language = language
-        self.busStopStatistics = self.agregateBusStopStatistics(busStopStatistics)
-        self.busStatistics = self.agregateBusStatistics(busStatistics)
-        self.averagePassengerSatisfaction = sum(self.busStatistics.passengerSatisfactions)/len(self.busStatistics.passengerSatisfactions)
+        if busStopStatistics is None:
+            busStopStatistics = []
+        else:
+            self.busStopStatistics = self.agregateBusStopStatistics(busStopStatistics)
+        if busStatistics is None:
+            busStatistics = []
+            self.averagePassengerSatisfaction = 0
+        else:
+            self.busStatistics = self.agregateBusStatistics(busStatistics)
+            self.averagePassengerSatisfaction = sum(self.busStatistics.passengerSatisfactions)/len(self.busStatistics.passengerSatisfactions)
         
     # METHODS
     def agregateBusStopStatistics(self, busStopStatistics):
@@ -294,7 +337,7 @@ class BusStatistics:
     # TOTAL
     def agregateTotal(self):
         self.averageLoad = sum([x[1] for x in self.loadPerBusStop]) / len(self.loadPerBusStop)
-        self.averageLoadInPercent = sum([x[1] for x in self.loadInPercentPerBusStop]) / len(self.loadInPercentPerBusStop)
+        self.averageLoadInPercent = self.averageLoad / self.capacity
     
     def updateTotalPassengersTransported(self, passengersTransported):
         self.totalPassengersTransported += passengersTransported

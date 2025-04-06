@@ -142,7 +142,7 @@ class TimeTable:
         for i in range(len(chromosome)):
             if chromosome[i] != "0":
                 # generate array of minutes equally distributed in one hour based on number in parts[i]
-                minutes = [int((j + 1) * 60 / (int(chromosome[i]) + 1)) for j in range(int(chromosome[i]))]
+                minutes = [int((j) * 60 / (int(chromosome[i]))) for j in range(int(chromosome[i]))]
                 self.addRow(i, minutes)
 
 

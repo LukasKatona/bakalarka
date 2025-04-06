@@ -2,7 +2,7 @@ from datetime import timedelta
 import sys
 
 from .EventCalendar import Event, EventCalendar
-from .Statistics import Statistics
+from .Statistics import Statistics, averageStatistics
 
 class Simulation:
     # Static global variables
@@ -86,3 +86,11 @@ class Simulation:
                 busStats.append(bus.stats)
 
         return Statistics(len(buses), busStopStats, busStats, "sk")
+    
+    @staticmethod
+    def runMultipleThanAverage(startTime, endTime, busStops, timeTable, vehicleCapacity, vehicleSeats, numberOfSimulations):
+        statsList = []
+        for i in range(numberOfSimulations):
+            stats = Simulation.run(startTime, endTime, busStops, timeTable, vehicleCapacity, vehicleSeats)
+            statsList.append(stats)
+        return averageStatistics(statsList)

@@ -55,8 +55,6 @@ class Genetics:
             parent1 = self.parentSelection()
             parent2 = self.parentSelection()
             child1, child2 = self.crossover(parent1, parent2)
-            child1.mutate()
-            child2.mutate()
             self.offsprings.append(child1)
             self.offsprings.append(child2)
 
@@ -147,6 +145,7 @@ class Individual:
             self.chromosome = self.generateRandomChromosome()
         else:
             self.chromosome = chromosome
+        self.mutate()
         self.calculateFitness()
         self.dominatesOver = []
         self.dominationCount = 0
