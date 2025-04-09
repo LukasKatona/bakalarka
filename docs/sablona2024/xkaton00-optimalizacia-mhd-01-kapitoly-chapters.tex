@@ -48,8 +48,7 @@ V kapitole \ref{uzivatelske_rozhranie} je popísaný návrh a implementácia už
 Tento nástroj umožňuje používateľovi jednoducho zadať vstupné dáta, spustiť optimalizáciu a zobraziť výsledky.
 Jednou z najdôležitejších častí tohto rozhrania je zadávanie používateľských obmedzení, ktoré musí výsledny časový rozpis splňovať.
 
-Predposlednou kapitolou je kapitola \ref{testovanie}, ktorá sa zaoberá testovaním celého programu.
-Nachádzajú sa tu testy na ohodnocovanie jednotlivých časových rozpisov, vrátane krajných situácií, popis testovania optimalizácie a testovanie uživateľského rozhrania.
+Predposlednou kapitolou je kapitola \ref{experimenty}, ktorá sa zaoberá testovaním optimalizácie a simulačného modelu.
 Na konci tejto kapitoly sa nachádza spätná väzba od analytika, ktorý poskytol informácie o reálnom systéme, a to z pohľadu možného budúceho používateľa tohto nástroja.
 
 V závere práce \ref{zaver} je uvedené zhrnutie výsledkov a možné budúce rozšírenia a vylepšenia nástroja.
@@ -512,12 +511,183 @@ Pokiaľ má linka príliš veľké výkivy v naplnenosti vozidiel naprieč svojo
 \section{Návrh uživateľského rozhrania}
 \section{Implementácia uživateľského rozhrania}
 
-\chapter{Testovanie} % 10 strán
-\label{testovanie}
-\section{Testovanie ohodnocovania jednotlivých rozpisov}
-\section{Testovanie optimalizácie jednoho rozpisu}
-\section{Testovanie uživateľského rozhrania}
-\section{Spätná väzba od analytika}
+\chapter{Experimenty} % 10 strán
+\label{experimenty}
+
+\newpage
+\section{Analýza linky 47 Dopravného podniku mesta Brna}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{cc}
+    \begin{minipage}{0.45\textwidth}
+      \centering
+      \begin{tabular}{|l|c|}
+        \hline
+        \textbf{Zastávka} & \# \\ \hline
+        Lesná, Haškova & 0 \\ \hline
+        Brechtova & 1 \\ \hline
+        Blažkova & 2 \\ \hline
+        Arbesova & 3 \\ \hline
+        Heleny Malířové & 4 \\ \hline
+        Lesná, nádraží & 5 \\ \hline
+        Štefánikova čtvrť & 6 \\ \hline
+        Provozníkova & 7 \\ \hline
+        Lesnická & 9 \\ \hline
+        Zemědělská & 10 \\ \hline
+        Černá Pole, Erbenova & 11 \\ \hline
+      \end{tabular}
+      \caption{Rozpis zastávok}
+      \vspace*{\baselineskip}
+      \begin{tabular}{|l|c|}
+        \hline
+        \textbf{Vstup} & \textbf{Hodnota} \\ \hline
+        Kapacita vozidla & 80 \\ \hline
+        Miest na sedenie & 30 \\ \hline
+        Kompenzácia vozidla & 66,35 Kč \\ \hline
+        Dĺžka trasy & 3,8 km \\ \hline
+        Cena lístka & 25 Kč \\ \hline
+      \end{tabular}
+      \caption{Parametre vozidla a trasy}
+    \end{minipage}
+    &
+    \begin{minipage}{0.45\textwidth}
+      \centering
+      \begin{tabular}{|c|l|}
+        \hline
+        \textbf{h} & \textbf{Odchody} \\ \hline
+        05 & 01, 11, 21, 31, 41, 51 \\ \hline
+        06 & 01, 08, 14, 21, 28, 34, 41, 48, 54 \\ \hline
+        07 & 01, 08, 14, 21, 28, 34, 41, 48, 54 \\ \hline
+        08 & 01, 08, 18, 28, 38, 48, 58 \\ \hline
+        09 & 08, 18, 28, 38, 48, 58 \\ \hline
+        10 & 08, 18, 28, 38, 48, 58 \\ \hline
+        11 & 08, 18, 28, 38, 48, 58 \\ \hline
+        12 & 08, 18, 28, 38, 48, 58 \\ \hline
+        13 & 08, 18, 28, 38, 48, 58 \\ \hline
+        14 & 08, 18, 28, 38, 48, 54 \\ \hline
+        15 & 01, 08, 14, 21, 28, 34, 41, 48, 54 \\ \hline
+        16 & 01, 08, 14, 21, 28, 34, 41, 48, 54 \\ \hline
+        17 & 01, 08, 14, 21, 28, 34, 41, 48, 54 \\ \hline
+        18 & 01, 11, 21, 31, 41, 51 \\ \hline
+        19 & 01, 11, 21, 31, 41, 51 \\ \hline
+        20 & 01, 11, 21, 35, 50 \\ \hline
+        21 & 05, 20, 35, 50 \\ \hline
+        22 & 05, 20, 35 \\ \hline
+      \end{tabular}
+      \caption{Časový rozpis}
+    \end{minipage}
+  \end{tabular}
+\end{table}
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|c|}
+    \hline
+    \textbf{Výstup} & \textbf{Hodnota} \\ \hline
+    Počet príchodov cestujúcich & 11763 \\ \hline
+    Počet prevezených cestujúcich & 11763 \\ \hline
+    Počet neobslúžených cestujúcich & 0 (0,0\,\%) \\ \hline
+    Celkový čas strávený čakaním & 53693 min \\ \hline
+    Priemerný čas strávený čakaním & 5 min \\ \hline
+    Celková kompenzácia & -23801 Kč \\ \hline
+    Celkový zisk & 270274 Kč \\ \hline
+    Priemerná spokojnosť cestujúcich & 96,03\,\% \\ \hline
+    Celkový počet vozidiel & 118 \\ \hline
+    Priemerná naplnenosť vozidiel & 24 (30,34\,\%) \\ \hline
+  \end{tabular}
+  \caption{Výstupy simulácie}
+\end{table}
+\newpage
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=0.8\textwidth,
+      height=0.3\textwidth,
+      xlabel={Hodina},
+      ylabel={Počet cestujúcich},
+      ymin=0,
+      xtick={0,1,...,23},
+      grid=both,
+      major grid style={line width=.2pt,draw=gray!50},
+      minor grid style={line width=.1pt,draw=gray!20},
+      tick label style={font=\small},
+      label style={font=\small},
+      legend style={font=\small, at={(0.5,-0.2)}, anchor=north, legend columns=-1},
+      ybar,
+      bar width=5,
+      ]
+      \addplot[fill=blue] coordinates {
+        (0, 0) (1, 0) (2, 0) (3, 0) (4, 92) (5, 632) (6, 899) (7, 883) 
+        (8, 691) (9, 601) (10, 600) (11, 595) (12, 604) (13, 602) 
+        (14, 623) (15, 898) (16, 899) (17, 881) (18, 606) (19, 582) 
+        (20, 490) (21, 393) (22, 192) (23, 0)
+      };
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Počet cestujúcich prichádzajúcich na zastávku za hodinu}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=0.8\textwidth,
+      height=0.3\textwidth,
+      xlabel={Hodina},
+      ylabel={Priemerný čas (min)},
+      ymin=0,
+      xtick={0,1,...,23},
+      grid=both,
+      major grid style={line width=.2pt,draw=gray!50},
+      minor grid style={line width=.1pt,draw=gray!20},
+      tick label style={font=\small},
+      label style={font=\small},
+      legend style={font=\small, at={(0.5,-0.2)}, anchor=north, legend columns=-1},
+      ybar,
+      bar width=5,
+      ]
+      \addplot[fill=blue] coordinates {
+        (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 5.57) (6, 3.85) (7, 3.40) 
+        (8, 4.51) (9, 4.98) (10, 5.04) (11, 4.98) (12, 4.99) (13, 5.02) 
+        (14, 4.87) (15, 3.35) (16, 3.35) (17, 3.42) (18, 4.50) (19, 5.16) 
+        (20, 6.16) (21, 7.81) (22, 8.83) (23, 0)
+      };
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Priemerný čas strávený čakaním za hodinu}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=0.8\textwidth,
+      height=0.3\textwidth,
+      xlabel={Hodina},
+      ylabel={Počet prípadov},
+      ymin=0,
+      xtick={0,1,...,23},
+      grid=both,
+      major grid style={line width=.2pt,draw=gray!50},
+      minor grid style={line width=.1pt,draw=gray!20},
+      tick label style={font=\small},
+      label style={font=\small},
+      legend style={font=\small, at={(0.5,-0.2)}, anchor=north, legend columns=-1},
+      ybar,
+      bar width=5,
+      ]
+      \addplot[fill=blue] coordinates {
+        (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) 
+        (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) 
+        (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) 
+        (20, 0) (21, 0) (22, 0) (23, 0)
+      };
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Počet prípadov, kedy sa cestujúci nezmestili do vozidla za hodinu}
+\end{figure}
+\newpage
+
+% \section{Spätná väzba od analytika}
 
 \chapter{Záver} % 1 strana
 \label{zaver}

@@ -1,4 +1,6 @@
 import reflex as rx
+import tkinter as tk
+from tkinter import filedialog
 
 from ..backend.InputParser import InputParser
 from ..backend.Simulation import Simulation
@@ -28,19 +30,23 @@ class AnalyzeLineState(rx.State):
     totalTimeSpentWaiting: str
     averageTimeSpentWaiting: str
     passengersArrivedPerHour = []
-    passengersDepartedPerHour = []
     passengersLeftUnboardedPerHour = []
     timeSpentWaitingPerHour = []
 
     vehicleCapacity: int = 80
     vehicleSeats: int = 30
+    vehiclePriceCompensation: float = 66.35
+    routeLength: float = 3.8
+    pricePerTicket: int = 25
 
     averageLoad: str
     averageLoadInPercent: str
     totalPassengersTransported: int
     averagePassengerSatisfaction: str
     loadPerBusStop = []
-    loadInPercentPerBusStop = []
+
+    totalCompensation: str
+    totalProfit: str
 
     showAnalysis: bool = False
 
@@ -56,6 +62,9 @@ class AnalyzeLineState(rx.State):
         self.showAnalysis = False
         self.vehicleCapacity = 80
         self.vehicleSeats = 30
+        self.vehiclePriceCompensation = 66.35
+        self.routeLength = 3.8
+        self.pricePerTicket = 25
 
     @rx.event
     async def handle_analyze(self):
@@ -69,7 +78,7 @@ class AnalyzeLineState(rx.State):
         self.numberOfBusStops = len(busStops)
         self.longestBusStopNameLength = max([len(busStop.name) for busStop in busStops])
 
-        self.totalNumberOfBuses = stats.totalNumberOfBuses
+        self.totalNumberOfBuses = int(stats.totalNumberOfBuses)
 
         self.totalPassengersArrived = stats.busStopStatistics.totalPassengersArrived
         self.totalPassengersDeparted = stats.busStopStatistics.totalPassengersDeparted
@@ -80,33 +89,75 @@ class AnalyzeLineState(rx.State):
         self.passengersArrivedPerHour = [{"hour": hour, "count": 0} for hour in range(24)]
         for stat in stats.busStopStatistics.passengersArrivedPerHour:
             self.passengersArrivedPerHour[int(stat[0])]["count"] = stat[1]
-        self.passengersDepartedPerHour = [{"hour": hour, "count": 0} for hour in range(24)]
-        for stat in stats.busStopStatistics.passengersDepartedPerHour:
-            self.passengersDepartedPerHour[int(stat[0])]["count"] = stat[1]
+
         self.passengersLeftUnboardedPerHour = [{"hour": hour, "count": 0} for hour in range(24)]
         for stat in stats.busStopStatistics.passengersLeftUnboardedPerHour:
             self.passengersLeftUnboardedPerHour[int(stat[0])]["count"] = stat[1]
+
         self.timeSpentWaitingPerHour = [{"hour": hour, "count": 0} for hour in range(24)]
         for stat in stats.busStopStatistics.timeSpentWaitingPerHour:
-            self.timeSpentWaitingPerHour[int(stat[0])]["count"] = stat[1]
+            passengerArrivedStat = [x for x in stats.busStopStatistics.passengersArrivedPerHour if x[0] == stat[0]]
+            if passengerArrivedStat[0][1] > 0:
+                self.timeSpentWaitingPerHour[int(stat[0])]["count"] = stat[1] / passengerArrivedStat[0][1]
 
         self.averageLoad = str(int(round(stats.busStatistics.averageLoad)))
-        self.averageLoadInPercent = str(int(round(stats.busStatistics.averageLoadInPercent*100)))
+        self.averageLoadInPercent = str(round(stats.busStatistics.averageLoadInPercent*100, 2))
         self.totalPassengersTransported = stats.busStatistics.totalPassengersTransported
-        self.averagePassengerSatisfaction = str(int(round(stats.averagePassengerSatisfaction*100)))
+        self.averagePassengerSatisfaction = str(round(stats.averagePassengerSatisfaction*100, 2))
 
         self.loadPerBusStop = []
         for stat in stats.busStatistics.loadPerBusStop:
             name = stat[0].replace(" ", "\u00A0")
             self.loadPerBusStop.append({"name": name, "load": int(round(stat[1]))})
-        self.loadInPercentPerBusStop = []
-        for stat in stats.busStatistics.loadInPercentPerBusStop:
-            name = stat[0].replace(" ", "\u00A0")
-            self.loadInPercentPerBusStop.append({"name": name, "load": int(round(stat[1]*100))})
 
-        
+        totalCompensation = (self.routeLength * self.totalNumberOfBuses * self.vehicleCapacity / 100 * self.vehiclePriceCompensation)
+        self.totalProfit = str(int(round(- totalCompensation + self.pricePerTicket * self.totalPassengersTransported)))
+        self.totalCompensation = str(int(round(-totalCompensation)))
 
         self.showAnalysis = True
+
+    @rx.event
+    async def handle_export(self):
+        file_path = filedialog.asksaveasfilename(
+            defaultextension=".txt",
+            filetypes=[("Text files", "*.txt"), ("All files", "*.*")],
+            title="Uložiť analýzu",
+        )
+        if file_path:
+            with open(file_path, 'w') as file:
+                file.write(
+                    f"Analýza linky\n"
+                    f"\n------- Zastávky -------\n"
+                )
+                for busStop in InputParser.parseBusStopsFromString(self.selectedBusStops):
+                    file.write(
+                        f"{busStop}\n"
+                    )
+                file.write(
+                    f"\n------- Časový rozpis -------\n"
+                    f"{InputParser.parseTimeTableFromString(self.selectedTimeTable)}\n\n"
+                    f"------- Vstupy -------\n"
+                    f"Kapacita vozidla: {self.vehicleCapacity}\n"
+                    f"Počet miest na sedenie: {self.vehicleSeats}\n"
+                    f"Kompenzácia vozidla: {self.vehiclePriceCompensation} Kč\n"
+                    f"Dĺžka trasy: {self.routeLength} km\n"
+                    f"Cena lístka: {self.pricePerTicket} Kč\n"
+                    f"\n------- Výstupy -------\n"
+                    f"Počet príchodov cestujúcich: {self.totalPassengersArrived}\n"
+                    f"Počet prevezených cestujúcich: {self.totalPassengersTransported}\n"
+                    f"Počet neobslúžených cestujúcich: {self.totalPassengersLeftUnboarded}\n"
+                    f"Celkový čas strávený čakaním: {self.totalTimeSpentWaiting} min\n"
+                    f"Priemerný čas strávený čakaním: {self.averageTimeSpentWaiting} min\n"
+                    f"Celková kompenzácia: {self.totalCompensation} Kč\n"
+                    f"Celkový zisk: {self.totalProfit} Kč\n"
+                    f"Priemerná spokojnosť cestujúcich: {self.averagePassengerSatisfaction} %\n"
+                    f"Celkový počet vozidiel: {self.totalNumberOfBuses}\n"
+                    f"Priemerná naplnenosť vozidiel: {self.averageLoad} ({self.averageLoadInPercent} %)\n"
+                    f"Cestujúci prichádzajúci za hodinu:\n{self.passengersArrivedPerHour}\n"
+                    f"Priemerný čas strávený čakaním za hodinu (min):\n{self.timeSpentWaitingPerHour}\n"
+                    f"Počet prípadov kedy sa cestujúci nezmestili do vozidla za hodinu:\n{self.passengersLeftUnboardedPerHour}\n"
+                    f"Priemerná naplnenosť vozidiel naprieč zastávkami:\n{self.loadPerBusStop}\n"
+                )
 
 
 def analyzeLine() -> rx.Component:
@@ -160,6 +211,78 @@ def analyzeLine() -> rx.Component:
                 width="100%",
                 justify="between",
             ),
+            rx.vstack(
+                rx.text("Kompenzácia vozidla"),
+                rx.input(
+                    placeholder="Kompenzácia vozidla",
+                    value=AnalyzeLineState.vehiclePriceCompensation,
+                    on_change=AnalyzeLineState.set_vehiclePriceCompensation,
+                    width="100%",
+                    size="3",
+                    min="0",
+                    type="number",
+                    color_scheme=rx.cond(
+                        AnalyzeLineState.vehiclePriceCompensation < 0,
+                        "red",
+                        "dark"
+                    ),
+                    variant=rx.cond(
+                        AnalyzeLineState.vehiclePriceCompensation < 0,
+                        "soft",
+                        "classic"
+                    ),
+                ),
+                width="100%",
+                justify="between",
+            ),
+            rx.vstack(
+                rx.text("Dĺžka trasy"),
+                rx.input(
+                    placeholder="Dĺžka trasy",
+                    value=AnalyzeLineState.routeLength,
+                    on_change=AnalyzeLineState.set_routeLength,
+                    width="100%",
+                    size="3",
+                    min="0",
+                    type="number",
+                    color_scheme=rx.cond(
+                        AnalyzeLineState.routeLength < 0,
+                        "red",
+                        "dark"
+                    ),
+                    variant=rx.cond(
+                        AnalyzeLineState.routeLength < 0,
+                        "soft",
+                        "classic"
+                    ),
+                ),
+                width="100%",
+                justify="between",
+            ),
+            rx.vstack(
+                rx.text("Cena lístka"),
+                rx.input(
+                    placeholder="Cena lístka",
+                    value=AnalyzeLineState.pricePerTicket,
+                    on_change=AnalyzeLineState.set_pricePerTicket,
+                    width="100%",
+                    size="3",
+                    min="0",
+                    type="number",
+                    color_scheme=rx.cond(
+                        AnalyzeLineState.pricePerTicket < 0,
+                        "red",
+                        "dark"
+                    ),
+                    variant=rx.cond(
+                        AnalyzeLineState.pricePerTicket < 0,
+                        "soft",
+                        "classic"
+                    ),
+                ),
+                width="100%",
+                justify="between",
+            ),
             width="100%",
             spacing="5",
             align="stretch",
@@ -193,9 +316,9 @@ def analyzeLine() -> rx.Component:
                     justify="center",
                 ),
                 rx.hstack(
-                    infoCard("Celkový počet príchodov cestujúcich", AnalyzeLineState.totalPassengersArrived),
-                    infoCard("Celkový počet prevezených cestujúcich", AnalyzeLineState.totalPassengersTransported),
-                    infoCard("Celkový počet odchodov cestujúcich", AnalyzeLineState.totalPassengersDeparted),
+                    infoCard("Počet príchodov cestujúcich", AnalyzeLineState.totalPassengersArrived),
+                    infoCard("Počet prevezených cestujúcich", AnalyzeLineState.totalPassengersTransported),
+                    infoCard("Počet neobslúžených cestujúcich", AnalyzeLineState.totalPassengersLeftUnboarded),
                     spacing="5",
                     width="100%",
                     align_items="stretch",
@@ -208,28 +331,32 @@ def analyzeLine() -> rx.Component:
                     align_items="stretch",
                 ),
                 rx.hstack(
-                    infoCard("Počet prípadov kedy sa cestujúci nezmestil do vozidla", AnalyzeLineState.totalPassengersLeftUnboarded),
+                    infoCard("Celková kompenzácia", AnalyzeLineState.totalCompensation + " Kč"),
+                    infoCard("Celkový zisk", AnalyzeLineState.totalProfit + " Kč"),
                     infoCard("Priemerná spokojnosť cestujúcich", AnalyzeLineState.averagePassengerSatisfaction + "%"),
                     spacing="5",
                     width="100%",
                     align_items="stretch",
                 ),
-                hourChart("Cestujúci prichádzajúci za hodinu", AnalyzeLineState.passengersArrivedPerHour),
-                hourChart("Cestujúci vystupujúci za hodinu", AnalyzeLineState.passengersDepartedPerHour),
-                hourChart("Čas strávený čakaním za hodinu", AnalyzeLineState.timeSpentWaitingPerHour),
-                hourChart("Počet prípadov kedy sa cestujúci nezmestil do vozidla za hodinu", AnalyzeLineState.passengersLeftUnboardedPerHour),
                 rx.hstack(
                     infoCard("Celkový počet vozidiel", AnalyzeLineState.totalNumberOfBuses),
-                    infoCard("Priemerná naplnenosť vozidiel", AnalyzeLineState.averageLoad + " cestujúcich"),
-                    infoCard("Priemerná naplnenosť vozidiel", AnalyzeLineState.averageLoadInPercent + "%"),
+                    infoCard("Priemerná naplnenosť vozidiel", AnalyzeLineState.averageLoad + " cestujúcich (" + AnalyzeLineState.averageLoadInPercent + "%)"),
                     spacing="5",
                     width="100%",
                     align_items="stretch",
                 ),
+                hourChart("Cestujúci prichádzajúci za hodinu", AnalyzeLineState.passengersArrivedPerHour),
+                hourChart("Priemerný čas strávený čakaním za hodinu (min)", AnalyzeLineState.timeSpentWaitingPerHour),
+                hourChart("Počet prípadov kedy sa cestujúci nezmestil do vozidla za hodinu", AnalyzeLineState.passengersLeftUnboardedPerHour),
                 busStopChart("Priemerná naplnenosť naprieč zastávkami", AnalyzeLineState.loadPerBusStop, AnalyzeLineState.vehicleCapacity, AnalyzeLineState.numberOfBusStops, AnalyzeLineState.longestBusStopNameLength),
-                busStopChart("Priemerná naplnenosť naprieč zastávkami v percentách", AnalyzeLineState.loadInPercentPerBusStop, 100, AnalyzeLineState.numberOfBusStops, AnalyzeLineState.longestBusStopNameLength),
+                rx.button(
+                    rx.heading("Uložiť analýzu", size="3"),
+                    on_click=AnalyzeLineState.handle_export(),
+                    size="3",
+                ),
                 spacing="5",
                 width="100%",
+                align="center",
             ),
         ),
         spacing="5",

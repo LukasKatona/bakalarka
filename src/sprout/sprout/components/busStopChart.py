@@ -22,6 +22,7 @@ def busStopChart(title: str, data, max: int, numOfEntries: int, leftMargin) -> r
                     "bottom": 0,
                 },
             ),
+            rx.text("Naplnenosť vozidla"),
             align_items="center",
         ),
         size="3",

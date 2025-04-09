@@ -161,7 +161,7 @@ class OptimizeLineState(rx.State):
         self.constraints = [0 if hour not in busStopRates else self.constraints[hour] for hour in range(24)]
 
     @rx.event
-    def setTimeTable(self, value: list[int]):
+    def setTimeTable(self, value):
         self.selectedChromosomeIndex = value[0]
         self.bestTimeTableChromosome = self.generationChromosomes[self.selectedChromosomeIndex]
         self.selectedScatterPoint = self.generation[self.selectedChromosomeIndex]
