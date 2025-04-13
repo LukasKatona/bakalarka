@@ -1,0 +1,61 @@
+Analýza linky
+
+------- Zastávky -------
+Lesná, Haškova: 0
+Brechtova: 1
+Blažkova: 2
+Arbesova: 3
+Heleny Malířové: 4
+Lesná, nádraží: 5
+Štefánikova čtvrť: 6
+Provozníkova: 7
+Lesnická: 9
+Zemědělská: 10
+Černá Pole, Erbenova: 11
+
+------- Časový rozpis -------
+05: 00, 12, 24, 36, 48
+06: 00, 08, 17, 25, 34, 42, 51
+07: 00, 10, 20, 30, 40, 50
+08: 00, 12, 24, 36, 48
+09: 00, 08, 17, 25, 34, 42, 51
+10: 00, 10, 20, 30, 40, 50
+11: 00, 15, 30, 45
+12: 00, 12, 24, 36, 48
+13: 00, 12, 24, 36, 48
+14: 00, 07, 15, 22, 30, 37, 45, 52
+15: 00, 08, 17, 25, 34, 42, 51
+16: 00, 08, 17, 25, 34, 42, 51
+17: 00, 08, 17, 25, 34, 42, 51
+18: 00, 15, 30, 45
+19: 00, 20, 40
+20: 00, 12, 24, 36, 48
+21: 00, 15, 30, 45
+22: 00, 15, 30, 45
+
+------- Vstupy -------
+Kapacita vozidla: 160
+Počet miest na sedenie: 60
+Kompenzácia vozidla: 66.35 Kč
+Dĺžka trasy: 3.8 km
+Cena lístka: 25 Kč
+
+------- Výstupy -------
+Počet príchodov cestujúcich: 11790
+Počet prevezených cestujúcich: 11790
+Počet neobslúžených cestujúcich: 0 (0.0%)
+Celkový čas strávený čakaním: 66008 min
+Priemerný čas strávený čakaním: 6 min
+Celková kompenzácia: -39937 Kč
+Celkový zisk: 254813 Kč
+Priemerná spokojnosť cestujúcich: 99.79 %
+Celkový počet vozidiel: 99
+Priemerná naplnenosť vozidiel: 29 (18.07 %)
+Cestujúci prichádzajúci za hodinu:
+[{'hour': 0, 'count': 0}, {'hour': 1, 'count': 0}, {'hour': 2, 'count': 0}, {'hour': 3, 'count': 0}, {'hour': 4, 'count': 99}, {'hour': 5, 'count': 637}, {'hour': 6, 'count': 894}, {'hour': 7, 'count': 887}, {'hour': 8, 'count': 694}, {'hour': 9, 'count': 598}, {'hour': 10, 'count': 599}, {'hour': 11, 'count': 604}, {'hour': 12, 'count': 594}, {'hour': 13, 'count': 595}, {'hour': 14, 'count': 624}, {'hour': 15, 'count': 899}, {'hour': 16, 'count': 899}, {'hour': 17, 'count': 873}, {'hour': 18, 'count': 602}, {'hour': 19, 'count': 570}, {'hour': 20, 'count': 489}, {'hour': 21, 'count': 384}, {'hour': 22, 'count': 249}, {'hour': 23, 'count': 0}]
+Priemerný čas strávený čakaním za hodinu (min):
+[{'hour': 0, 'count': 0}, {'hour': 1, 'count': 0}, {'hour': 2, 'count': 0}, {'hour': 3, 'count': 0}, {'hour': 4, 'count': 0}, {'hour': 5, 'count': 6.279434850863423}, {'hour': 6, 'count': 4.668903803131991}, {'hour': 7, 'count': 5.00901916572717}, {'hour': 8, 'count': 5.845821325648415}, {'hour': 9, 'count': 4.724080267558528}, {'hour': 10, 'count': 4.856427378964941}, {'hour': 11, 'count': 6.533112582781457}, {'hour': 12, 'count': 6.683501683501683}, {'hour': 13, 'count': 5.994957983193277}, {'hour': 14, 'count': 4.174679487179487}, {'hour': 15, 'count': 4.0945494994438265}, {'hour': 16, 'count': 4.303670745272525}, {'hour': 17, 'count': 4.497136311569301}, {'hour': 18, 'count': 6.423588039867109}, {'hour': 19, 'count': 9.033333333333333}, {'hour': 20, 'count': 8.210633946830265}, {'hour': 21, 'count': 7.145833333333333}, {'hour': 22, 'count': 9.080321285140561}, {'hour': 23, 'count': 0}]
+Počet prípadov kedy sa cestujúci nezmestili do vozidla za hodinu:
+[{'hour': 0, 'count': 0}, {'hour': 1, 'count': 0}, {'hour': 2, 'count': 0}, {'hour': 3, 'count': 0}, {'hour': 4, 'count': 0}, {'hour': 5, 'count': 0}, {'hour': 6, 'count': 0}, {'hour': 7, 'count': 0}, {'hour': 8, 'count': 0}, {'hour': 9, 'count': 0}, {'hour': 10, 'count': 0}, {'hour': 11, 'count': 0}, {'hour': 12, 'count': 0}, {'hour': 13, 'count': 0}, {'hour': 14, 'count': 0}, {'hour': 15, 'count': 0}, {'hour': 16, 'count': 0}, {'hour': 17, 'count': 0}, {'hour': 18, 'count': 0}, {'hour': 19, 'count': 0}, {'hour': 20, 'count': 0}, {'hour': 21, 'count': 0}, {'hour': 22, 'count': 0}, {'hour': 23, 'count': 0}]
+Priemerná naplnenosť vozidiel naprieč zastávkami:
+[{'name': 'Lesná,\xa0Haškova', 'load': 11}, {'name': 'Brechtova', 'load': 22}, {'name': 'Blažkova', 'load': 32}, {'name': 'Arbesova', 'load': 40}, {'name': 'Heleny\xa0Malířové', 'load': 48}, {'name': 'Lesná,\xa0nádraží', 'load': 50}, {'name': 'Štefánikova\xa0čtvrť', 'load': 27}, {'name': 'Provozníkova', 'load': 30}, {'name': 'Lesnická', 'load': 36}, {'name': 'Zemědělská', 'load': 22}, {'name': 'Černá\xa0Pole,\xa0Erbenova', 'load': 0}]

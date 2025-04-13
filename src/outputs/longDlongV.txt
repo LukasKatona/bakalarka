@@ -1,0 +1,94 @@
+Analýza linky
+
+------- Zastávky -------
+Židenice, Stará osada: 0
+Gajdošova: 2
+Otakara Ševčíka: 3
+Škroupova: 4
+Tržní: 6
+Hladíkova: 8
+Autobusové nádraží: 10
+Opuštěná: 12
+Křídlovická: 15
+Poříčí: 16
+Mendlovo náměstí: 20
+Křížkovského: 21
+Výstaviště: 22
+Riviéra: 24
+Pisárky: 26
+Anthropos: 28
+Pod Jurankou: 29
+Veslařská: 30
+Jundrov, hřiště: 31
+Jundrovský most: 32
+Vozovna Komín: 34
+Hlavní: 35
+Štursova: 36
+Rosického náměstí: 37
+Přívrat: 39
+Záhřebská: 40
+Skácelova: 42
+Slovanské náměstí: 43
+Husitská: 44
+Semilasso: 46
+Královo Pole, nádraží: 47
+Mojmírovo náměstí: 48
+Kociánka: 49
+Královopolská strojírna: 50
+Divišova čtvrť: 51
+U Tunýlku: 52
+Halasovo náměstí: 54
+Poliklinika Lesná: 55
+Lesná, nádraží: 56
+Štefánikova čtvrť: 57
+Merhautova: 59
+Tomkovo náměstí: 61
+Židenice, kasárna: 63
+Židenice, Stará osada: 65
+
+------- Časový rozpis -------
+05: 00, 30
+06: 00, 15, 30, 45
+07: 00, 15, 30, 45
+08: 00, 15, 30, 45
+09: 00, 15, 30, 45
+10: 00, 15, 30, 45
+11: 00, 12, 24, 36, 48
+12: 00, 12, 24, 36, 48
+13: 00, 10, 20, 30, 40, 50
+14: 00, 12, 24, 36, 48
+15: 00, 12, 24, 36, 48
+16: 00, 12, 24, 36, 48
+17: 00, 12, 24, 36, 48
+18: 00, 15, 30, 45
+19: 00, 15, 30, 45
+20: 00, 20, 40
+21: 00, 12, 24, 36, 48
+22: 00, 15, 30, 45
+
+------- Vstupy -------
+Kapacita vozidla: 160
+Počet miest na sedenie: 60
+Kompenzácia vozidla: 66.35 Kč
+Dĺžka trasy: 23.0 km
+Cena lístka: 25 Kč
+
+------- Výstupy -------
+Počet príchodov cestujúcich: 49039
+Počet prevezených cestujúcich: 49039
+Počet neobslúžených cestujúcich: 0 (0.0%)
+Celkový čas strávený čakaním: 359493 min
+Priemerný čas strávený čakaním: 7 min
+Celková kompenzácia: -190451 Kč
+Celkový zisk: 1035524 Kč
+Priemerná spokojnosť cestujúcich: 99.37 %
+Celkový počet vozidiel: 78
+Priemerná naplnenosť vozidiel: 32 (19.91 %)
+Cestujúci prichádzajúci za hodinu:
+[{'hour': 0, 'count': 0}, {'hour': 1, 'count': 0}, {'hour': 2, 'count': 0}, {'hour': 3, 'count': 0}, {'hour': 4, 'count': 90}, {'hour': 5, 'count': 1981}, {'hour': 6, 'count': 2803}, {'hour': 7, 'count': 2686}, {'hour': 8, 'count': 2556}, {'hour': 9, 'count': 2683}, {'hour': 10, 'count': 3021}, {'hour': 11, 'count': 2762}, {'hour': 12, 'count': 3071}, {'hour': 13, 'count': 2813}, {'hour': 14, 'count': 2842}, {'hour': 15, 'count': 2994}, {'hour': 16, 'count': 2853}, {'hour': 17, 'count': 2755}, {'hour': 18, 'count': 2558}, {'hour': 19, 'count': 2602}, {'hour': 20, 'count': 2713}, {'hour': 21, 'count': 2861}, {'hour': 22, 'count': 2395}, {'hour': 23, 'count': 0}]
+Priemerný čas strávený čakaním za hodinu (min):
+[{'hour': 0, 'count': 0}, {'hour': 1, 'count': 0}, {'hour': 2, 'count': 0}, {'hour': 3, 'count': 0}, {'hour': 4, 'count': 0}, {'hour': 5, 'count': 7.455325593134781}, {'hour': 6, 'count': 14.112022832679273}, {'hour': 7, 'count': 7.847728965003723}, {'hour': 8, 'count': 7.514866979655712}, {'hour': 9, 'count': 7.327245620573985}, {'hour': 10, 'count': 7.6107249255213505}, {'hour': 11, 'count': 7.084359160028964}, {'hour': 12, 'count': 6.090849886030609}, {'hour': 13, 'count': 5.755065766086029}, {'hour': 14, 'count': 5.251231527093596}, {'hour': 15, 'count': 6.03440213760855}, {'hour': 16, 'count': 5.971608832807571}, {'hour': 17, 'count': 6.077313974591651}, {'hour': 18, 'count': 6.2189210320562935}, {'hour': 19, 'count': 7.513066871637202}, {'hour': 20, 'count': 7.742720235901216}, {'hour': 21, 'count': 9.409646976581614}, {'hour': 22, 'count': 7.3544885177453025}, {'hour': 23, 'count': 0}]
+Počet prípadov kedy sa cestujúci nezmestili do vozidla za hodinu:
+[{'hour': 0, 'count': 0}, {'hour': 1, 'count': 0}, {'hour': 2, 'count': 0}, {'hour': 3, 'count': 0}, {'hour': 4, 'count': 0}, {'hour': 5, 'count': 0}, {'hour': 6, 'count': 0}, {'hour': 7, 'count': 0}, {'hour': 8, 'count': 0}, {'hour': 9, 'count': 0}, {'hour': 10, 'count': 0}, {'hour': 11, 'count': 0}, {'hour': 12, 'count': 0}, {'hour': 13, 'count': 0}, {'hour': 14, 'count': 0}, {'hour': 15, 'count': 0}, {'hour': 16, 'count': 0}, {'hour': 17, 'count': 0}, {'hour': 18, 'count': 0}, {'hour': 19, 'count': 0}, {'hour': 20, 'count': 0}, {'hour': 21, 'count': 0}, {'hour': 22, 'count': 0}, {'hour': 23, 'count': 0}]
+Priemerná naplnenosť vozidiel naprieč zastávkami:
+[{'name': 'Židenice,\xa0Stará\xa0osada', 'load': 6}, {'name': 'Gajdošova', 'load': 26}, {'name': 'Otakara\xa0Ševčíka', 'load': 24}, {'name': 'Škroupova', 'load': 37}, {'name': 'Tržní', 'load': 42}, {'name': 'Hladíkova', 'load': 39}, {'name': 'Autobusové\xa0nádraží', 'load': 42}, {'name': 'Opuštěná', 'load': 29}, {'name': 'Křídlovická', 'load': 25}, {'name': 'Poříčí', 'load': 23}, {'name': 'Mendlovo\xa0náměstí', 'load': 30}, {'name': 'Křížkovského', 'load': 26}, {'name': 'Výstaviště', 'load': 38}, {'name': 'Riviéra', 'load': 43}, {'name': 'Pisárky', 'load': 30}, {'name': 'Anthropos', 'load': 37}, {'name': 'Pod\xa0Jurankou', 'load': 36}, {'name': 'Veslařská', 'load': 27}, {'name': 'Jundrov,\xa0hřiště', 'load': 41}, {'name': 'Jundrovský\xa0most', 'load': 35}, {'name': 'Vozovna\xa0Komín', 'load': 26}, {'name': 'Hlavní', 'load': 22}, {'name': 'Štursova', 'load': 28}, {'name': 'Rosického\xa0náměstí', 'load': 30}, {'name': 'Přívrat', 'load': 31}, {'name': 'Záhřebská', 'load': 43}, {'name': 'Skácelova', 'load': 26}, {'name': 'Slovanské\xa0náměstí', 'load': 32}, {'name': 'Husitská', 'load': 37}, {'name': 'Semilasso', 'load': 34}, {'name': 'Královo\xa0Pole,\xa0nádraží', 'load': 28}, {'name': 'Mojmírovo\xa0náměstí', 'load': 35}, {'name': 'Kociánka', 'load': 30}, {'name': 'Královopolská\xa0strojírna', 'load': 43}, {'name': 'Divišova\xa0čtvrť', 'load': 52}, {'name': 'U\xa0Tunýlku', 'load': 37}, {'name': 'Halasovo\xa0náměstí', 'load': 28}, {'name': 'Poliklinika\xa0Lesná', 'load': 30}, {'name': 'Lesná,\xa0nádraží', 'load': 29}, {'name': 'Štefánikova\xa0čtvrť', 'load': 28}, {'name': 'Merhautova', 'load': 26}, {'name': 'Tomkovo\xa0náměstí', 'load': 26}, {'name': 'Židenice,\xa0kasárna', 'load': 33}]

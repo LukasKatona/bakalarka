@@ -19,7 +19,7 @@ class OptimizeLineState(rx.State):
     busStopTable: list[tuple[str, str, bool]] = []
     timeTable: list[tuple[str, str, bool]] = []
 
-    populationSize: int = 100
+    populationSize: int = 50
     sliderMax: int = populationSize - 1
     mutationRate: float = 0.05
     constraints: list[int|None] = [None]*24
@@ -73,7 +73,7 @@ class OptimizeLineState(rx.State):
         self.busStopTable = []
         self.timeTable = []
 
-        self.populationSize = 100
+        self.populationSize = 50
         self.sliderMax = self.populationSize - 1
         self.mutationRate = 0.05
         self.constraints = [None]*24
@@ -192,6 +192,8 @@ class OptimizeLineState(rx.State):
         self.saveTimeTableName = ""
     
     def setPopulationSize(self, value: str):
+        if value == "":
+            return
         self.populationSize = int(value)
         self.sliderMax = self.populationSize - 1
 

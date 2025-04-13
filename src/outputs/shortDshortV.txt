@@ -1,0 +1,61 @@
+Analýza linky
+
+------- Zastávky -------
+Lesná, Haškova: 0
+Brechtova: 1
+Blažkova: 2
+Arbesova: 3
+Heleny Malířové: 4
+Lesná, nádraží: 5
+Štefánikova čtvrť: 6
+Provozníkova: 7
+Lesnická: 9
+Zemědělská: 10
+Černá Pole, Erbenova: 11
+
+------- Časový rozpis -------
+05: 00, 10, 20, 30, 40, 50
+06: 00, 05, 10, 16, 21, 27, 32, 38, 43, 49, 54
+07: 00, 05, 10, 16, 21, 27, 32, 38, 43, 49, 54
+08: 00, 06, 12, 18, 24, 30, 36, 42, 48, 54
+09: 00, 08, 17, 25, 34, 42, 51
+10: 00, 07, 15, 22, 30, 37, 45, 52
+11: 00, 07, 15, 22, 30, 37, 45, 52
+12: 00, 08, 17, 25, 34, 42, 51
+13: 00, 10, 20, 30, 40, 50
+14: 00, 12, 24, 36, 48
+15: 00, 08, 17, 25, 34, 42, 51
+16: 00, 06, 12, 18, 24, 30, 36, 42, 48, 54
+17: 00, 05, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55
+18: 00, 05, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55
+19: 00, 06, 13, 20, 26, 33, 40, 46, 53
+20: 00, 08, 17, 25, 34, 42, 51
+21: 00, 12, 24, 36, 48
+22: 00, 20, 40
+
+------- Vstupy -------
+Kapacita vozidla: 80
+Počet miest na sedenie: 30
+Kompenzácia vozidla: 66.35 Kč
+Dĺžka trasy: 3.8 km
+Cena lístka: 25 Kč
+
+------- Výstupy -------
+Počet príchodov cestujúcich: 11819
+Počet prevezených cestujúcich: 11818
+Počet neobslúžených cestujúcich: 1 (0.01%)
+Celkový čas strávený čakaním: 46455 min
+Priemerný čas strávený čakaním: 4 min
+Celková kompenzácia: -29045 Kč
+Celkový zisk: 266405 Kč
+Priemerná spokojnosť cestujúcich: 97.14 %
+Celkový počet vozidiel: 144
+Priemerná naplnenosť vozidiel: 20 (25.0 %)
+Cestujúci prichádzajúci za hodinu:
+[{'hour': 0, 'count': 0}, {'hour': 1, 'count': 0}, {'hour': 2, 'count': 0}, {'hour': 3, 'count': 0}, {'hour': 4, 'count': 106}, {'hour': 5, 'count': 630}, {'hour': 6, 'count': 901}, {'hour': 7, 'count': 891}, {'hour': 8, 'count': 690}, {'hour': 9, 'count': 593}, {'hour': 10, 'count': 602}, {'hour': 11, 'count': 595}, {'hour': 12, 'count': 584}, {'hour': 13, 'count': 600}, {'hour': 14, 'count': 636}, {'hour': 15, 'count': 898}, {'hour': 16, 'count': 898}, {'hour': 17, 'count': 893}, {'hour': 18, 'count': 601}, {'hour': 19, 'count': 599}, {'hour': 20, 'count': 492}, {'hour': 21, 'count': 387}, {'hour': 22, 'count': 223}, {'hour': 23, 'count': 0}]
+Priemerný čas strávený čakaním za hodinu (min):
+[{'hour': 0, 'count': 0}, {'hour': 1, 'count': 0}, {'hour': 2, 'count': 0}, {'hour': 3, 'count': 0}, {'hour': 4, 'count': 0}, {'hour': 5, 'count': 5.7936507936507935}, {'hour': 6, 'count': 3.2708102108768036}, {'hour': 7, 'count': 2.8002244668911334}, {'hour': 8, 'count': 2.963768115942029}, {'hour': 9, 'count': 3.900505902192243}, {'hour': 10, 'count': 3.9385382059800667}, {'hour': 11, 'count': 3.7663865546218487}, {'hour': 12, 'count': 4.087328767123288}, {'hour': 13, 'count': 4.888333333333334}, {'hour': 14, 'count': 5.411949685534591}, {'hour': 15, 'count': 4.6547884187082404}, {'hour': 16, 'count': 3.4075723830734965}, {'hour': 17, 'count': 2.633818589025756}, {'hour': 18, 'count': 2.5058236272878536}, {'hour': 19, 'count': 3.2120200333889817}, {'hour': 20, 'count': 4.09349593495935}, {'hour': 21, 'count': 5.767441860465116}, {'hour': 22, 'count': 10.596412556053812}, {'hour': 23, 'count': 0}]
+Počet prípadov kedy sa cestujúci nezmestili do vozidla za hodinu:
+[{'hour': 0, 'count': 0}, {'hour': 1, 'count': 0}, {'hour': 2, 'count': 0}, {'hour': 3, 'count': 0}, {'hour': 4, 'count': 0}, {'hour': 5, 'count': 0}, {'hour': 6, 'count': 0}, {'hour': 7, 'count': 0}, {'hour': 8, 'count': 0}, {'hour': 9, 'count': 0}, {'hour': 10, 'count': 0}, {'hour': 11, 'count': 0}, {'hour': 12, 'count': 0}, {'hour': 13, 'count': 0}, {'hour': 14, 'count': 0}, {'hour': 15, 'count': 1}, {'hour': 16, 'count': 0}, {'hour': 17, 'count': 0}, {'hour': 18, 'count': 0}, {'hour': 19, 'count': 0}, {'hour': 20, 'count': 0}, {'hour': 21, 'count': 0}, {'hour': 22, 'count': 0}, {'hour': 23, 'count': 0}]
+Priemerná naplnenosť vozidiel naprieč zastávkami:
+[{'name': 'Lesná,\xa0Haškova', 'load': 8}, {'name': 'Brechtova', 'load': 15}, {'name': 'Blažkova', 'load': 22}, {'name': 'Arbesova', 'load': 28}, {'name': 'Heleny\xa0Malířové', 'load': 33}, {'name': 'Lesná,\xa0nádraží', 'load': 35}, {'name': 'Štefánikova\xa0čtvrť', 'load': 18}, {'name': 'Provozníkova', 'load': 21}, {'name': 'Lesnická', 'load': 25}, {'name': 'Zemědělská', 'load': 15}, {'name': 'Černá\xa0Pole,\xa0Erbenova', 'load': 0}]
