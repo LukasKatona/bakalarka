@@ -47,47 +47,46 @@ Tomkovo náměstí: 61
 Židenice, Stará osada: 65
 
 ------- Časový rozpis -------
-05: 00, 07, 15, 22, 30, 37, 45, 52
-06: 00, 08, 17, 25, 34, 42, 51
-07: 00, 05, 10, 16, 21, 27, 32, 38, 43, 49, 54
-08: 00, 06, 12, 18, 24, 30, 36, 42, 48, 54
-09: 00, 10, 20, 30, 40, 50
-10: 00, 10, 20, 30, 40, 50
-11: 00, 08, 17, 25, 34, 42, 51
-12: 00, 06, 12, 18, 24, 30, 36, 42, 48, 54
-13: 00, 08, 17, 25, 34, 42, 51
-14: 00, 10, 20, 30, 40, 50
-15: 00, 05, 10, 16, 21, 27, 32, 38, 43, 49, 54
-16: 00, 10, 20, 30, 40, 50
-17: 00, 12, 24, 36, 48
-18: 00, 08, 17, 25, 34, 42, 51
-19: 00, 10, 20, 30, 40, 50
+05: 00, 10, 20, 30, 40, 50
+06: 00, 07, 15, 22, 30, 37, 45, 52
+07: 00, 10, 20, 30, 40, 50
+08: 00, 12, 24, 36, 48
+09: 00, 12, 24, 36, 48
+10: 00, 07, 15, 22, 30, 37, 45, 52
+11: 00, 07, 15, 22, 30, 37, 45, 52
+12: 00, 10, 20, 30, 40, 50
+13: 00, 07, 15, 22, 30, 37, 45, 52
+14: 00, 12, 24, 36, 48
+15: 00, 15, 30, 45
+16: 00, 12, 24, 36, 48
+17: 00, 10, 20, 30, 40, 50
+18: 00, 07, 15, 22, 30, 37, 45, 52
+19: 00, 15, 30, 45
 20: 00, 10, 20, 30, 40, 50
 21: 00, 08, 17, 25, 34, 42, 51
-22: 00, 07, 15, 22, 30, 37, 45, 52
+22: 00, 10, 20, 30, 40, 50
 
 ------- Vstupy -------
 Kapacita vozidla: 80
 Počet miest na sedenie: 30
 Celkové náklady (Kč/100 miesto-km): 92.82 Kč
 Dĺžka trasy: 23.0 km
-Cena lístka: 25 Kč
 
 ------- Výstupy -------
-Počet príchodov cestujúcich: 49344
-Počet prevezených cestujúcich: 49344
+Počet príchodov cestujúcich: 49041
+Počet prevezených cestujúcich: 49041
 Počet neobslúžených cestujúcich: 0 (0.0%)
-Celkový čas strávený čakaním: 213107 min
-Priemerný čas strávený čakaním: 4 min
-Celkové náklady: 228857 Kč
-Priemerná spokojnosť cestujúcich: 99.28 %
-Celkový počet vozidiel: 134
-Priemerná naplnenosť vozidiel: 18 (22.94 %)
+Celkový čas strávený čakaním: 253052 min
+Priemerný čas strávený čakaním: 5 min
+Celkové náklady: 189576 Kč
+Priemerná spokojnosť cestujúcich: 98.1 %
+Celkový počet vozidiel: 111
+Priemerná naplnenosť vozidiel: 22 (27.67 %)
 Cestujúci prichádzajúci za hodinu:
-[{'hour': 0, 'count': 0}, {'hour': 1, 'count': 0}, {'hour': 2, 'count': 0}, {'hour': 3, 'count': 0}, {'hour': 4, 'count': 87}, {'hour': 5, 'count': 1988}, {'hour': 6, 'count': 2803}, {'hour': 7, 'count': 2690}, {'hour': 8, 'count': 2585}, {'hour': 9, 'count': 2673}, {'hour': 10, 'count': 3006}, {'hour': 11, 'count': 2755}, {'hour': 12, 'count': 3067}, {'hour': 13, 'count': 2859}, {'hour': 14, 'count': 2860}, {'hour': 15, 'count': 3005}, {'hour': 16, 'count': 2866}, {'hour': 17, 'count': 2759}, {'hour': 18, 'count': 2593}, {'hour': 19, 'count': 2596}, {'hour': 20, 'count': 2694}, {'hour': 21, 'count': 2874}, {'hour': 22, 'count': 2584}, {'hour': 23, 'count': 0}]
+[{'hour': 0, 'count': 0}, {'hour': 1, 'count': 0}, {'hour': 2, 'count': 0}, {'hour': 3, 'count': 0}, {'hour': 4, 'count': 88}, {'hour': 5, 'count': 1981}, {'hour': 6, 'count': 2794}, {'hour': 7, 'count': 2676}, {'hour': 8, 'count': 2558}, {'hour': 9, 'count': 2666}, {'hour': 10, 'count': 3063}, {'hour': 11, 'count': 2724}, {'hour': 12, 'count': 3098}, {'hour': 13, 'count': 2833}, {'hour': 14, 'count': 2803}, {'hour': 15, 'count': 2955}, {'hour': 16, 'count': 2847}, {'hour': 17, 'count': 2752}, {'hour': 18, 'count': 2594}, {'hour': 19, 'count': 2557}, {'hour': 20, 'count': 2688}, {'hour': 21, 'count': 2892}, {'hour': 22, 'count': 2472}, {'hour': 23, 'count': 0}]
 Priemerný čas strávený čakaním za hodinu (min):
-[{'hour': 0, 'count': 0}, {'hour': 1, 'count': 0}, {'hour': 2, 'count': 0}, {'hour': 3, 'count': 0}, {'hour': 4, 'count': 0}, {'hour': 5, 'count': 4.835010060362173}, {'hour': 6, 'count': 3.9739564752051373}, {'hour': 7, 'count': 3.7762081784386616}, {'hour': 8, 'count': 2.8638297872340424}, {'hour': 9, 'count': 3.551440329218107}, {'hour': 10, 'count': 5.027611443779109}, {'hour': 11, 'count': 4.749546279491833}, {'hour': 12, 'count': 3.9507662210629277}, {'hour': 13, 'count': 3.3823015040223856}, {'hour': 14, 'count': 4.488811188811189}, {'hour': 15, 'count': 4.311480865224626}, {'hour': 16, 'count': 3.4874389392882064}, {'hour': 17, 'count': 5.325480246466111}, {'hour': 18, 'count': 5.548785190898573}, {'hour': 19, 'count': 4.500385208012327}, {'hour': 20, 'count': 4.944691907943579}, {'hour': 21, 'count': 4.835421016005567}, {'hour': 22, 'count': 4.468266253869969}, {'hour': 23, 'count': 0}]
+[{'hour': 0, 'count': 0}, {'hour': 1, 'count': 0}, {'hour': 2, 'count': 0}, {'hour': 3, 'count': 0}, {'hour': 4, 'count': 0}, {'hour': 5, 'count': 5.342756183745583}, {'hour': 6, 'count': 4.69613457408733}, {'hour': 7, 'count': 4.170403587443946}, {'hour': 8, 'count': 5.268569194683346}, {'hour': 9, 'count': 5.927231807951988}, {'hour': 10, 'count': 5.368266405484818}, {'hour': 11, 'count': 3.751835535976505}, {'hour': 12, 'count': 4.134280180761782}, {'hour': 13, 'count': 4.746205435933639}, {'hour': 14, 'count': 4.400642169104531}, {'hour': 15, 'count': 6.300507614213198}, {'hour': 16, 'count': 7.146469968387777}, {'hour': 17, 'count': 5.84593023255814}, {'hour': 18, 'count': 4.691981495759445}, {'hour': 19, 'count': 4.611654282362143}, {'hour': 20, 'count': 6.7414434523809526}, {'hour': 21, 'count': 4.900069156293223}, {'hour': 22, 'count': 4.9955501618122975}, {'hour': 23, 'count': 0}]
 Počet prípadov kedy sa cestujúci nezmestili do vozidla za hodinu:
 [{'hour': 0, 'count': 0}, {'hour': 1, 'count': 0}, {'hour': 2, 'count': 0}, {'hour': 3, 'count': 0}, {'hour': 4, 'count': 0}, {'hour': 5, 'count': 0}, {'hour': 6, 'count': 0}, {'hour': 7, 'count': 0}, {'hour': 8, 'count': 0}, {'hour': 9, 'count': 0}, {'hour': 10, 'count': 0}, {'hour': 11, 'count': 0}, {'hour': 12, 'count': 0}, {'hour': 13, 'count': 0}, {'hour': 14, 'count': 0}, {'hour': 15, 'count': 0}, {'hour': 16, 'count': 0}, {'hour': 17, 'count': 0}, {'hour': 18, 'count': 0}, {'hour': 19, 'count': 0}, {'hour': 20, 'count': 0}, {'hour': 21, 'count': 0}, {'hour': 22, 'count': 0}, {'hour': 23, 'count': 0}]
 Priemerná naplnenosť vozidiel naprieč zastávkami:
-[{'name': 'Židenice,\xa0Stará\xa0osada', 'load': 3}, {'name': 'Gajdošova', 'load': 15}, {'name': 'Otakara\xa0Ševčíka', 'load': 14}, {'name': 'Škroupova', 'load': 21}, {'name': 'Tržní', 'load': 24}, {'name': 'Hladíkova', 'load': 23}, {'name': 'Autobusové\xa0nádraží', 'load': 24}, {'name': 'Opuštěná', 'load': 17}, {'name': 'Křídlovická', 'load': 14}, {'name': 'Poříčí', 'load': 13}, {'name': 'Mendlovo\xa0náměstí', 'load': 18}, {'name': 'Křížkovského', 'load': 15}, {'name': 'Výstaviště', 'load': 22}, {'name': 'Riviéra', 'load': 25}, {'name': 'Pisárky', 'load': 17}, {'name': 'Anthropos', 'load': 21}, {'name': 'Pod\xa0Jurankou', 'load': 20}, {'name': 'Veslařská', 'load': 15}, {'name': 'Jundrov,\xa0hřiště', 'load': 24}, {'name': 'Jundrovský\xa0most', 'load': 20}, {'name': 'Vozovna\xa0Komín', 'load': 15}, {'name': 'Hlavní', 'load': 13}, {'name': 'Štursova', 'load': 16}, {'name': 'Rosického\xa0náměstí', 'load': 18}, {'name': 'Přívrat', 'load': 18}, {'name': 'Záhřebská', 'load': 25}, {'name': 'Skácelova', 'load': 15}, {'name': 'Slovanské\xa0náměstí', 'load': 18}, {'name': 'Husitská', 'load': 21}, {'name': 'Semilasso', 'load': 20}, {'name': 'Královo\xa0Pole,\xa0nádraží', 'load': 16}, {'name': 'Mojmírovo\xa0náměstí', 'load': 20}, {'name': 'Kociánka', 'load': 17}, {'name': 'Královopolská\xa0strojírna', 'load': 25}, {'name': 'Divišova\xa0čtvrť', 'load': 31}, {'name': 'U\xa0Tunýlku', 'load': 21}, {'name': 'Halasovo\xa0náměstí', 'load': 16}, {'name': 'Poliklinika\xa0Lesná', 'load': 17}, {'name': 'Lesná,\xa0nádraží', 'load': 17}, {'name': 'Štefánikova\xa0čtvrť', 'load': 16}, {'name': 'Merhautova', 'load': 15}, {'name': 'Tomkovo\xa0náměstí', 'load': 15}, {'name': 'Židenice,\xa0kasárna', 'load': 19}]
+[{'name': 'Židenice,\xa0Stará\xa0osada', 'load': 4}, {'name': 'Gajdošova', 'load': 18}, {'name': 'Otakara\xa0Ševčíka', 'load': 17}, {'name': 'Škroupova', 'load': 25}, {'name': 'Tržní', 'load': 29}, {'name': 'Hladíkova', 'load': 28}, {'name': 'Autobusové\xa0nádraží', 'load': 29}, {'name': 'Opuštěná', 'load': 20}, {'name': 'Křídlovická', 'load': 17}, {'name': 'Poříčí', 'load': 16}, {'name': 'Mendlovo\xa0náměstí', 'load': 21}, {'name': 'Křížkovského', 'load': 18}, {'name': 'Výstaviště', 'load': 26}, {'name': 'Riviéra', 'load': 30}, {'name': 'Pisárky', 'load': 21}, {'name': 'Anthropos', 'load': 26}, {'name': 'Pod\xa0Jurankou', 'load': 25}, {'name': 'Veslařská', 'load': 18}, {'name': 'Jundrov,\xa0hřiště', 'load': 28}, {'name': 'Jundrovský\xa0most', 'load': 24}, {'name': 'Vozovna\xa0Komín', 'load': 18}, {'name': 'Hlavní', 'load': 16}, {'name': 'Štursova', 'load': 20}, {'name': 'Rosického\xa0náměstí', 'load': 21}, {'name': 'Přívrat', 'load': 22}, {'name': 'Záhřebská', 'load': 30}, {'name': 'Skácelova', 'load': 18}, {'name': 'Slovanské\xa0náměstí', 'load': 22}, {'name': 'Husitská', 'load': 25}, {'name': 'Semilasso', 'load': 24}, {'name': 'Královo\xa0Pole,\xa0nádraží', 'load': 20}, {'name': 'Mojmírovo\xa0náměstí', 'load': 24}, {'name': 'Kociánka', 'load': 21}, {'name': 'Královopolská\xa0strojírna', 'load': 30}, {'name': 'Divišova\xa0čtvrť', 'load': 37}, {'name': 'U\xa0Tunýlku', 'load': 26}, {'name': 'Halasovo\xa0náměstí', 'load': 19}, {'name': 'Poliklinika\xa0Lesná', 'load': 21}, {'name': 'Lesná,\xa0nádraží', 'load': 20}, {'name': 'Štefánikova\xa0čtvrť', 'load': 19}, {'name': 'Merhautova', 'load': 18}, {'name': 'Tomkovo\xa0náměstí', 'load': 18}, {'name': 'Židenice,\xa0kasárna', 'load': 23}]

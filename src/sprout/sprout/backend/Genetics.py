@@ -156,7 +156,7 @@ class Individual:
         chromosome = []
         for i in range(24):
             if self.constraints[i] == None:
-                chromosome.append(RandomNumberGenerator.integers(0, self.maxConnectionsPerHour+1))
+                chromosome.append(RandomNumberGenerator.integers(1, self.maxConnectionsPerHour+1))
             else:
                 chromosome.append(self.constraints[i])
         return chromosome
@@ -182,7 +182,7 @@ class Individual:
     def mutate(self):
         for i in range(24):
             if RandomNumberGenerator.uniform() < self.mutationRate and self.constraints[i] == None:
-                self.chromosome[i] = RandomNumberGenerator.integers(0, self.maxConnectionsPerHour+1)
+                self.chromosome[i] = RandomNumberGenerator.integers(1, self.maxConnectionsPerHour+1)
             
     def __lt__(self, other):
         return (self.rank < other.rank) or ((self.rank == other.rank) and (self.distance > other.distance))
