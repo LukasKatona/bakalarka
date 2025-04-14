@@ -504,31 +504,233 @@ Pokiaľ má linka príliš veľké výkivy v naplnenosti vozidiel naprieč svojo
 \label{optimalizacia}
 \section{Vstupné obmedzenia zo strany používateľa}
 \section{Implementácia genetického algoritmu}
-\section{Výsledky optimalizácie}
-
-\chapter{Uživateľské rozhranie analytického nástroja} % 10 strán
-\label{uzivatelske_rozhranie}
-\section{Návrh uživateľského rozhrania}
-\section{Implementácia uživateľského rozhrania}
+\section{Výstupy optimalizácie}
 
 \chapter{Experimenty} % 10 strán
 \label{experimenty}
 
+V tejto kapitole sú podrobne popísané experimentálne scenáre, ktoré boli navrhnuté na posúdenie výkonnosti optimalizačného algoritmu aplikovaného na plánovanie liniek MHD.
+Cieľom bolo preskúmať, ako algoritmus reaguje na zmeny v parametroch ako sú dĺžka trasy, dĺžka vozidla a počet zastávok.
+
+Každý experiment bol vykonaný s rovnakými parametrami pre genetický algoritmus, aby sa zabezpečila konzistentnosť výsledkov:
+\begin{itemize}
+  \item \textbf{Počet jedincov v populácii} --- 50 pre krátku trasu, 10 pre dlhú trasu \footnote{Tento počet bol znížený z dôvodu dlhšej doby výpočtu.}
+  \item \textbf{Počet generácií} --- 100
+  \item \textbf{Pravdepodobnosť mutácie} --- 5\%
+  \item \textbf{Maximálny počet spojov za hodinu} --- 15
+\end{itemize}
+Ostatné parametre sú špecifické pre jednotlivé experimenty a sú uvedené v tabuľkách v príslušných sekciách.
+
+Parametre zariadenia na ktorom boli experimenty vykonané sú:
+\begin{itemize}
+  \item \textbf{Operačný systém} --- Windows 11 Pro 64-bit
+  \item \textbf{Procesor} --- Intel Core i7-9750H CPU @ 2.60GHz
+  \item \textbf{RAM} --- 16 GB DDR4
+\end{itemize}
+
+Všetky experimenty boli vykonané na rovnakom zariadení, aby sa zabezpečila konzistentnosť výsledkov,
+a v rovnakom čase, aby sa minimalizoval vplyv vonkajších faktorov.
+Každý experiment trval približne od 45 minút do 1.5 hodiny v závislosti od dĺžky trasy a počtu zastávok.
+
+\newpage
 \section{Experiment s krátkou trasou a krátkym vozidlom}
-Viac v prílohe \ref{shortDshortV}.
+Cieľom tohto experimentu je zistiť, ako sa algoritmus vyrovnáva s krátkou trasou a krátkym vozidlom.
+Ako referencia bola zvolená linka 46 v Brne, ktorej trasa pozostáva z 11 zastávok.
+Parametry experimentu sú uvedené v tabuľke \ref{tab:shortDshortVin}.
 
-\section{Experiment s krátkou trasou a dlhým vozidlom}
-Viac v prílohe \ref{shortDlongV}.
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|c|}
+    \hline
+    \textbf{Vstup} & \textbf{Hodnota} \\ \hline
+    Kapacita vozidla & 80 \\ \hline
+    Miest na sedenie & 30 \\ \hline
+    Kompenzácia vozidla & 66,35 Kč \\ \hline
+    Dĺžka trasy & 3,8 km \\ \hline
+    Cena lístka & 25 Kč \\ \hline
+  \end{tabular}
+  \caption{Parametre vozidla a trasy}
+  \label{tab:shortDshortVin}
+\end{table}
 
-\section{Experiment s dlhou trasou a krátkym vozidlom}
-Viac v prílohe \ref{longDshortV}.
+Ako je vidieť v tabuľke \ref{tab:shortDshortVout}, optimalizácia prebehla úspešne.
+Algoritmus bol schopný vygenerovať rozpis, pri ktorom je spokojnosť cestujúcich viac ako 97\% a počet cestujúcich, ktorí sa kvôli preplnenému vozidlu nezmestili dnu je len jeden človek, čo je zanedbateľné.
+Vozidlá sú v priemere zaplnené do jednej štvrtiny, pretože ich je až 144, to je viac ako 118, čo je aktuálny počet spojov na linke 46.
 
-\section{Experiment s dlhou trasou a dlhým vozidlom}
-Viac v prílohe \ref{longDlongV}.
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|c|}
+    \hline
+    \textbf{Výstup} & \textbf{Hodnota} \\ \hline
+    Počet príchodov cestujúcich & 11819 \\ \hline
+    Počet prevezených cestujúcich & 11818 \\ \hline
+    Počet neobslúžených cestujúcich & 1 (0,01\,\%) \\ \hline
+    Celkový čas strávený čakaním & 46455 min \\ \hline
+    Priemerný čas strávený čakaním & 4 min \\ \hline
+    Celková kompenzácia & -29045 Kč \\ \hline
+    Celkový zisk & 266405 Kč \\ \hline
+    Priemerná spokojnosť cestujúcich & 97,14\,\% \\ \hline
+    Celkový počet vozidiel & 144 \\ \hline
+    Priemerná naplnenosť vozidiel & 20 (25,0\,\%) \\ \hline
+  \end{tabular}
+  \caption{Výstupy simulácie}
+  \label{tab:shortDshortVout}
+\end{table}
+
+Celý rozpis zastávok, časový rozpis a grafy podrobnejšie popisujúce tento experiment sú uvedené v prílohe \ref{shortDshortV}.
 
 \newpage
 
-% \section{Spätná väzba od analytika}
+\section{Experiment s krátkou trasou a dlhým vozidlom}
+Cieľom tohto experimentu je zistiť, ako sa algoritmus vyrovnáva s krátkou trasou a dlhým vozidlom.
+Ako referencia bola zvolená linka 46 v Brne, ktorej trasa pozostáva z 11 zastávok.
+Parametry experimentu sú uvedené v tabuľke \ref{tab:shortDlongVin}.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|c|}
+    \hline
+    \textbf{Vstup} & \textbf{Hodnota} \\ \hline
+    Kapacita vozidla & 160 \\ \hline
+    Počet miest na sedenie & 60 \\ \hline
+    Kompenzácia vozidla & 66.35 Kč \\ \hline
+    Dĺžka trasy & 3.8 km \\ \hline
+    Cena lístka & 25 Kč \\ \hline
+  \end{tabular}
+  \caption{Parametre vozidla a trasy}
+  \label{tab:shortDlongVin}
+\end{table}
+
+V tabuľke \ref{tab:shortDlongVout} sú vidieť zmeny oproti predošlému experimentu.
+Navýšenie kapacity jednoho vozidla má vplyv na:
+\begin{itemize}
+  \item Priemerná čakacia doba sa zvýšila o 2 minúty
+  \item Spokojnosť cestiujúcich sa zvýšila o 2.65\%
+  \item Počet vozidiel sa znížil o 45 kusov
+  \item Priemerná naplnenosť vozidiel sa znížila o 7\%
+\end{itemize}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|c|}
+    \hline
+    \textbf{Výstup} & \textbf{Hodnota} \\ \hline
+    Počet príchodov cestujúcich & 11790 \\ \hline
+    Počet prevezených cestujúcich & 11790 \\ \hline
+    Počet neobslúžených cestujúcich & 0 (0.0\,\%) \\ \hline
+    Celkový čas strávený čakaním & 66008 min \\ \hline
+    Priemerný čas strávený čakaním & 6 min \\ \hline
+    Celková kompenzácia & -39937 Kč \\ \hline
+    Celkový zisk & 254813 Kč \\ \hline
+    Priemerná spokojnosť cestujúcich & 99.79\,\% \\ \hline
+    Celkový počet vozidiel & 99 \\ \hline
+    Priemerná naplnenosť vozidiel & 29 (18.07\,\%) \\ \hline
+  \end{tabular}
+  \caption{Výstupy simulácie}
+  \label{tab:shortDlongVout}
+\end{table}
+
+Celý rozpis zastávok, časový rozpis a grafy podrobnejšie popisujúce tento experiment sú uvedené v prílohe \ref{shortDlongV}.
+
+\newpage
+
+\section{Experiment s dlhou trasou a krátkym vozidlom}
+Cieľom tohto experimentu je zistiť, ako sa algoritmus vyrovnáva s dlhou trasou a krátkym vozidlom.
+Ako referencia bola zvolená okružná linka 84 v Brne, ktorej trasa pozostáva zo 44 zastávok.
+Parametry experimentu sú uvedené v tabuľke \ref{tab:longDshortVin}.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|c|}
+    \hline
+    \textbf{Vstup} & \textbf{Hodnota} \\ \hline
+    Kapacita vozidla & 80 \\ \hline
+    Počet miest na sedenie & 30 \\ \hline
+    Kompenzácia vozidla & 66,35 Kč \\ \hline
+    Dĺžka trasy & 23,0 km \\ \hline
+    Cena lístka & 25 Kč \\ \hline
+  \end{tabular}
+  \caption{Parametre vozidla a trasy}
+  \label{tab:longDshortVin}
+\end{table}
+
+Z tabuľky \ref{tab:longDshortVout} je vidieť, že algoritmus bol schopný vygenerovať rozpis, pri ktorom je spokojnosť cestujúcich viac ako 99\% a počet cestujúcich, ktorí sa kvôli preplnenému vozidlu nezmestili dnu je 0.
+Priemerná čakacia doba, počet vozidiel a priemerná naplnenosť vozidiel sú veľmi podobné ako v prípade krátkej trasy.
+Oproti nej však vzrástol počet cestujúcich a teda aj celkový čas strávený čakaním a zisk.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|c|}
+    \hline
+      \textbf{Výstup} & \textbf{Hodnota} \\ \hline
+      Počet príchodov cestujúcich & 49344 \\ \hline
+      Počet prevezených cestujúcich & 49344 \\ \hline
+      Počet neobslúžených cestujúcich & 0 (0.0\,\%) \\ \hline
+      Celkový čas strávený čakaním & 213107 min \\ \hline
+      Priemerný čas strávený čakaním & 4 min \\ \hline
+      Celková kompenzácia & -163593 Kč \\ \hline
+      Celkový zisk & 1070007 Kč \\ \hline
+      Priemerná spokojnosť cestujúcich & 99.28\,\% \\ \hline
+      Celkový počet vozidiel & 134 \\ \hline
+      Priemerná naplnenosť vozidiel & 18 (22.94\,\%) \\ \hline
+  \end{tabular}
+  \caption{Výstupy simulácie}
+  \label{tab:longDshortVout}
+\end{table}
+
+Celý rozpis zastávok, časový rozpis a grafy podrobnejšie popisujúce tento experiment sú uvedené v prílohe \ref{longDshortV}.
+
+\newpage
+\section{Experiment s dlhou trasou a dlhým vozidlom}
+Cieľom tohto experimentu je zistiť, ako sa algoritmus vyrovnáva s dlhou trasou a dlhým vozidlom.
+Ako referencia bola zvolená okružná linka 84 v Brne, ktorej trasa pozostáva zo 44 zastávok.
+Parametry experimentu sú uvedené v tabuľke \ref{tab:longDlongVin}.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|c|}
+    \hline
+    \textbf{Vstup} & \textbf{Hodnota} \\ \hline
+    Kapacita vozidla & 160 \\ \hline
+    Počet miest na sedenie & 60 \\ \hline
+    Kompenzácia vozidla & 66,35 Kč \\ \hline
+    Dĺžka trasy & 23,0 km \\ \hline
+    Cena lístka & 25 Kč \\ \hline
+  \end{tabular}
+  \caption{Parametre vozidla a trasy}
+  \label{tab:longDlongVin}
+\end{table}
+
+Výstupy experimentu je možné vidieť v tabuľke \ref{tab:longDlongVout}.
+Oproti experimentu s dlhou cestou ale krátkym vozidlom sa zmenili následovné parametre:
+\begin{itemize}
+  \item Priemerná čakacia doba sa zvýšila o 3 minúty
+  \item Spokojnosť cestiujúcich sa zvýšila o 0.09\%
+  \item Počet vozidiel sa znížil o 58 kusov
+  \item Priemerná naplnenosť vozidiel sa znížila o 3\%
+\end{itemize}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|c|}
+    \hline
+      \textbf{Výstup} & \textbf{Hodnota} \\ \hline
+        Počet príchodov cestujúcich & 49039 \\ \hline
+        Počet prevezených cestujúcich & 49039 \\ \hline
+        Počet neobslúžených cestujúcich & 0 (0.0\,\%) \\ \hline
+        Celkový čas strávený čakaním & 359493 min \\ \hline
+        Priemerný čas strávený čakaním & 7 min \\ \hline
+        Celková kompenzácia & -190451 Kč \\ \hline
+        Celkový zisk & 1035524 Kč \\ \hline
+        Priemerná spokojnosť cestujúcich & 99.37\,\% \\ \hline
+        Celkový počet vozidiel & 78 \\ \hline
+        Priemerná naplnenosť vozidiel & 32 (19.91\,\%) \\ \hline
+  \end{tabular}
+  \caption{Výstupy simulácie}
+  \label{tab:longDlongVout}
+\end{table}
+
+Celý rozpis zastávok, časový rozpis a grafy podrobnejšie popisujúce tento experiment sú uvedené v prílohe \ref{longDlongV}.
 
 \chapter{Záver} % 1 strana
 \label{zaver}
