@@ -8,15 +8,14 @@ from .models import TimeTable
 
 class Genetics:
     # INIT
-    def __init__(self, populationSize, mutationRate, maxConnectionsPerHour, vehicleCapacity, vehicleSeats, vehiclePriceCompensation, routeLength, pricePerTicket, busStops, constraints):
+    def __init__(self, populationSize, mutationRate, maxConnectionsPerHour, vehicleCapacity, vehicleSeats, costPerSeatKm, routeLength, busStops, constraints):
         self.populationSize = populationSize
         self.mutationRate = mutationRate
         self.maxConnectionsPerHour = maxConnectionsPerHour
         self.vehicleCapacity = vehicleCapacity
         self.vehicleSeats = vehicleSeats
-        self.vehiclePriceCompensation = vehiclePriceCompensation
+        self.costPerSeatKm = costPerSeatKm
         self.routeLength = routeLength
-        self.pricePerTicket = pricePerTicket
         self.busStops = busStops
         self.constraints = constraints
         self.generation = []
@@ -27,7 +26,7 @@ class Genetics:
     # METHODS
     def initPopulation(self):
         for i in range(self.populationSize):
-            self.generation.append(Individual(self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.vehicleSeats, self.vehiclePriceCompensation, self.routeLength, self.pricePerTicket, self.busStops, self.constraints))
+            self.generation.append(Individual(self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.vehicleSeats, self.costPerSeatKm, self.routeLength, self.busStops, self.constraints))
         self.nonDominatedSort()
         for front in self.fronts:
             self.crowdingDistanceAssignment(front)
@@ -75,7 +74,7 @@ class Genetics:
             else:
                 newChromosome1[i] = parent2.chromosome[i]
                 newChromosome2[i] = parent1.chromosome[i]
-        return Individual(self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.vehicleSeats, self.vehiclePriceCompensation, self.routeLength, self.pricePerTicket, self.busStops, self.constraints, newChromosome1), Individual(self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.vehicleSeats, self.vehiclePriceCompensation, self.routeLength, self.pricePerTicket, self.busStops, self.constraints, newChromosome2)
+        return Individual(self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.vehicleSeats, self.costPerSeatKm, self.routeLength, self.busStops, self.constraints, newChromosome1), Individual(self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.vehicleSeats, self.costPerSeatKm, self.routeLength, self.busStops, self.constraints, newChromosome2)
 
     def nonDominatedSort(self):
         self.fronts = []
@@ -109,12 +108,12 @@ class Genetics:
         for individual in front:
             individual.distance = 0
         
-        front = sorted(front, key=lambda individual: individual.profit)
-        min = front[0].profit
-        max = front[length - 1].profit
+        front = sorted(front, key=lambda individual: individual.cost)
+        min = front[0].cost
+        max = front[length - 1].cost
         front[0].distance = front[length-1].distance = float('inf')
         for i in range(1, length - 2):
-            front[i].distance += (front[i+1].profit - front[i-1].profit) / (max - min)
+            front[i].distance += (front[i+1].cost - front[i-1].cost) / (max - min)
 
         front = sorted(front, key=lambda individual: individual.satisfaction)
         min = front[0].satisfaction
@@ -131,14 +130,13 @@ class Genetics:
 
 class Individual:
     # INIT
-    def __init__(self, mutationRate, maxConnectionsPerHour, vehicleCapacity, vehicleSeats, vehiclePriceCompensation, routeLength, pricePerTicket, busStops, constraints, chromosome=None):
+    def __init__(self, mutationRate, maxConnectionsPerHour, vehicleCapacity, vehicleSeats, costPerSeatKm, routeLength, busStops, constraints, chromosome=None):
         self.mutationRate = mutationRate
         self.maxConnectionsPerHour = maxConnectionsPerHour
         self.vehicleCapacity = vehicleCapacity
         self.vehicleSeats = vehicleSeats
-        self.vehiclePriceCompensation = vehiclePriceCompensation
+        self.costPerSeatKm = costPerSeatKm
         self.routeLength = routeLength
-        self.pricePerTicket = pricePerTicket
         self.busStops = busStops
         self.constraints = constraints
         if chromosome is None:
@@ -164,11 +162,11 @@ class Individual:
         return chromosome
 
     def calculateFitness(self):
-        self.profit = 0
+        self.cost = 0
         self.satisfaction = 0
         timeTable = TimeTable(self.chromosome)
         stats = Simulation.run(0, 24*60, self.busStops, timeTable, self.vehicleCapacity, self.vehicleSeats)
-        self.profit = - (self.routeLength * stats.totalNumberOfBuses * self.vehicleCapacity / 100 * self.vehiclePriceCompensation) + self.pricePerTicket * stats.busStatistics.totalPassengersTransported
+        self.cost = (self.routeLength * stats.totalNumberOfBuses * self.vehicleCapacity / 100 * self.costPerSeatKm)
         self.satisfaction = stats.averagePassengerSatisfaction
         self.totalPassengersLeftUnboarded = stats.busStopStatistics.totalPassengersLeftUnboarded
 
@@ -179,7 +177,7 @@ class Individual:
             return self.totalPassengersLeftUnboarded < other.totalPassengersLeftUnboarded
 
     def dominates(self, other) -> bool:
-        return (self.profit >= other.profit and self.satisfaction >= other.satisfaction) and (self.profit > other.profit or self.satisfaction > other.satisfaction)
+        return (self.cost <= other.cost and self.satisfaction >= other.satisfaction) and (self.cost < other.cost or self.satisfaction > other.satisfaction)
         
     def mutate(self):
         for i in range(24):

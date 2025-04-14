@@ -35,9 +35,8 @@ class AnalyzeLineState(rx.State):
 
     vehicleCapacity: int = 80
     vehicleSeats: int = 30
-    vehiclePriceCompensation: float = 66.35
+    costPerSeatKm: float = 99.82
     routeLength: float = 3.8
-    pricePerTicket: int = 25
 
     averageLoad: str
     averageLoadInPercent: str
@@ -45,8 +44,7 @@ class AnalyzeLineState(rx.State):
     averagePassengerSatisfaction: str
     loadPerBusStop = []
 
-    totalCompensation: str
-    totalProfit: str
+    totalCost: str
 
     showAnalysis: bool = False
 
@@ -62,9 +60,8 @@ class AnalyzeLineState(rx.State):
         self.showAnalysis = False
         self.vehicleCapacity = 80
         self.vehicleSeats = 30
-        self.vehiclePriceCompensation = 66.35
+        self.costPerSeatKm = 99.82
         self.routeLength = 3.8
-        self.pricePerTicket = 25
 
     @rx.event
     async def handle_analyze(self):
@@ -73,7 +70,7 @@ class AnalyzeLineState(rx.State):
 
         busStops = InputParser.parseBusStopsFromString(self.selectedBusStops)
         timeTable = InputParser.parseTimeTableFromString(self.selectedTimeTable)
-        stats = Simulation.runMultipleThanAverage(0, 24*60, busStops, timeTable, self.vehicleCapacity, self.vehicleSeats, 30)
+        stats = Simulation.runMultipleThanAverage(0, 24*60, busStops, timeTable, self.vehicleCapacity, self.vehicleSeats, 10)
 
         self.numberOfBusStops = len(busStops)
         self.longestBusStopNameLength = max([len(busStop.name) for busStop in busStops])
@@ -96,9 +93,8 @@ class AnalyzeLineState(rx.State):
 
         self.timeSpentWaitingPerHour = [{"hour": hour, "count": 0} for hour in range(24)]
         for stat in stats.busStopStatistics.timeSpentWaitingPerHour:
-            passengerArrivedStat = [x for x in stats.busStopStatistics.passengersArrivedPerHour if x[0] == stat[0]]
-            if passengerArrivedStat[0][1] > 0:
-                self.timeSpentWaitingPerHour[int(stat[0])]["count"] = stat[1] / passengerArrivedStat[0][1]
+            passengerArrivedCount = next((arrivedStat[1] for arrivedStat in stats.busStopStatistics.passengersArrivedPerHour if arrivedStat[0] == stat[0]),1)
+            self.timeSpentWaitingPerHour[int(stat[0])]["count"] = stat[1] / passengerArrivedCount
 
         self.averageLoad = str(int(round(stats.busStatistics.averageLoad)))
         self.averageLoadInPercent = str(round(stats.busStatistics.averageLoadInPercent*100, 2))
@@ -110,9 +106,7 @@ class AnalyzeLineState(rx.State):
             name = stat[0].replace(" ", "\u00A0")
             self.loadPerBusStop.append({"name": name, "load": int(round(stat[1]))})
 
-        totalCompensation = (self.routeLength * self.totalNumberOfBuses * self.vehicleCapacity / 100 * self.vehiclePriceCompensation)
-        self.totalProfit = str(int(round(- totalCompensation + self.pricePerTicket * self.totalPassengersTransported)))
-        self.totalCompensation = str(int(round(-totalCompensation)))
+        self.totalCost = str(int(round(self.routeLength * self.totalNumberOfBuses * self.vehicleCapacity / 100 * self.costPerSeatKm)))
 
         self.showAnalysis = True
 
@@ -139,17 +133,15 @@ class AnalyzeLineState(rx.State):
                     f"------- Vstupy -------\n"
                     f"Kapacita vozidla: {self.vehicleCapacity}\n"
                     f"Počet miest na sedenie: {self.vehicleSeats}\n"
-                    f"Kompenzácia vozidla: {self.vehiclePriceCompensation} Kč\n"
+                    f"Celkové náklady (Kč/100 miesto-km): {self.costPerSeatKm} Kč\n"
                     f"Dĺžka trasy: {self.routeLength} km\n"
-                    f"Cena lístka: {self.pricePerTicket} Kč\n"
                     f"\n------- Výstupy -------\n"
                     f"Počet príchodov cestujúcich: {self.totalPassengersArrived}\n"
                     f"Počet prevezených cestujúcich: {self.totalPassengersTransported}\n"
                     f"Počet neobslúžených cestujúcich: {self.totalPassengersLeftUnboarded}\n"
                     f"Celkový čas strávený čakaním: {self.totalTimeSpentWaiting} min\n"
                     f"Priemerný čas strávený čakaním: {self.averageTimeSpentWaiting} min\n"
-                    f"Celková kompenzácia: {self.totalCompensation} Kč\n"
-                    f"Celkový zisk: {self.totalProfit} Kč\n"
+                    f"Celkové náklady: {self.totalCost} Kč\n"
                     f"Priemerná spokojnosť cestujúcich: {self.averagePassengerSatisfaction} %\n"
                     f"Celkový počet vozidiel: {self.totalNumberOfBuses}\n"
                     f"Priemerná naplnenosť vozidiel: {self.averageLoad} ({self.averageLoadInPercent} %)\n"
@@ -212,22 +204,22 @@ def analyzeLine() -> rx.Component:
                 justify="between",
             ),
             rx.vstack(
-                rx.text("Kompenzácia vozidla"),
+                rx.text("Celkové náklady (Kč/100 miesto-km)"),
                 rx.input(
-                    placeholder="Kompenzácia vozidla",
-                    value=AnalyzeLineState.vehiclePriceCompensation,
-                    on_change=AnalyzeLineState.set_vehiclePriceCompensation,
+                    placeholder="Kč/100 miesto-km",
+                    value=AnalyzeLineState.costPerSeatKm,
+                    on_change=AnalyzeLineState.set_costPerSeatKm,
                     width="100%",
                     size="3",
                     min="0",
                     type="number",
                     color_scheme=rx.cond(
-                        AnalyzeLineState.vehiclePriceCompensation < 0,
+                        AnalyzeLineState.costPerSeatKm < 0,
                         "red",
                         "dark"
                     ),
                     variant=rx.cond(
-                        AnalyzeLineState.vehiclePriceCompensation < 0,
+                        AnalyzeLineState.costPerSeatKm < 0,
                         "soft",
                         "classic"
                     ),
@@ -252,30 +244,6 @@ def analyzeLine() -> rx.Component:
                     ),
                     variant=rx.cond(
                         AnalyzeLineState.routeLength < 0,
-                        "soft",
-                        "classic"
-                    ),
-                ),
-                width="100%",
-                justify="between",
-            ),
-            rx.vstack(
-                rx.text("Cena lístka"),
-                rx.input(
-                    placeholder="Cena lístka",
-                    value=AnalyzeLineState.pricePerTicket,
-                    on_change=AnalyzeLineState.set_pricePerTicket,
-                    width="100%",
-                    size="3",
-                    min="0",
-                    type="number",
-                    color_scheme=rx.cond(
-                        AnalyzeLineState.pricePerTicket < 0,
-                        "red",
-                        "dark"
-                    ),
-                    variant=rx.cond(
-                        AnalyzeLineState.pricePerTicket < 0,
                         "soft",
                         "classic"
                     ),
@@ -331,8 +299,7 @@ def analyzeLine() -> rx.Component:
                     align_items="stretch",
                 ),
                 rx.hstack(
-                    infoCard("Celková kompenzácia", AnalyzeLineState.totalCompensation + " Kč"),
-                    infoCard("Celkový zisk", AnalyzeLineState.totalProfit + " Kč"),
+                    infoCard("Celkové náklady", AnalyzeLineState.totalCost + " Kč"),
                     infoCard("Priemerná spokojnosť cestujúcich", AnalyzeLineState.averagePassengerSatisfaction + "%"),
                     spacing="5",
                     width="100%",

@@ -500,11 +500,139 @@ Pokiaľ má linka príliš veľké výkivy v naplnenosti vozidiel naprieč svojo
   \caption{Priemerná naplnenosť vozidla na jednotlivých zastávkach}
 \end{figure}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \chapter{Optimalizácia časového rozpisu linky mestskej hormadnej dopravy} % 15 strán
 \label{optimalizacia}
-\section{Vstupné obmedzenia zo strany používateľa}
+
+Optimalizácia časového rozpisu je zložitý problém s veľkým množstvom premenných a obmedzení.
+Táto kapitola pojednáva o daných vstupoch, obmedzeniach, použitej optimalizačnej metóde a výstupoch optimalizácie.
+
+Na optimalizáciu bol použitý genetický algoritmus.
+Genetický algoritmus je heuristická optimalizačná metóda, ktorá sa inšpiruje evolučnou biológiou.
+Je založená na princípe prírodného výberu, kde sa najlepšie jedince z populácie vyberajú na reprodukciu a vytvárajú novú generáciu.
+Tento proces sa opakuje, až kým sa nenájde optimálne riešenie alebo sa nedosiahne maximálny počet generácií.
+Na ohodnotenie jedinca sa používa fitness funkcia, ktorá hodnotí kvalitu riešenia na základe zadaných kritérií.
+V prípade časových rozpisov MHD sa na výpočet fitness funkcie používajú štatistiky zo simulácie, ktoré sú popísané v kapitole \ref{vystupy_simulacneho_modelu}.
+
+\section{Vstupy potrebné od používateľa}
+Na to aby mohol algoritmus fungovať, je potrebné zadať niekoľko vstupných parametrov.
+Najdôležitejším z nich sú informácie o zastávkach. O každej zastávke je potrebné zadať:
+\begin{itemize}
+  \item \textbf{Názov zastávky} --- názov zastávky, ktorý sa zobrazuje na výstupoch
+  \item \textbf{Čas príchodu} --- čas potrebný na prejdenie vzdialenosti od prvej zastávky po túto zastávku
+  \item \textbf{Štatistika o príchodoch cestujúcich} --- priemerný počet prichádzajúcich cestujúcich v každej hodine dňa
+  \item \textbf{Pravdepodobnosť výstupu cestujúceho} --- údaj potrebný pre priebežné vyprázdnenie vozidla
+\end{itemize}
+Ďalšie dôležité informácie o linke sú:
+\begin{itemize}
+  \item \textbf{Kapacita vozidla} --- maximálny počet cestujúcich, ktorý sa zmestí do vozidla
+  \item \textbf{Miest na sedenie} --- počet miest na sedenie v vozidle
+  \item \textbf{Celkové náklady} --- udávané v Kč/100 miesto-km (tabuľková hodnota) 
+  \item \textbf{Dĺžka trasy} --- dĺžka trasy v km
+\end{itemize}
+Potom je potrebné zadať parametre genetického algoritmu:
+\begin{itemize}
+  \item \textbf{Veľkosť populácie} --- počet jedincov v jednej generácii
+  \item \textbf{Počet generácií} --- počet generácií, ktoré sa majú vykonať
+  \item \textbf{Pravdepodobnosť mutácie} --- pravdepodobnosť, že sa v jedincovi vyskytne mutácia
+  \item \textbf{Maximálny počet spojov za hodinu} --- maximálny počet spojov, ktorý môže byť vygenerovaný za hodinu
+\end{itemize}
+Poslednou informáciou, ktorá je od používateľa potrebná sú obmedzenia na počet spojov za hodinu.
+Používateľ takto môže nastaviť fixný počet spojov, ktorý sa má vygenerovať za hodinu.
+Toto sa využíva hľavne pri plánovaní náväznosti liniek, kedy je potrebné aby sa niektoré spoje stretli na prestupnej zastávke.
+Obvykle sa to robí tak, že sa nastaví rovnaký počet spojov pre všetky prestupné linky, ktoré sa na tejto zastávke stretávajú.
+Toto obmedzenie využíva aj predbežná analýza, ktorá sa vykonáva pred optimalizáciou.
+V prípade ak pre niektorú hodinu neexistuje údaj o priemernom počte prichádzajúcich cestujúcich naprieč všetkými zastávkami, nastaví sa fixný počet spojov v danej hodine na 0.
+Tento krok výrazne prispieva k lepším výsledkom optimalizácie, pretože dopredu vieme, že v tejto hodine nebude žiaden spoj potrebný.
+Zároveň s nižším počtom spojov vo všetkých rozpisoch počas optimalizácie sa výpočet výrazne urýchli.
+
 \section{Implementácia genetického algoritmu}
+
+
 \section{Výstupy optimalizácie}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \chapter{Experimenty} % 10 strán
 \label{experimenty}
@@ -545,9 +673,8 @@ Parametry experimentu sú uvedené v tabuľke \ref{tab:shortDshortVin}.
     \textbf{Vstup} & \textbf{Hodnota} \\ \hline
     Kapacita vozidla & 80 \\ \hline
     Miest na sedenie & 30 \\ \hline
-    Kompenzácia vozidla & 66,35 Kč \\ \hline
+    Celkové náklady & 92,82 Kč/100 miesto-km \\ \hline
     Dĺžka trasy & 3,8 km \\ \hline
-    Cena lístka & 25 Kč \\ \hline
   \end{tabular}
   \caption{Parametre vozidla a trasy}
   \label{tab:shortDshortVin}
@@ -567,8 +694,7 @@ Vozidlá sú v priemere zaplnené do jednej štvrtiny, pretože ich je až 144, 
     Počet neobslúžených cestujúcich & 1 (0,01\,\%) \\ \hline
     Celkový čas strávený čakaním & 46455 min \\ \hline
     Priemerný čas strávený čakaním & 4 min \\ \hline
-    Celková kompenzácia & -29045 Kč \\ \hline
-    Celkový zisk & 266405 Kč \\ \hline
+    Celkové náklady & 40633 Kč \\ \hline
     Priemerná spokojnosť cestujúcich & 97,14\,\% \\ \hline
     Celkový počet vozidiel & 144 \\ \hline
     Priemerná naplnenosť vozidiel & 20 (25,0\,\%) \\ \hline
@@ -593,9 +719,8 @@ Parametry experimentu sú uvedené v tabuľke \ref{tab:shortDlongVin}.
     \textbf{Vstup} & \textbf{Hodnota} \\ \hline
     Kapacita vozidla & 160 \\ \hline
     Počet miest na sedenie & 60 \\ \hline
-    Kompenzácia vozidla & 66.35 Kč \\ \hline
-    Dĺžka trasy & 3.8 km \\ \hline
-    Cena lístka & 25 Kč \\ \hline
+    Celkové náklady & 92,82 Kč/100 miesto-km \\ \hline
+    Dĺžka trasy & 3,8 km \\ \hline
   \end{tabular}
   \caption{Parametre vozidla a trasy}
   \label{tab:shortDlongVin}
@@ -620,8 +745,7 @@ Navýšenie kapacity jednoho vozidla má vplyv na:
     Počet neobslúžených cestujúcich & 0 (0.0\,\%) \\ \hline
     Celkový čas strávený čakaním & 66008 min \\ \hline
     Priemerný čas strávený čakaním & 6 min \\ \hline
-    Celková kompenzácia & -39937 Kč \\ \hline
-    Celkový zisk & 254813 Kč \\ \hline
+    Celkové náklady & 55870 Kč \\ \hline
     Priemerná spokojnosť cestujúcich & 99.79\,\% \\ \hline
     Celkový počet vozidiel & 99 \\ \hline
     Priemerná naplnenosť vozidiel & 29 (18.07\,\%) \\ \hline
@@ -646,9 +770,8 @@ Parametry experimentu sú uvedené v tabuľke \ref{tab:longDshortVin}.
     \textbf{Vstup} & \textbf{Hodnota} \\ \hline
     Kapacita vozidla & 80 \\ \hline
     Počet miest na sedenie & 30 \\ \hline
-    Kompenzácia vozidla & 66,35 Kč \\ \hline
+    Celkové náklady & 92,82 Kč/100 miesto-km \\ \hline
     Dĺžka trasy & 23,0 km \\ \hline
-    Cena lístka & 25 Kč \\ \hline
   \end{tabular}
   \caption{Parametre vozidla a trasy}
   \label{tab:longDshortVin}
@@ -656,7 +779,7 @@ Parametry experimentu sú uvedené v tabuľke \ref{tab:longDshortVin}.
 
 Z tabuľky \ref{tab:longDshortVout} je vidieť, že algoritmus bol schopný vygenerovať rozpis, pri ktorom je spokojnosť cestujúcich viac ako 99\% a počet cestujúcich, ktorí sa kvôli preplnenému vozidlu nezmestili dnu je 0.
 Priemerná čakacia doba, počet vozidiel a priemerná naplnenosť vozidiel sú veľmi podobné ako v prípade krátkej trasy.
-Oproti nej však vzrástol počet cestujúcich a teda aj celkový čas strávený čakaním a zisk.
+Oproti nej však vzrástol počet cestujúcich a teda aj celkový čas strávený čakaním.
 
 \begin{table}[h]
   \centering
@@ -668,8 +791,7 @@ Oproti nej však vzrástol počet cestujúcich a teda aj celkový čas stráven�
       Počet neobslúžených cestujúcich & 0 (0.0\,\%) \\ \hline
       Celkový čas strávený čakaním & 213107 min \\ \hline
       Priemerný čas strávený čakaním & 4 min \\ \hline
-      Celková kompenzácia & -163593 Kč \\ \hline
-      Celkový zisk & 1070007 Kč \\ \hline
+      Celkové náklady & 228857 Kč \\ \hline
       Priemerná spokojnosť cestujúcich & 99.28\,\% \\ \hline
       Celkový počet vozidiel & 134 \\ \hline
       Priemerná naplnenosť vozidiel & 18 (22.94\,\%) \\ \hline
@@ -693,9 +815,8 @@ Parametry experimentu sú uvedené v tabuľke \ref{tab:longDlongVin}.
     \textbf{Vstup} & \textbf{Hodnota} \\ \hline
     Kapacita vozidla & 160 \\ \hline
     Počet miest na sedenie & 60 \\ \hline
-    Kompenzácia vozidla & 66,35 Kč \\ \hline
+    Celkové náklady & 92,82 Kč/100 miesto-km \\ \hline
     Dĺžka trasy & 23,0 km \\ \hline
-    Cena lístka & 25 Kč \\ \hline
   \end{tabular}
   \caption{Parametre vozidla a trasy}
   \label{tab:longDlongVin}
@@ -720,8 +841,7 @@ Oproti experimentu s dlhou cestou ale krátkym vozidlom sa zmenili následovné 
         Počet neobslúžených cestujúcich & 0 (0.0\,\%) \\ \hline
         Celkový čas strávený čakaním & 359493 min \\ \hline
         Priemerný čas strávený čakaním & 7 min \\ \hline
-        Celková kompenzácia & -190451 Kč \\ \hline
-        Celkový zisk & 1035524 Kč \\ \hline
+        Celkové náklady & 266431 Kč \\ \hline
         Priemerná spokojnosť cestujúcich & 99.37\,\% \\ \hline
         Celkový počet vozidiel & 78 \\ \hline
         Priemerná naplnenosť vozidiel & 32 (19.91\,\%) \\ \hline

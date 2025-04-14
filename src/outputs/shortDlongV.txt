@@ -36,7 +36,7 @@ Zemědělská: 10
 ------- Vstupy -------
 Kapacita vozidla: 160
 Počet miest na sedenie: 60
-Kompenzácia vozidla: 66.35 Kč
+Celkové náklady (Kč/100 miesto-km): 92.82 Kč
 Dĺžka trasy: 3.8 km
 Cena lístka: 25 Kč
 
@@ -46,8 +46,7 @@ Počet prevezených cestujúcich: 11790
 Počet neobslúžených cestujúcich: 0 (0.0%)
 Celkový čas strávený čakaním: 66008 min
 Priemerný čas strávený čakaním: 6 min
-Celková kompenzácia: -39937 Kč
-Celkový zisk: 254813 Kč
+Celkové náklady: 55870 Kč
 Priemerná spokojnosť cestujúcich: 99.79 %
 Celkový počet vozidiel: 99
 Priemerná naplnenosť vozidiel: 29 (18.07 %)

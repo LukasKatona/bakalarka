@@ -218,9 +218,9 @@ class Bus:
         self.triggerOutputSignal(Bus.OutputSignals.Boarding)
         # board passengers, if there is capacity and there are passengers waiting
         while len(self.currentBusStop.waitingPassengersArrivalTimes) > 0 and self.currentBusStop.waitingPassengersArrivalTimes[0] <= Simulation.currentTime:
-            self.updatePassengerSatisfaction()
             if self.load == self.capacity:
                 break;
+            self.updatePassengerSatisfaction()
             self.load += 1
             passengerArrivalTime = self.currentBusStop.waitingPassengersArrivalTimes.pop(0)
             # update statistics
@@ -228,6 +228,8 @@ class Bus:
             self.stats.updateTotalPassengersTransported(1)
         # update statistics
         self.currentBusStop.stats.updatePassengersLeftUnboardedPerHour(len(self.currentBusStop.waitingPassengersArrivalTimes), Simulation.getHour())
+        for i in range(len(self.currentBusStop.waitingPassengersArrivalTimes)):
+            self.stats.updatePassengerSatisfactions(0)
         self.stats.updateLoadPerBusStop(self.load, self.currentBusStop.name)
         
     def departFromStop(self):
@@ -240,8 +242,6 @@ class Bus:
             satisfaction = 1
         elif self.load > self.seats:
             satisfaction = 1 - (self.load - self.seats)/(self.capacity - self.seats)
-        elif self.load == self.capacity:
-            satisfaction = 0
         self.stats.updatePassengerSatisfactions(satisfaction)
 
     # STR

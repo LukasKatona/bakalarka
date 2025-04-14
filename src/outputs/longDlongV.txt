@@ -69,7 +69,7 @@ Tomkovo náměstí: 61
 ------- Vstupy -------
 Kapacita vozidla: 160
 Počet miest na sedenie: 60
-Kompenzácia vozidla: 66.35 Kč
+Celkové náklady (Kč/100 miesto-km): 92.82 Kč
 Dĺžka trasy: 23.0 km
 Cena lístka: 25 Kč
 
@@ -79,8 +79,7 @@ Počet prevezených cestujúcich: 49039
 Počet neobslúžených cestujúcich: 0 (0.0%)
 Celkový čas strávený čakaním: 359493 min
 Priemerný čas strávený čakaním: 7 min
-Celková kompenzácia: -190451 Kč
-Celkový zisk: 1035524 Kč
+Celkové náklady: 266431 Kč
 Priemerná spokojnosť cestujúcich: 99.37 %
 Celkový počet vozidiel: 78
 Priemerná naplnenosť vozidiel: 32 (19.91 %)

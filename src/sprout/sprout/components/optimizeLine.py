@@ -27,10 +27,8 @@ class OptimizeLineState(rx.State):
     maxConnectionsPerHour: int = 15
     vehicleCapacity: int = 80
     vehicleSeats: int = 30
-    vehiclePriceCompensation: float = 66.35
+    costPerSeatKm: float = 99.82
     routeLength: float = 3.8
-    pricePerTicket: int = 25
-
     
 
     generationNumber: str = "0" + "/" + str(numberOfGenerations)
@@ -81,9 +79,8 @@ class OptimizeLineState(rx.State):
         self.maxConnectionsPerHour = 15
         self.vehicleCapacity = 80
         self.vehicleSeats = 30
-        self.vehiclePriceCompensation = 66.35
+        self.costPerSeatKm = 99.82
         self.routeLength = 3.8
-        self.pricePerTicket = 25
 
         self.generationNumber = "0/" + str(self.numberOfGenerations)
         self.optimizationRunning = False
@@ -121,7 +118,7 @@ class OptimizeLineState(rx.State):
             self._n_tasks += 1
             self.generationNumber = "0/" + str(self.numberOfGenerations)
 
-        genetics = Genetics(self.populationSize, self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.vehicleSeats, self.vehiclePriceCompensation, self.routeLength, self.pricePerTicket, InputParser.parseBusStopsFromString(self.selectedBusStops), self.constraints)
+        genetics = Genetics(self.populationSize, self.mutationRate, self.maxConnectionsPerHour, self.vehicleCapacity, self.vehicleSeats, self.costPerSeatKm, self.routeLength, InputParser.parseBusStopsFromString(self.selectedBusStops), self.constraints)
 
         for i in range(self.numberOfGenerations):
             async with self:
@@ -131,9 +128,9 @@ class OptimizeLineState(rx.State):
                 self.generation = []
                 self.generationChromosomes = []
                 sortedGeneration = genetics.generation.copy()
-                sortedGeneration = sorted(sortedGeneration, key=lambda individual: individual.profit)
+                sortedGeneration = sorted(sortedGeneration, key=lambda individual: individual.cost)
                 for individual in sortedGeneration:
-                    self.generation.append({"profit": individual.profit, "satisfaction": individual.satisfaction})
+                    self.generation.append({"cost": individual.cost, "satisfaction": individual.satisfaction})
                     self.generationChromosomes.append(individual.chromosome)
                 self.bestTimeTableChromosome = genetics.generation[int(round(len(genetics.generation)/2))].chromosome
                 self.bestTimeTableString = str(TimeTable(self.bestTimeTableChromosome))
@@ -381,22 +378,22 @@ def optimizeLine() -> rx.Component:
                 justify="between",
             ),
             rx.vstack(
-                rx.text("Kompenzácia vozidla"),
+                rx.text("Celkové náklady (Kč/100 miesto-km)"),
                 rx.input(
-                    placeholder="Kompenzácia vozidla",
-                    value=OptimizeLineState.vehiclePriceCompensation,
-                    on_change=OptimizeLineState.set_vehiclePriceCompensation,
+                    placeholder="Kč/100 miesto-km",
+                    value=OptimizeLineState.costPerSeatKm,
+                    on_change=OptimizeLineState.set_costPerSeatKm,
                     width="100%",
                     size="3",
                     min="0",
                     type="number",
                     color_scheme=rx.cond(
-                        OptimizeLineState.vehiclePriceCompensation < 0,
+                        OptimizeLineState.costPerSeatKm < 0,
                         "red",
                         "dark"
                     ),
                     variant=rx.cond(
-                        OptimizeLineState.vehiclePriceCompensation < 0,
+                        OptimizeLineState.costPerSeatKm < 0,
                         "soft",
                         "classic"
                     ),
@@ -426,35 +423,6 @@ def optimizeLine() -> rx.Component:
                     ),
                     variant=rx.cond(
                         OptimizeLineState.routeLength < 0,
-                        "soft",
-                        "classic"
-                    ),
-                    disabled=rx.cond(
-                        OptimizeLineState.optimizationRunning,
-                        True,
-                        False,
-                    ),
-                ),
-                width="100%",
-                justify="between",
-            ),
-            rx.vstack(
-                rx.text("Cena lístka"),
-                rx.input(
-                    placeholder="Cena lístka",
-                    value=OptimizeLineState.pricePerTicket,
-                    on_change=OptimizeLineState.set_pricePerTicket,
-                    width="100%",
-                    size="3",
-                    min="0",
-                    type="number",
-                    color_scheme=rx.cond(
-                        OptimizeLineState.pricePerTicket < 0,
-                        "red",
-                        "dark"
-                    ),
-                    variant=rx.cond(
-                        OptimizeLineState.pricePerTicket < 0,
                         "soft",
                         "classic"
                     ),
@@ -521,7 +489,7 @@ def optimizeLine() -> rx.Component:
                         rx.recharts.scatter_chart(
                             rx.recharts.scatter(data=OptimizeLineState.generation),
                             rx.recharts.scatter(data=[OptimizeLineState.selectedScatterPoint], fill="orange", ),
-                            rx.recharts.x_axis(data_key="profit", type_="number"),
+                            rx.recharts.x_axis(data_key="cost", type_="number"),
                             rx.recharts.y_axis(data_key="satisfaction", type_="number"),
                             rx.recharts.legend(),
                             rx.recharts.graphing_tooltip(),
