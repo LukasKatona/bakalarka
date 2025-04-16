@@ -141,14 +141,12 @@ V priebehu simulácie už netreba žiadne ďalšie udalosti plánovať.
 \begin{algorithm}[H]
   \label{algoritmus_planovanie_udalosti}
   \caption{Plánovanie udalostí}
-  \begin{algorithmic}[1]
-    \FOR{čas v časovom rozpise počiatočnej zastávky}
-      \STATE Vytvorí sa vozidlo
-      \FOR{zastávka na linke}
-        \STATE Pridá sa udalosť príchodu vozidla na danú zastávku
-      \ENDFOR
-    \ENDFOR
-  \end{algorithmic}
+    \For{čas v časovom rozpise počiatočnej zastávky} {
+      Vytvorí sa vozidlo\;
+      \For{zastávka na linke} {
+        Pridá sa udalosť príchodu vozidla na danú zastávku\;
+      }
+    }
 \end{algorithm}
 \vspace*{\dimexpr 0.5\baselineskip\relax}
 
@@ -160,17 +158,15 @@ Pseudokód riadenia simulácie je popísaný v algoritme \ref{algoritmus_riadeni
 \begin{algorithm}[H]
 \label{algoritmus_riadenia_simulacie}
 \caption{Simulácia riadená udalosťami}
-\begin{algorithmic}[1]
-  \WHILE{kalendár udalostí nie je prázdny}
-    \STATE Vyberie sa udalosť s najmenším časom v kalendári
-    \STATE Udalosť sa odstráni z kalendára
-    \IF{čas udalosti > koncový čas simulácie}
-      \STATE Simulácia končí
-    \ENDIF
-    \STATE Modelový čas sa nastaví na čas udalosti
-    \STATE Udalosť sa vykoná
-  \ENDWHILE
-\end{algorithmic}
+  \While{kalendár udalostí nie je prázdny} {
+    Vyberie sa udalosť s najmenším časom v kalendári\;
+    Udalosť sa odstráni z kalendára\;
+    \If{čas udalosti > koncový čas simulácie} {
+      Simulácia končí\;
+    }
+    Modelový čas sa nastaví na čas udalosti\;
+    Udalosť sa vykoná\;
+  }
 \end{algorithm}
 \vspace*{\dimexpr 0.5\baselineskip\relax}
 
@@ -221,14 +217,12 @@ V algoritme \ref{algoritmus_generovanie_cestujucich} je popísaný proces genero
 \begin{algorithm}[H]
 \label{algoritmus_generovanie_cestujucich}
 \caption{Generovanie cestujúcich}
-\begin{algorithmic}[1]
-  \STATE získanie $\lambda$ pre danú zastáku a hodinu
-  \WHILE{modelový čas < čas príchodu autobusu}
-    \STATE vygenerovanie času príchodu cestujúceho
-    \STATE pridanie cestujúceho do fronty
-    \STATE zmena modelového času na čas príchodu cestujúceho
-  \ENDWHILE
-\end{algorithmic}
+  získanie $\lambda$ pre danú zastáku a hodinu\;
+  \While{modelový čas < čas príchodu autobusu} {
+    vygenerovanie času príchodu cestujúceho\;
+    pridanie cestujúceho do fronty\;
+    zmena modelového času na čas príchodu cestujúceho\;
+  }
 \end{algorithm}
 
 \subsection*{Model vozidla}
@@ -274,12 +268,10 @@ Proces ktorý vozidlo vykoná pri príchode na každú zastávku je popísaný v
 \begin{algorithm}[H]
 \label{algoritmus_obsluha_zastavky}
 \caption{Obsluha zastávky}
-\begin{algorithmic}[1]
-  \STATE prepojenie výstupných signálov vozidla so vstupnými signálmi zastávky
-  \STATE aktivácia výstupného signálu \textbf{!Príchod}
-  \STATE aktivácia výstupného signálu \textbf{!Nastupovanie}
-  \STATE aktivácia výstupného signálu \textbf{!Odchod}
-\end{algorithmic}
+  prepojenie výstupných signálov vozidla so vstupnými signálmi zastávky\;
+  aktivácia výstupného signálu \textbf{!Príchod}\;
+  aktivácia výstupného signálu \textbf{!Nastupovanie}\;
+  aktivácia výstupného signálu \textbf{!Odchod}\;
 \end{algorithm}
 
 \subsection*{Udalosť príchodu vozidla na zastávku}
@@ -550,6 +542,7 @@ Na ohodnotenie jedinca sa používa fitness funkcia, ktorá hodnotí kvalitu rie
 V prípade časových rozpisov MHD sa na výpočet fitness funkcie používajú štatistiky zo simulácie, ktoré sú popísané v kapitole \ref{vystupy_simulacneho_modelu}.
 
 \section{Vstupy potrebné od používateľa}
+\label{vstupy_pouzivatela}
 Na to aby mohol algoritmus fungovať, je potrebné zadať niekoľko vstupných parametrov.
 Najdôležitejším z nich sú informácie o zastávkach. O každej zastávke je potrebné zadať:
 \begin{itemize}
@@ -558,6 +551,15 @@ Najdôležitejším z nich sú informácie o zastávkach. O každej zastávke je
   \item \textbf{Štatistika o príchodoch cestujúcich} --- priemerný počet prichádzajúcich cestujúcich v každej hodine dňa
   \item \textbf{Pravdepodobnosť výstupu cestujúceho} --- údaj potrebný pre priebežné vyprázdnenie vozidla
 \end{itemize}
+Tieto informácie sa zadávajú vo forme textového súboru, každá zastávka je na samostatnom riadoku a jednotlivé údaje sú oddelené dvojbodkou.
+Príklad toho ako by mal vyzeraž záznam o jednej zastávke je:
+
+\noindent \texttt{Lesná, Haškova:0:[(5, 60), (6, 90), \ldots , (21, 40), (22, 30)]:0 \newline
+  Brechtova:1:[(5, 60), (6, 90), \ldots , (21, 40), (22, 30)]:0.1 \newline
+  Blažkova:2:[(5, 60), (6, 90), \ldots , (21, 40), (22, 30)]:0.1 \newline
+  \ldots
+}
+
 Ďalšie dôležité informácie o linke sú:
 \begin{itemize}
   \item \textbf{Kapacita vozidla} --- maximálny počet cestujúcich, ktorý sa zmestí do vozidla
@@ -565,7 +567,11 @@ Najdôležitejším z nich sú informácie o zastávkach. O každej zastávke je
   \item \textbf{Celkové náklady} --- udávané v Kč/100 miesto-km (tabuľková hodnota) 
   \item \textbf{Dĺžka trasy} --- dĺžka trasy v km
 \end{itemize}
-Potom je potrebné zadať parametre genetického algoritmu:
+Kapacita vozidla a počet miest na sedenie sú potrebné pre výpočet naplnenosti vozidla, od ktorého sa potom odvíja spokojnosť cestujúcich.
+Celkové náklady na 100 miestokilometrov a dĺžka trasy sú potrebné pre výpočet nákladov na prevádzku linky.
+Podrobnejší popis výpočtu celkovej spokojnosti a nákladov na prevádzku je v kapitole \ref{implementacia_genetickeho_algoritmu}.
+
+Potom je potrebné zadať parametre genetického algoritmu, ktoré sú:
 \begin{itemize}
   \item \textbf{Veľkosť populácie} --- počet jedincov v jednej generácii
   \item \textbf{Počet generácií} --- počet generácií, ktoré sa majú vykonať
@@ -581,10 +587,221 @@ V prípade ak pre niektorú hodinu neexistuje údaj o priemernom počte prichád
 Tento krok výrazne prispieva k lepším výsledkom optimalizácie, pretože dopredu vieme, že v tejto hodine nebude žiaden spoj potrebný.
 Zároveň s nižším počtom spojov vo všetkých rozpisoch počas optimalizácie sa výpočet výrazne urýchli.
 
-\section{Implementácia genetického algoritmu}
+\section{Základná implementácia genetického algoritmu}
+\label{implementacia_genetickeho_algoritmu}
+Na optimalizáciu časového rozpisu bol použitý genetický algoritmus.
+Genetický algoritmus je heuristická optimalizačná metóda, ktorá sa inšpiruje Darwinovou teóriou evolúcie.
+Podľa citátu od Charlesa Darwina, "V prírode je prežitie a úspech otázkou tých najschopnejších a najpríťažlivejších",
+aj genetický algoritmus sa snaží nájsť najlepšie riešenie problému pomocou evolučného procesu.
+Používajú sa postupy ako je náhodná mutácia jedinca a rozne typy výberu a kríženia jedincov.
+Myšlienka je, že najlepší jedinci v generácii buď splňujú požiadavky alebo sú veľmi blízko k optimálnemu riešeniu.
+Predpokladá sa, že týto jedinci majú najlepšie predispozície na to, aby ich potomkovia boli o krok bližšie k optimálnemu riešeniu.
+Využitie genetického algoritmu je efektívne v prípadoch, kedy by deterministické metódy trvali príliš dlho alebo by vôbec neboli schopné nájsť optimálne riešenie.
+Genetický algoritmus bol prvýkrát predstavený okolo roku 1960 Johnom Hollandom na Univerzite v Michigane (viď \cite{9002372}).
+
+\vspace*{\dimexpr 0.5\baselineskip\relax}
+\begin{algorithm}[H]
+\label{algoritmus_geneticky_algoritmus}
+\caption{Genetický algoritmus}
+  Inicializácia prvej populácie\;
+  Definovanie fitness funkcie\;
+  Výpočet fitness funkcie pre každého jedinca v populácii\;
+  \While{nie je nájdené optimálne riešenie alebo nebol dosiahnutý maximálny počet generácií} {
+    Výber rodičov z populácie\;
+    Kríženie rodičov na vytvorenie potomkov\;
+    Mutácia potomkov\;
+    Výpočet fitness funkcie pre každého potomka\;
+  }
+  Výber najlepšieho jedinca z populácie\;
+\end{algorithm}
+
+V prípade optimalizácie časového rozpisu MHD sa jedincami stávajú samotné časové rozpisy.
+Na základe simulácie jedného dňa na linke s použitým časovým rozpisom sa získajú štatistiky, ktoré sa následne použijú na ohodnotenie kvality jedinca.
+
+\subsection*{Výpočet cieľov, spokojnosť cestujúcich a náklady na prevádzku}
+Pre ohodnotenie kvality časového rozpisu sa zvolili dva hlavné ciele:
+\begin{itemize}
+  \item \textbf{Spokojnosť cestujúcich} --- priemerné percentuálne zhodnotenie spokojnosti všetkých cestujúcich, ktorí prišli za deň na zastávku
+  \item \textbf{Náklady na prevádzku} --- celkové náklady na prevádzku linky za deň, udávané v Kč/100 miesto-km
+\end{itemize}
+
+Výpočet spokojnosti cestujúceho sa vykonáva v čase nástupu do vozidla. Zhodnocuje sa aktuálna naplnenosť vozidla a na základe toho sa vypočíta percentuálne zhodnotenie spokojnosti.
+Potrebné parametre pre výpočet sú kapacita vozidla, počet miest na sedenie a aktuálna naplnenosť vozidla.
+Výpočet sa riadi následujúcimi troma podmienkami:
+\begin{enumerate}
+  \item Ak sú vo vozidle voľné miesta na sedenie, cestujúci si sadne a jeho spokojnosť je 1
+  \item Ak je vozidlo úplne plné a cestujúci sa do neho nezmestí, jeho spokojnosť je 0
+  \item Ak je vo vozidle miesto, ale už len na státie, spokojnosť vozidla závisí od aktuálnej naplnenosti vozidla a je vypočítaná ako: \begin{equation}
+      \text{spokojnosť} = 1 - \frac{\text{aktualna naplnenosť vozidla} - \text{počet miest na sedenie}}{\text{kapacita vozidla}  - \text{počet miest na sedenie}}
+    \end{equation}
+\end{enumerate}
+Nakonci sa vypočíta priemer spokojnosti všetkých cestujúcich.
+Hodnota sa pohybuje od 0 do 1 a genetický algoritmus uprednostňuje vyššie hodnoty, teda spokojnejších cestujúcich.
+
+Celkové náklady na prevádzku linky sú vypočítané z počtu spojov v časovom rozpise, kapacity použitých vozidiel, dĺžky trasy a nákladov na jeden miestokilometer.
+Jeden miestokilometer je definovaný ako vzdialenosť jedného kilometra, ktorú prejde jedno miesto vo vozidle.
+Potom vozidlo s kapacitu 80 miest, ktoré prejde 10 km, prejde 800 miestokilometrov.
+Miestokilometre sa môžu násobiť aj počtom vozidiel, potom dve takéto vozidlá by prešli 1600 miestokilometrov.
+Informácie o tejto jednotke sú prevzaté od pána Michala Hlaváčka, zamestnanca Dopravného podniku mesta Brno, pomoocu mailovej komunikácie, ktorá je dostupná v prílohe \ref{prilohy_mail_hlavacek}.
+Tento údaj je potrebný pretože náklady vo finančnom pláne Dopravného podniku mesta Brno sú udávané v českých korunách na 100 miestokilometrov.
+Finančný plán na rok 2025 je v prílohe \ref{prilohy_financny_model}.
+Celý výpočet nákladov na prevádzku linky teda závisí od štyroch premenných a je daný vzorcom:
+\begin{equation}
+  \text{ceľkové náklady} = \frac{\text{dĺžka trasy} \cdot \text{počet spojov} \cdot \text{kapacita vozidla}}{100} \cdot \text{náklady}
+\end{equation}
+
+Tieto dva ciele sú v konflikte, pretože čím viac spojov je na linke, tým je spokojnosť cestujúcich vyššia, ale náklady na prevádzku sú tiež vyššie.
+Tento problém rieši multi-objektívna optimalizácia, ktorá sa snaží nájsť optimálne riešenie pre oba ciele naraz.
+
+\subsection*{Genetický algoritmus s viacero cieľmi}
+Genetický algoritmus, v ktorom sa snažíme dosiahnuť optimálneho kompromisu medzi viacero cieľmi sa nazýva multi-objektívny genetický algoritmus.
+Jeho myšlienka spočíva v nájdení Pareto frontu, čo je množina všetkých možných riešení, ktoré sú optimálne z pohľadu všetkých cieľov.
+To znamená, že neexistuje žiaden iný jedinec, ktorý by bol lepší v oboch cieľoch naraz.
+Ak je jeden jedinec lepší v oboch cieľoch, hovoríme, že dominuje iného jedinca.
+V prípade, že dominuje iba v jendom, ale v druhom nie, patria do rovnakej skupiny, sú si rovnocenní.
+Ak je jedinec horší v oboch cieľoch, hovoríme, že je dominovaný.
+Každá generácia sa rozdelí do rovnocenných skupín, pri výbere rodičov sa uprednostňujú jedinci z lepšej skupiny.
+Najlepšia skupina sa nazýva Pareto front, ide o množinu takých jedinov, nad ktorými nedominuje žiaden iný jedinec.
+Na obrázku \ref{fig:pareto_front} je znázornený Pareto front pre dva ciele, spokojnosť a náklady.
+Multi-objektívne genetické algoritmy dokážu pracovať aj s viac ako dvoma cieľmi.
+Pre optimalizáciu časového rozpisu však stačia dva, jeden zo strany zákazníka (spokojnosť) a druhý zo strany dopravného podniku (náklady).
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            xlabel={Náklady (nižšie je lepšie)},
+            ylabel={Spokojnosť (vyššie je lepšie)},
+            title={Príklad Pareto frontu},
+            grid=major,
+            legend pos=south east,
+            width=12cm,
+            height=8cm,
+            scatter/classes={
+                dominated={mark=o,draw=blue},
+                pareto={mark=*,draw=red,fill=red}
+            }
+        ]
+        \addplot[
+            scatter,
+            only marks,
+            scatter src=explicit symbolic
+        ]
+        table[meta=label] {
+            x y label
+            420.0 0.72 pareto
+            430.0 0.76 pareto
+            440.0 0.80 pareto
+            450.0 0.83 pareto
+            460.0 0.86 pareto
+            470.0 0.88 pareto
+            480.0 0.9 pareto
+            490.0 0.92 pareto
+            500.0 0.93 pareto
+            510.0 0.94 pareto
+            520.0 0.945 pareto
+            530.0 0.95 pareto
+            540.0 0.952 pareto
+            550.0 0.954 pareto
+            560.0 0.956 pareto
+            570.0 0.958 pareto
+            580.0 0.96 pareto
+
+            460.0 0.70 dominated
+            470.0 0.72 dominated
+            460.0 0.8 dominated
+            475.0 0.75 dominated
+            480.0 0.78 dominated
+            482.0 0.80 dominated
+            485.0 0.82 dominated
+            488.0 0.80 dominated
+            500.0 0.90 dominated
+            500.0 0.85 dominated
+            510.0 0.72 dominated
+            518.0 0.75 dominated
+            519.0 0.80 dominated
+            521.0 0.90 dominated
+            545.0 0.80 dominated
+            547.0 0.75 dominated
+            550.0 0.70 dominated
+            551.0 0.78 dominated
+            551.0 0.85 dominated
+            553.0 0.91 dominated
+            560.0 0.82 dominated
+            580.0 0.75 dominated
+        };
+        \legend{Dominované, Pareto Front}
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Príklad Pareto frontu}
+\end{figure}
+
+\section{Implementácia multi-objektívneho genetického algoritmu}
+
+\vspace*{\dimexpr 0.5\baselineskip\relax}
+\begin{algorithm}[H]
+\caption{Rýchle nedominantné triedenie}
+\label{algoritmus_non_dominated_sorting}
+\KwIn{Populácia $P$}
+\KwOut{Fronty nedominovaných jedincov $F$}
+  $F \gets \emptyset$ (množina frontov)\;
+  \For{každý jedinec $p \in P$} {
+    $S_p \gets \emptyset$ (množina jedincov, ktorých dominuje $p$)\;
+    $n_p \gets 0$ (počet jedincov, ktorí dominujú $p$)\;
+    \For{každý jedinec $q \in P: q \neq p$} {
+      \If{$p$ dominuje $q$} {
+        $S_p \gets S_p \cup \{q\}$\;
+      }
+      \ElseIf{$q$ dominuje $p$} {
+        $n_p \gets n_p + 1$\;
+      }
+    }
+    \If{$n_p = 0$} {
+      $p_{rank} \gets 1$\;
+      $F_1 \gets F_1 \cup \{p\}$ (pridanie jedinca $p$ do prvého frontu)\;
+    }
+  }
+  $i \gets 1$\;
+  \While{$F_i \neq \emptyset$} {
+    $Q \gets \emptyset$ (množina jedincov ďalšieho frontu)\;
+    \For{každý jedinec $p \in F_i$} {
+      \For{každý jedinec $q \in S_p$} {
+        $n_q \gets n_q - 1$\;
+        \If{$n_q = 0$} {
+          $q_{rank} \gets i + 1$\;
+          $Q \gets Q \cup \{q\}$\;
+        }
+      }
+    }
+    $i \gets i + 1$\;
+    $F_i \gets Q$\;
+  }
+  \Return $F$\;
+\end{algorithm}
+
+\vspace*{\dimexpr 0.5\baselineskip\relax}
+\begin{algorithm}[H]
+\caption{Priradenie zhlukovej vzdialenosti}
+\label{algoritmus_crowding_distance_assignment}
+\KwIn{Front $L$}
+  $l \gets |L|$ (počet jedincov frontu)\;
+  \For{každý jedinec $p \in L$} {
+    $p_{vzdialenost} \gets 0$ (inicializácia zhlukovej vzdialenosti)\;
+  }
+  \For{každý cieľ $c$} {
+    $L \gets sort(L, c)$ (zoradenie jedincov podľa hodnôt cieľa $c$)\;
+    $L[0] \gets \infty$ (priradenie nekonečnej vzdialenosti najmenšiemu jedincovi)\;
+    $L[l-1] \gets \infty$ (priradenie nekonečnej vzdialenosti najväčšiemu jedincovi)\;
+    \For{$i = 1$ do $l - 2$} {
+      $L[i]_{vzdialenost} \gets L[i]_{vzdialenost} + \frac{L[i+1].c - L[i-1].c}{L[l-1].c - L[0].c}$\;
+    }
+  }
+\end{algorithm}
+
 
 
 \section{Výstupy optimalizácie}
+\label{vystupy_optimalizacie}
 
 
 
