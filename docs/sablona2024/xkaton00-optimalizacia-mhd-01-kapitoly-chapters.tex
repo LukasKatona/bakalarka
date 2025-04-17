@@ -665,8 +665,10 @@ Najlepšia skupina sa nazýva Pareto front, ide o množinu takých jedinov, nad 
 Na obrázku \ref{fig:pareto_front} je znázornený Pareto front pre dva ciele, spokojnosť a náklady.
 Multi-objektívne genetické algoritmy dokážu pracovať aj s viac ako dvoma cieľmi.
 Pre optimalizáciu časového rozpisu však stačia dva, jeden zo strany zákazníka (spokojnosť) a druhý zo strany dopravného podniku (náklady).
+Tieto základné informácie o fungovaní multi-objektívnych genetických algoritmov s použitím Pareto frontu sú prevzaté z článku \cite{1599245}.
 
 \begin{figure}[h]
+    \label{fig:pareto_front}
     \centering
     \begin{tikzpicture}
         \begin{axis}[
@@ -676,7 +678,7 @@ Pre optimalizáciu časového rozpisu však stačia dva, jeden zo strany zákazn
             grid=major,
             legend pos=south east,
             width=12cm,
-            height=8cm,
+            height=6cm,
             scatter/classes={
                 dominated={mark=o,draw=blue},
                 pareto={mark=*,draw=red,fill=red}
@@ -738,8 +740,47 @@ Pre optimalizáciu časového rozpisu však stačia dva, jeden zo strany zákazn
 
 \section{Implementácia multi-objektívneho genetického algoritmu}
 
+Algoritmy \ref{algoritmus_nsga2}, \ref{algoritmus_non_dominated_sorting}, \ref{algoritmus_crowding_distance_assignment} a \ref{algoritmus_comparsion_operator} sú prevzaté z článku \cite{996017} a sú upravené pre potreby tejto práce.
+
 \vspace*{\dimexpr 0.5\baselineskip\relax}
-\begin{algorithm}[H]
+\begin{algorithm}[h]
+\caption{Inicializácia prvej populácie}
+\label{algoritmus_initialization_population}
+\KwIn{Veľkosť populácie $N$}
+  $t \gets 0$ (počiatočná generácia)\;
+  $P_t \gets \emptyset$ (inicializácia populácie)\;
+  \For{$i = 0$ do $N - 1$} {
+    $p_i \gets \text{vytvorenie\_jedinca}()$\;
+    $P_t \gets P_t \cup \{p_i\}$\;
+  }
+  $F \gets \text{rýchle\_nedominantné\_triedenie}(R_t)$\;
+  \For{každý front $f \in F$} {
+    $\text{priradenie\_zhlukovej\_vzdialenosti}(f)$\;
+  }
+  $Q_t \gets \text{vytvorenie\_nových\_potomkov}(P_{t+1})$ (kríženie a mutácia)\;
+\end{algorithm}
+
+\vspace*{\dimexpr 0.5\baselineskip\relax}
+\begin{algorithm}[h]
+\caption{Hlavná slučka algoritmu NSGA-II}
+\label{algoritmus_nsga2}
+  $R_t \gets P_t \cup Q_t$ (zlučovanie rodičov a potomkov)\;
+  $F \gets \text{rýchle\_nedominantné\_triedenie}(R_t)$\;
+  $P_{t+1} \gets \emptyset$ (inicializácia novej populácie)\;
+  $i \gets 0$\;
+  \While{$|P_{t+1}| + |F_i| \leq N$} {
+    $\text{priradenie\_zhlukovej\_vzdialenosti}(F_i)$\;
+    $P_{t+1} \gets P_{t+1} \cup F_i$\;
+    $i \gets i + 1$\;
+  }
+  $sort(F_i, \prec_n)$\;
+  $P_{t+1} \gets P_{t+1} \cup F_i[0:N - |P_{t+1}|]$\;
+  $Q_{t+1} \gets \text{vytvorenie\_nových\_potomkov}(P_{t+1})$ (kríženie a mutácia)\;
+  $t \gets t + 1$\;
+\end{algorithm}
+
+\vspace*{\dimexpr 0.5\baselineskip\relax}
+\begin{algorithm}[h]
 \caption{Rýchle nedominantné triedenie}
 \label{algoritmus_non_dominated_sorting}
 \KwIn{Populácia $P$}
@@ -780,7 +821,7 @@ Pre optimalizáciu časového rozpisu však stačia dva, jeden zo strany zákazn
 \end{algorithm}
 
 \vspace*{\dimexpr 0.5\baselineskip\relax}
-\begin{algorithm}[H]
+\begin{algorithm}[h]
 \caption{Priradenie zhlukovej vzdialenosti}
 \label{algoritmus_crowding_distance_assignment}
 \KwIn{Front $L$}
@@ -798,6 +839,84 @@ Pre optimalizáciu časového rozpisu však stačia dva, jeden zo strany zákazn
   }
 \end{algorithm}
 
+\vspace*{\dimexpr 0.5\baselineskip\relax}
+\begin{algorithm}[h]
+\caption{Porovnávací operátor $\prec_n$}
+\label{algoritmus_comparsion_operator}
+\KwIn{Jedinci $p$ a $q$}
+\KwOut{True ak $p$ dominuje $q$, inak False}
+  \Return $p_{rank} < q_{rank} \vee (p_{rank} = q_{rank} \wedge p_{vzdialenost} > q_{vzdialenost})$\;
+  (dá sa rozšíriť aj o obmedzenia)\;
+\end{algorithm}
+
+\vspace*{\dimexpr 0.5\baselineskip\relax}
+\begin{algorithm}[h]
+\caption{Vytvorenie nových potomkov}
+\label{algoritmus_vytvorenie_novych_potomkov}
+\KwIn{Populácia $P$}
+\KwOut{Noví potomkovia $Q$}
+  $Q \gets \emptyset$ (inicializácia nových potomkov)\;
+  \While{$|Q| < N$} {
+    $p_1 \gets \text{výber\_rodiča}(P)$\;
+    $p_2 \gets \text{výber\_rodiča}(P)$\;
+    $q_1, q_2 \gets \text{kríženie\_rodičov}(p_1, p_2)$\;
+    $\text{mutácia\_jedinca}(q_1,)$\;
+    $\text{mutácia\_jedinca}(q_2)$\;
+    $Q \gets Q \cup \{q_1, q_2\}$\;
+  }
+  \Return $Q$\;
+\end{algorithm}
+
+\vspace*{\dimexpr 0.5\baselineskip\relax}
+\begin{algorithm}[h]
+\caption{Výber rodiča}
+\label{algoritmus_vyber_rodica}
+\KwIn{Populácia $P$}
+\KwOut{Rodič $p$}
+  $p_1 \gets \text{náhodný jedinec z } P$\;
+  $p_2 \gets \text{náhodný jedinec z } P$\;
+  \If{$p_1 \prec_n p_2$} {
+    \Return $p_1$\;
+  }
+  \Else {
+    \Return $p_2$\;
+  }
+\end{algorithm}
+
+Tento typ kríženia je známy ako \textit{uniform crossover} a je veľmi populárny v genetických algoritmoch.
+Porovnanie rôznych typov kríženia je v článku \cite{7414781}.
+Na základe výsledkov v tomto článku bol zvolený typ kríženia s najväčšou diverzitou výsledkov aby sa zamedzilo predčasnej konvergencii, teda aby sa algoritmus nezastavil na lokálnom minime.
+
+\vspace*{\dimexpr 0.5\baselineskip\relax}
+\begin{algorithm}[h]
+\caption{Kríženie rodičov}
+\label{algoritmus_krizenie_rodicov}
+\KwIn{Rodičia $p_1$ a $p_2$}
+\KwOut{Potomkovia $q_1$ a $q_2$}
+  \For{každý gén $g$ v $p_1$} {
+    \If{$\text{random}(0,1) < 0,5$} {
+      $q_1[g] \gets p_1[g]$\;
+      $q_2[g] \gets p_2[g]$\;
+    }
+    \Else {
+      $q_1[g] \gets p_2[g]$\;
+      $q_2[g] \gets p_1[g]$\;
+    }
+  }
+  \Return $q_1, q_2$\;
+\end{algorithm}
+
+\vspace*{\dimexpr 0.5\baselineskip\relax}
+\begin{algorithm}[h]
+\caption{Mutácia jedinca}
+\label{algoritmus_mutacia_jedinca}
+\KwIn{Jedinec $p$}
+  \For{každý gén $g$ v $p$} {
+    \If{$\text{random}(0,1) < \text{pravdepodobnosť mutácie}$} {
+      $p[g] \gets \text{náhodný gén}$\;
+    }
+  }
+\end{algorithm}
 
 
 \section{Výstupy optimalizácie}
