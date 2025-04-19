@@ -740,12 +740,40 @@ Tieto základné informácie o fungovaní multi-objektívnych genetických algor
 
 \section{Implementácia multi-objektívneho genetického algoritmu}
 
-Algoritmy \ref{algoritmus_nsga2}, \ref{algoritmus_non_dominated_sorting}, \ref{algoritmus_crowding_distance_assignment} a \ref{algoritmus_comparsion_operator} sú prevzaté z článku \cite{996017} a sú upravené pre potreby tejto práce.
+Pre účely multi-objektívnej optimalizácie bol použitý algoritmus NSGA-II (Non-dominated Sorting Genetic Algorithm II).
+V článku \cite{996017} je porovnanie tohto algoritmu s inými multi-objektívnymi genetickými algoritmami.
+NSGA-II vo viacerých testoch preukázal, že má lepšie rozloženie a diverzitu jedincov v Pareto fronte ako iné algoritmy.
+Práve pre túto vlastnosť bol zvolený aj pre túto prácu.
+Okrem testov je v článku \cite{996017} aj podrobný popis fungovania algoritmu.
+Algoritmy \ref{algoritmus_nsga2}, \ref{algoritmus_non_dominated_sorting}, \ref{algoritmus_crowding_distance_assignment} a \ref{algoritmus_comparsion_operator} boli z tohto článku prevzaté a mierne upravené pre účely tejto práce.
+
+NSGA-II je založený na triedení jedincov do frontov na základe ich dominancie nad inými jedincami.
+Pri výbere jedincov pri krížení sa uprednostňujú jedinci z lepších frontov.
+V prípade, že treba porovnať dvoch jedincov z rovnakého frontu, použije sa zhluková vzdialenosť.
+Zhluková vzdialenosť zaisťuje vysokú diverzitu jedincov, pretože sa uprednostňujú jedinci, ktorí sú od seba najďalej, teda majú veľké rozdiely v hodnotách cieľov.
+
+Oproti klasickému genetickému algoritmu NSGA-II spracováva elitizmus inak.
+V NSGA-II neexistuje konštanta, ktorá by udávala počet elitných jedincov, ktorí sa prenesú do ďalšej generácie.
+Pri vytváraní novej generácie sa najprv vytvorí nová populácia z rodičov a ich potomkov.
+Táto, dvojnásobne veľká populácia sa následne rozdelí do frontov a pre každého jedinca sa vypočíta zhluková vzdialenosť na základe jeho vzdialenosti od svojich susedov vo fronte.
+Potom sa najepšie fronty prenesú do novej generácie.
+Posledný prenášaný front sa pravdepodobne nezmestí celý, vtedy sa vyberie toľko jedincov z daného frontu aby bola populácia rovnako veľká naprieč všetkými generáciami.
+Jedinci z posledného frontu sa vyberajú na základe zhlukovej vzdialenosti, aby sa zachovala vyššia diverzita.
+
+\subsection*{Inicializácia prvej generácie}
+Populácia prvej genrácie sa musí spracovať trochu inak ako ostatné generácie.
+Hlavný cyklus algoritmu NSGA-II sa začína spojením rodičov a potomkov do jedného celku.
+Na začiatku však žiadnych potomkov nemáme.
+Algoritmus \ref{algoritmus_initialization_generation} popisuje ako sa vytvorí populácia prvej generácie a jej potomkovia.
+Najprv sa vytvorí prvá generácia jedincov, tým sa náhodne vygenerujú chromozómy.
+Následne sa týto jedinci roztriedia na fronty pomocou rýchleho nedominantného triedenia.
+V rámci každého frontu sa vypočíta zhluková vzdialenosť každého jedinca.
+Na základe získaných ohodnotení sa vyberú tí lepší rodičia a za pomoci kríženia a mutácie sa vytvorí prvá generácia potomkov.
 
 \vspace*{\dimexpr 0.5\baselineskip\relax}
 \begin{algorithm}[h]
-\caption{Inicializácia prvej populácie}
-\label{algoritmus_initialization_population}
+\caption{Inicializácia prvej generácie}
+\label{algoritmus_initialization_generation}
 \KwIn{Veľkosť populácie $N$}
   $t \gets 0$ (počiatočná generácia)\;
   $P_t \gets \emptyset$ (inicializácia populácie)\;
@@ -759,6 +787,22 @@ Algoritmy \ref{algoritmus_nsga2}, \ref{algoritmus_non_dominated_sorting}, \ref{a
   }
   $Q_t \gets \text{vytvorenie\_nových\_potomkov}(P_{t+1})$ (kríženie a mutácia)\;
 \end{algorithm}
+
+\subsection*{Hlavná slučka algoritmu NSGA-II}
+Po inicializácii prvej generácie sa ostatné môžu spracovávať rovnako.
+Ako je vidieť v algoritme \ref{algoritmus_nsga2}, hlavná slučka začína spojením rodičov a potomkov do jednej populácie.
+Novo vzniknutá populácia sa následne rozdelí do frontov na základe ich dominancie.
+Následuje kombinovaný cyklus na spracovanie jednotlivých frontov, ktorý ma dve úlohy:
+\begin{enumerate}
+  \item Priradenie zhlukovej vzdialenosti jedincov v aktuálnom fronte
+  \item Priradenie jedincov aktuálneho frontu do novej generácie
+\end{enumerate}
+Tento cyklus sa vykonáva pokým sa celý následujúci front zmestí do novej generácie.
+Posledný front, ten ktorý sa už nezmestí celý, sa musí spracovať osobitne.
+Prvky z tohot frontu sa usporiadajú na základe zhlukovej vzdialenosti a do novej generácie sa prenesú len tie jedince, ktoré sa tam zmestia.
+Z novovzniknutej populácie sa následne vytvorí nová generácia potomkov.
+Vo všeobecnosti sa táto slučka vykonáva pokiaľ nie je dosiahnutý maximálny počet generácií alebo pokiaľ nebol nájdený optimálny jedinec.
+V prípade tejto práce sa však bere do úvahy iba maximálny počet generácií.
 
 \vspace*{\dimexpr 0.5\baselineskip\relax}
 \begin{algorithm}[h]
@@ -778,6 +822,32 @@ Algoritmy \ref{algoritmus_nsga2}, \ref{algoritmus_non_dominated_sorting}, \ref{a
   $Q_{t+1} \gets \text{vytvorenie\_nových\_potomkov}(P_{t+1})$ (kríženie a mutácia)\;
   $t \gets t + 1$\;
 \end{algorithm}
+
+\subsection*{Rýchle nedominantné triedenie}
+Rýchle nedominantné triedenie je základom NSGA-II.
+Triedi jedincov do frontov na základe ich dominancie nad inými jedincami.
+Jedince dominuje iného jedinca iba v prípade, ak je vo všetkých cieľoch aspoň rovnako dobrý a v aspoň jednom je lepší.
+Jedince, ktoré sa navzájom nedominujú, patria do rovnakej skupiny, frontu, preto sa toto triedenie nazýva nedominantné.
+Triedenie sa vykonáva v dvoch krokoch:
+\begin{itemize}
+  \item Výpočet $S_p$ a $n_p$ pre každého jedinca a pridanie jedincov bez dominancie do prvého frontu
+  \item Vytvorenie zvyšných frontov za základe získaných hodnôt $S_p$ a $n_p$ z predchádzajúceho kroku
+\end{itemize}
+V prvom kroku sa musia porovnať všetci jedinci navzájom.
+Pre každého jedinca $p$ v prvom cykle algoritmu \ref{algoritmus_non_dominated_sorting} sa vypočíta množina $S_p$, ktorá obsahuje všetkých jedincov, ktorých dominuje $p$ a počet $n_p$, ktorý udáva počet jedincov, ktorí dominujú $p$.
+Pokiaľ je $n_p = 0$, jedinec $p$ je nie je nikým dominovaný a pripojí sa do prvého frontu.
+Taktiež sa mu priradí hodnota $p_{rank} = 1$.
+Rank je hodnota, ktorá udáva v akom fronte sa jedinec nachádza, čím nižšia hodnota, tým je jedinec lepší.
+
+Následuje druhý hlavný cyklus algoritmu \ref{algoritmus_non_dominated_sorting}, ktorý vytvorí zvyšné fronty.
+Princíp je taký, že pre každého jedinca $p$ v posledne vytvorenom fronte sa upravia hodnoty $n_q$ všetkých jedincov $q$ z množiny $S_p$.
+To vpodstate znamená odstránenie jedinca $p$ z riešeného problému.
+Na konci tohto cyklu by sa mal z problému odstrániť celý front $F_i$.
+TO znamená, že niektorí jedinci by sa mali stať tými najlepšími v tomto obmedzenom probléme.
+Práve títo jedinci sa pridajú do ďalšieho frontu $F_{i+1}$.
+Tento cyklus sa opakuje až pokým sa do najnovšieho frontu nemá kto pridať.
+
+Toto triedenie teda iteratívne nachádza najlepší front a odstraňuje ho z problému až pokým sa nenájdu všetky fronty.
 
 \vspace*{\dimexpr 0.5\baselineskip\relax}
 \begin{algorithm}[h]
@@ -820,6 +890,16 @@ Algoritmy \ref{algoritmus_nsga2}, \ref{algoritmus_non_dominated_sorting}, \ref{a
   \Return $F$\;
 \end{algorithm}
 
+\subsection*{Priradenie zhlukovej vzdialenosti}
+V rámci jednoho frontu sa jedinci porovnávajú na základe zhlukovej vzdialenosti.
+Zhluková vzdialenosť je definovaná ako vzdialenosť jedinca od jeho susedov vo fronte.
+Vypočítava sa pre každý cieľ zvlášť a následne sa spočíta.
+Najdôležitejšou časťou algoritmu \ref{algoritmus_crowding_distance_assignment} je cyklus, ktorý sa vykonáva pre každý cieľ $c$.
+Najprv sa jedinci zoradia podľa dosiahnutých hodnôt cieľa $c$.
+Následne sa vytýčia krajné body, jedincom s najmenšou a najväčšou hodnotou cieľa $c$ sa priradí nekonečná zhluková vzdialenosť, pretože sú najviac diverzní.
+Pre všetkých ostatných jedincov vo fronte a pre cieľ $c$ sa vypočíta zhluková vzdialenosť ako podiel rozdielu hodnôt susedov a rozdielu krajných jedincov.
+Tieto dielčie vzdialenosti sa postupne sčítavajú do celkovej zhlukovej vzdialenosti jedinca.
+
 \vspace*{\dimexpr 0.5\baselineskip\relax}
 \begin{algorithm}[h]
 \caption{Priradenie zhlukovej vzdialenosti}
@@ -838,6 +918,8 @@ Algoritmy \ref{algoritmus_nsga2}, \ref{algoritmus_non_dominated_sorting}, \ref{a
     }
   }
 \end{algorithm}
+
+
 
 \vspace*{\dimexpr 0.5\baselineskip\relax}
 \begin{algorithm}[h]
