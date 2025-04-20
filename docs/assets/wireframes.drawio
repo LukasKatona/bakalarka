@@ -1,0 +1,120 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0" version="25.0.1" pages="2">
+  <diagram name="Page-1" id="O9piKnNWBrtVXQRKqWcn">
+    <mxGraphModel dx="3650" dy="2040" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="pFtGgX7iOaUymexGFiSA-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="200" width="1920" height="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="pFtGgX7iOaUymexGFiSA-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="200" width="1920" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="pFtGgX7iOaUymexGFiSA-4" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Optimlizácia&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1990" y="240" width="180" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="pFtGgX7iOaUymexGFiSA-5" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Analýza&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1770" y="237.5" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pFtGgX7iOaUymexGFiSA-6" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Názov aplikácie&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="330" y="252.5" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="pFtGgX7iOaUymexGFiSA-7" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Nahranie súboru s informáciami o zastávkach&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;" vertex="1" parent="1">
+          <mxGeometry x="330" y="370" width="900" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="pFtGgX7iOaUymexGFiSA-8" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Nahranie súboru s informáciami o časovom rozpise&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="370" width="900" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="pFtGgX7iOaUymexGFiSA-9" value="&lt;div align=&quot;center&quot;&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Kapacita vozidla&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="330" y="690" width="430" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pFtGgX7iOaUymexGFiSA-11" value="&lt;div align=&quot;center&quot;&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Miest na sedenie&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="800" y="690" width="430" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pFtGgX7iOaUymexGFiSA-12" value="&lt;div align=&quot;center&quot;&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Náklady na 100 miesto-km&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="690" width="430" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pFtGgX7iOaUymexGFiSA-13" value="&lt;div align=&quot;center&quot;&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Dĺžka trasy&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1740" y="690" width="430" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pFtGgX7iOaUymexGFiSA-14" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Analyzovať&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="800" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pFtGgX7iOaUymexGFiSA-15" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Resetovať&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="800" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pFtGgX7iOaUymexGFiSA-16" value="&lt;div&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Výsledky analýzy&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Jedno číselné výstupy&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;grafy&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;" vertex="1" parent="1">
+          <mxGeometry x="330" y="910" width="1840" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="pFtGgX7iOaUymexGFiSA-17" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Uložiť analýzu&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="1180" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pFtGgX7iOaUymexGFiSA-37" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Vybrať uložený rozpis&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="590" width="900" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="IWiEmKc5moXsyZZ5gl4Y" name="Page-2">
+    <mxGraphModel dx="2920" dy="532" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="XU1r5o4Th51TgilxPr39-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="1320" width="1920" height="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="XU1r5o4Th51TgilxPr39-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="1320" width="1920" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="XU1r5o4Th51TgilxPr39-3" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Optimlizácia&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1990" y="1360" width="180" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="XU1r5o4Th51TgilxPr39-4" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Analýza&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1770" y="1357.5" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XU1r5o4Th51TgilxPr39-5" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Názov aplikácie&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="330" y="1372.5" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="XU1r5o4Th51TgilxPr39-6" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Nahranie súboru s informáciami o zastávkach&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;" vertex="1" parent="1">
+          <mxGeometry x="330" y="1490" width="1840" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="XU1r5o4Th51TgilxPr39-7" value="&lt;div align=&quot;center&quot;&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Kapacita vozidla&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="330" y="1810" width="430" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XU1r5o4Th51TgilxPr39-8" value="&lt;div align=&quot;center&quot;&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Miest na sedenie&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="800" y="1810" width="430" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XU1r5o4Th51TgilxPr39-9" value="&lt;div align=&quot;center&quot;&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Náklady na 100 miesto-km&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="1810" width="430" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XU1r5o4Th51TgilxPr39-10" value="&lt;div align=&quot;center&quot;&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Dĺžka trasy&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1740" y="1810" width="430" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XU1r5o4Th51TgilxPr39-11" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Optimalizovať&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="1920" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XU1r5o4Th51TgilxPr39-12" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Resetovať&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="1920" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XU1r5o4Th51TgilxPr39-13" value="&lt;div&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Priebežné výsledky optimalizácie&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Graf s dosiahnutými cieľmi všetkých jedinocov v aktuálne dosiahnutej generácii&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;" vertex="1" parent="1">
+          <mxGeometry x="330" y="2030" width="1840" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="XU1r5o4Th51TgilxPr39-14" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Uložiť rozpis&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="2300" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XU1r5o4Th51TgilxPr39-15" value="&lt;div align=&quot;center&quot;&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Velkosť populácie&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="330" y="1710" width="430" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XU1r5o4Th51TgilxPr39-16" value="&lt;div align=&quot;center&quot;&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Počet generácií&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="800" y="1710" width="430" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XU1r5o4Th51TgilxPr39-17" value="&lt;div align=&quot;center&quot;&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Pravdepodobnosť mutácie&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="1710" width="430" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XU1r5o4Th51TgilxPr39-18" value="&lt;div align=&quot;center&quot;&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Maximálny počet spojov za hodinu&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1740" y="1710" width="430" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
