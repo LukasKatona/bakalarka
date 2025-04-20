@@ -53,11 +53,6 @@ Na konci tejto kapitoly sa nachádza spätná väzba od analytika, ktorý poskyt
 
 V závere práce \ref{zaver} je uvedené zhrnutie výsledkov a možné budúce rozšírenia a vylepšenia nástroja.
 
-\chapter{Teoretická časť} % 10 strán
-\label{teoreticka_cast}
-\section{DEVS - Descrete Event Simulation System}
-\section{Genetický algoritmus}
-
 \chapter{Relevantné vlastnosti mestskej hromadnej dopravy} % 1-2 strany
 \label{relevantne_vlastnosti}
 
@@ -492,42 +487,6 @@ Pokiaľ má linka príliš veľké výkivy v naplnenosti vozidiel naprieč svojo
   \caption{Priemerná naplnenosť vozidla na jednotlivých zastávkach}
 \end{figure}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 \chapter{Optimalizácia časového rozpisu linky mestskej hormadnej dopravy} % 15 strán
 \label{optimalizacia}
 
@@ -919,7 +878,12 @@ Tieto dielčie vzdialenosti sa postupne sčítavajú do celkovej zhlukovej vzdia
   }
 \end{algorithm}
 
-
+\subsection*{Porovnávací operátor $\prec_n$}
+Informácie získané z rýchleho nedominantného triedenia \ref{algoritmus_non_dominated_sorting} a priradenia zhlukovej vzdialenosti \ref{algoritmus_crowding_distance_assignment} sa použijú na porovnanie dvoch jedincov.
+Pokiaľ je jedinec $p$ z lep3ieho frontu ako jedinec $q$, teda má lepší, nižší rank, $p$ dominuje $q$.
+Ak sú jedinci z rovnakého frontu, porovnávajú sa na základe zhlukovej vzdialenosti.
+Dominuje ten, ktorý má väčšiu zhlukovú vzdialenosť, to znamená, že sa výraznejšie odlišuje od svojich susedov vo fronte.
+Tento porovnávací operátor je znázornený v algoritme \ref{algoritmus_comparsion_operator}.
 
 \vspace*{\dimexpr 0.5\baselineskip\relax}
 \begin{algorithm}[h]
@@ -930,6 +894,27 @@ Tieto dielčie vzdialenosti sa postupne sčítavajú do celkovej zhlukovej vzdia
   \Return $p_{rank} < q_{rank} \vee (p_{rank} = q_{rank} \wedge p_{vzdialenost} > q_{vzdialenost})$\;
   (dá sa rozšíriť aj o obmedzenia)\;
 \end{algorithm}
+
+Toto porovnávanie sa dá rozšíriť aj o rôzne obmedzenia.
+Napríklad, v rámci optimalizácie časového rozpisu máme dva cieľe, spokojnosť zákazníkov a celkové náklady, ale porovnávanie sme rozšírili o to, v ktorom rozpise dôjde menej často k úplnému preplneniu vozidla.
+Sledujeme počet prípdov, kedy sa nejaký cestujúci nezmestil do vozidla.
+V prípade, že aspoň jeden z porovnávaných jedincov má tento počet iný ako 0, vyhráva ten, ktorý má tento počet menší.
+Všeobecne môže byť obmedzení aj viac, v takom prípade sa porovnáva počet porušenia daných obmedzení.
+Napríklad ak by sme mali tri rôzne obmedzenia, časový rozpis môže porušovať 0, 1, 2 alebo 3 z nich.
+Vyhráva ten rozpis ktorý ich porušuje menej.
+V prípade ak oba rozpisy porušujú rovnaký počet obmedzení, porovnáme ich podľa operátora $\prec_n$.
+Pre potreby tejto práce máme len jedno spomínané obmedzenie, bližšie informácie k implementácii viacerých obmedzení sú v článku \cite{996017}.
+
+\subsection*{Vytvorenie nových potomkov}
+Genetický algoritmus by sa nezaobišiel bez vytvárania nových potomkov.
+Tento proces sa dá rozdeliť na tri hlavné časti:
+\begin{enumerate}
+  \item Výber rodičov
+  \item Kríženie rodičov
+  \item Mutácia potomkov
+\end{enumerate}
+Z každého kríženia vzniknú dvaja noví potomkovia, to znamená, že tento proces asa musí vykonať $N/2$ krát, pokiaľ je veľkosť populácie $N$.
+Druhá možnosť ako ukončiť tento proces je znázornená v algoritme \ref{algoritmus_vytvorenie_novych_potomkov}, kde sa noví potomkovia prídávajú do množiny $Q$ pokiaľ je ich počet menší ako $N$.
 
 \vspace*{\dimexpr 0.5\baselineskip\relax}
 \begin{algorithm}[h]
@@ -949,6 +934,18 @@ Tieto dielčie vzdialenosti sa postupne sčítavajú do celkovej zhlukovej vzdia
   \Return $Q$\;
 \end{algorithm}
 
+\subsection*{Výber rodiča}
+Pred tým ako sa budú rodičia medzi sebou krížiť, je potrebné ich vybrať.
+Pre túto prácu bol zvolený turnajový výber rodiča.
+Turnajový výber funguje tak, že sa náhodne vyberie $k$ jedincov z populácie, z ktorých sa turnajovým spôsobom vyberie ten najlepší.
+V algoritme \ref{algoritmus_vyber_rodica} je zvolený turnajový výber s $k = 2$, \textit{binary tournament}, teda sa vyberú dvaja náhodní jedinci a porovnajú sa pomocou porovnávacieho operátora $\prec_n$.
+
+Turnajový výber bol pre túto prácu zvolený, pretože je jednoduchý na implementáciu a má dobré výsledky v porovnaní s inými typmi výberu rodičov.
+V článku \cite{8477847} je porovnanie roznych typov výberu rodičov.
+Turnajový výber má veľmi podobné výsledky ako náhodný výber rodiča, pravdepodobne z dôvodu malého počtu jedincov v turnaji.
+Vyšší počet by však mohol celú optimalizáciu spomaliť.
+Pokusmi sme odhadli počet jedincov v turnaji na 2.
+
 \vspace*{\dimexpr 0.5\baselineskip\relax}
 \begin{algorithm}[h]
 \caption{Výber rodiča}
@@ -964,6 +961,15 @@ Tieto dielčie vzdialenosti sa postupne sčítavajú do celkovej zhlukovej vzdia
     \Return $p_2$\;
   }
 \end{algorithm}
+
+\subsection*{Kríženie rodičov}
+Kríženie znamená výmenu génov v chromozómoch rodičov.
+Tým vznikajú noví jedinci, potomkovia.
+V algoritme \ref{algoritmus_krizenie_rodicov} je znázrnené kríženie dvoch rodičov.
+Pre každý gén v chromozómoch rodičov sa náhodne vyberie jeden z rodičov a jeho gén sa priradí prvému potomkovi.
+Gén z druhého rodiča sa priradí druhému potomkovi.
+Tento proces sa opakuje pre všetky gény v chromozómoch rodičov.
+Je vidieť, že takýmto krížením vzniknú dvaja noví jedinci, preto stačí toto kríženie vykonať len $N/2$ krát, pokiaľ je veľkosť populácie $N$.
 
 Tento typ kríženia je známy ako \textit{uniform crossover} a je veľmi populárny v genetických algoritmoch.
 Porovnanie rôznych typov kríženia je v článku \cite{7414781}.
@@ -988,6 +994,13 @@ Na základe výsledkov v tomto článku bol zvolený typ kríženia s najväčš
   \Return $q_1, q_2$\;
 \end{algorithm}
 
+\subsection*{Mutácia jedinca}
+Posledným krokom v procese vytvorenia nových potomkov je mutácia.
+Mutácia zvyšuje diverzitu jedincov a zabraňuje predčasnému uviaznutiu v lokálnych extrémoch.
+V algoritme \ref{algoritmus_mutacia_jedinca} je znázornená mutácia jedinca.
+Pre každý gén v chromozóme sa náhodne vyberie číslo z intervalu $[0,1]$.
+Ak je toto číslo menšie ako pravdepodobnosť mutácie, gén sa nahradí náhodným génom.
+
 \vspace*{\dimexpr 0.5\baselineskip\relax}
 \begin{algorithm}[h]
 \caption{Mutácia jedinca}
@@ -1000,57 +1013,157 @@ Na základe výsledkov v tomto článku bol zvolený typ kríženia s najväčš
   }
 \end{algorithm}
 
-
 \section{Výstupy optimalizácie}
 \label{vystupy_optimalizacie}
 
+Výstupom klasického genetického algoritmu by mal byť jedinec s najlepším ohodnotením.
+V prípade NSGA-II je to front s najlepšími jedincami.
+Keďže všetky jedince v najlepšom fronte sú rovnako dobré, nedá sa jednoznačne určiť, ktorý z nich je najlepší.
+Ich ohodnotenie je závislé od viacerých cieľov, v prípade tejto práce dvoch.
+Po skončení optimalizácie sa celá posledná generácia približuje optimálnemu frontu riešení.
+To znamená, že všetky časové rozpisy v poslednej generácii sú rovnako dobrým výsledkom.
+Pre výber toho najlepšieho jedinca je potrebné rozhodnúť sa, ktorý z cieľov je dôležitejší, prípade ich váhy.
+Táto práca sa už musí nechať na používateľa programu, ktorý sa sám rozhodne, ktorý z rozpisov je pre neho najlepší.
+Z výsledkov priebežných experimentov počas vývoja programu sa ukázalo, že rozpisy s vyššou spokojnosťou cestujúcich majú z pravidla aj vyššie celkové náklady.
+Ako postupne klesajú náklady, klesá aj spokojnosť cestujúcich, pretože sa znižuje počet spojov, to má za následok preplnenejšie vozidlá a dlhšie čakacie doby na zastávkach.
+Tieto experimenty sú bližšie popísané v kapitole \ref{experimenty}.
 
+\begin{figure}[h]
+  \label{fig:population_start_end}
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      xlabel={Náklady (nižšie je lepšie)},
+      ylabel={Spokojnosť (vyššie je lepšie)},
+      title={Populácia na začiatku a na konci optimalizácie},
+      grid=major,
+      legend pos=south east,
+      width=12cm,
+      height=6cm,
+      scatter/classes={
+          dominated={mark=o,draw=blue},
+          pareto={mark=*,draw=red,fill=red}
+      }
+    ]
+    \addplot[
+      scatter,
+      only marks,
+      scatter src=explicit symbolic
+    ]
+    table[meta=label] {
+      x y label
+      34593.6192 0.698766814270199 dominated
+      36110.8832 0.7560682593856592 dominated
+      36414.335999999996 0.7300462923996281 dominated
+      36414.335999999996 0.7953992297817675 dominated
+      36717.788799999995 0.8145726857336179 dominated
+      36717.788799999995 0.7974700146690784 dominated
+      37324.6944 0.8628327143967477 dominated
+      37931.6 0.7640401922236763 dominated
+      38235.0528 0.8043758906865585 dominated
+      38841.958399999996 0.8290733914209067 dominated
+      39448.863999999994 0.7745494084899076 dominated
+      40055.76959999999 0.8056625705745529 dominated
+      40359.2224 0.6947178444331448 dominated
+      40359.2224 0.8067975544648183 dominated
+      40662.6752 0.8170223752151435 dominated
+      40662.6752 0.7526894033690112 dominated
+      40966.128 0.7957035301990926 dominated
+      40966.128 0.843842264914051 dominated
+      41269.580799999996 0.8197795038837332 dominated
+      41269.580799999996 0.8680407209612772 dominated
+      41573.0336 0.8326062494590158 dominated
+      41876.486399999994 0.8371112229491665 dominated
+      42179.93919999999 0.8825829363360709 dominated
+      42179.93919999999 0.8730773109243625 dominated
+      42786.8448 0.847443283201624 dominated
+      42786.8448 0.8828430873621682 dominated
+      42786.8448 0.8204861227922611 dominated
+      42786.8448 0.8362688591286608 dominated
+      43090.2976 0.9021138073898618 dominated
+      44000.655999999995 0.8631854265897849 dominated
+      44000.655999999995 0.8628972991279271 dominated
+      44000.655999999995 0.8292353951889984 dominated
+      44304.108799999995 0.9155924905270366 dominated
+      44911.0144 0.7854295932795443 dominated
+      45214.46719999999 0.8869831832852022 dominated
+      46124.8256 0.8566406120073122 dominated
+      46731.73119999999 0.8836561866125701 dominated
+      47035.183999999994 0.8797202797202752 dominated
+      47338.6368 0.847873684210521 dominated
+      47642.08959999999 0.8340823970037414 dominated
+      47945.5424 0.8399150495544213 dominated
+      48552.448 0.8317564802182806 dominated
+      49462.806399999994 0.8621990315578529 dominated
+      49766.25919999999 0.9197099019032373 dominated
+      50980.0704 0.8158174027686208 dominated
+      50980.0704 0.8874712835025756 dominated
+      52800.78719999999 0.9282750998894747 dominated
+      55228.40959999999 0.9591714575583303 dominated
+      55835.31519999998 0.9631262798634764 dominated
+      57049.126399999994 0.947870934959343 dominated
+      17600.2624 0.6562155059132695 pareto
+      18207.167999999998 0.6589360197949811 pareto
+      18510.620799999997 0.6636070458329676 pareto
+      20027.884799999996 0.7367264857065519 pareto
+      20331.3376 0.7401511514181519 pareto
+      20634.790399999998 0.7444830408293153 pareto
+      20938.243199999997 0.751307508199624 pareto
+      21241.696 0.7562538892345931 pareto
+      21545.1488 0.7627662565905033 pareto
+      21848.601599999995 0.7644937216136719 pareto
+      22455.5072 0.767252314021248 pareto
+      23365.865599999994 0.8209870865027319 pareto
+      23669.3184 0.8237714587551634 pareto
+      24276.224 0.8291082858395329 pareto
+      24579.676799999997 0.8413978682509076 pareto
+      25186.5824 0.8472269938650214 pareto
+      25490.0352 0.8567756029360242 pareto
+      26400.393599999996 0.8625608061153471 pareto
+      26703.846399999995 0.8627581463330646 pareto
+      27007.299199999998 0.8733551273227685 pareto
+      27310.752 0.8840321882841456 pareto
+      27917.65759999999 0.8890859980831128 pareto
+      28221.1104 0.8966087719298096 pareto
+      28524.563199999997 0.8978779095300723 pareto
+      29738.3744 0.9113484622798445 pareto
+      30041.827199999996 0.9174568096114935 pareto
+      30952.185599999997 0.9195637058925635 pareto
+      31255.6384 0.9275939719383215 pareto
+      31862.543999999998 0.930055712693909 pareto
+      32469.449599999996 0.9323767361110995 pareto
+      32772.9024 0.9428970088078726 pareto
+      33379.808 0.9432454753118849 pareto
+      33683.2608 0.9444301932576343 pareto
+      33986.7136 0.9501810934927507 pareto
+      34897.072 0.9564164691422928 pareto
+      35503.9776 0.9568245614034963 pareto
+      35807.4304 0.9584162615996357 pareto
+      36110.8832 0.9591693796744257 pareto
+      37021.241599999994 0.9619377043538 pareto
+      37628.14719999999 0.9676506396118112 pareto
+      39448.863999999994 0.9734642765245602 pareto
+      40966.128 0.9757380254154341 pareto
+      41876.486399999994 0.9802846167277695 pareto
+      45821.3728 0.9837892008639219 pareto
+      46428.278399999996 0.9847617435463304 pareto
+      48248.99519999999 0.9849325852106111 pareto
+      48552.448 0.9849570468656866 pareto
+      48855.900799999996 0.9855566716892594 pareto
+      51283.52319999998 0.990090885925414 pareto
+      51586.975999999995 0.9907816482582757 pareto
+    };
+    \legend{Prvá Generácia, Posledná Generácia}
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Populácia na začiatku a na konci optimalizácie}
+\end{figure}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Na obrázku \ref{fig:population_start_end} je vidieť priaznivé výsledky optimalizácie.
+Algoritmus NSGA-II sa po 100 generáciach priblížil k optimálnemu frontu riešení.
+Oproti prvej generácii sa značne znížili náklady a zvýšila spokojnosť cestujúcich.
+Tento výsledok ukazuje, že genetický algoritmus dokáže efektívne nájsť kompromis medzi protichodnými cieľmi, ako sú náklady a spokojnosť.
+Použitie NSGA-II umožnilo zachovať diverzitu riešení, čo poskytuje používateľovi možnosť výberu najvhodnejšieho časového rozpisu podľa jeho preferencií.
 
 \chapter{Experimenty} % 10 strán
 \label{experimenty}
