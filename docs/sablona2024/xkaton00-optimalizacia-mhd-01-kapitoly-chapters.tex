@@ -74,12 +74,12 @@ Informácie, ktoré sú dôležité pre analýzu a optimalizáciu časového roz
   \item \textbf{Počet cestujúcich čakajúcich na jednotlivých zastávkach} --- najdôležitejší parameter pre optimalizáciu, časový rozpis musí dostatočne uspokojiť potreby všetkých cestujúcich, zároveň je ťažké získať presné hodnoty. Pri reálnom použití by sa mala spraviť štúdia ktorá by tieto hodnoty získala. Na návrh pána Kříže som na testovacie účely použil hodnoty, ktoré sú úmerné počtu odchádzajúcich vozidiel v hodine a kapacite vozidiel, povedal, že linky v Brne sú už celkom dobre naplánované a preto by mali byť tieto hodnoty približne správne. Jedná sa o nemenný vstup optimalizácie, ktorému sa má časový rozpis prispôsobiť, preto je teoreticky jedno aké hodnoty budú do systému zadané.
   \item \textbf{Doba čakania na zastávke} --- druhý z parametrov podstatných pre optimalizáciu, systém by mal zostrojiť taký rozpis, kedy je celková doba čakania všetkych cestujúcich čo najmenšia.
   \item \textbf{Počet cestujúcich vo vozidie} --- tretí dôležitý parameter pre optimalizáciu, vysoká preplnenosť vozidla má za dôsledok nekomfortné cestovanie, na druhej strane, príliš prázdne vozidlo je neefektívne využité zo strany dopravného podniku.
-  \item \textbf{Kapacita vozidla} --- každé vozidlo prenesie naraz len isté množstvo cestujúcich, zároveň sa od preplnenosti vozidla odvíja komfort cestujúcich.
+  \item \textbf{Kapacita vozidla} --- každé vozidlo prenesie naraz len isté množstvo cestujúcich, zároveň sa od preplnenosti vozidla odvíja komfort cestujúcich. Informácie o kapacite konkrétných vozidiel sú dostupné na webovej stránke dopravného podniku~\cite{dpmb_vozy}.
   \item \textbf{Miest na sedenie} --- To či si cestujúci zadne alebo bude musieť počas jazdy stáť ovplyvňuje jeho spokojnosť a komfort. Čím viac ľudí bude musieť stáť v preplnených vozidlách, tým horšie bude rozpis ohodnotený.
   \item \textbf{Počet cestujúcich, ktorí nenásúpia kvôli preplnenosti vozidla} --- v extrémnych prípadoch može nastať, že bude vozidlo úplne plné a zvyšní cestujúci musia na zastávke čakať do príchodu ďalšieho vozidla, rozpisy pri ktorých sa toto bude diať budú veľmi negatívne ohodnocované aby sa táto zlá vlastnosť čo najviac eliminova, viac v kapitole o optimalizácii~\ref{optimalizacia}.
-  \item \textbf{Počet vystupujúcich cestujúcich na jednotlivých zastávkach} --- tento parameter je potrebný pre simuláciu, keďže do vozidla s istou kapacitou priebežne nastupuje veľa cestujúcich, musia z neho aj vystupovať, získanie presných hodnôt je ešte ťažšie ako pri predošlých parametroch, preto som sa rozhodol každej zastávke prideliť koeficient dôležitosti, ktorý bude určovať aký podiel cestujúcich vystúpi na danej zastávke. Na prvej zastávke je tento koeficient 0, keďze na nej cestujúci iba nastupojú, na poslednej zastávke je koeficient 1, keďže na nej cestujúci iba vystupujú a na zastávkach medzi nimi sa koeficient mení podľa toho aký podiel cestujúcich na danej zastávke priemerne vystupuje, prestupné zastávky budú mať vyšší koeficient ako tie, ktoré cestujúcich len zbierajú.
-  \item \textbf{Náklady na prevádzku} --- Náklady na prevádzku sú potrebné pre optimalizáciu, pretože zo strany dopravného podniku chceme, aby boli čo najnižšie.
-  \item \textbf{Dĺžka trasy} --- Tento parameter je potrebný na výpočet celkových nákladov na prevádzku linky.
+  \item \textbf{Počet vystupujúcich cestujúcich na jednotlivých zastávkach} --- tento parameter je potrebný pre simuláciu, keďže do vozidla s istou kapacitou priebežne nastupuje veľa cestujúcich, musia z neho aj vystupovať, každá zastávka bude mať pridelený koeficient dôležitosti, ktorý bude určovať aký podiel cestujúcich vystúpi na danej zastávke. Na prvej zastávke je tento koeficient 0, keďze na nej cestujúci iba nastupojú, na poslednej zastávke je koeficient 1, keďže na nej cestujúci iba vystupujú a na zastávkach medzi nimi sa koeficient mení podľa toho aký podiel cestujúcich na danej zastávke priemerne vystupuje, prestupné zastávky budú mať vyšší koeficient ako tie, ktoré cestujúcich len zbierajú.
+  \item \textbf{Náklady na prevádzku} --- Náklady na prevádzku sú potrebné pre optimalizáciu, pretože zo strany dopravného podniku chceme, aby boli čo najnižšie. Náklady jednotlivých typov vozidiel sú súčasťou finančného plánu zahrnutého v zmluve~\cite{brno_dpmb_smlouva_2023}.
+  \item \textbf{Dĺžka trasy} --- Tento parameter je potrebný na výpočet celkových nákladov na prevádzku linky. Dĺžky jednotlivých liniek sú spomenuté v zmluve~\cite{brno_dpmb_smlouva_2023}.
 \end{itemize}
 
 \chapter{Simulačný model linky mestskej hormadnej dopravy}\label{simulacny_model}
@@ -649,7 +649,8 @@ Jeden miestokilometer je definovaný ako vzdialenosť jedného kilometra, ktorú
 Potom vozidlo s kapacitu 80 miest, ktoré prejde 10 km, prejde 800 miestokilometrov.
 Miestokilometre sa môžu násobiť aj počtom vozidiel, potom dve takéto vozidlá by prešli 1600 miestokilometrov.
 Informácie o tejto jednotke sú prevzaté od pána Michala Hlaváčka, zamestnanca Dopravného podniku mesta Brno, pomoocu mailovej komunikácie, ktorá je dostupná v prílohe~\ref{prilohy_mail_hlavacek}.
-Tento údaj je potrebný pretože náklady vo finančnom pláne Dopravného podniku mesta Brno sú udávané v českých korunách na 100 miestokilometrov\footnote{Finančný plán na rok 2025, z ktorého boli čerpané sumy je súčasťou zmluvy dostupnej na \url{https://smlouvy.gov.cz/smlouva/31154992}}.
+Tento údaj je potrebný pretože náklady vo finančnom pláne Dopravného podniku mesta Brno sú udávané v českých korunách na 100 miestokilometrov.
+Tento finančný plán je súčasťou zmluvy medzi mestom Brno a Dopravným podníkom mesta Brna~\cite{brno_dpmb_smlouva_2023}.
 Celý výpočet nákladov na prevádzku linky teda závisí od štyroch premenných a je daný vzorcom:
 \begin{equation}
   \text{ceľkové náklady} = \frac{\text{dĺžka trasy} \cdot \text{počet spojov} \cdot \text{kapacita vozidla}}{100} \cdot \text{náklady}
@@ -1571,7 +1572,7 @@ Ako programovací jazyk bol zvolený \texttt{Python} a to preto, lebo je veľmi 
 Výhodnejšie by možno bolo naprogramovať optimalizačný algoritmus v jazyku \texttt{C} alebo \texttt{C++}, ktoré sú rýchlejšie.
 
 \texttt{Python} bol však vybraný vďaka jednoduchému použitiu a tomu, že sa v ňom dá pohodlne napísať ako backend, tak aj frontend.
-Na to aby sa mohlol v tomto jazyku písať aj frontend bol využitý framework \texttt{Reflex}\footnote{\url{https://reflex.dev/}}.
+Na to aby sa mohlol v tomto jazyku písať aj frontend bol využitý framework \texttt{Reflex}.
 
 Vďaka tomtu frameworku je možné písať webové komponenty a celé stránky priamo v jazyku \texttt{Python}.
 Každý komponent je písaný formou funkcie, ktorá vracia jeho obsah.
@@ -1582,7 +1583,9 @@ K premenným tohto stavu sa dá jednoducho pristupovať, čítať ich hodnoty aj
 Takýchto tried môže byť v aplikácii viacej a jeden komponent môže pracovať s premennými aj viacerých stavov.
 Stav okrem premenných obsahuje aj metódy, ktoré sa volajú pri danej udalosti.
 Medzi udalosti patrí napríklad stlačenie konkrétneho tlačítka, alebo zmena hodnoty v jednom z textových vstupov.
-V týchto metódach sa môže pristupovať aj k premenným iného stavu.                                                                                                             
+V týchto metódach sa môže pristupovať aj k premenným iného stavu.               
+
+Informácie o použítí tohoto frameworku boli čerpané z jeho oficiálnej dokumentácie~\cite{reflex_docs}.
 
 Takáto verzatilita jazyka a frameworku bola pri tejto práci veľmi výtaná. 
 Treba si však dávať pozor, pretože priveľká sloboda v písaní kódu môže mať za následok neprehľadný, príliš previazaný kód, ktorý sa bude v budúcnosti ťažko rozširovať.
@@ -1636,38 +1639,38 @@ Tento súbor sa nachádza aj v ostatných adresároch.
 
 \begin{table}[h]\label{tab:source_codes}
   \centering
-  \begin{tabular}{|l|l|}
+  \begin{tabularx}{\textwidth}{|l|X|}
     \hline
-      \textbf{Súbor} & \textbf{Obsah} \\ \hline
-      Backendové skripty & \\
-      EventCalendar.py & trieda kalendára udalostí a udalsti \\
-      Genetics.py & trida genetického algoritmu a jedného jedinca \\
-      InputParser.py & trieda s metódami na spracovanie vstupu \\
-      models.py &  model zastávky, vozidla a časového rozpisu\\
-      RandomNumberGenerator.py & trieda generátora náhodných čísel \\
-      Simulation.py & trieda na riadenie simulácie \\
-      Statistics.py & trieda na zber a spracovanie štatistík \\ \hline
-      Webové komponenty & \\
-      analyzeLine.py & analýza časového rozpisu \\
-      busStopChart.py & zobrazenie grafu so zastávkami na jednej z osí \\
-      busStopTable.py &zobrazenie tabuľky so zastávkami \\
-      constraintInput.py & zadanie obmedzení počtu spojov za hodinu \\
-      footer.py & pätička webovej aplikácie \\
-      hourChart.py & zobrazenie grafu s hodinami na jednej s osí \\
-      infoCard.py & zobrazenie jednočíselných štatistík \\
-      infoUpload.py & nahranie súboru \\
-      layout.py & základné rozloženie stránky \\
-      navbar.py & horné navigačné menu \\
-      optimizeLine.py & optimalizácia časového rozpisu \\
-      rozpis.txt & vzorový príklad informácií o časovom rozpise \\
-      timeTable.py & zobrazenie časového rozpisu \\
-      zastavky.txt & vzorový príklad informácií o zastávkach \\ \hline
-      Stránky aplikácie & \\
-      analyzePage.py & stránka pre anaýlzu časového rozpisu \\
-      homePage.py & úvodná stránka \\
-      optimizePage.py & stránka pre optimalizáciu časového rozpisu \\ \hline
-      sprout.py & koreňový komponent a smerovanie \\ \hline
-  \end{tabular}
+    \textbf{Súbor} & \textbf{Obsah} \\ \hline
+    Backendové skripty & \\
+    EventCalendar.py & trieda kalendára udalostí a udalsti \\
+    Genetics.py & trida genetického algoritmu a jedného jedinca \\
+    InputParser.py & trieda s metódami na spracovanie vstupu \\
+    models.py &  model zastávky, vozidla a časového rozpisu\\
+    RandomNumberGenerator.py & trieda generátora náhodných čísel \\
+    Simulation.py & trieda na riadenie simulácie \\
+    Statistics.py & trieda na zber a spracovanie štatistík \\ \hline
+    Webové komponenty & \\
+    analyzeLine.py & analýza časového rozpisu \\
+    busStopChart.py & zobrazenie grafu so zastávkami na jednej z osí \\
+    busStopTable.py &zobrazenie tabuľky so zastávkami \\
+    constraintInput.py & zadanie obmedzení počtu spojov za hodinu \\
+    footer.py & pätička webovej aplikácie \\
+    hourChart.py & zobrazenie grafu s hodinami na jednej s osí \\
+    infoCard.py & zobrazenie jednočíselných štatistík \\
+    infoUpload.py & nahranie súboru \\
+    layout.py & základné rozloženie stránky \\
+    navbar.py & horné navigačné menu \\
+    optimizeLine.py & optimalizácia časového rozpisu \\
+    rozpis.txt & vzorový príklad informácií o časovom rozpise \\
+    timeTable.py & zobrazenie časového rozpisu \\
+    zastavky.txt & vzorový príklad informácií o zastávkach \\ \hline
+    Stránky aplikácie & \\
+    analyzePage.py & stránka pre anaýlzu časového rozpisu \\
+    homePage.py & úvodná stránka \\
+    optimizePage.py & stránka pre optimalizáciu časového rozpisu \\ \hline
+    sprout.py & koreňový komponent a smerovanie \\ \hline
+  \end{tabularx}
   \caption{Zdrojové kódy}
 \end{table}
 
@@ -1681,7 +1684,7 @@ Optimalizácia bola realizovaná pomocou multi-objektívneho genetického algori
 
 Táto práca mala splniť následujúce body:
 \begin{enumerate}
-  \item Preskúmajte problematiku vytvárania siete mestskej hromadnej dopravy, jej modelovania a optimalizácie pre mestá do pol milióna obyvateľov. Na návrh môjho garanta bol simulačný model navrhnutý pomocou DEVS, poznatky o tomto formalizme boli čerpané zo zborníku z konferencie WSC~\cite{tendeloo2018discrete}. 
+  \item Preskúmajte problematiku vytvárania siete mestskej hromadnej dopravy, jej modelovania a optimalizácie pre mestá do pol milióna obyvateľov. Na návrh môjho garanta bol simulačný model navrhnutý pomocou DEVS, poznatky o tomto formalizme boli čerpané zo zborníku z konferencie WSC~\cite{tendeloo2018discrete} a príklad, ktorý pomohol k porozumeniu je z článku~\cite{seo2014devs}. 
   \item Pre mesto veľkosti krajského mesta Českej republiky získajte alebo odhadnite dáta, z ktorých zostavíte model miestnej mestskej hromadnej dopravy. Informácie boli získané priamo z Dopravného podniku mesta Brno, viac informácií je v kapitole~\ref{relevantne_vlastnosti}.
   \item Oboznámte sa s riešeniami, ktoré na optimalizáciu takejto siete používajú metódy umelej inteligencie. Inšpirácia na použitie genetického algoritmu vychádza z článku~\cite{tang2021data}, konkrétne ide o multi-objektívny NSGA-II.\@
   \item Vytvorte prostredie, ktoré bude slúžiť na modelovanie a optimalizáciu takejto siete. Bol vytvorený nástroj na analýzu a optimalizáciu časových rozpisov, ktorý je popísaný v kapitole~\ref{nastroj}, na zostrojenie modelu slúžia používateľské vstupy, ktoré nástroj spracuje a sám zostrojí model.
