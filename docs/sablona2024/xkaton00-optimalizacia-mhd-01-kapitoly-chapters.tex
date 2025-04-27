@@ -1,7 +1,4 @@
-
-
-\chapter{Úvod}
-\label{uvod}
+\chapter{Úvod}\label{uvod}
 
 Mestskú hromadnú opravu využíva takmer každý človek a preto sa oplatí pracovať na jej efektivite.
 Zmyslom tejto práce je nazrieť do problematiky vytvárania a správy jednotlivých liniek mestksej hromadnej dopravy, ich analýze a optimalizácie.
@@ -22,39 +19,36 @@ Cieľom tejto práce je vytvoriť nástroj, ktorý za pomoci genetického algori
 Zároveň sa tento nástroj bude dať použiť na analýzu už existujúcich rozpisov a ich porovnanie s novými riešeniami.
 Nástroj bude mať uživateľské rozhranie pre rýchlu manipuláciu so vstupnými dátami a prehľadné zobrazenie výsledkov.
 
-Práca je rozdelená na 8 kapitol vrátane úvodu a záveru, z toho najdoležitejšie sú kapitoly \ref{relevantne_vlastnosti} až \ref{uzivatelske_rozhranie}.
-
-Po tomto úvode následuje kapitola \ref{teoreticka_cast}, v ktorej sú vysvetlené základné pojmy potrebné na porozumenie celej práce.
-Optimalizácia jednotlivých rozpisov pracuje so simulačným modelom, preto je potrebné poznať základy simulácií.
-V zhľadom sa systém mestksej hromadnej dopravy, konkrétne príchody vozidiel na zastávky bola zvolená diskrétna simulácia riadená udalosťami.
-Ďalej je v tejto kapitole vysvetlený genetický algoritmus, jeden z algoritmov inšpirovaných prírodov, ktorý bol zvolený na riešenie problému optimalizácie.
+Práca je rozdelená na 7 kapitol vrátane úvodu a záveru, z toho najdoležitejšie sú kapitoly~\ref{relevantne_vlastnosti} až~\ref{nastroj}.
 
 Na zostrojenie simulačného modelu treba najprv vyhodnotiť, ktoré vlastnosti reálneho systému sú pre nás relevantné.
-V kapitole \ref{relevantne_vlastnosti} je popísaná konzultácia s analytikom Dopravného podniku mesta Brno, ktorý poskytol informácie z reálneho života.
+V kapitole~\ref{relevantne_vlastnosti} je popísaná konzultácia s analytikom Dopravného podniku mesta Brno, ktorý poskytol informácie z reálneho života.
 Popísal postupy a metódy, ktoré sa používajú pre optimalizáciu liniek teraz a vytýčil vlastnosti na ktoré je potrebné sa zamerať. 
 
-Zo získaných informácií bol vytvorený simulačný model, ktorého popis, stručné zhrnutie implementácie a jednotlivé experimenty s ním sú popísané v kapitole \ref{simulacny_model}.
+Zo získaných informácií bol vytvorený simulačný model, ktorého popis, stručné zhrnutie implementácie a jednotlivé experimenty s ním sú popísané v kapitole~\ref{simulacny_model}.
 Výstupy simulačného modelu sú základom pre optimalizáciu časového rozpisu linky.
 Ide o sériu grafov, na ktorých môže používateľ vidieť vyťaženosť linky v priebehu dňa a naprieč zastávkami.
 Tieto informácie poslúžili k validácii simulačného modelu a na ohodnotenie jednotlivých rozpisov.
 
-V kapitole \ref{optimalizacia} je popísaný proces optimalizácie časového rozpisu linky mestskej hromadnej dopravy.
+V kapitole~\ref{optimalizacia} je popísaný proces optimalizácie časového rozpisu linky mestskej hromadnej dopravy.
 Jednotlivé rozpisy ohodnotené na základe informácií získaných zo simulácie sa použijú ako jedinci v genetickom algoritme.
 Genetický aloritmus bude tieto rozpisy spájať a mutovať, aby našiel čo najlepšie riešenie.
 Výsledky optimalizácie budú porovnané s pôvodnými rozpismi a ohodnotené.
 
+V kapitole~\ref{experimenty}, sú popísané experimenty optimalizácie.
+Aplikácia a optimalizačný algoritmus sa testoval priebežne počas vývoja.
+V tejto kapitole sú uvedené experimenty, ktoré sa realizovali až po dokončení vývoja.
+Konkrétne ide o experimenty, ktoré skúmajú správanie sa optimalizačného algoritmu vzhľadom na zmeny vstupov ako dĺžka trasy a kapaicta vozidla.
+
 Samotný program by v praxi nebol moc použiteľný bez používateľského rozhrania.
-V kapitole \ref{uzivatelske_rozhranie} je popísaný návrh a implementácia uživateľského rozhrania analytického nástroja.
-Tento nástroj umožňuje používateľovi jednoducho zadať vstupné dáta, spustiť optimalizáciu a zobraziť výsledky.
+V kapitole~\ref{nastroj} je popísaný návrh a implementácia uživateľského rozhrania analytického nástroja.
+Tento nástroj umožňuje používateľovi jednoducho zadať vstupné dáta, spustiť analýzu a optimalizáciu časového rozpisu a zobraziť výsledky.
 Jednou z najdôležitejších častí tohto rozhrania je zadávanie používateľských obmedzení, ktoré musí výsledny časový rozpis splňovať.
 
-Predposlednou kapitolou je kapitola \ref{experimenty}, ktorá sa zaoberá testovaním optimalizácie a simulačného modelu.
-Na konci tejto kapitoly sa nachádza spätná väzba od analytika, ktorý poskytol informácie o reálnom systéme, a to z pohľadu možného budúceho používateľa tohto nástroja.
+V závere~\ref{zaver} je uvedené zhrnutie dosiahnutých výsledkov práce.
+Táto kpitola taktiež obsahuje možné budúce rozšírenia aplikácie.
 
-V závere práce \ref{zaver} je uvedené zhrnutie výsledkov a možné budúce rozšírenia a vylepšenia nástroja.
-
-\chapter{Relevantné vlastnosti mestskej hromadnej dopravy} % 1-2 strany
-\label{relevantne_vlastnosti}
+\chapter{Relevantné vlastnosti mestskej hromadnej dopravy}\label{relevantne_vlastnosti}
 
 Optimalizácia mestskej hromadnej dopravy je veľmi široký pojem a tento úkon sa dá previesť v mnoho rôznych smeroch.
 Preto je dôležité vybrať si tú časť systému, na ktorej sa oplatí pracovať.
@@ -74,42 +68,37 @@ Informácie, ktoré sú dôležité pre analýzu a optimalizáciu časového roz
 
 \begin{itemize}
   \item \textbf{Počet zastávok} --- potrebné pre zostavenie samotného rozpisu aj simulačného modelu, nie je dôležitý len počet, ale aj informácie o jednotlivých zastávkach.
-  \item \textbf{Čas potrebný na prejdenie od jednej zastávky k druhej} --- tiež je to súčasťou rozpisu, zároveň sa touto informáciou riadi plánovanie udalostí v simulačnom modeli, viac v kapitole \ref{simulacny_model}.
+  \item \textbf{Čas potrebný na prejdenie od jednej zastávky k druhej} --- tiež je to súčasťou rozpisu, zároveň sa touto informáciou riadi plánovanie udalostí v simulačnom modeli, viac v kapitole~\ref{simulacny_model}.
   \item \textbf{Počet odchodov vozidla z jeho prvej zastávky za celý deň} --- týmto sa myslí celkový počet vozidiel, respektíve ciest ktoré vozidlá danej linky za deň absolvujú, tento parameter je dôležitý pre optimalizáciu, pre dopravný podnik je výhodné mať čo najmenší počet vozidiel, ktoré sú v prevádzke, šetrí to palivo, údržbu aj ľudské zdroje.
   \item \textbf{Počet odchodov vozidla z jeho prvej zastávky za hodinu} --- myslí sa tým jeden riadok v časovom rozpise, mal by byť priamo úmerný priemernému počtu cestujúcich čakajúcich na danú linku v danej hodine.
   \item \textbf{Počet cestujúcich čakajúcich na jednotlivých zastávkach} --- najdôležitejší parameter pre optimalizáciu, časový rozpis musí dostatočne uspokojiť potreby všetkých cestujúcich, zároveň je ťažké získať presné hodnoty. Pri reálnom použití by sa mala spraviť štúdia ktorá by tieto hodnoty získala. Na návrh pána Kříže som na testovacie účely použil hodnoty, ktoré sú úmerné počtu odchádzajúcich vozidiel v hodine a kapacite vozidiel, povedal, že linky v Brne sú už celkom dobre naplánované a preto by mali byť tieto hodnoty približne správne. Jedná sa o nemenný vstup optimalizácie, ktorému sa má časový rozpis prispôsobiť, preto je teoreticky jedno aké hodnoty budú do systému zadané.
   \item \textbf{Doba čakania na zastávke} --- druhý z parametrov podstatných pre optimalizáciu, systém by mal zostrojiť taký rozpis, kedy je celková doba čakania všetkych cestujúcich čo najmenšia.
   \item \textbf{Počet cestujúcich vo vozidie} --- tretí dôležitý parameter pre optimalizáciu, vysoká preplnenosť vozidla má za dôsledok nekomfortné cestovanie, na druhej strane, príliš prázdne vozidlo je neefektívne využité zo strany dopravného podniku.
   \item \textbf{Kapacita vozidla} --- každé vozidlo prenesie naraz len isté množstvo cestujúcich, zároveň sa od preplnenosti vozidla odvíja komfort cestujúcich.
-  \item \textbf{Počet cestujúcich, ktorí nenásúpia kvôli preplnenosti vozidla} --- v extrémnych prípadoch može nastať, že bude vozidlo úplne plné a zvyšní cestujúci musia na zastávke čakať do príchodu ďalšieho vozidla, rozpisy pri ktorých sa toto bude diať budú veľmi negatívne ohodnocované aby sa táto zlá vlastnosť čo najviac eliminova, viac v kapitole o optimalizácii \ref{optimalizacia}.
+  \item \textbf{Miest na sedenie} --- To či si cestujúci zadne alebo bude musieť počas jazdy stáť ovplyvňuje jeho spokojnosť a komfort. Čím viac ľudí bude musieť stáť v preplnených vozidlách, tým horšie bude rozpis ohodnotený.
+  \item \textbf{Počet cestujúcich, ktorí nenásúpia kvôli preplnenosti vozidla} --- v extrémnych prípadoch može nastať, že bude vozidlo úplne plné a zvyšní cestujúci musia na zastávke čakať do príchodu ďalšieho vozidla, rozpisy pri ktorých sa toto bude diať budú veľmi negatívne ohodnocované aby sa táto zlá vlastnosť čo najviac eliminova, viac v kapitole o optimalizácii~\ref{optimalizacia}.
   \item \textbf{Počet vystupujúcich cestujúcich na jednotlivých zastávkach} --- tento parameter je potrebný pre simuláciu, keďže do vozidla s istou kapacitou priebežne nastupuje veľa cestujúcich, musia z neho aj vystupovať, získanie presných hodnôt je ešte ťažšie ako pri predošlých parametroch, preto som sa rozhodol každej zastávke prideliť koeficient dôležitosti, ktorý bude určovať aký podiel cestujúcich vystúpi na danej zastávke. Na prvej zastávke je tento koeficient 0, keďze na nej cestujúci iba nastupojú, na poslednej zastávke je koeficient 1, keďže na nej cestujúci iba vystupujú a na zastávkach medzi nimi sa koeficient mení podľa toho aký podiel cestujúcich na danej zastávke priemerne vystupuje, prestupné zastávky budú mať vyšší koeficient ako tie, ktoré cestujúcich len zbierajú.
+  \item \textbf{Náklady na prevádzku} --- Náklady na prevádzku sú potrebné pre optimalizáciu, pretože zo strany dopravného podniku chceme, aby boli čo najnižšie.
+  \item \textbf{Dĺžka trasy} --- Tento parameter je potrebný na výpočet celkových nákladov na prevádzku linky.
 \end{itemize}
 
-Po vytvorení simulačného modelu a implementacii optimalizácie som za pánom Krížom prišiel druhýkrát, ukázať mu výsledky, získať spätnú väzbu a zistiť jeho požiadavky na používateľské rozhranie tohto nástroja.
-
-\textbf{\textcolor{red}{TODO navštíviť ho ešte raz a ukázať mu návrh uživateľského rozhrania.}}
-
-\chapter{Simulačný model linky mestskej hormadnej dopravy} % 10 strán
-\label{simulacny_model}
+\chapter{Simulačný model linky mestskej hormadnej dopravy}\label{simulacny_model}
 
 Druhým hlavným krokom po získaní potrebných informácií je zostrojenie simulačného modelu.
 Problém optimalizácie časového rozpisu linky mestskej hromadnej dopravy je veľmi komplexný a vytvoriť program ktorý by ho riešil analyticky by bolo veľmi náročné.
 Na modelovanie bol použitý formalizmus DEVS (Descrete Event Symulation System), po slovensky diskrétna simulácia riadená udalosťami.
 Ide o typ simulácie, kde sa modelový čas posúva skokovo a to od jednej udalosti k druhej.
-Viac o tomto formalizme je napísané v kapitole \ref{teoreticka_cast}.
 
 \section{Popis simulačného modelu}
-Na začiatok je potrebné definovať základné prvky modelu (viď obrázok \ref{fig:simulacny_model}), ich stavy a vzťahy medzi nimi.
+Na začiatok je potrebné definovať základné prvky modelu (viď obrázok~\ref{fig:simulacny_model}), ich stavy a vzťahy medzi nimi.
 Simulačný model je zložený z troch hlavných častí, tými sú:
 \begin{itemize}
   \item \textbf{Kalendár udalostí} --- dôležitý pre plánovanie udalostí v modeli
-
   \item \textbf{Model zastávky} --- dôležitý pre príchod a odchod cestujúcich
   \item \textbf{Model vozidla} --- dôležitý pre prepravu cestujúcich medzi zastávkami
 \end{itemize}
 
-\begin{figure}[h]
-  \label{fig:simulacny_model}
+\begin{figure}[h]\label{fig:simulacny_model}
   \centering
   \includegraphics[width=0.9\textwidth]{DEVS-sk.drawio.pdf}
   \caption{Schéma simulačného modelu}
@@ -129,12 +118,11 @@ Tieto udalosti sú v prípade tohto modelu príchody vozidiel na zastáky.
 V rámci jednej udalosti sa vykoná rutina obslúženia cestujúcich čakajúcich na zastávke.
 Všetky udalosti sú naplánované na začiatku simulácie, pretože vďaka časovému rozpisu presne vieme všetky príchody vozidiel na jednotlivé zastávky.
 Príchody na prvú zastávku sú dané hlavným časovým rozpisom, príchody na ostatné zastávky sú odvodené od času potrebného na prejdenie z jednej zastávky na druhú.
-Pseudokód plánovania udalostí je uvedený v algoritme \ref{algoritmus_planovanie_udalosti}.
+Pseudokód plánovania udalostí je uvedený v algoritme~\ref{algoritmus_planovanie_udalosti}.
 V priebehu simulácie už netreba žiadne ďalšie udalosti plánovať.
 
-\vspace*{\dimexpr 0.5\baselineskip\relax}
-\begin{algorithm}[H]
-  \label{algoritmus_planovanie_udalosti}
+\vspace*{\dimexpr0.5\baselineskip\relax}
+\begin{algorithm}[H]\label{algoritmus_planovanie_udalosti}
   \caption{Plánovanie udalostí}
     \For{čas v časovom rozpise počiatočnej zastávky} {
       Vytvorí sa vozidlo\;
@@ -143,15 +131,14 @@ V priebehu simulácie už netreba žiadne ďalšie udalosti plánovať.
       }
     }
 \end{algorithm}
-\vspace*{\dimexpr 0.5\baselineskip\relax}
+\vspace*{\dimexpr0.5\baselineskip\relax}
 
 Po naplánovaní všetkých udalostí sa začne simulácia.
 Postupne sa vykonávajú jednotlivé udalosti a simulácia sa diskrétne posúva vpred, až kým nie je kalendár udalostí prázdny alebo nie je dosiahnutý koncový čas simulácie.
-Pseudokód riadenia simulácie je popísaný v algoritme \ref{algoritmus_riadenia_simulacie}.
+Pseudokód riadenia simulácie je popísaný v algoritme~\ref{algoritmus_riadenia_simulacie}.
 
-\vspace*{\dimexpr 0.5\baselineskip\relax}
-\begin{algorithm}[H]
-\label{algoritmus_riadenia_simulacie}
+\vspace*{\dimexpr0.5\baselineskip\relax}
+\begin{algorithm}[H]\label{algoritmus_riadenia_simulacie}
 \caption{Simulácia riadená udalosťami}
   \While{kalendár udalostí nie je prázdny} {
     Vyberie sa udalosť s najmenším časom v kalendári\;
@@ -163,26 +150,24 @@ Pseudokód riadenia simulácie je popísaný v algoritme \ref{algoritmus_riadeni
     Udalosť sa vykoná\;
   }
 \end{algorithm}
-\vspace*{\dimexpr 0.5\baselineskip\relax}
+\vspace*{\dimexpr0.5\baselineskip\relax}
 
 Pre potreby časového rozpisu stačí simulovať jeden deň, v prípade rôznych rozpisov v čase pracovnýh dní a v čase sviatkov a víkendov ide o kompletne iný rozpis, ktorý sa musí simulovať a optimalizovať samostatne.
 Všetky naplánované udalsti by mali byť v rámci jedného dňa, preto by simulácia mala končiť vždy vyprázdnením kalendára udalostí a nie prekročením koncového času.
 
-\subsection*{Model zastávky}
-\label{model_zastavky}
+\subsection*{Model zastávky}\label{model_zastavky}
 
 Model zastávky slúži na reprezentáciu jednotlivých zastávok na linke.
 Každá reálna zastávka je v systéme ako samostatná inštancia modelu zastávky.
 Je pasívna, to znamená, že jej vnútorný stav sa plne odvíja od prichádzajúcich vonkajších signálov.
 
-\begin{figure}[h]
-  \label{fig:model_zastavky}
+\begin{figure}[h]\label{fig:model_zastavky}
   \centering
   \includegraphics[width=0.6\textwidth]{DEVS-zastavka-sk.drawio.pdf}
   \caption{Stavový automat modelu zastávky}
 \end{figure}
 
-Ako je vidieť na obrázku \ref{fig:model_zastavky}, model zastávky má tri stavy:
+Ako je vidieť na obrázku~\ref{fig:model_zastavky}, model zastávky má tri stavy:
 \begin{itemize}
   \item \textbf{Cestujúci čakajú} --- na zastávke nie je žiadne vozidlo
   \item \textbf{Vozidlo na zastávke} --- na zastávku práve prišlo vozidlo
@@ -206,11 +191,10 @@ Prepíše sa čas posledného príchodu vozidla.
 
 Cestujúci sa generujú na základne exponenciálneho rozdelenia s parametrom $\lambda$.
 Tento parameter je v rámci jednej zastávky každú hodinu iný, pretože počet prichádzajúcich cestujúcich sa v priebehu dňa mení.
-V algoritme \ref{algoritmus_generovanie_cestujucich} je popísaný proces generovania cestujúcich na zastávke.
+V algoritme~\ref{algoritmus_generovanie_cestujucich} je popísaný proces generovania cestujúcich na zastávke.
 
-\vspace*{\dimexpr 0.5\baselineskip\relax}
-\begin{algorithm}[H]
-\label{algoritmus_generovanie_cestujucich}
+\vspace*{\dimexpr0.5\baselineskip\relax}
+\begin{algorithm}[H]\label{algoritmus_generovanie_cestujucich}
 \caption{Generovanie cestujúcich}
   získanie $\lambda$ pre danú zastáku a hodinu\;
   \While{modelový čas < čas príchodu autobusu} {
@@ -220,21 +204,19 @@ V algoritme \ref{algoritmus_generovanie_cestujucich} je popísaný proces genero
   }
 \end{algorithm}
 
-\subsection*{Model vozidla}
-\label{model_vozidla}
+\subsection*{Model vozidla}\label{model_vozidla}
 
 Každé vozidlo, respektíve jedna trasa ktorú vozidlo podľa časového rozpisu prejde, je reprezentovaná jednou inštanciou modelu vozidla.
 Model vozidla je na rozdiel od modelu zastávky aktívnym prvkom, nemá žiadne vstupné signály, iba výstupné.
-Tieto výstupné signály sú prepojené so vstupnými signálmi modelu zastávky ako je vidieť na obrázku \ref{fig:simulacny_model}.
+Tieto výstupné signály sú prepojené so vstupnými signálmi modelu zastávky ako je vidieť na obrázku~\ref{fig:simulacny_model}.
 
-\begin{figure}[h]
-  \label{fig:model_vozidla}
+\begin{figure}[h]\label{fig:model_vozidla}
   \centering
   \includegraphics[width=0.6\textwidth]{DEVS-vozidlo-sk.drawio.pdf}
   \caption{Stavový automat modelu vozidla}
 \end{figure}
 
-Na obrázku \ref{fig:model_vozidla} je vidieť stavový automat modelu vozidla.
+Na obrázku~\ref{fig:model_vozidla} je vidieť stavový automat modelu vozidla.
 Model vozidla má tri stavy:
 \begin{itemize}
   \item \textbf{Na ceste} --- vozidlo sa pohybuje medzi zastávkami
@@ -257,11 +239,10 @@ Informuje sa príslušná zastávka a nič viac sa pri tomto prechode nevykonáv
 \subsubsection{Obsluha zastávky}
 
 Každé vozidlo začina na prvej zastávke v rozpise, ale počas simulácie sa musí pohybovať medzi zastávkami.
-Proces ktorý vozidlo vykoná pri príchode na každú zastávku je popísaný v algoritme \ref{algoritmus_obsluha_zastavky}.
+Proces ktorý vozidlo vykoná pri príchode na každú zastávku je popísaný v algoritme~\ref{algoritmus_obsluha_zastavky}.
 
-\vspace*{\dimexpr 0.5\baselineskip\relax}
-\begin{algorithm}[H]
-\label{algoritmus_obsluha_zastavky}
+\vspace*{\dimexpr0.5\baselineskip\relax}
+\begin{algorithm}[H]\label{algoritmus_obsluha_zastavky}
 \caption{Obsluha zastávky}
   prepojenie výstupných signálov vozidla so vstupnými signálmi zastávky\;
   aktivácia výstupného signálu \textbf{!Príchod}\;
@@ -271,7 +252,7 @@ Proces ktorý vozidlo vykoná pri príchode na každú zastávku je popísaný v
 
 \subsection*{Udalosť príchodu vozidla na zastávku}
 
-V rámci jednej udalosti sa vykoná rutina obslúženia cestujúcich, ktorí čakajú na zastávke. Táto rutina je popísaná v algoritme \ref{algoritmus_obsluha_zastavky}.
+V rámci jednej udalosti sa vykoná rutina obslúženia cestujúcich, ktorí čakajú na zastávke. Táto rutina je popísaná v algoritme~\ref{algoritmus_obsluha_zastavky}.
 Parametre tejto udalosti sú:
 \begin{itemize}
   \item \textbf{Čas príchodu} --- čas, kedy vozidlo prichádza na zastávku
@@ -315,7 +296,7 @@ Cestujúci sú uložení ako pole čisel, časov ich príchodu, v jednotlivých 
 
 Na generovanie náhodného príchodu cestujúcich slúži trieda \texttt{RandomNumberGenerator}, ktorá obsahuje statické metódy na generovanie náhodných čísel.
 
-Zber a agregácia štatistík (viď kapitola \ref{vystupy_simulacneho_modelu}) sú implementované v triedach \texttt{Statistics}, \texttt{BusStatistics} a \texttt{BusStopStatistics}.
+Zber a agregácia štatistík (viď kapitola~\ref{vystupy_simulacneho_modelu}) sú implementované v triedach \texttt{Statistics}, \texttt{BusStatistics} a \texttt{BusStopStatistics}.
 
 Podrobnejšie informácie o kóde sa nachádzajú v programovej dokumentácii, v prílohe~\ref{prilohy_programova_dokumentacia}.
 Programová dokumentácia bola vygenerovaná pomocou nástroja Sphynx.
@@ -326,130 +307,153 @@ Programová dokumentácia bola vygenerovaná pomocou nástroja Sphynx.
 Hlavný zmisel simulácie je zber informácií, ktoré by sme inak museli získať z pozorovania reélnej prevádzky linky.
 Efektivitu každého jedného časového rozpisu, ktorý program vytvorí je potrebné otestovať a ohodnotiť aby sme našli ten najlepší z nich, skôr ako ho začneme používať v reálnej prevádzke.
 Na ohodnotenie jednotlivých rozpisov slúžia štatistiky získané počas simulácie.
-Štatistiky sa zbierajú pre každú zastávku aj pre každý autobus osobitne.
-Následne sa agregujú do jednoho objektu \texttt{Statistics}, ktorý obsahuje:
-\begin{itemize}
-  \item \texttt{totalNumberOfBuses} --- počet spojov v priebehu dňa na linke
-  \item \texttt{busStopStatistics} --- agregované štatistiky zastávok
-  \item \texttt{busStatistics} --- agregované štatistiky vozidiel
-\end{itemize}
+Štatistiky sa zbierajú pre každú zastávku~\ref{tab:busStopStatistics_class}. aj pre každé vozidlo~\ref{tab:busStatistics_class}. osobitne.
+Následne sa agregujú do jednoho objektu \texttt{Statistics}, ktorého obsah je popísaný v tabuľke~\ref{tab:statistics_class}.
+\begin{table}[h]\label{tab:statistics_class}
+  \centering
+  \begin{tabularx}{\textwidth}{|l|X|}
+    \hline
+    \textbf{Parameter} & \textbf{Popis} \\ \hline
+    \texttt{totalNumberOfBuses} & Počet spojov v priebehu dňa na linke \\ \hline
+    \texttt{busStopStatistics} & Agregované štatistiky zastávok \\ \hline
+    \texttt{busStatistics} & Agregované štatistiky vozidiel \\ \hline
+  \end{tabularx}
+  \caption{Trieda \texttt{Statistics}}
+\end{table}
 
-Trieda \texttt{busStopStatistics} slúži na ukladanie informácii o jednotlivých zastávkach, ale ako bolo spomenuté vyššie tak aj na uloženie agregovaných dát.
-Táto trieda slúži na zber následujúcich informácií:
-\begin{itemize}
-  \item \texttt{totalPassengersArrived} --- počet cestujúcich, ktorí prišli na zastávku za celý deň
-  \item \texttt{totalPassengersDeparted} --- počet cestujúcich, ktorí vystúpili na zastávke za celý deň
-  \item \texttt{totalPassengersLeftUnboarded} --- počet cestujúcich, ktorí museli čakať na ďalší spoj
-  \item \texttt{totalTimeSpentWaiting} --- celkový čas, ktorý cestujúci strávili čakaním na zastávke
-  \item \texttt{totalPassengersLeftUnboarded} --- počet cestujúcich, ktorých po celom dni nezobral žiaden spoj
-  \item \texttt{passengersArrivedPerHour} --- počet cestujúcich, ktorí prišli na zastávku v jednotlivých hodinách
-  \item \texttt{passengersDepartedPerHour} --- počet cestujúcich, ktorí vystúpili na zastávke v jednotlivých hodinách
-  \item \texttt{passengersLeftUnboardedPerHour} --- počet cestujúcich, ktorí museli čakať na ďalší spoj v jednotlivých hodinách
-  \item \texttt{timeSpentWaitingPerHour} --- čas, ktorý cestujúci strávili čakaním na zastávke v jednotlivých hodinách
-\end{itemize}
+\begin{table}[h]\label{tab:busStopStatistics_class}
+  \centering
+  \begin{tabularx}{\textwidth}{|l|X|}
+    \hline
+    \textbf{Parameter} & \textbf{Popis} \\ \hline
+    \texttt{totalPassengersArrived} & Koľko cestujúcich prišlo na zastávku za deň \\ \hline
+    \texttt{totalPassengersDeparted} & Koľko cestujúcich vytúpilo na zastávke za deň \\ \hline
+    \texttt{totalPassengersLeftUnboarded} & Počet cestujúcich, ktorí sa nezmestili do vozidla \\ \hline
+    \texttt{totalTimeSpentWaiting} & Čas, ktorý cestujúci strávili čakaním na zastávke \\ \hline
+    \texttt{passengersArrivedPerHour} & Počet cestujúcich, ktorí prišli na zastávku v jednotlivých hodinách \\ \hline
+    \texttt{passengersDepartedPerHour} & Počet cestujúcich, ktorí vystúpili na zastávke v jednotlivých hodinách \\ \hline
+    \texttt{passengersLeftUnboardedPerHour} & Počet cestujúcich, ktorí sa nezmestili do vozidla v jednotlivých hodinách \\ \hline
+    \texttt{timeSpentWaitingPerHour} & Čas, ktorý cestujúci strávili čakaním na zastávke v jednotlivých hodinách \\ \hline
+  \end{tabularx}
+  \caption{Trieda \texttt{busStopStatistics}}
+\end{table}
 
-Trieda \texttt{busStatistics} má rovnaký účel ako trieda \texttt{busStopStatistics}, ale pre vozidlá.
-Zbiera informácie:
-\begin{itemize}
-  \item \texttt{capacity} --- kapacita vozidla
-  \item \texttt{averageLoad} --- priemerná naplnenosť vozidla
-  \item \texttt{averageLoadInPercent} --- priemerná naplnenosť vozidla v percentách
-  \item \texttt{totalPassengersTransported} --- celkový počet prevezených cestujúcich
-  \item \texttt{loadPerBusStop} --- naplnenosť vozidla na jednotlivých zastávkach
-  \item \texttt{loadInPercentPerBusStop} --- naplnenosť vozidla na jednotlivých zastávkach v percentách
-\end{itemize}
+\begin{table}[h]\label{tab:busStatistics_class}
+  \centering
+  \begin{tabularx}{\textwidth}{|l|X|}
+    \hline
+    \textbf{Parameter} & \textbf{Popis} \\ \hline
+    \texttt{capacity} & Kapacita vozidla \\ \hline
+    \texttt{seats} & Počet miest na sedenie \\ \hline
+    \texttt{averageLoad} & Priemerná naplnenosť vozidla \\ \hline
+    \texttt{averageLoadInPercent} & Priemerná naplnenosť vozidla v percentách \\ \hline
+    \texttt{totalPassengersTransported} & Celkový počet prevezených cestujúcich \\ \hline
+    \texttt{loadPerBusStop} & Naplnenosť vozidla na jednotlivých zastávkach \\ \hline
+    \texttt{loadInPercentPerBusStop} & Naplnenosť vozidla na jednotlivých zastávkach v percentách \\ \hline
+    \texttt{passengerSatisfactions} & Spokojnosť jednotlivých zákazníkov \\ \hline
+  \end{tabularx}
+  \caption{Trieda \texttt{busStatistics}}
+\end{table}
 
 \subsection*{Počet spojov v priebehu dňa na linke}
 Tento údaj slúži pre optimalizáciu, z pohľadu dopravného podniku chceme, aby bol pocet spojov čo najmenší aby ušetrili na prevádzkových nákladoch.
 Z pohľadu cestujúcich chceme aby bol počet spojov čo najväčší, aby nemuseli čakať na spoj dlhšie ako je nutné.
 Je potrebné nájsť kompromis medzi týmito dvoma extrémami.
 
-\subsection*{Počet cestujúcich, ktorí prišli na zastávku za celý deň}
+\subsection*{Koľko cestujúcich prišlo na zastávku za deň}
 Celkový počet cestujúcich za deň je dobrím indikátorom toho, ako sú namáhané jednotlivé časti linky.
 V prípadoch, kedy na zastávky v strede trasy prichádza oveľa viac cestujúcich ako na koncové zastávky, posilňuje dopravný podnik práve túto strednú časť ďalšími spojmi.
 Tieto spoje však na koncové zastávky už nechodia.
 
-\subsection*{Počet cestujúcich, ktorí vystúpili na zastávke za celý deň}
+\subsection*{Koľko cestujúcich vytúpilo na zastávke za deň}
 Je potrebné aby sme v rámci simulácie rátali aj s cestujúcimi, ktorí z vozidiel vystupujú, inak by sa kapacita vozidla hneď naplnila.
 Ide o dôležitú časť reálneho systému, ktorú nemôžeme zanedbať ani pri simulácii.
 Slúži na validáciu modelu.
 
-\subsection*{Počet cestujúcich, ktorí museli čakať na ďalší spoj}
+\subsection*{Počet cestujúcich, ktorí sa nezmestili do vozidla}
 Občas sa stane, že je vozidlo tak preplnené, že nie všetci cestujúci, ktorí čakali na zastávke do neho nastúpia.
-V reálnom živote ide asi o subjektívny pocit, či nastúpiť alebo nie.
-V simulačnom modeli cestujúci prestanú nastupovať v momente keď naplnenosť vozidla dosiahne jeho maximálnu kapacitu.
 Rozpisy, pri ktorých sa tento jav vyskytne budú mať horšie hodnotenie.
 
-\subsection*{Celkový čas, ktorý cestujúci strávili čakaním na zastávke}
-Z pohľadu optimalizácie chceme, aby bol tento čas čo najnižší.
-Príliš dlhé čakanie na zastávke bude rozpisy ohodnocovať negatívne.
-V prípade, že cestujúci musel čakať na ďalší spoj, tento šas bude ešte dlhší.
-Treba rátať aj s cestujúcimi, ktorí na zastávku prídu tesne pred odchodom vozidla.
-Napríklad ak chodí spoj dvakrát za hodinu, je oveľa vyššia pravdepodobnosť, že cestujúci nepríde v náhodný čas, ale svoj príchod na zastávku si naplánuje.
-
-\subsection*{Počet cestujúcich, ktorých po celom dni nezobral žiaden spoj}
-Podobne ako v prípade cestujúcich, ktorí museli čakať na ďalší spoj, aj týchto cestujúcich by sme mali rátať a rozpis by mal byť ohodnotený veľmi negatívne.
-Tento jav by mohol v reálnom svete nastať asi iba ak by cestujúci išiel na posledný spoj v dni a toto vozidlo by bolo úplne preplnené.
-Ale keďže optimalizácia v tomto programe je riešená genetickým algoritmom, je veľká šanca že sa tento jav vyskytne častejšie.
-Táto vlastnosť je nežiaduca a je potrebné ju eliminovať.
+\subsection*{Čas, ktorý cestujúci strávili čakaním na zastávke}
+Celkový čas, ktorý dokopy čakali cestujúci na zastácke.
+Možno atraktívnejšia informácia je priemerný čas, ktorý čakal jeden cestujúci.
+V oboch prípadoch chceme, aby bol tento čas čo najnižší.
 
 \subsection*{Počet cestujúcich, ktorí prišli na zastávku v jednotlivých hodinách}
 Tento údaj má skôr informatívny charakter, pretože ide o vstup programu.
 Algoritmus sa snaží vytvoriť rozpis, ktorý by bol schopný prepraviť všetkých cestujúcich.
-Na grafe \ref{fig:passengersArrivedPerHour} je vidieť, že v priebehu dňa sa počet cestujúcich prichádzajúcich na zastávku mení.
+Na grafe~\ref{fig:passengersArrivedPerHour} je vidieť, že v priebehu dňa sa počet cestujúcich prichádzajúcich na zastávku mení.
 Obzvlášť v ranných a poobedných hodinách je tento počet výrazne vyšší ako počas dňa.
 V týchto časoch by malo chodiť viac spojov.
-\begin{figure}[h]
-  \label{fig:passengersArrivedPerHour}
+\begin{figure}[h]\label{fig:passengersArrivedPerHour}
   \centering
-  \includegraphics[width=0.5\textwidth]{passengersArrivedPerHour.png}
-  \caption{Počet cestujúcich, ktorí prišli na zastávku v jednotlivých hodinách}
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=0.8\textwidth,
+      height=0.3\textwidth,
+      xlabel={Hodina},
+      ylabel={Počet cestujúcich},
+      ymin=0,
+      xtick={0,1,...,23},
+      grid=both,
+      major grid style={line width=.2pt,draw=gray!50},
+      minor grid style={line width=.1pt,draw=gray!20},
+      tick label style={font=\small},
+      label style={font=\small},
+      legend style={font=\small, at={(0.5,-0.2)}, anchor=north, legend columns=-1},
+      ybar,
+      bar width=5,
+      ]
+      \addplot[fill=blue] coordinates {
+        (0, 0) (1, 0) (2, 0) (3, 0) (4, 104) (5, 625) (6, 915) (7, 888) 
+        (8, 689) (9, 595) (10, 598) (11, 613) (12, 603) (13, 589) 
+        (14, 630) (15, 894) (16, 897) (17, 872) (18, 597) (19, 597) 
+        (20, 499) (21, 376) (22, 22) (23, 0)
+      };
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Počet cestujúcich prichádzajúcich na zastávku za hodinu}
 \end{figure}
 
 \subsection*{Počet cestujúcich, ktorí vystúpili na zastávke v jednotlivých hodinách}
 Ide o rovnaký údaj ako bol počet cestujúcich, ktorí vystúpili na zastávke za celý deň, ale rozdelený na jednotlivé hodiny dňa.
-Je vidieť, že graf \ref{fig:passengersDepartedPerHour} má podobný tvar ako graf \ref{fig:passengersArrivedPerHour}.
-To je správne, pretože počet cestujúcich, ktorí vystúpili na zastávke by mal byť rovnaký ako počet cestujúcich, ktorí prišli na zastávku.
-Mohlo by sa stať, že tieto dve hodnoty by sa líšili, v prípade, že ostatnú cestujúci, ktorí sa v priebehu dňa nezmestili do žiadneho vozidla.
-\begin{figure}[h]
-  \label{fig:passengersDepartedPerHour}
-  \centering
-  \includegraphics[width=0.5\textwidth]{passengersDepartedPerHour.png}
-  \caption{Počet cestujúcich, ktorí vystúpili na zastávke v jednotlivých hodinách}
-\end{figure}
 
-\subsection*{Počet cestujúcich, ktorí museli čakať na ďalší spoj v jednotlivých hodinách}
-Na ľavej strane grafu \ref{fig:passengersLeftUnboardedPerHour} je vidieť, že v priebehu ďňa žiaden z cestujúcich nemusel čakať na ďalší spoj.
-Toto je ideálny stav.
-Na pravej strane grafu \ref{fig:passengersLeftUnboardedPerHour} je vidieť, že v priebehu dňa sa počet cestujúcich, ktorí museli čakať na ďalší spoj mení.
-Ráno a okolo obeda nemusel na ďalší spoj čakať nikto, ale v poobednej špičke je vidieť zjavný nedostatok spojov, pretože cestujúci musia čakať na ďalší spoj.
-\begin{figure}[h]
-  \label{fig:passengersLeftUnboardedPerHour}
-  \centering
-  \begin{minipage}{0.49\textwidth}
-    \includegraphics[width=\textwidth]{passengersLeftUnboardedPerHour.png}
-  \end{minipage}
-  \begin{minipage}{0.49\textwidth}
-    \includegraphics[width=\textwidth]{passengersLeftUnboardedPerHour_nonoptimal.png}
-  \end{minipage}
-  \caption{Počet cestujúcich, ktorí museli čakať na ďalší spoj v jednotlivých hodinách}
-\end{figure}
+\subsection*{Počet cestujúcich, ktorí sa nezmestili do vozidla v jednotlivých hodinách}
+Tento údaj je vhodný na zistenie, ktorá časť dňa je poddimenzovaná a bolo by vhodné v tom čase posilniť linku o viacej spojov.
 
 \subsection*{Čas, ktorý cestujúci strávili čakaním na zastávke v jednotlivých hodinách}
 Čas strávený čakaním na zastávke by mal byť počas celého dňa približne rovnaký.
-Na ľavej strane grafu \ref{fig:timeSpentWaitingPerHour} je tento optimálny stav vidieť.
-Bez ohľadu na to, kedy cestujúci prídu na zastávku, čakajú na spoj rovnako dlho.
-Naopak na prave strane grafu \ref{fig:timeSpentWaitingPerHour}, ktorý je výstupom rovnakej simulácie ako pravá strana grafu \ref{fig:passengersLeftUnboardedPerHour}, je zrejmé, že čas čakania na zastávke sa v poobedných hodinách výrazne zvýšil práve kvoli tomu, že cestujúci museli čakať na ďalší spoj.
-\begin{figure}[h]
-  \label{fig:timeSpentWaitingPerHour}
+Na grafe~\ref{fig:timeSpentWaitingPerHour} je vidieť ako sa priemerný čas čakanie pohybuje približne 5 minút, ale o desiatej hodine večer tento čas náhle vzrastie.
+To znamená, že by v tejto hodine malo byť nasadených viac spojov.
+\begin{figure}[h]\label{fig:timeSpentWaitingPerHour}
   \centering
-  \begin{minipage}{0.49\textwidth}
-    \includegraphics[width=\textwidth]{timeSpentWaitingPerHour.png}
-  \end{minipage}
-  \begin{minipage}{0.49\textwidth}
-    \includegraphics[width=\textwidth]{timeSpentWaitingPerHour_nonoptimal.png}
-  \end{minipage}
-  \caption{Čas, ktorý cestujúci strávili čakaním na zastávke v jednotlivých hodinách}
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=0.8\textwidth,
+      height=0.3\textwidth,
+      xlabel={Hodina},
+      ylabel={Priemerný čas (min)},
+      ymin=0,
+      xtick={0,1,...,23},
+      grid=both,
+      major grid style={line width=.2pt,draw=gray!50},
+      minor grid style={line width=.1pt,draw=gray!20},
+      tick label style={font=\small},
+      label style={font=\small},
+      legend style={font=\small, at={(0.5,-0.2)}, anchor=north, legend columns=-1},
+      ybar,
+      bar width=5,
+      ]
+      \addplot[fill=blue] coordinates {
+        (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 5.6816) (6, 3.5224043715846993) (7, 3.293918918918919) 
+        (8, 4.0406386066763424) (9, 6.485714285714286) (10, 6.6003344481605355) (11, 5.993474714518761) 
+        (12, 6.724709784411277) (13, 5.426146010186757) (14, 4.642857142857143) (15, 3.475391498881432) 
+        (16, 4.517279821627648) (17, 3.5940366972477062) (18, 3.4974874371859297) (19, 4.239530988274707) 
+        (20, 4.9318637274549095) (21, 6.843085106382978) (22, 24.545454545454547) (23, 0)
+      };
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Priemerný čas strávený čakaním za hodinu}
 \end{figure}
 
 \subsection*{Kapacita vozidla}
@@ -457,6 +461,10 @@ Tento parameter je dôležitý, pretože na základe neho sa rozhoduje, koľko c
 Zároveň slúži pre výpočet naplnenosti vozidla v percentách.
 Príliš malá alebo príliš veľká naplnenosť vozidla môže byť nežiaduca.
 Na ohodnotenie toho, ako moc je vozidlo naplnené teda treba poznať aj jeho kapacitu.
+
+\subsection*{Počet miest na sedenie}
+Počet miest na sedenie hrá rolu pri výpočte spokojnosti nastupujúceho cestujúceho.
+Pokiaľ má možnosť si sadnúť jeho spokojnosť bude vyššia ako keď by mal stáť.
 
 \subsection*{Priemerná naplnenosť vozidla}
 Priemerná naplnenosť vozidla je dôležitý parameter, ktorý nám hovorí, ako moc sú vozidlá využívané.
@@ -475,20 +483,60 @@ Počas dňa by mali všetky vozidlá prepraviť približne rovnaký počet cestu
 Ak tomu tak nie je a sú vyťažené nerovnomerne, rozpis by sa mal ohodnotiť negatívne.
 
 \subsection*{Naplnenosť vozidla na jednotlivých zastávkach}
-Na grafe \ref{fig:averageLoad} je znázornené ako sa naplnenosť vozidiel mení počas ich jazdy.
+Na grafe~\ref{fig:averageLoad} je znázornené ako sa naplnenosť vozidiel mení počas ich jazdy.
 Konkrétne sa jedná o linku 46 v Brne.
 Naplnenosť sa postupne zvyšuje až kým nepríde na jednu z hlavných prestupných zastávok, Štefánikova čtvrť.
 Tu vystúpi veľké množstvo cestujúcich a naplnenosť vozidla sa zníži.
 Pokiaľ má linka príliš veľké výkivy v naplnenosti vozidiel naprieč svojou trasou, môže to byť znakom toho, že je potrebné trasu na určitých úsekoch posilniť inou linkou.
-\begin{figure}[h]
-  \label{fig:averageLoad}
+\begin{figure}[h]\label{fig:averageLoad}
   \centering
-  \includegraphics[width=\textwidth]{loadInPercentPerBusStop.png}
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=0.8\textwidth,
+      height=0.4\textwidth,
+      xlabel={Naplnenosť},
+      xmin=0, xmax=80,
+      ytick={1,2,...,11},
+      yticklabels={
+        \texttt{Černá Pole, Erbenova},
+        \texttt{Zemědělská},
+        \texttt{Lesnická},
+        \texttt{Provozníkova},
+        \texttt{Štefánikova čtvrť},
+        \texttt{Lesná, nádraží},
+        \texttt{Heleny Malířové},
+        \texttt{Arbesova},
+        \texttt{Blažkova},
+        \texttt{Brechtova},
+        \texttt{Lesná, Haškova}
+      },
+      grid=both,
+      major grid style={line width=.2pt,draw=gray!50},
+      minor grid style={line width=.1pt,draw=gray!20},
+      tick label style={font=\small},
+      label style={font=\small},
+      legend style={font=\small, at={(0.5,-0.15)}, anchor=north, legend columns=-1},
+      xbar,
+      bar width=5,
+      ]
+      \addplot[fill=blue] coordinates {
+        (0, 1) (19, 2) (31, 3) (26, 4) (23, 5) (43, 6) (41, 7) (34, 8) 
+        (27, 9) (19, 10) (10, 11)
+      };
+    \end{axis}
+  \end{tikzpicture}
   \caption{Priemerná naplnenosť vozidla na jednotlivých zastávkach}
 \end{figure}
 
-\chapter{Optimalizácia časového rozpisu linky mestskej hormadnej dopravy} % 15 strán
-\label{optimalizacia}
+
+
+
+\subsection*{Spokojnosť jednotlivých zákazníkov}
+Spokojnosť zákazníkov je klúčová pri optimalizácii časového rozpisu, na základe nej sa bude rozpis ohodnocovať.
+Spokojnosť sa počíta pre každého cestujúceho a nakonci sa vypočíta priemer za celý deň.
+
+
+\chapter{Optimalizácia časového rozpisu linky mestskej hormadnej dopravy}\label{optimalizacia}
 
 Optimalizácia časového rozpisu je zložitý problém s veľkým množstvom premenných a obmedzení.
 Táto kapitola pojednáva o daných vstupoch, obmedzeniach, použitej optimalizačnej metóde a výstupoch optimalizácie.
@@ -498,10 +546,9 @@ Genetický algoritmus je heuristická optimalizačná metóda, ktorá sa inšpir
 Je založená na princípe prírodného výberu, kde sa najlepšie jedince z populácie vyberajú na reprodukciu a vytvárajú novú generáciu.
 Tento proces sa opakuje, až kým sa nenájde optimálne riešenie alebo sa nedosiahne maximálny počet generácií.
 Na ohodnotenie jedinca sa používa fitness funkcia, ktorá hodnotí kvalitu riešenia na základe zadaných kritérií.
-V prípade časových rozpisov MHD sa na výpočet fitness funkcie používajú štatistiky zo simulácie, ktoré sú popísané v kapitole \ref{vystupy_simulacneho_modelu}.
+V prípade časových rozpisov MHD sa na výpočet fitness funkcie používajú štatistiky zo simulácie, ktoré sú popísané v kapitole~\ref{vystupy_simulacneho_modelu}.
 
-\section{Vstupy potrebné od používateľa}
-\label{vstupy_pouzivatela}
+\section{Vstupy potrebné od používateľa}\label{vstupy_pouzivatela}
 Na to aby mohol algoritmus fungovať, je potrebné zadať niekoľko vstupných parametrov.
 Najdôležitejším z nich sú informácie o zastávkach. O každej zastávke je potrebné zadať:
 \begin{itemize}
@@ -528,7 +575,7 @@ Príklad toho ako by mali vyzerať záznami o zastávkach:
 \end{itemize}
 Kapacita vozidla a počet miest na sedenie sú potrebné pre výpočet naplnenosti vozidla, od ktorého sa potom odvíja spokojnosť cestujúcich.
 Celkové náklady na 100 miestokilometrov a dĺžka trasy sú potrebné pre výpočet nákladov na prevádzku linky.
-Podrobnejší popis výpočtu celkovej spokojnosti a nákladov na prevádzku je v kapitole \ref{implementacia_genetickeho_algoritmu}.
+Podrobnejší popis výpočtu celkovej spokojnosti a nákladov na prevádzku je v kapitole~\ref{implementacia_genetickeho_algoritmu}.
 
 Potom je potrebné zadať parametre genetického algoritmu, ktoré sú:
 \begin{itemize}
@@ -546,21 +593,21 @@ V prípade ak pre niektorú hodinu neexistuje údaj o priemernom počte prichád
 Tento krok výrazne prispieva k lepším výsledkom optimalizácie, pretože dopredu vieme, že v tejto hodine nebude žiaden spoj potrebný.
 Zároveň s nižším počtom spojov vo všetkých rozpisoch počas optimalizácie sa výpočet výrazne urýchli.
 
-\section{Základná implementácia genetického algoritmu}
-\label{implementacia_genetickeho_algoritmu}
+\section{Základná implementácia genetického algoritmu}\label{implementacia_genetickeho_algoritmu}
 Na optimalizáciu časového rozpisu bol použitý genetický algoritmus.
 Genetický algoritmus je heuristická optimalizačná metóda, ktorá sa inšpiruje Darwinovou teóriou evolúcie.
 Podľa citátu od Charlesa Darwina, "V prírode je prežitie a úspech otázkou tých najschopnejších a najpríťažlivejších",
 aj genetický algoritmus sa snaží nájsť najlepšie riešenie problému pomocou evolučného procesu.
+
 Používajú sa postupy ako je náhodná mutácia jedinca a rozne typy výberu a kríženia jedincov.
 Myšlienka je, že najlepší jedinci v generácii buď splňujú požiadavky alebo sú veľmi blízko k optimálnemu riešeniu.
 Predpokladá sa, že týto jedinci majú najlepšie predispozície na to, aby ich potomkovia boli o krok bližšie k optimálnemu riešeniu.
 Využitie genetického algoritmu je efektívne v prípadoch, kedy by deterministické metódy trvali príliš dlho alebo by vôbec neboli schopné nájsť optimálne riešenie.
-Genetický algoritmus bol prvýkrát predstavený okolo roku 1960 Johnom Hollandom na Univerzite v Michigane (viď \cite{9002372}).
+Genetický algoritmus bol prvýkrát predstavený okolo roku 1960 Johnom Hollandom na Univerzite v Michigane.
+Tieto informácie sú prevzaté zo zborníku z konferencie ICCES 2019~\cite{immanuel2019genetic}.
 
-\vspace*{\dimexpr 0.5\baselineskip\relax}
-\begin{algorithm}[H]
-\label{algoritmus_geneticky_algoritmus}
+\vspace*{\dimexpr0.5\baselineskip\relax}
+\begin{algorithm}[H]\label{algoritmus_geneticky_algoritmus}
 \caption{Genetický algoritmus}
   Inicializácia prvej populácie\;
   Definovanie fitness funkcie\;
@@ -601,9 +648,8 @@ Celkové náklady na prevádzku linky sú vypočítané z počtu spojov v časov
 Jeden miestokilometer je definovaný ako vzdialenosť jedného kilometra, ktorú prejde jedno miesto vo vozidle.
 Potom vozidlo s kapacitu 80 miest, ktoré prejde 10 km, prejde 800 miestokilometrov.
 Miestokilometre sa môžu násobiť aj počtom vozidiel, potom dve takéto vozidlá by prešli 1600 miestokilometrov.
-Informácie o tejto jednotke sú prevzaté od pána Michala Hlaváčka, zamestnanca Dopravného podniku mesta Brno, pomoocu mailovej komunikácie, ktorá je dostupná v prílohe \ref{prilohy_mail_hlavacek}.
-Tento údaj je potrebný pretože náklady vo finančnom pláne Dopravného podniku mesta Brno sú udávané v českých korunách na 100 miestokilometrov.
-Finančný plán na rok 2025 je v prílohe \ref{prilohy_financny_model}.
+Informácie o tejto jednotke sú prevzaté od pána Michala Hlaváčka, zamestnanca Dopravného podniku mesta Brno, pomoocu mailovej komunikácie, ktorá je dostupná v prílohe~\ref{prilohy_mail_hlavacek}.
+Tento údaj je potrebný pretože náklady vo finančnom pláne Dopravného podniku mesta Brno sú udávané v českých korunách na 100 miestokilometrov\footnote{Finančný plán na rok 2025, z ktorého boli čerpané sumy je súčasťou zmluvy dostupnej na \url{https://smlouvy.gov.cz/smlouva/31154992}}.
 Celý výpočet nákladov na prevádzku linky teda závisí od štyroch premenných a je daný vzorcom:
 \begin{equation}
   \text{ceľkové náklady} = \frac{\text{dĺžka trasy} \cdot \text{počet spojov} \cdot \text{kapacita vozidla}}{100} \cdot \text{náklady}
@@ -621,90 +667,89 @@ V prípade, že dominuje iba v jendom, ale v druhom nie, patria do rovnakej skup
 Ak je jedinec horší v oboch cieľoch, hovoríme, že je dominovaný.
 Každá generácia sa rozdelí do rovnocenných skupín, pri výbere rodičov sa uprednostňujú jedinci z lepšej skupiny.
 Najlepšia skupina sa nazýva Pareto front, ide o množinu takých jedinov, nad ktorými nedominuje žiaden iný jedinec.
-Na obrázku \ref{fig:pareto_front} je znázornený Pareto front pre dva ciele, spokojnosť a náklady.
+Na obrázku~\ref{fig:pareto_front} je znázornený Pareto front pre dva ciele, spokojnosť a náklady.
 Multi-objektívne genetické algoritmy dokážu pracovať aj s viac ako dvoma cieľmi.
 Pre optimalizáciu časového rozpisu však stačia dva, jeden zo strany zákazníka (spokojnosť) a druhý zo strany dopravného podniku (náklady).
-Tieto základné informácie o fungovaní multi-objektívnych genetických algoritmov s použitím Pareto frontu sú prevzaté z článku \cite{1599245}.
+Tieto základné informácie o fungovaní multi-objektívnych genetických algoritmov s použitím Pareto frontu sú prevzaté z článku~\cite{ngatchou2005pareto}.
 
-\begin{figure}[h]
-    \label{fig:pareto_front}
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-            xlabel={Náklady (nižšie je lepšie)},
-            ylabel={Spokojnosť (vyššie je lepšie)},
-            title={Príklad Pareto frontu},
-            grid=major,
-            legend pos=south east,
-            width=12cm,
-            height=6cm,
-            scatter/classes={
-                dominated={mark=o,draw=blue},
-                pareto={mark=*,draw=red,fill=red}
-            }
-        ]
-        \addplot[
-            scatter,
-            only marks,
-            scatter src=explicit symbolic
-        ]
-        table[meta=label] {
-            x y label
-            420.0 0.72 pareto
-            430.0 0.76 pareto
-            440.0 0.80 pareto
-            450.0 0.83 pareto
-            460.0 0.86 pareto
-            470.0 0.88 pareto
-            480.0 0.9 pareto
-            490.0 0.92 pareto
-            500.0 0.93 pareto
-            510.0 0.94 pareto
-            520.0 0.945 pareto
-            530.0 0.95 pareto
-            540.0 0.952 pareto
-            550.0 0.954 pareto
-            560.0 0.956 pareto
-            570.0 0.958 pareto
-            580.0 0.96 pareto
+\begin{figure}[h]\label{fig:pareto_front}
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      xlabel={Náklady (nižšie je lepšie)},
+      ylabel={Spokojnosť (vyššie je lepšie)},
+      title={Príklad Pareto frontu},
+      grid=major,
+      legend pos=south east,
+      width=12cm,
+      height=6cm,
+      scatter/classes={
+        dominated={mark=o,draw=blue},
+        pareto={mark=*,draw=red,fill=red}
+      }
+    ]
+    \addplot[
+      scatter,
+      only marks,
+      scatter src=explicit symbolic
+    ]
+    table[meta=label] {
+      x y label
+      420.0 0.72 pareto
+      430.0 0.76 pareto
+      440.0 0.80 pareto
+      450.0 0.83 pareto
+      460.0 0.86 pareto
+      470.0 0.88 pareto
+      480.0 0.9 pareto
+      490.0 0.92 pareto
+      500.0 0.93 pareto
+      510.0 0.94 pareto
+      520.0 0.945 pareto
+      530.0 0.95 pareto
+      540.0 0.952 pareto
+      550.0 0.954 pareto
+      560.0 0.956 pareto
+      570.0 0.958 pareto
+      580.0 0.96 pareto
 
-            460.0 0.70 dominated
-            470.0 0.72 dominated
-            460.0 0.8 dominated
-            475.0 0.75 dominated
-            480.0 0.78 dominated
-            482.0 0.80 dominated
-            485.0 0.82 dominated
-            488.0 0.80 dominated
-            500.0 0.90 dominated
-            500.0 0.85 dominated
-            510.0 0.72 dominated
-            518.0 0.75 dominated
-            519.0 0.80 dominated
-            521.0 0.90 dominated
-            545.0 0.80 dominated
-            547.0 0.75 dominated
-            550.0 0.70 dominated
-            551.0 0.78 dominated
-            551.0 0.85 dominated
-            553.0 0.91 dominated
-            560.0 0.82 dominated
-            580.0 0.75 dominated
-        };
-        \legend{Dominované, Pareto Front}
-        \end{axis}
-    \end{tikzpicture}
-    \caption{Príklad Pareto frontu}
+      460.0 0.70 dominated
+      470.0 0.72 dominated
+      460.0 0.8 dominated
+      475.0 0.75 dominated
+      480.0 0.78 dominated
+      482.0 0.80 dominated
+      485.0 0.82 dominated
+      488.0 0.80 dominated
+      500.0 0.90 dominated
+      500.0 0.85 dominated
+      510.0 0.72 dominated
+      518.0 0.75 dominated
+      519.0 0.80 dominated
+      521.0 0.90 dominated
+      545.0 0.80 dominated
+      547.0 0.75 dominated
+      550.0 0.70 dominated
+      551.0 0.78 dominated
+      551.0 0.85 dominated
+      553.0 0.91 dominated
+      560.0 0.82 dominated
+      580.0 0.75 dominated
+    };
+    \legend{Dominované, Pareto Front}
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Príklad Pareto frontu}
 \end{figure}
 
-\section{Implementácia multi-objektívneho genetického algoritmu}
+\section{Multi-objektívny genetick7 algoritmus}
 
 Pre účely multi-objektívnej optimalizácie bol použitý algoritmus NSGA-II (Non-dominated Sorting Genetic Algorithm II).
-V článku \cite{996017} je porovnanie tohto algoritmu s inými multi-objektívnymi genetickými algoritmami.
+V článku~\cite{deb2002nsga} je porovnanie tohto algoritmu s inými multi-objektívnymi genetickými algoritmami.
 NSGA-II vo viacerých testoch preukázal, že má lepšie rozloženie a diverzitu jedincov v Pareto fronte ako iné algoritmy.
 Práve pre túto vlastnosť bol zvolený aj pre túto prácu.
-Okrem testov je v článku \cite{996017} aj podrobný popis fungovania algoritmu.
-Algoritmy \ref{algoritmus_nsga2}, \ref{algoritmus_non_dominated_sorting}, \ref{algoritmus_crowding_distance_assignment} a \ref{algoritmus_comparsion_operator} boli z tohto článku prevzaté a mierne upravené pre účely tejto práce.
+Okrem testov je v článku~\cite{deb2002nsga} aj podrobný popis fungovania algoritmu.
+Algoritmy~\ref{algoritmus_nsga2},~\ref{algoritmus_non_dominated_sorting},~\ref{algoritmus_crowding_distance_assignment} a~\ref{algoritmus_comparsion_operator} boli z tohto článku prevzaté a mierne upravené pre účely tejto práce.
 
 NSGA-II je založený na triedení jedincov do frontov na základe ich dominancie nad inými jedincami.
 Pri výbere jedincov pri krížení sa uprednostňujú jedinci z lepších frontov.
@@ -723,16 +768,15 @@ Jedinci z posledného frontu sa vyberajú na základe zhlukovej vzdialenosti, ab
 Populácia prvej genrácie sa musí spracovať trochu inak ako ostatné generácie.
 Hlavný cyklus algoritmu NSGA-II sa začína spojením rodičov a potomkov do jedného celku.
 Na začiatku však žiadnych potomkov nemáme.
-Algoritmus \ref{algoritmus_initialization_generation} popisuje ako sa vytvorí populácia prvej generácie a jej potomkovia.
+Algoritmus~\ref{algoritmus_initialization_generation} popisuje ako sa vytvorí populácia prvej generácie a jej potomkovia.
 Najprv sa vytvorí prvá generácia jedincov, tým sa náhodne vygenerujú chromozómy.
 Následne sa týto jedinci roztriedia na fronty pomocou rýchleho nedominantného triedenia.
 V rámci každého frontu sa vypočíta zhluková vzdialenosť každého jedinca.
 Na základe získaných ohodnotení sa vyberú tí lepší rodičia a za pomoci kríženia a mutácie sa vytvorí prvá generácia potomkov.
 
-\vspace*{\dimexpr 0.5\baselineskip\relax}
-\begin{algorithm}[h]
+\vspace*{\dimexpr0.5\baselineskip\relax}
+\begin{algorithm}[h]\label{algoritmus_initialization_generation}
 \caption{Inicializácia prvej generácie}
-\label{algoritmus_initialization_generation}
 \KwIn{Veľkosť populácie $N$}
   $t \gets 0$ (počiatočná generácia)\;
   $P_t \gets \emptyset$ (inicializácia populácie)\;
@@ -749,7 +793,7 @@ Na základe získaných ohodnotení sa vyberú tí lepší rodičia a za pomoci 
 
 \subsection*{Hlavná slučka algoritmu NSGA-II}
 Po inicializácii prvej generácie sa ostatné môžu spracovávať rovnako.
-Ako je vidieť v algoritme \ref{algoritmus_nsga2}, hlavná slučka začína spojením rodičov a potomkov do jednej populácie.
+Ako je vidieť v algoritme~\ref{algoritmus_nsga2}, hlavná slučka začína spojením rodičov a potomkov do jednej populácie.
 Novo vzniknutá populácia sa následne rozdelí do frontov na základe ich dominancie.
 Následuje kombinovaný cyklus na spracovanie jednotlivých frontov, ktorý ma dve úlohy:
 \begin{enumerate}
@@ -763,10 +807,9 @@ Z novovzniknutej populácie sa následne vytvorí nová generácia potomkov.
 Vo všeobecnosti sa táto slučka vykonáva pokiaľ nie je dosiahnutý maximálny počet generácií alebo pokiaľ nebol nájdený optimálny jedinec.
 V prípade tejto práce sa však bere do úvahy iba maximálny počet generácií.
 
-\vspace*{\dimexpr 0.5\baselineskip\relax}
-\begin{algorithm}[h]
+\vspace*{\dimexpr0.5\baselineskip\relax}
+\begin{algorithm}[h]\label{algoritmus_nsga2}
 \caption{Hlavná slučka algoritmu NSGA-II}
-\label{algoritmus_nsga2}
   $R_t \gets P_t \cup Q_t$ (zlučovanie rodičov a potomkov)\;
   $F \gets \text{rýchle\_nedominantné\_triedenie}(R_t)$\;
   $P_{t+1} \gets \emptyset$ (inicializácia novej populácie)\;
@@ -793,12 +836,12 @@ Triedenie sa vykonáva v dvoch krokoch:
   \item Vytvorenie zvyšných frontov za základe získaných hodnôt $S_p$ a $n_p$ z predchádzajúceho kroku
 \end{itemize}
 V prvom kroku sa musia porovnať všetci jedinci navzájom.
-Pre každého jedinca $p$ v prvom cykle algoritmu \ref{algoritmus_non_dominated_sorting} sa vypočíta množina $S_p$, ktorá obsahuje všetkých jedincov, ktorých dominuje $p$ a počet $n_p$, ktorý udáva počet jedincov, ktorí dominujú $p$.
+Pre každého jedinca $p$ v prvom cykle algoritmu~\ref{algoritmus_non_dominated_sorting} sa vypočíta množina $S_p$, ktorá obsahuje všetkých jedincov, ktorých dominuje $p$ a počet $n_p$, ktorý udáva počet jedincov, ktorí dominujú $p$.
 Pokiaľ je $n_p = 0$, jedinec $p$ je nie je nikým dominovaný a pripojí sa do prvého frontu.
 Taktiež sa mu priradí hodnota $p_{rank} = 1$.
 Rank je hodnota, ktorá udáva v akom fronte sa jedinec nachádza, čím nižšia hodnota, tým je jedinec lepší.
 
-Následuje druhý hlavný cyklus algoritmu \ref{algoritmus_non_dominated_sorting}, ktorý vytvorí zvyšné fronty.
+Následuje druhý hlavný cyklus algoritmu~\ref{algoritmus_non_dominated_sorting}, ktorý vytvorí zvyšné fronty.
 Princíp je taký, že pre každého jedinca $p$ v posledne vytvorenom fronte sa upravia hodnoty $n_q$ všetkých jedincov $q$ z množiny $S_p$.
 To vpodstate znamená odstránenie jedinca $p$ z riešeného problému.
 Na konci tohto cyklu by sa mal z problému odstrániť celý front $F_i$.
@@ -808,10 +851,9 @@ Tento cyklus sa opakuje až pokým sa do najnovšieho frontu nemá kto pridať.
 
 Toto triedenie teda iteratívne nachádza najlepší front a odstraňuje ho z problému až pokým sa nenájdu všetky fronty.
 
-\vspace*{\dimexpr 0.5\baselineskip\relax}
-\begin{algorithm}[h]
+\vspace*{\dimexpr0.5\baselineskip\relax}
+\begin{algorithm}[h]\label{algoritmus_non_dominated_sorting}
 \caption{Rýchle nedominantné triedenie}
-\label{algoritmus_non_dominated_sorting}
 \KwIn{Populácia $P$}
 \KwOut{Fronty nedominovaných jedincov $F$}
   $F \gets \emptyset$ (množina frontov)\;
@@ -853,16 +895,15 @@ Toto triedenie teda iteratívne nachádza najlepší front a odstraňuje ho z pr
 V rámci jednoho frontu sa jedinci porovnávajú na základe zhlukovej vzdialenosti.
 Zhluková vzdialenosť je definovaná ako vzdialenosť jedinca od jeho susedov vo fronte.
 Vypočítava sa pre každý cieľ zvlášť a následne sa spočíta.
-Najdôležitejšou časťou algoritmu \ref{algoritmus_crowding_distance_assignment} je cyklus, ktorý sa vykonáva pre každý cieľ $c$.
+Najdôležitejšou časťou algoritmu~\ref{algoritmus_crowding_distance_assignment} je cyklus, ktorý sa vykonáva pre každý cieľ $c$.
 Najprv sa jedinci zoradia podľa dosiahnutých hodnôt cieľa $c$.
 Následne sa vytýčia krajné body, jedincom s najmenšou a najväčšou hodnotou cieľa $c$ sa priradí nekonečná zhluková vzdialenosť, pretože sú najviac diverzní.
 Pre všetkých ostatných jedincov vo fronte a pre cieľ $c$ sa vypočíta zhluková vzdialenosť ako podiel rozdielu hodnôt susedov a rozdielu krajných jedincov.
 Tieto dielčie vzdialenosti sa postupne sčítavajú do celkovej zhlukovej vzdialenosti jedinca.
 
-\vspace*{\dimexpr 0.5\baselineskip\relax}
-\begin{algorithm}[h]
+\vspace*{\dimexpr0.5\baselineskip\relax}
+\begin{algorithm}[h]\label{algoritmus_crowding_distance_assignment}
 \caption{Priradenie zhlukovej vzdialenosti}
-\label{algoritmus_crowding_distance_assignment}
 \KwIn{Front $L$}
   $l \gets |L|$ (počet jedincov frontu)\;
   \For{každý jedinec $p \in L$} {
@@ -879,16 +920,15 @@ Tieto dielčie vzdialenosti sa postupne sčítavajú do celkovej zhlukovej vzdia
 \end{algorithm}
 
 \subsection*{Porovnávací operátor $\prec_n$}
-Informácie získané z rýchleho nedominantného triedenia \ref{algoritmus_non_dominated_sorting} a priradenia zhlukovej vzdialenosti \ref{algoritmus_crowding_distance_assignment} sa použijú na porovnanie dvoch jedincov.
+Informácie získané z rýchleho nedominantného triedenia~\ref{algoritmus_non_dominated_sorting} a priradenia zhlukovej vzdialenosti~\ref{algoritmus_crowding_distance_assignment} sa použijú na porovnanie dvoch jedincov.
 Pokiaľ je jedinec $p$ z lep3ieho frontu ako jedinec $q$, teda má lepší, nižší rank, $p$ dominuje $q$.
 Ak sú jedinci z rovnakého frontu, porovnávajú sa na základe zhlukovej vzdialenosti.
 Dominuje ten, ktorý má väčšiu zhlukovú vzdialenosť, to znamená, že sa výraznejšie odlišuje od svojich susedov vo fronte.
-Tento porovnávací operátor je znázornený v algoritme \ref{algoritmus_comparsion_operator}.
+Tento porovnávací operátor je znázornený v algoritme~\ref{algoritmus_comparsion_operator}.
 
-\vspace*{\dimexpr 0.5\baselineskip\relax}
-\begin{algorithm}[h]
+\vspace*{\dimexpr0.5\baselineskip\relax}
+\begin{algorithm}[h]\label{algoritmus_comparsion_operator}
 \caption{Porovnávací operátor $\prec_n$}
-\label{algoritmus_comparsion_operator}
 \KwIn{Jedinci $p$ a $q$}
 \KwOut{True ak $p$ dominuje $q$, inak False}
   \Return $p_{rank} < q_{rank} \vee (p_{rank} = q_{rank} \wedge p_{vzdialenost} > q_{vzdialenost})$\;
@@ -903,7 +943,7 @@ Všeobecne môže byť obmedzení aj viac, v takom prípade sa porovnáva počet
 Napríklad ak by sme mali tri rôzne obmedzenia, časový rozpis môže porušovať 0, 1, 2 alebo 3 z nich.
 Vyhráva ten rozpis ktorý ich porušuje menej.
 V prípade ak oba rozpisy porušujú rovnaký počet obmedzení, porovnáme ich podľa operátora $\prec_n$.
-Pre potreby tejto práce máme len jedno spomínané obmedzenie, bližšie informácie k implementácii viacerých obmedzení sú v článku \cite{996017}.
+Pre potreby tejto práce máme len jedno spomínané obmedzenie, bližšie informácie k implementácii viacerých obmedzení sú v článku~\cite{deb2002nsga}.
 
 \subsection*{Vytvorenie nových potomkov}
 Genetický algoritmus by sa nezaobišiel bez vytvárania nových potomkov.
@@ -914,12 +954,11 @@ Tento proces sa dá rozdeliť na tri hlavné časti:
   \item Mutácia potomkov
 \end{enumerate}
 Z každého kríženia vzniknú dvaja noví potomkovia, to znamená, že tento proces asa musí vykonať $N/2$ krát, pokiaľ je veľkosť populácie $N$.
-Druhá možnosť ako ukončiť tento proces je znázornená v algoritme \ref{algoritmus_vytvorenie_novych_potomkov}, kde sa noví potomkovia prídávajú do množiny $Q$ pokiaľ je ich počet menší ako $N$.
+Druhá možnosť ako ukončiť tento proces je znázornená v algoritme~\ref{algoritmus_vytvorenie_novych_potomkov}, kde sa noví potomkovia prídávajú do množiny $Q$ pokiaľ je ich počet menší ako $N$.
 
-\vspace*{\dimexpr 0.5\baselineskip\relax}
-\begin{algorithm}[h]
+\vspace*{\dimexpr0.5\baselineskip\relax}
+\begin{algorithm}[h]\label{algoritmus_vytvorenie_novych_potomkov}
 \caption{Vytvorenie nových potomkov}
-\label{algoritmus_vytvorenie_novych_potomkov}
 \KwIn{Populácia $P$}
 \KwOut{Noví potomkovia $Q$}
   $Q \gets \emptyset$ (inicializácia nových potomkov)\;
@@ -938,18 +977,17 @@ Druhá možnosť ako ukončiť tento proces je znázornená v algoritme \ref{alg
 Pred tým ako sa budú rodičia medzi sebou krížiť, je potrebné ich vybrať.
 Pre túto prácu bol zvolený turnajový výber rodiča.
 Turnajový výber funguje tak, že sa náhodne vyberie $k$ jedincov z populácie, z ktorých sa turnajovým spôsobom vyberie ten najlepší.
-V algoritme \ref{algoritmus_vyber_rodica} je zvolený turnajový výber s $k = 2$, \textit{binary tournament}, teda sa vyberú dvaja náhodní jedinci a porovnajú sa pomocou porovnávacieho operátora $\prec_n$.
+V algoritme~\ref{algoritmus_vyber_rodica} je zvolený turnajový výber s $k = 2$, \textit{binary tournament}, teda sa vyberú dvaja náhodní jedinci a porovnajú sa pomocou porovnávacieho operátora $\prec_n$.
 
 Turnajový výber bol pre túto prácu zvolený, pretože je jednoduchý na implementáciu a má dobré výsledky v porovnaní s inými typmi výberu rodičov.
-V článku \cite{8477847} je porovnanie roznych typov výberu rodičov.
+V zborníku z konferencie CEC~\cite{farias2018parent} je porovnanie roznych typov výberu rodičov.
 Turnajový výber má veľmi podobné výsledky ako náhodný výber rodiča, pravdepodobne z dôvodu malého počtu jedincov v turnaji.
 Vyšší počet by však mohol celú optimalizáciu spomaliť.
 Pokusmi sme odhadli počet jedincov v turnaji na 2.
 
-\vspace*{\dimexpr 0.5\baselineskip\relax}
-\begin{algorithm}[h]
+\vspace*{\dimexpr0.5\baselineskip\relax}
+\begin{algorithm}[h]\label{algoritmus_vyber_rodica}
 \caption{Výber rodiča}
-\label{algoritmus_vyber_rodica}
 \KwIn{Populácia $P$}
 \KwOut{Rodič $p$}
   $p_1 \gets \text{náhodný jedinec z } P$\;
@@ -965,20 +1003,19 @@ Pokusmi sme odhadli počet jedincov v turnaji na 2.
 \subsection*{Kríženie rodičov}
 Kríženie znamená výmenu génov v chromozómoch rodičov.
 Tým vznikajú noví jedinci, potomkovia.
-V algoritme \ref{algoritmus_krizenie_rodicov} je znázrnené kríženie dvoch rodičov.
+V algoritme~\ref{algoritmus_krizenie_rodicov} je znázrnené kríženie dvoch rodičov.
 Pre každý gén v chromozómoch rodičov sa náhodne vyberie jeden z rodičov a jeho gén sa priradí prvému potomkovi.
 Gén z druhého rodiča sa priradí druhému potomkovi.
 Tento proces sa opakuje pre všetky gény v chromozómoch rodičov.
 Je vidieť, že takýmto krížením vzniknú dvaja noví jedinci, preto stačí toto kríženie vykonať len $N/2$ krát, pokiaľ je veľkosť populácie $N$.
 
 Tento typ kríženia je známy ako \textit{uniform crossover} a je veľmi populárny v genetických algoritmoch.
-Porovnanie rôznych typov kríženia je v článku \cite{7414781}.
+Porovnanie rôznych typov kríženia je v zborníku z konferencie ICIIP~\cite{bala2015comparative}.
 Na základe výsledkov v tomto článku bol zvolený typ kríženia s najväčšou diverzitou výsledkov aby sa zamedzilo predčasnej konvergencii, teda aby sa algoritmus nezastavil na lokálnom minime.
 
-\vspace*{\dimexpr 0.5\baselineskip\relax}
-\begin{algorithm}[h]
+\vspace*{\dimexpr0.5\baselineskip\relax}
+\begin{algorithm}[h]\label{algoritmus_krizenie_rodicov}
 \caption{Kríženie rodičov}
-\label{algoritmus_krizenie_rodicov}
 \KwIn{Rodičia $p_1$ a $p_2$}
 \KwOut{Potomkovia $q_1$ a $q_2$}
   \For{každý gén $g$ v $p_1$} {
@@ -997,14 +1034,13 @@ Na základe výsledkov v tomto článku bol zvolený typ kríženia s najväčš
 \subsection*{Mutácia jedinca}
 Posledným krokom v procese vytvorenia nových potomkov je mutácia.
 Mutácia zvyšuje diverzitu jedincov a zabraňuje predčasnému uviaznutiu v lokálnych extrémoch.
-V algoritme \ref{algoritmus_mutacia_jedinca} je znázornená mutácia jedinca.
+V algoritme~\ref{algoritmus_mutacia_jedinca} je znázornená mutácia jedinca.
 Pre každý gén v chromozóme sa náhodne vyberie číslo z intervalu $[0,1]$.
 Ak je toto číslo menšie ako pravdepodobnosť mutácie, gén sa nahradí náhodným génom.
 
-\vspace*{\dimexpr 0.5\baselineskip\relax}
-\begin{algorithm}[h]
+\vspace*{\dimexpr0.5\baselineskip\relax}
+\begin{algorithm}[h]\label{algoritmus_mutacia_jedinca}
 \caption{Mutácia jedinca}
-\label{algoritmus_mutacia_jedinca}
 \KwIn{Jedinec $p$}
   \For{každý gén $g$ v $p$} {
     \If{$\text{random}(0,1) < \text{pravdepodobnosť mutácie}$} {
@@ -1013,8 +1049,7 @@ Ak je toto číslo menšie ako pravdepodobnosť mutácie, gén sa nahradí náho
   }
 \end{algorithm}
 
-\section{Výstupy optimalizácie}
-\label{vystupy_optimalizacie}
+\section{Výstupy optimalizácie}\label{vystupy_optimalizacie}
 
 Výstupom klasického genetického algoritmu by mal byť jedinec s najlepším ohodnotením.
 V prípade NSGA-II je to front s najlepšími jedincami.
@@ -1026,10 +1061,9 @@ Pre výber toho najlepšieho jedinca je potrebné rozhodnúť sa, ktorý z cieľ
 Táto práca sa už musí nechať na používateľa programu, ktorý sa sám rozhodne, ktorý z rozpisov je pre neho najlepší.
 Z výsledkov priebežných experimentov počas vývoja programu sa ukázalo, že rozpisy s vyššou spokojnosťou cestujúcich majú z pravidla aj vyššie celkové náklady.
 Ako postupne klesajú náklady, klesá aj spokojnosť cestujúcich, pretože sa znižuje počet spojov, to má za následok preplnenejšie vozidlá a dlhšie čakacie doby na zastávkach.
-Tieto experimenty sú bližšie popísané v kapitole \ref{experimenty}.
+Tieto experimenty sú bližšie popísané v kapitole~\ref{experimenty}.
 
-\begin{figure}[h]
-  \label{fig:population_start_end}
+\begin{figure}[h]\label{fig:population_start_end}
   \centering
   \begin{tikzpicture}
     \begin{axis}[
@@ -1159,13 +1193,13 @@ Tieto experimenty sú bližšie popísané v kapitole \ref{experimenty}.
   \caption{Populácia na začiatku a na konci optimalizácie}
 \end{figure}
 
-Na obrázku \ref{fig:population_start_end} je vidieť priaznivé výsledky optimalizácie.
+Na obrázku~\ref{fig:population_start_end} je vidieť priaznivé výsledky optimalizácie.
 Algoritmus NSGA-II sa po 100 generáciach priblížil k optimálnemu frontu riešení.
 Oproti prvej generácii sa značne znížili náklady a zvýšila spokojnosť cestujúcich.
 Tento výsledok ukazuje, že genetický algoritmus dokáže efektívne nájsť kompromis medzi protichodnými cieľmi, ako sú náklady a spokojnosť.
 Použitie NSGA-II umožnilo zachovať diverzitu riešení, čo poskytuje používateľovi možnosť výberu najvhodnejšieho časového rozpisu podľa jeho preferencií.
-\chapter{Experimenty} % 10 strán
-\label{experimenty}
+
+\chapter{Experimenty}\label{experimenty}
 
 V tejto kapitole sú podrobne popísané experimentálne scenáre, ktoré boli navrhnuté na posúdenie výkonnosti optimalizačného algoritmu aplikovaného na plánovanie liniek MHD.
 Cieľom bolo preskúmať, ako algoritmus reaguje na zmeny v parametroch ako sú dĺžka trasy, dĺžka vozidla a počet zastávok.
@@ -1182,7 +1216,7 @@ Ostatné parametre sú špecifické pre jednotlivé experimenty a sú uvedené v
 Parametre zariadenia na ktorom boli experimenty vykonané sú:
 \begin{itemize}
   \item \textbf{Operačný systém} --- Windows 11 Pro 64-bit
-  \item \textbf{Procesor} --- Intel Core i7-9750H CPU @ 2.60GHz
+  \item \textbf{Procesor} --- Intel Core i7--9750H CPU @ 2.60GHz
   \item \textbf{RAM} --- 16 GB DDR4
 \end{itemize}
 
@@ -1194,7 +1228,7 @@ Každý experiment trval približne od 45 minút do 1.5 hodiny v závislosti od 
 \section{Experiment s krátkou trasou a krátkym vozidlom}
 Cieľom tohto experimentu je zistiť, ako sa algoritmus vyrovnáva s krátkou trasou a krátkym vozidlom.
 Ako referencia bola zvolená linka 46 v Brne, ktorej trasa pozostáva z 11 zastávok.
-Parametry experimentu sú uvedené v tabuľke \ref{tab:shortDshortVin}.
+Parametry experimentu sú uvedené v tabuľke~\ref{tab:shortDshortVin}.
 
 \begin{table}[h]
   \centering
@@ -1210,7 +1244,7 @@ Parametry experimentu sú uvedené v tabuľke \ref{tab:shortDshortVin}.
   \label{tab:shortDshortVin}
 \end{table}
 
-Ako je vidieť v tabuľke \ref{tab:shortDshortVout}, optimalizácia prebehla úspešne.
+Ako je vidieť v tabuľke~\ref{tab:shortDshortVout}, optimalizácia prebehla úspešne.
 Algoritmus bol schopný vygenerovať rozpis, pri ktorom je spokojnosť cestujúcich 94\% a počet cestujúcich.
 Vozidlá sú v priemere zaplnené do jednej tretiny, pretože ich je až 115, to je o 3 spoje menej ako je aktu8lny rozpis linky 46.
 
@@ -1233,14 +1267,14 @@ Vozidlá sú v priemere zaplnené do jednej tretiny, pretože ich je až 115, to
   \label{tab:shortDshortVout}
 \end{table}
 
-Celý rozpis zastávok, časový rozpis a grafy podrobnejšie popisujúce tento experiment sú uvedené v prílohe \ref{shortDshortV}.
+Celý rozpis zastávok, časový rozpis a grafy podrobnejšie popisujúce tento experiment sú uvedené v prílohe~\ref{shortDshortV}.
 
 \newpage
 
 \section{Experiment s krátkou trasou a dlhým vozidlom}
 Cieľom tohto experimentu je zistiť, ako sa algoritmus vyrovnáva s krátkou trasou a dlhým vozidlom.
 Ako referencia bola zvolená linka 46 v Brne, ktorej trasa pozostáva z 11 zastávok.
-Parametry experimentu sú uvedené v tabuľke \ref{tab:shortDlongVin}.
+Parametry experimentu sú uvedené v tabuľke~\ref{tab:shortDlongVin}.
 
 \begin{table}[h]
   \centering
@@ -1256,7 +1290,7 @@ Parametry experimentu sú uvedené v tabuľke \ref{tab:shortDlongVin}.
   \label{tab:shortDlongVin}
 \end{table}
 
-V tabuľke \ref{tab:shortDlongVout} sú vidieť zmeny oproti predošlému experimentu.
+V tabuľke~\ref{tab:shortDlongVout} sú vidieť zmeny oproti predošlému experimentu.
 Navýšenie kapacity jednoho vozidla má vplyv na:
 \begin{itemize}
   \item Priemerná čakacia doba sa zvýšila o 2 minúty
@@ -1284,14 +1318,14 @@ Navýšenie kapacity jednoho vozidla má vplyv na:
   \label{tab:shortDlongVout}
 \end{table}
 
-Celý rozpis zastávok, časový rozpis a grafy podrobnejšie popisujúce tento experiment sú uvedené v prílohe \ref{shortDlongV}.
+Celý rozpis zastávok, časový rozpis a grafy podrobnejšie popisujúce tento experiment sú uvedené v prílohe~\ref{shortDlongV}.
 
 \newpage
 
 \section{Experiment s dlhou trasou a krátkym vozidlom}
 Cieľom tohto experimentu je zistiť, ako sa algoritmus vyrovnáva s dlhou trasou a krátkym vozidlom.
 Ako referencia bola zvolená okružná linka 84 v Brne, ktorej trasa pozostáva zo 44 zastávok.
-Parametry experimentu sú uvedené v tabuľke \ref{tab:longDshortVin}.
+Parametry experimentu sú uvedené v tabuľke~\ref{tab:longDshortVin}.
 
 \begin{table}[h]
   \centering
@@ -1307,7 +1341,7 @@ Parametry experimentu sú uvedené v tabuľke \ref{tab:longDshortVin}.
   \label{tab:longDshortVin}
 \end{table}
 
-Z tabuľky \ref{tab:longDshortVout} je vidieť, že algoritmus bol schopný vygenerovať rozpis, pri ktorom je spokojnosť cestujúcich viac ako 98\%.
+Z tabuľky~\ref{tab:longDshortVout} je vidieť, že algoritmus bol schopný vygenerovať rozpis, pri ktorom je spokojnosť cestujúcich viac ako 98\%.
 Priemerná čakacia doba, počet vozidiel a priemerná naplnenosť vozidiel sú veľmi podobné ako v prípade krátkej trasy.
 Oproti nej však vzrástol počet cestujúcich a teda aj celkový čas strávený čakaním.
 Taktiež sa zvýšili celkové náklady na prevádzku.
@@ -1331,13 +1365,13 @@ Taktiež sa zvýšili celkové náklady na prevádzku.
   \label{tab:longDshortVout}
 \end{table}
 
-Celý rozpis zastávok, časový rozpis a grafy podrobnejšie popisujúce tento experiment sú uvedené v prílohe \ref{longDshortV}.
+Celý rozpis zastávok, časový rozpis a grafy podrobnejšie popisujúce tento experiment sú uvedené v prílohe~\ref{longDshortV}.
 
 \newpage
 \section{Experiment s dlhou trasou a dlhým vozidlom}
 Cieľom tohto experimentu je zistiť, ako sa algoritmus vyrovnáva s dlhou trasou a dlhým vozidlom.
 Ako referencia bola zvolená okružná linka 84 v Brne, ktorej trasa pozostáva zo 44 zastávok.
-Parametry experimentu sú uvedené v tabuľke \ref{tab:longDlongVin}.
+Parametry experimentu sú uvedené v tabuľke~\ref{tab:longDlongVin}.
 
 \begin{table}[h]
   \centering
@@ -1353,7 +1387,7 @@ Parametry experimentu sú uvedené v tabuľke \ref{tab:longDlongVin}.
   \label{tab:longDlongVin}
 \end{table}
 
-Výstupy experimentu je možné vidieť v tabuľke \ref{tab:longDlongVout}.
+Výstupy experimentu je možné vidieť v tabuľke~\ref{tab:longDlongVout}.
 Oproti experimentu s dlhou cestou ale krátkym vozidlom sa zmenili následovné parametre:
 \begin{itemize}
   \item Priemerná čakacia doba sa zvýšila o 2 minúty
@@ -1381,10 +1415,9 @@ Oproti experimentu s dlhou cestou ale krátkym vozidlom sa zmenili následovné 
   \label{tab:longDlongVout}
 \end{table}
 
-Celý rozpis zastávok, časový rozpis a grafy podrobnejšie popisujúce tento experiment sú uvedené v prílohe \ref{longDlongV}.
+Celý rozpis zastávok, časový rozpis a grafy podrobnejšie popisujúce tento experiment sú uvedené v prílohe~\ref{longDlongV}.
 
-\chapter{Nástroj na analýzu a optimalizáciu časových rozpisov}
-\label{nastroj}
+\chapter{Nástroj na analýzu a optimalizáciu časových rozpisov}\label{nastroj}
 
 Poslednoučasťou tejto práce je implementácia nástroja na analýzu a optimalizáciu časových rozpisov.
 Tento nástroj bude slúžiť ako rozhranie medzi požívateľom a optimalizačným algoritmom.
@@ -1398,8 +1431,7 @@ Uživateľské rozhranie by malo byť intuitívne a jednoduché.
 Hlavným cieľom tejto práce je optimalizácia, preto je kladený väčší dôraz na ňu ako na samotné užívateľské rozhranie.
 Toto rozhranie, bez ohľadu na to ako moc jednoduché bude, je dôležité, preto tento krok nesmie byť zanedbaný.
 
-\section{Návrh uživateľského rozhrania}
-\label{nastroj_uzivatelske_rozhranie}
+\section{Návrh uživateľského rozhrania}\label{nastroj_uzivatelske_rozhranie}
 
 Prvým krokom pri tovrbe u živateľských rozhraní je návrh.
 Najprv si treba premyslieť, čo všetko bude nástroj robiť a aké funkcie bude mať.
@@ -1427,14 +1459,13 @@ Na stránke analýzy časového rozpisu bude možné:
   \item uložiť výsledky analýzy
 \end{itemize}
 
-\begin{figure}[h]
+\begin{figure}[h]\label{fig:wireframe_analyze}
   \centering
   \includegraphics[width=\textwidth]{wireframe_analyze.pdf}
   \caption{Wireframe pre analýzu časového rozpisu}
-  \label{fig:wireframe_analyze}
 \end{figure}
 
-Na obrázku \ref{fig:wireframe_analyze} je znázornený wireframe pre túto stránku.
+Na obrázku~\ref{fig:wireframe_analyze} je znázornený wireframe pre túto stránku.
 Funkcie spomenuté vyššie sú usporiadané rovnako ako jednotlivé elementy stránky.
 Pre nahranie informácií o zastávke a novom časovom rozpise bude slúžiť vyberač súborov.
 Informácie by mali byť uložené v textovom súbore.
@@ -1459,7 +1490,7 @@ Uživateľské rozhranie by malo obsahovať nápovedu, ktorá používateľovi u
   \ldots
 }
 
-Výber uloženého rozpisu môže byť realizovaný formou rozbaľovacej ponuky (dropdown).
+Výber uloženého rozpisu môže byť realizovaný formou rozbaľovacej ponuky.
 Rozpisy v tejto ponuke by mali byť pomenované, aby bol výber prehľadný.
 Vstupné parametre \texttt{Kapacita vozidla}, \texttt{Miest na sedenie}, \texttt{Náklady na 100 miesto-km} a \texttt{Dľžka trasy} budú realizované jednoduchými textovými vstupmi, s obmedzením len na numerické znaky, prípadne číslenými obmedzeniami potrebnými pre dané parametre.
 Tlačítko \texttt{Resetovať} vymaže všetky vstupy aj výstupy analýzy.
@@ -1502,14 +1533,13 @@ Na stránke optimalizácie časového rozpisu bude možné:
   \item uložiť vybraný rozpis
 \end{itemize}
 
-\begin{figure}[h]
+\begin{figure}[h]\label{fig:wireframe_optimize}
   \centering
   \includegraphics[width=\textwidth]{wireframe_optimize.pdf}
   \caption{Wireframe pre optimalizáciu časového rozpisu}
-  \label{fig:wireframe_optimize}
 \end{figure}
 
-Na obrázku \ref{fig:wireframe_optimize} je znázornený wireframe pre túto stránku.
+Na obrázku~\ref{fig:wireframe_optimize} je znázornený wireframe pre túto stránku.
 Pre nahranie informácií o zastávke bude slúžiť rovnaký vyberač súborov ako na stránke analýzy.
 Vyberač pre časový rozpis tu nie je potrebný, pretože z hladiska optimalizácie je časový rozpis výstupom a nie vstupom.
 Číselné vstupné parametre pre simuláciu sú rovnaké ako na stránke analýzy, ale pre genetický algoritmus tu sú štyri nové a to \texttt{Velkosť populácie}, \texttt{Počet generácií}, \texttt{Pravdepodobnosť mutácie} a \texttt{Maximálny počet spojov za hodinu}.
@@ -1530,8 +1560,7 @@ Tiahlo bude mať toľko krokov, koľko je rozpisov v generácii.
 Vyplnením textového vstupu pre názov rozpisu a stlačením tlačítka \texttt{Uložiť rozpis} sa rozpis uloží.
 Nepomenovaný rozpis sa označí časom a dátumom vytvorenia.
 
-\section{Implementácia nástroja}
-\label{nastroj_implementacia}
+\section{Implementácia nástroja}\label{nastroj_implementacia}
 
 Po návrhu náslduje implementácia.
 Predtým však treba vybrať technológie, ktoré sú na to vhodné a navrhnúť architektúru aplikácie.
@@ -1542,7 +1571,7 @@ Ako programovací jazyk bol zvolený \texttt{Python} a to preto, lebo je veľmi 
 Výhodnejšie by možno bolo naprogramovať optimalizačný algoritmus v jazyku \texttt{C} alebo \texttt{C++}, ktoré sú rýchlejšie.
 
 \texttt{Python} bol však vybraný vďaka jednoduchému použitiu a tomu, že sa v ňom dá pohodlne napísať ako backend, tak aj frontend.
-Na to aby sa mohlol v tomto jazyku písať aj frontend bol využitý framework \texttt{Reflex} \footnote{\url{https://reflex.dev/}}.
+Na to aby sa mohlol v tomto jazyku písať aj frontend bol využitý framework \texttt{Reflex}\footnote{\url{https://reflex.dev/}}.
 
 Vďaka tomtu frameworku je možné písať webové komponenty a celé stránky priamo v jazyku \texttt{Python}.
 Každý komponent je písaný formou funkcie, ktorá vracia jeho obsah.
@@ -1560,7 +1589,107 @@ Treba si však dávať pozor, pretože priveľká sloboda v písaní kódu môž
 Pretože sa s týmito technológiami dá aplikácia napísať naozaj veľmi veľa spôsobmi, je potrebné zvoliť si dobrú architektúru, rozčlenenie aplikácie na moduly, a tie na jednotlivé webové komponenty alebo backendové skripty.
 
 \subsection*{Architektúra aplikácie}
- 
+Aplikácia sa volá SPROUT, čo znamená \textit{Smart Performance and Resource Optimization for Urban Transport}, po slovensky inteligentná optimalizácia výkonu a zdrojov verejnej dopravy.
+Touto skratkou je označený aj hlavný adresár, ktorý obsahuje všetky zdrojové kódy aplikácie.
+V ňom sa nachádzajú adresáre \texttt{backend}, v ktorom sú skripty obsahujúce logiku, simulačný model, kalendár udalostí, genetický algoritmus a podobné, \texttt{components}, ktorý obsahuje webové komponenty a \texttt{pages}, kde sú uložené zdrojové kódy jednotlivých stránok aplikácie.
+Ďalej sa tu nachádza \texttt{sprout.py}, súbor, ktorý obsahuje koreňový element aplikácie a smerovanie medzi jednotlivými stránkami.
+Posledným súborom v tomto adresári je \texttt{\_\_init\_\_.py}, ktorý slúži na inicializáciu adresára ako \texttt{Python} modulu.
+Tento súbor sa nachádza aj v ostatných adresároch.
 
-\chapter{Záver} % 1 strana
-\label{zaver}
+\dirtree{%
+  .1 sprout.
+  .2 backend.
+  .3 \_\_init\_\_.py.
+  .3 EventCalendar.py.
+  .3 Genetics.py.
+  .3 InputParser.py.
+  .3 models.py.
+  .3 RandomNumberGenerator.py.
+  .3 Simulation.py.
+  .3 Statistics.py.
+  .2 components.
+  .3 \_\_init\_\_.py.
+  .3 analyzeLine.py.
+  .3 busStopChart.py.
+  .3 busStopTable.py.
+  .3 constraintInput.py.
+  .3 footer.py.
+  .3 hourChart.py.
+  .3 infoCard.py.
+  .3 infoUpload.py.
+  .3 layout.py.
+  .3 navbar.py.
+  .3 optimizeLine.py.
+  .3 rozpis.txt.
+  .3 timeTable.py.
+  .3 zastavky.txt.
+  .2 pages.
+  .3 \_\_init\_\_.py.
+  .3 analyzePage.py.
+  .3 homePage.py.
+  .3 optimizePage.py.
+  .2 \_\_init\_\_.py.
+  .2 sprout.py.
+}
+
+\newpage
+
+\begin{table}[h]\label{tab:source_codes}
+  \centering
+  \begin{tabular}{|l|l|}
+    \hline
+      \textbf{Súbor} & \textbf{Obsah} \\ \hline
+      Backendové skripty & \\
+      EventCalendar.py & trieda kalendára udalostí a udalsti \\
+      Genetics.py & trida genetického algoritmu a jedného jedinca \\
+      InputParser.py & trieda s metódami na spracovanie vstupu \\
+      models.py &  model zastávky, vozidla a časového rozpisu\\
+      RandomNumberGenerator.py & trieda generátora náhodných čísel \\
+      Simulation.py & trieda na riadenie simulácie \\
+      Statistics.py & trieda na zber a spracovanie štatistík \\ \hline
+      Webové komponenty & \\
+      analyzeLine.py & analýza časového rozpisu \\
+      busStopChart.py & zobrazenie grafu so zastávkami na jednej z osí \\
+      busStopTable.py &zobrazenie tabuľky so zastávkami \\
+      constraintInput.py & zadanie obmedzení počtu spojov za hodinu \\
+      footer.py & pätička webovej aplikácie \\
+      hourChart.py & zobrazenie grafu s hodinami na jednej s osí \\
+      infoCard.py & zobrazenie jednočíselných štatistík \\
+      infoUpload.py & nahranie súboru \\
+      layout.py & základné rozloženie stránky \\
+      navbar.py & horné navigačné menu \\
+      optimizeLine.py & optimalizácia časového rozpisu \\
+      rozpis.txt & vzorový príklad informácií o časovom rozpise \\
+      timeTable.py & zobrazenie časového rozpisu \\
+      zastavky.txt & vzorový príklad informácií o zastávkach \\ \hline
+      Stránky aplikácie & \\
+      analyzePage.py & stránka pre anaýlzu časového rozpisu \\
+      homePage.py & úvodná stránka \\
+      optimizePage.py & stránka pre optimalizáciu časového rozpisu \\ \hline
+      sprout.py & koreňový komponent a smerovanie \\ \hline
+  \end{tabular}
+  \caption{Zdrojové kódy}
+\end{table}
+
+V tabuľke~\ref{tab:source_codes} je stručne popísaný obsah jednotlivých súborov zdrojových kódov a ich rozdelenie medzi jednotlié moduly.
+
+\chapter{Záver}\label{zaver}
+
+Cieľom tejto práce bolo vyvynúť nástroj, ktorý by v určitom ohlade optimalizoval mestskú hromadnú dopravu.
+Ako cieľ optimalizácie bol vybraný časový rozpis.
+Optimalizácia bola realizovaná pomocou multi-objektívneho genetického algoritmu NSGA-II.
+
+Táto práca mala splniť následujúce body:
+\begin{enumerate}
+  \item Preskúmajte problematiku vytvárania siete mestskej hromadnej dopravy, jej modelovania a optimalizácie pre mestá do pol milióna obyvateľov. Na návrh môjho garanta bol simulačný model navrhnutý pomocou DEVS, poznatky o tomto formalizme boli čerpané zo zborníku z konferencie WSC~\cite{tendeloo2018discrete}. 
+  \item Pre mesto veľkosti krajského mesta Českej republiky získajte alebo odhadnite dáta, z ktorých zostavíte model miestnej mestskej hromadnej dopravy. Informácie boli získané priamo z Dopravného podniku mesta Brno, viac informácií je v kapitole~\ref{relevantne_vlastnosti}.
+  \item Oboznámte sa s riešeniami, ktoré na optimalizáciu takejto siete používajú metódy umelej inteligencie. Inšpirácia na použitie genetického algoritmu vychádza z článku~\cite{tang2021data}, konkrétne ide o multi-objektívny NSGA-II.\@
+  \item Vytvorte prostredie, ktoré bude slúžiť na modelovanie a optimalizáciu takejto siete. Bol vytvorený nástroj na analýzu a optimalizáciu časových rozpisov, ktorý je popísaný v kapitole~\ref{nastroj}, na zostrojenie modelu slúžia používateľské vstupy, ktoré nástroj spracuje a sám zostrojí model.
+  \item Na vhodne zvolených príkladoch overte fungovanie vášho systému a diskutujte dosiahnuté výsledky. Fungovanie systému bolo otestované v rámci štyroch experimentov a priebežného testovania počas vývoja. Experimenty sú v kapitole~\ref{experimenty}. Výsledky preukázali, že algoritmus je schopný sa prispôsobiť rôznym situáciam.
+\end{enumerate}
+
+Aplikáciu by bolo možné rozšíriť napríklad o porovnanie dvoch rozpisov, alebo exportovanie analýzy vo formáte PDF, alebo export optimalizácie.
+Taktiež by bolo dobré zadať verzatilnejšie zadávanie vstupov, pretože momentálne sa informácie o zastávkach dajú nahrať len ako textový súbor.
+Pri analýze a optimalizácii sa využíva simulačný model, ktorý by sa mohol spraviť odrobnejší, aby sa viac približoval realite a dodal tak kvalitnejšie výsledky.
+V rámci optimalizácie by sa mohli niektoré výpočty sparalelizovať aby sa tak skrátila doba čakania na výsledok.
+Dalo by sa naimplementovať inteligentné ohodnocovanie rozpisov vo finálnej generácii na základe nových používateľských vstupov, aby používateľ nemusel tento krok robiť ručne.
