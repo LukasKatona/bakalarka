@@ -18,7 +18,9 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="sprout.backend package" href="sprout.backend.html" />
+    <link rel="prev" title="rxconfig module" href="rxconfig.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,17 +42,31 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">sprout package</a><ul>
-<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#sprout-sprout-module">sprout.sprout module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">sprout</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="rxconfig.html">rxconfig module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">sprout package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html">sprout.backend package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html">sprout.components package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.pages.html">sprout.pages package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sprout.sprout">sprout.sprout module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sprout.sprout.analyze"><code class="docutils literal notranslate"><span class="pre">analyze()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sprout.sprout.home"><code class="docutils literal notranslate"><span class="pre">home()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sprout.sprout.optimize"><code class="docutils literal notranslate"><span class="pre">optimize()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sprout">Module contents</a></li>
 </ul>
 </li>
 </ul>
-</div>
+</li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -65,6 +81,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">sprout</a></li>
       <li class="breadcrumb-item active">sprout package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/sprout.rst.txt" rel="nofollow"> View page source</a>
@@ -83,39 +100,425 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="sprout.backend.html">sprout.backend package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="sprout.backend.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.backend.html#sprout-backend-eventcalendar-module">sprout.backend.EventCalendar module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.backend.html#sprout-backend-genetics-module">sprout.backend.Genetics module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.backend.html#sprout-backend-inputparser-module">sprout.backend.InputParser module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.backend.html#sprout-backend-randomnumbergenerator-module">sprout.backend.RandomNumberGenerator module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.backend.html#sprout-backend-simulation-module">sprout.backend.Simulation module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.backend.html#sprout-backend-statistics-module">sprout.backend.Statistics module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.backend.html#sprout-backend-models-module">sprout.backend.models module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.backend.html#module-contents">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.backend.html#module-sprout.backend.EventCalendar">sprout.backend.EventCalendar module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.backend.html#sprout.backend.EventCalendar.Event"><code class="docutils literal notranslate"><span class="pre">Event</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.backend.html#sprout.backend.EventCalendar.EventCalendar"><code class="docutils literal notranslate"><span class="pre">EventCalendar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.EventCalendar.EventCalendar.addEvent"><code class="docutils literal notranslate"><span class="pre">EventCalendar.addEvent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.EventCalendar.EventCalendar.getNextEvent"><code class="docutils literal notranslate"><span class="pre">EventCalendar.getNextEvent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.EventCalendar.EventCalendar.isEmpty"><code class="docutils literal notranslate"><span class="pre">EventCalendar.isEmpty()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.backend.html#module-sprout.backend.Genetics">sprout.backend.Genetics module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.backend.html#sprout.backend.Genetics.Genetics"><code class="docutils literal notranslate"><span class="pre">Genetics</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Genetics.Genetics.crossover"><code class="docutils literal notranslate"><span class="pre">Genetics.crossover()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Genetics.Genetics.crowdingDistanceAssignment"><code class="docutils literal notranslate"><span class="pre">Genetics.crowdingDistanceAssignment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Genetics.Genetics.initPopulation"><code class="docutils literal notranslate"><span class="pre">Genetics.initPopulation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Genetics.Genetics.makeNewPopulation"><code class="docutils literal notranslate"><span class="pre">Genetics.makeNewPopulation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Genetics.Genetics.nonDominatedSort"><code class="docutils literal notranslate"><span class="pre">Genetics.nonDominatedSort()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Genetics.Genetics.parentSelection"><code class="docutils literal notranslate"><span class="pre">Genetics.parentSelection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Genetics.Genetics.updateGeneration"><code class="docutils literal notranslate"><span class="pre">Genetics.updateGeneration()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.backend.html#sprout.backend.Genetics.Individual"><code class="docutils literal notranslate"><span class="pre">Individual</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Genetics.Individual.calculateFitness"><code class="docutils literal notranslate"><span class="pre">Individual.calculateFitness()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Genetics.Individual.constraintDominates"><code class="docutils literal notranslate"><span class="pre">Individual.constraintDominates()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Genetics.Individual.dominates"><code class="docutils literal notranslate"><span class="pre">Individual.dominates()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Genetics.Individual.generateRandomChromosome"><code class="docutils literal notranslate"><span class="pre">Individual.generateRandomChromosome()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Genetics.Individual.mutate"><code class="docutils literal notranslate"><span class="pre">Individual.mutate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.backend.html#module-sprout.backend.InputParser">sprout.backend.InputParser module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.backend.html#sprout.backend.InputParser.HourRate"><code class="docutils literal notranslate"><span class="pre">HourRate</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.InputParser.HourRate.hour"><code class="docutils literal notranslate"><span class="pre">HourRate.hour</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.InputParser.HourRate.rate"><code class="docutils literal notranslate"><span class="pre">HourRate.rate</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.backend.html#sprout.backend.InputParser.InputParser"><code class="docutils literal notranslate"><span class="pre">InputParser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.InputParser.InputParser.parseBusStopsFromFile"><code class="docutils literal notranslate"><span class="pre">InputParser.parseBusStopsFromFile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.InputParser.InputParser.parseBusStopsFromString"><code class="docutils literal notranslate"><span class="pre">InputParser.parseBusStopsFromString()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.InputParser.InputParser.parseTimeTableFromFile"><code class="docutils literal notranslate"><span class="pre">InputParser.parseTimeTableFromFile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.InputParser.InputParser.parseTimeTableFromString"><code class="docutils literal notranslate"><span class="pre">InputParser.parseTimeTableFromString()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.backend.html#module-sprout.backend.RandomNumberGenerator">sprout.backend.RandomNumberGenerator module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.backend.html#sprout.backend.RandomNumberGenerator.RandomNumberGenerator"><code class="docutils literal notranslate"><span class="pre">RandomNumberGenerator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.RandomNumberGenerator.RandomNumberGenerator.exponential"><code class="docutils literal notranslate"><span class="pre">RandomNumberGenerator.exponential()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.RandomNumberGenerator.RandomNumberGenerator.integers"><code class="docutils literal notranslate"><span class="pre">RandomNumberGenerator.integers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.RandomNumberGenerator.RandomNumberGenerator.uniform"><code class="docutils literal notranslate"><span class="pre">RandomNumberGenerator.uniform()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.backend.html#module-sprout.backend.Simulation">sprout.backend.Simulation module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.backend.html#sprout.backend.Simulation.Simulation"><code class="docutils literal notranslate"><span class="pre">Simulation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Simulation.Simulation.currentTime"><code class="docutils literal notranslate"><span class="pre">Simulation.currentTime</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Simulation.Simulation.endTime"><code class="docutils literal notranslate"><span class="pre">Simulation.endTime</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Simulation.Simulation.forward"><code class="docutils literal notranslate"><span class="pre">Simulation.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Simulation.Simulation.getHour"><code class="docutils literal notranslate"><span class="pre">Simulation.getHour()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Simulation.Simulation.printCurrentTime"><code class="docutils literal notranslate"><span class="pre">Simulation.printCurrentTime()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Simulation.Simulation.printCurrentTimeAndMessage"><code class="docutils literal notranslate"><span class="pre">Simulation.printCurrentTimeAndMessage()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Simulation.Simulation.run"><code class="docutils literal notranslate"><span class="pre">Simulation.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Simulation.Simulation.runMultipleThanAverage"><code class="docutils literal notranslate"><span class="pre">Simulation.runMultipleThanAverage()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Simulation.Simulation.startTime"><code class="docutils literal notranslate"><span class="pre">Simulation.startTime</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.backend.html#module-sprout.backend.Statistics">sprout.backend.Statistics module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStatistics"><code class="docutils literal notranslate"><span class="pre">BusStatistics</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStatistics.agregateTotal"><code class="docutils literal notranslate"><span class="pre">BusStatistics.agregateTotal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStatistics.clear"><code class="docutils literal notranslate"><span class="pre">BusStatistics.clear()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStatistics.keyValuePairArrayToString"><code class="docutils literal notranslate"><span class="pre">BusStatistics.keyValuePairArrayToString()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStatistics.plotLoadInPercentPerBusStop"><code class="docutils literal notranslate"><span class="pre">BusStatistics.plotLoadInPercentPerBusStop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStatistics.plotLoadPerBusStop"><code class="docutils literal notranslate"><span class="pre">BusStatistics.plotLoadPerBusStop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStatistics.saveLoadInPercentPerBusStop"><code class="docutils literal notranslate"><span class="pre">BusStatistics.saveLoadInPercentPerBusStop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStatistics.saveLoadPerBusStop"><code class="docutils literal notranslate"><span class="pre">BusStatistics.saveLoadPerBusStop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStatistics.showLoadInPercentPerBusStop"><code class="docutils literal notranslate"><span class="pre">BusStatistics.showLoadInPercentPerBusStop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStatistics.showLoadPerBusStop"><code class="docutils literal notranslate"><span class="pre">BusStatistics.showLoadPerBusStop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStatistics.updateLoadPerBusStop"><code class="docutils literal notranslate"><span class="pre">BusStatistics.updateLoadPerBusStop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStatistics.updatePassengerSatisfactions"><code class="docutils literal notranslate"><span class="pre">BusStatistics.updatePassengerSatisfactions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStatistics.updateTotalPassengersTransported"><code class="docutils literal notranslate"><span class="pre">BusStatistics.updateTotalPassengersTransported()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.agregateTotal"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics.agregateTotal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.clear"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics.clear()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.keyValuePairArrayToString"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics.keyValuePairArrayToString()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.plotPassengersArrivedPerHour"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics.plotPassengersArrivedPerHour()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.plotPassengersDepartedPerHour"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics.plotPassengersDepartedPerHour()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.plotPassengersLeftUnboardedPerHour"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics.plotPassengersLeftUnboardedPerHour()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.plotTimeSpentWaitingPerHour"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics.plotTimeSpentWaitingPerHour()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.savePassengersArrivedPerHour"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics.savePassengersArrivedPerHour()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.savePassengersDepartedPerHour"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics.savePassengersDepartedPerHour()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.savePassengersLeftUnboardedPerHour"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics.savePassengersLeftUnboardedPerHour()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.saveTimeSpentWaitingPerHour"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics.saveTimeSpentWaitingPerHour()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.showPassengersArrivedPerHour"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics.showPassengersArrivedPerHour()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.showPassengersDepartedPerHour"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics.showPassengersDepartedPerHour()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.showPassengersLeftUnboardedPerHour"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics.showPassengersLeftUnboardedPerHour()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.showTimeSpentWaitingPerHour"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics.showTimeSpentWaitingPerHour()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.updatePassengersArrivedPerHour"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics.updatePassengersArrivedPerHour()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.updatePassengersDepartedPerHour"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics.updatePassengersDepartedPerHour()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.updatePassengersLeftUnboardedPerHour"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics.updatePassengersLeftUnboardedPerHour()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.updateTimeSpentWaitingPerHour"><code class="docutils literal notranslate"><span class="pre">BusStopStatistics.updateTimeSpentWaitingPerHour()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.Statistics"><code class="docutils literal notranslate"><span class="pre">Statistics</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.Statistics.agregateBusStatistics"><code class="docutils literal notranslate"><span class="pre">Statistics.agregateBusStatistics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.Statistics.agregateBusStopStatistics"><code class="docutils literal notranslate"><span class="pre">Statistics.agregateBusStopStatistics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.Statistics.clear"><code class="docutils literal notranslate"><span class="pre">Statistics.clear()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.Statistics.print"><code class="docutils literal notranslate"><span class="pre">Statistics.print()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.Statistics.saveAllGraphs"><code class="docutils literal notranslate"><span class="pre">Statistics.saveAllGraphs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.backend.html#sprout.backend.Statistics.averageStatistics"><code class="docutils literal notranslate"><span class="pre">averageStatistics()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.backend.html#module-sprout.backend.models">sprout.backend.models module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.Bus"><code class="docutils literal notranslate"><span class="pre">Bus</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.Bus.OutputSignals"><code class="docutils literal notranslate"><span class="pre">Bus.OutputSignals</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.Bus.State"><code class="docutils literal notranslate"><span class="pre">Bus.State</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.Bus.arriveAtStop"><code class="docutils literal notranslate"><span class="pre">Bus.arriveAtStop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.Bus.boardPassengers"><code class="docutils literal notranslate"><span class="pre">Bus.boardPassengers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.Bus.busCounter"><code class="docutils literal notranslate"><span class="pre">Bus.busCounter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.Bus.departFromStop"><code class="docutils literal notranslate"><span class="pre">Bus.departFromStop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.Bus.runBusStopSequence"><code class="docutils literal notranslate"><span class="pre">Bus.runBusStopSequence()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.Bus.setOutputSignals"><code class="docutils literal notranslate"><span class="pre">Bus.setOutputSignals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.Bus.triggerInputSignal"><code class="docutils literal notranslate"><span class="pre">Bus.triggerInputSignal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.Bus.triggerOutputSignal"><code class="docutils literal notranslate"><span class="pre">Bus.triggerOutputSignal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.Bus.updatePassengerSatisfaction"><code class="docutils literal notranslate"><span class="pre">Bus.updatePassengerSatisfaction()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.BusStop"><code class="docutils literal notranslate"><span class="pre">BusStop</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.BusStop.InputSignals"><code class="docutils literal notranslate"><span class="pre">BusStop.InputSignals</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.BusStop.State"><code class="docutils literal notranslate"><span class="pre">BusStop.State</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.BusStop.busArrived"><code class="docutils literal notranslate"><span class="pre">BusStop.busArrived()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.BusStop.clear"><code class="docutils literal notranslate"><span class="pre">BusStop.clear()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.BusStop.finishBoarding"><code class="docutils literal notranslate"><span class="pre">BusStop.finishBoarding()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.BusStop.generatePassengers"><code class="docutils literal notranslate"><span class="pre">BusStop.generatePassengers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.BusStop.printAllInfo"><code class="docutils literal notranslate"><span class="pre">BusStop.printAllInfo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.BusStop.setOutputSignals"><code class="docutils literal notranslate"><span class="pre">BusStop.setOutputSignals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.BusStop.startBoarding"><code class="docutils literal notranslate"><span class="pre">BusStop.startBoarding()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.BusStop.triggerInputSignal"><code class="docutils literal notranslate"><span class="pre">BusStop.triggerInputSignal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.BusStop.triggerOutputSignal"><code class="docutils literal notranslate"><span class="pre">BusStop.triggerOutputSignal()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.TimeTable"><code class="docutils literal notranslate"><span class="pre">TimeTable</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.TimeTable.TimeTableRow"><code class="docutils literal notranslate"><span class="pre">TimeTable.TimeTableRow</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.TimeTable.addRow"><code class="docutils literal notranslate"><span class="pre">TimeTable.addRow()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.TimeTable.generateFromChromosome"><code class="docutils literal notranslate"><span class="pre">TimeTable.generateFromChromosome()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.TimeTable.getAllTimes"><code class="docutils literal notranslate"><span class="pre">TimeTable.getAllTimes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.backend.html#sprout.backend.models.TimeTable.getChromosome"><code class="docutils literal notranslate"><span class="pre">TimeTable.getChromosome()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.backend.html#module-sprout.backend">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sprout.components.html">sprout.components package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="sprout.components.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#sprout-components-analyzeline-module">sprout.components.analyzeLine module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#sprout-components-busstopchart-module">sprout.components.busStopChart module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#sprout-components-busstoptable-module">sprout.components.busStopTable module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#sprout-components-constraintinput-module">sprout.components.constraintInput module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#sprout-components-footer-module">sprout.components.footer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#sprout-components-hourchart-module">sprout.components.hourChart module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#sprout-components-infocard-module">sprout.components.infoCard module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#sprout-components-infoupload-module">sprout.components.infoUpload module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#sprout-components-layout-module">sprout.components.layout module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#sprout-components-navbar-module">sprout.components.navbar module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#sprout-components-optimizeline-module">sprout.components.optimizeLine module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#sprout-components-timetable-module">sprout.components.timeTable module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#module-contents">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#module-sprout.components.analyzeLine">sprout.components.analyzeLine module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.averageLoad"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.averageLoad</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.averageLoadInPercent"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.averageLoadInPercent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.averagePassengerSatisfaction"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.averagePassengerSatisfaction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.averageTimeSpentWaiting"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.averageTimeSpentWaiting</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.backend_vars"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.backend_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.base_vars"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.base_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.busSopsFilename"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.busSopsFilename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.busStopTable"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.busStopTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.class_subclasses"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.class_subclasses</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.clear_files"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.clear_files</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.computed_vars"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.computed_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.costPerSeatKm"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.costPerSeatKm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.event_handlers"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.event_handlers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.handle_analyze"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.handle_analyze</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.handle_export"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.handle_export</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.inherited_backend_vars"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.inherited_backend_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.inherited_vars"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.inherited_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.loadPerBusStop"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.loadPerBusStop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.longestBusStopNameLength"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.longestBusStopNameLength</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.numberOfBusStops"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.numberOfBusStops</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.passengersArrivedPerHour"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.passengersArrivedPerHour</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.passengersLeftUnboardedPerHour"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.passengersLeftUnboardedPerHour</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.routeLength"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.routeLength</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.selectedBusStops"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.selectedBusStops</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.selectedTimeTable"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.selectedTimeTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.selectedTimeTableName"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.selectedTimeTableName</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_averageLoad"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_averageLoad</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_averageLoadInPercent"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_averageLoadInPercent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_averagePassengerSatisfaction"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_averagePassengerSatisfaction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_averageTimeSpentWaiting"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_averageTimeSpentWaiting</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_busSopsFilename"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_busSopsFilename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_busStopTable"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_busStopTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_costPerSeatKm"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_costPerSeatKm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_loadPerBusStop"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_loadPerBusStop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_longestBusStopNameLength"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_longestBusStopNameLength</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_numberOfBusStops"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_numberOfBusStops</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_passengersArrivedPerHour"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_passengersArrivedPerHour</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_passengersLeftUnboardedPerHour"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_passengersLeftUnboardedPerHour</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_routeLength"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_routeLength</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_selectedBusStops"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_selectedBusStops</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_selectedTimeTable"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_selectedTimeTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_selectedTimeTableName"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_selectedTimeTableName</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_showAnalysis"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_showAnalysis</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_timeSpentWaitingPerHour"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_timeSpentWaitingPerHour</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_timeTable"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_timeTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_timeTableFilename"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_timeTableFilename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_totalCost"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_totalCost</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_totalNumberOfBuses"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_totalNumberOfBuses</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_totalPassengersArrived"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_totalPassengersArrived</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_totalPassengersDeparted"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_totalPassengersDeparted</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_totalPassengersLeftUnboarded"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_totalPassengersLeftUnboarded</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_totalPassengersTransported"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_totalPassengersTransported</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_totalTimeSpentWaiting"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_totalTimeSpentWaiting</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_vehicleCapacity"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_vehicleCapacity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.set_vehicleSeats"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.set_vehicleSeats</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.setvar"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.setvar</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.showAnalysis"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.showAnalysis</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.timeSpentWaitingPerHour"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.timeSpentWaitingPerHour</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.timeTable"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.timeTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.timeTableFilename"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.timeTableFilename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.totalCost"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.totalCost</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.totalNumberOfBuses"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.totalNumberOfBuses</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.totalPassengersArrived"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.totalPassengersArrived</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.totalPassengersDeparted"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.totalPassengersDeparted</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.totalPassengersLeftUnboarded"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.totalPassengersLeftUnboarded</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.totalPassengersTransported"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.totalPassengersTransported</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.totalTimeSpentWaiting"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.totalTimeSpentWaiting</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.vars"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.vehicleCapacity"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.vehicleCapacity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.AnalyzeLineState.vehicleSeats"><code class="docutils literal notranslate"><span class="pre">AnalyzeLineState.vehicleSeats</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.analyzeLine.analyzeLine"><code class="docutils literal notranslate"><span class="pre">analyzeLine()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#module-sprout.components.busStopChart">sprout.components.busStopChart module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.busStopChart.busStopChart"><code class="docutils literal notranslate"><span class="pre">busStopChart()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#module-sprout.components.busStopTable">sprout.components.busStopTable module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.busStopTable.busStopTable"><code class="docutils literal notranslate"><span class="pre">busStopTable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.busStopTable.busStopTableIconRow"><code class="docutils literal notranslate"><span class="pre">busStopTableIconRow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.busStopTable.busStopTableNameRow"><code class="docutils literal notranslate"><span class="pre">busStopTableNameRow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.busStopTable.busStopTableRows"><code class="docutils literal notranslate"><span class="pre">busStopTableRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.busStopTable.busStopTableTimeRow"><code class="docutils literal notranslate"><span class="pre">busStopTableTimeRow()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#module-sprout.components.constraintInput">sprout.components.constraintInput module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.constraintInput.constraintHourInput"><code class="docutils literal notranslate"><span class="pre">constraintHourInput()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.constraintInput.constraintInput"><code class="docutils literal notranslate"><span class="pre">constraintInput()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#module-sprout.components.footer">sprout.components.footer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.footer.footer"><code class="docutils literal notranslate"><span class="pre">footer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#module-sprout.components.hourChart">sprout.components.hourChart module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.hourChart.hourChart"><code class="docutils literal notranslate"><span class="pre">hourChart()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#module-sprout.components.infoCard">sprout.components.infoCard module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.infoCard.infoCard"><code class="docutils literal notranslate"><span class="pre">infoCard()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#module-sprout.components.infoUpload">sprout.components.infoUpload module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState"><code class="docutils literal notranslate"><span class="pre">InfoUploadState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState.backend_vars"><code class="docutils literal notranslate"><span class="pre">InfoUploadState.backend_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState.base_vars"><code class="docutils literal notranslate"><span class="pre">InfoUploadState.base_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState.class_subclasses"><code class="docutils literal notranslate"><span class="pre">InfoUploadState.class_subclasses</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState.computed_vars"><code class="docutils literal notranslate"><span class="pre">InfoUploadState.computed_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState.dropdownOptions"><code class="docutils literal notranslate"><span class="pre">InfoUploadState.dropdownOptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState.event_handlers"><code class="docutils literal notranslate"><span class="pre">InfoUploadState.event_handlers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState.handle_upload_bus_stops"><code class="docutils literal notranslate"><span class="pre">InfoUploadState.handle_upload_bus_stops</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState.handle_upload_time_table"><code class="docutils literal notranslate"><span class="pre">InfoUploadState.handle_upload_time_table</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState.inherited_backend_vars"><code class="docutils literal notranslate"><span class="pre">InfoUploadState.inherited_backend_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState.inherited_vars"><code class="docutils literal notranslate"><span class="pre">InfoUploadState.inherited_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState.insertNewTimeTable"><code class="docutils literal notranslate"><span class="pre">InfoUploadState.insertNewTimeTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState.options"><code class="docutils literal notranslate"><span class="pre">InfoUploadState.options</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState.parseBusStopsToTuple"><code class="docutils literal notranslate"><span class="pre">InfoUploadState.parseBusStopsToTuple</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState.parseTimeTableToTuple"><code class="docutils literal notranslate"><span class="pre">InfoUploadState.parseTimeTableToTuple</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState.selectTimeTableFromDropdown"><code class="docutils literal notranslate"><span class="pre">InfoUploadState.selectTimeTableFromDropdown</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState.set_dropdownOptions"><code class="docutils literal notranslate"><span class="pre">InfoUploadState.set_dropdownOptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState.set_options"><code class="docutils literal notranslate"><span class="pre">InfoUploadState.set_options</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState.setvar"><code class="docutils literal notranslate"><span class="pre">InfoUploadState.setvar</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.InfoUploadState.vars"><code class="docutils literal notranslate"><span class="pre">InfoUploadState.vars</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.getFilePath"><code class="docutils literal notranslate"><span class="pre">getFilePath()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.getTextFromTXT"><code class="docutils literal notranslate"><span class="pre">getTextFromTXT()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.infoUpload.infoUpload"><code class="docutils literal notranslate"><span class="pre">infoUpload()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#module-sprout.components.layout">sprout.components.layout module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.layout.layout"><code class="docutils literal notranslate"><span class="pre">layout()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#module-sprout.components.navbar">sprout.components.navbar module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.navbar.navbar"><code class="docutils literal notranslate"><span class="pre">navbar()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.navbar.navbar_item"><code class="docutils literal notranslate"><span class="pre">navbar_item()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#module-sprout.components.optimizeLine">sprout.components.optimizeLine module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.backend_vars"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.backend_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.base_vars"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.base_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.bestTimeTable"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.bestTimeTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.bestTimeTableChromosome"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.bestTimeTableChromosome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.bestTimeTableString"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.bestTimeTableString</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.busSopsFilename"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.busSopsFilename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.busStopTable"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.busStopTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.changeConstraints"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.changeConstraints</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.class_subclasses"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.class_subclasses</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.computed_vars"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.computed_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.constraints"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.constraints</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.costPerSeatKm"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.costPerSeatKm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.duration"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.endTime"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.endTime</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.event_handlers"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.event_handlers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.generation"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.generation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.generationChromosomes"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.generationChromosomes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.generationNumber"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.generationNumber</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.handle_optimize"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.handle_optimize</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.inherited_backend_vars"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.inherited_backend_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.inherited_vars"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.inherited_vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.initConstraints"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.initConstraints</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.maxConnectionsPerHour"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.maxConnectionsPerHour</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.mutationRate"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.mutationRate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.numberOfGenerations"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.numberOfGenerations</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.optimizationRunning"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.optimizationRunning</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.parseTimeTableToTuple"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.parseTimeTableToTuple</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.populationSize"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.populationSize</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.resetOptimization"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.resetOptimization</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.routeLength"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.routeLength</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.saveTimeTable"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.saveTimeTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.saveTimeTableName"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.saveTimeTableName</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.selectedBusStops"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.selectedBusStops</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.selectedChromosomeIndex"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.selectedChromosomeIndex</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.selectedScatterPoint"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.selectedScatterPoint</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.selectedTimeTable"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.selectedTimeTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.selectedTimeTableName"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.selectedTimeTableName</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.setPopulationSize"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.setPopulationSize</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.setTimeTable"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.setTimeTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_bestTimeTable"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_bestTimeTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_bestTimeTableChromosome"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_bestTimeTableChromosome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_bestTimeTableString"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_bestTimeTableString</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_busSopsFilename"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_busSopsFilename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_busStopTable"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_busStopTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_constraints"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_constraints</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_costPerSeatKm"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_costPerSeatKm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_duration"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_endTime"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_endTime</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_generation"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_generation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_generationChromosomes"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_generationChromosomes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_generationNumber"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_generationNumber</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_maxConnectionsPerHour"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_maxConnectionsPerHour</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_mutationRate"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_mutationRate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_numberOfGenerations"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_numberOfGenerations</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_optimizationRunning"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_optimizationRunning</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_populationSize"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_populationSize</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_routeLength"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_routeLength</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_saveTimeTableName"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_saveTimeTableName</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_selectedBusStops"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_selectedBusStops</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_selectedChromosomeIndex"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_selectedChromosomeIndex</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_selectedScatterPoint"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_selectedScatterPoint</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_selectedTimeTable"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_selectedTimeTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_selectedTimeTableName"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_selectedTimeTableName</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_showOptimization"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_showOptimization</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_sliderMax"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_sliderMax</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_startTime"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_startTime</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_timeTable"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_timeTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_timeTableFilename"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_timeTableFilename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_vehicleCapacity"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_vehicleCapacity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.set_vehicleSeats"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.set_vehicleSeats</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.setvar"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.setvar</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.showOptimization"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.showOptimization</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.sliderMax"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.sliderMax</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.smoothChromosome"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.smoothChromosome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.smoothTimeTable"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.smoothTimeTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.startTime"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.startTime</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.timeTable"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.timeTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.timeTableFilename"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.timeTableFilename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.toggle_optimization_run"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.toggle_optimization_run</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.vars"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.vars</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.vehicleCapacity"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.vehicleCapacity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.OptimizeLineState.vehicleSeats"><code class="docutils literal notranslate"><span class="pre">OptimizeLineState.vehicleSeats</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.optimizeLine.optimizeLine"><code class="docutils literal notranslate"><span class="pre">optimizeLine()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#module-sprout.components.timeTable">sprout.components.timeTable module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.timeTable.timeTable"><code class="docutils literal notranslate"><span class="pre">timeTable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.timeTable.timeTableRow"><code class="docutils literal notranslate"><span class="pre">timeTableRow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="sprout.components.html#sprout.components.timeTable.timeTableRows"><code class="docutils literal notranslate"><span class="pre">timeTableRows()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.components.html#module-sprout.components">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sprout.pages.html">sprout.pages package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="sprout.pages.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.pages.html#sprout-pages-analyzepage-module">sprout.pages.analyzePage module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.pages.html#sprout-pages-homepage-module">sprout.pages.homePage module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.pages.html#sprout-pages-optimizepage-module">sprout.pages.optimizePage module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sprout.pages.html#module-contents">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.pages.html#module-sprout.pages.analyzePage">sprout.pages.analyzePage module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.pages.html#sprout.pages.analyzePage.analyzePage"><code class="docutils literal notranslate"><span class="pre">analyzePage()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.pages.html#module-sprout.pages.homePage">sprout.pages.homePage module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.pages.html#sprout.pages.homePage.homePage"><code class="docutils literal notranslate"><span class="pre">homePage()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.pages.html#module-sprout.pages.optimizePage">sprout.pages.optimizePage module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sprout.pages.html#sprout.pages.optimizePage.optimizePage"><code class="docutils literal notranslate"><span class="pre">optimizePage()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sprout.pages.html#module-sprout.pages">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -124,18 +527,64 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
-<section id="sprout-sprout-module">
-<h2>sprout.sprout module<a class="headerlink" href="#sprout-sprout-module" title="Link to this heading"></a></h2>
+<section id="module-sprout.sprout">
+<span id="sprout-sprout-module"></span><h2>sprout.sprout module<a class="headerlink" href="#module-sprout.sprout" title="Link to this heading"></a></h2>
+<p>This is the root file for the application. It also contains routing and root components for pages.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="sprout.sprout.analyze">
+<span class="sig-prename descclassname"><span class="pre">sprout.sprout.</span></span><span class="sig-name descname"><span class="pre">analyze</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/sprout.html#analyze"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.sprout.analyze" title="Link to this definition"></a></dt>
+<dd><p>Analyze page root component with routing configured.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>analyzePage component wrapped in base layout</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sprout.sprout.home">
+<span class="sig-prename descclassname"><span class="pre">sprout.sprout.</span></span><span class="sig-name descname"><span class="pre">home</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/sprout.html#home"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.sprout.home" title="Link to this definition"></a></dt>
+<dd><p>Home page root component with routing configured.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>homePage component wrapped in base layout</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sprout.sprout.optimize">
+<span class="sig-prename descclassname"><span class="pre">sprout.sprout.</span></span><span class="sig-name descname"><span class="pre">optimize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/sprout.html#optimize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.sprout.optimize" title="Link to this definition"></a></dt>
+<dd><p>Optimize page root component with routing configured.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>optimizePage component wrapped in base layout</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<section id="module-sprout">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-sprout" title="Link to this heading"></a></h2>
 </section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="rxconfig.html" class="btn btn-neutral float-left" title="rxconfig module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sprout.backend.html" class="btn btn-neutral float-right" title="sprout.backend package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

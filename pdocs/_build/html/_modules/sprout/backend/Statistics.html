@@ -1,0 +1,652 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sprout.backend.Statistics &mdash; SPROUT 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            SPROUT
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">sprout</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SPROUT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sprout.backend.Statistics</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sprout.backend.Statistics</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<div class="viewcode-block" id="averageStatistics">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.averageStatistics">[docs]</a>
+<span class="k">def</span> <span class="nf">averageStatistics</span><span class="p">(</span><span class="n">statsList</span><span class="p">):</span>
+    <span class="n">totalNumberOfBuses</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">busStopStatistics</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">busStatistics</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">averageStat</span> <span class="o">=</span> <span class="n">Statistics</span><span class="p">()</span>
+    <span class="n">averageStat</span><span class="o">.</span><span class="n">language</span> <span class="o">=</span> <span class="n">statsList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">language</span>
+    <span class="n">averageStat</span><span class="o">.</span><span class="n">totalNumberOfBuses</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">totalNumberOfBuses</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">statsList</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">statsList</span><span class="p">)</span>
+    <span class="n">averageBusStopStat</span> <span class="o">=</span> <span class="n">BusStopStatistics</span><span class="p">(</span><span class="s2">&quot;Agregated&quot;</span><span class="p">,</span> <span class="n">statsList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">language</span><span class="p">)</span>
+    <span class="n">averageBusStat</span> <span class="o">=</span> <span class="n">BusStatistics</span><span class="p">(</span><span class="s2">&quot;Agregated&quot;</span><span class="p">,</span> <span class="n">statsList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">busStatistics</span><span class="o">.</span><span class="n">capacity</span><span class="p">,</span> <span class="n">statsList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">busStatistics</span><span class="o">.</span><span class="n">seats</span><span class="p">,</span> <span class="n">statsList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">language</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">statsList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">busStopStatistics</span><span class="o">.</span><span class="n">passengersArrivedPerHour</span><span class="p">)):</span>
+        <span class="n">averageBusStopStat</span><span class="o">.</span><span class="n">passengersArrivedPerHour</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">statsList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">busStopStatistics</span><span class="o">.</span><span class="n">passengersArrivedPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">busStopStatistics</span><span class="o">.</span><span class="n">passengersArrivedPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">statsList</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">statsList</span><span class="p">))))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">statsList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">busStopStatistics</span><span class="o">.</span><span class="n">passengersDepartedPerHour</span><span class="p">)):</span>
+        <span class="n">averageBusStopStat</span><span class="o">.</span><span class="n">passengersDepartedPerHour</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">statsList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">busStopStatistics</span><span class="o">.</span><span class="n">passengersDepartedPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">busStopStatistics</span><span class="o">.</span><span class="n">passengersDepartedPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">statsList</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">statsList</span><span class="p">))))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">statsList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">busStopStatistics</span><span class="o">.</span><span class="n">passengersLeftUnboardedPerHour</span><span class="p">)):</span>
+        <span class="n">averageBusStopStat</span><span class="o">.</span><span class="n">passengersLeftUnboardedPerHour</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">statsList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">busStopStatistics</span><span class="o">.</span><span class="n">passengersLeftUnboardedPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">busStopStatistics</span><span class="o">.</span><span class="n">passengersLeftUnboardedPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">statsList</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">statsList</span><span class="p">))))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">statsList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">busStopStatistics</span><span class="o">.</span><span class="n">timeSpentWaitingPerHour</span><span class="p">)):</span>
+        <span class="n">averageBusStopStat</span><span class="o">.</span><span class="n">timeSpentWaitingPerHour</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">statsList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">busStopStatistics</span><span class="o">.</span><span class="n">timeSpentWaitingPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">busStopStatistics</span><span class="o">.</span><span class="n">timeSpentWaitingPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">statsList</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">statsList</span><span class="p">))))</span>
+    <span class="n">averageBusStopStat</span><span class="o">.</span><span class="n">agregateTotal</span><span class="p">()</span>
+    <span class="n">averageBusStopStat</span><span class="o">.</span><span class="n">totalPassengersDeparted</span> <span class="o">=</span> <span class="n">averageBusStopStat</span><span class="o">.</span><span class="n">totalPassengersArrived</span> <span class="o">-</span> <span class="n">averageBusStopStat</span><span class="o">.</span><span class="n">totalPassengersLeftUnboarded</span>
+    <span class="n">averageStat</span><span class="o">.</span><span class="n">busStopStatistics</span> <span class="o">=</span> <span class="n">averageBusStopStat</span>
+    
+    <span class="n">averageBusStat</span><span class="o">.</span><span class="n">totalPassengersTransported</span> <span class="o">=</span> <span class="n">averageBusStopStat</span><span class="o">.</span><span class="n">totalPassengersDeparted</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">statsList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">busStatistics</span><span class="o">.</span><span class="n">loadPerBusStop</span><span class="p">)):</span>
+        <span class="n">averageBusStat</span><span class="o">.</span><span class="n">loadPerBusStop</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">statsList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">busStatistics</span><span class="o">.</span><span class="n">loadPerBusStop</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">busStatistics</span><span class="o">.</span><span class="n">loadPerBusStop</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">statsList</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">statsList</span><span class="p">))))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">statsList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">busStatistics</span><span class="o">.</span><span class="n">loadInPercentPerBusStop</span><span class="p">)):</span>
+        <span class="n">averageBusStat</span><span class="o">.</span><span class="n">loadInPercentPerBusStop</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">statsList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">busStatistics</span><span class="o">.</span><span class="n">loadInPercentPerBusStop</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="nb">sum</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">busStatistics</span><span class="o">.</span><span class="n">loadInPercentPerBusStop</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">statsList</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">statsList</span><span class="p">)))</span>
+    <span class="n">averageBusStat</span><span class="o">.</span><span class="n">agregateTotal</span><span class="p">()</span>
+    <span class="n">averageStat</span><span class="o">.</span><span class="n">busStatistics</span> <span class="o">=</span> <span class="n">averageBusStat</span>
+    
+    <span class="n">averageStat</span><span class="o">.</span><span class="n">averagePassengerSatisfaction</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">averagePassengerSatisfaction</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">statsList</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">statsList</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">averageStat</span></div>
+
+
+
+<div class="viewcode-block" id="Statistics">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.Statistics">[docs]</a>
+<span class="k">class</span> <span class="nc">Statistics</span><span class="p">:</span>
+    <span class="c1"># INIT</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">totalNumberOfBuses</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">busStopStatistics</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">busStatistics</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalNumberOfBuses</span> <span class="o">=</span> <span class="n">totalNumberOfBuses</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">=</span> <span class="n">language</span>
+        <span class="k">if</span> <span class="n">busStopStatistics</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">busStopStatistics</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">busStopStatistics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">agregateBusStopStatistics</span><span class="p">(</span><span class="n">busStopStatistics</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">busStatistics</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">busStatistics</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">averagePassengerSatisfaction</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">busStatistics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">agregateBusStatistics</span><span class="p">(</span><span class="n">busStatistics</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">averagePassengerSatisfaction</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">busStatistics</span><span class="o">.</span><span class="n">passengerSatisfactions</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">busStatistics</span><span class="o">.</span><span class="n">passengerSatisfactions</span><span class="p">)</span>
+        
+    <span class="c1"># METHODS</span>
+<div class="viewcode-block" id="Statistics.agregateBusStopStatistics">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.Statistics.agregateBusStopStatistics">[docs]</a>
+    <span class="k">def</span> <span class="nf">agregateBusStopStatistics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">busStopStatistics</span><span class="p">):</span>
+        <span class="n">busStopStatisticsAgregated</span> <span class="o">=</span> <span class="n">BusStopStatistics</span><span class="p">(</span><span class="s2">&quot;Agregated&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">busStop</span> <span class="ow">in</span> <span class="n">busStopStatistics</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">hourValuePair</span> <span class="ow">in</span> <span class="n">busStop</span><span class="o">.</span><span class="n">passengersArrivedPerHour</span><span class="p">:</span>
+                <span class="n">busStopStatisticsAgregated</span><span class="o">.</span><span class="n">updatePassengersArrivedPerHour</span><span class="p">(</span><span class="n">hourValuePair</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">hourValuePair</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">hourValuePair</span> <span class="ow">in</span> <span class="n">busStop</span><span class="o">.</span><span class="n">passengersDepartedPerHour</span><span class="p">:</span>
+                <span class="n">busStopStatisticsAgregated</span><span class="o">.</span><span class="n">updatePassengersDepartedPerHour</span><span class="p">(</span><span class="n">hourValuePair</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">hourValuePair</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">hourValuePair</span> <span class="ow">in</span> <span class="n">busStop</span><span class="o">.</span><span class="n">passengersLeftUnboardedPerHour</span><span class="p">:</span>
+                <span class="n">busStopStatisticsAgregated</span><span class="o">.</span><span class="n">updatePassengersLeftUnboardedPerHour</span><span class="p">(</span><span class="n">hourValuePair</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">hourValuePair</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">hourValuePair</span> <span class="ow">in</span> <span class="n">busStop</span><span class="o">.</span><span class="n">timeSpentWaitingPerHour</span><span class="p">:</span>
+                <span class="n">busStopStatisticsAgregated</span><span class="o">.</span><span class="n">updateTimeSpentWaitingPerHour</span><span class="p">(</span><span class="n">hourValuePair</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">hourValuePair</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">busStopStatisticsAgregated</span><span class="o">.</span><span class="n">agregateTotal</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">busStopStatisticsAgregated</span></div>
+
+
+<div class="viewcode-block" id="Statistics.agregateBusStatistics">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.Statistics.agregateBusStatistics">[docs]</a>
+    <span class="k">def</span> <span class="nf">agregateBusStatistics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">busStatistics</span><span class="p">):</span>
+        <span class="n">busStatisticsAgregated</span> <span class="o">=</span> <span class="n">BusStatistics</span><span class="p">(</span><span class="s2">&quot;Agregated&quot;</span><span class="p">,</span> <span class="n">busStatistics</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">capacity</span><span class="p">,</span> <span class="n">busStatistics</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">seats</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span><span class="p">)</span>
+        <span class="n">loadPerBusStop</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">bus</span> <span class="ow">in</span> <span class="n">busStatistics</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">nameValuePair</span> <span class="ow">in</span> <span class="n">bus</span><span class="o">.</span><span class="n">loadPerBusStop</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">nameValuePair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">loadPerBusStop</span><span class="p">:</span>
+                    <span class="n">loadPerBusStop</span><span class="p">[</span><span class="n">nameValuePair</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">loadPerBusStop</span><span class="p">[</span><span class="n">nameValuePair</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nameValuePair</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">busStatisticsAgregated</span><span class="o">.</span><span class="n">updateTotalPassengersTransported</span><span class="p">(</span><span class="n">bus</span><span class="o">.</span><span class="n">totalPassengersTransported</span><span class="p">)</span>
+            <span class="n">busStatisticsAgregated</span><span class="o">.</span><span class="n">passengerSatisfactions</span> <span class="o">+=</span> <span class="n">bus</span><span class="o">.</span><span class="n">passengerSatisfactions</span>
+        
+        <span class="k">for</span> <span class="n">busStopName</span><span class="p">,</span> <span class="n">loads</span> <span class="ow">in</span> <span class="n">loadPerBusStop</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">averageLoad</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">loads</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">loads</span><span class="p">)</span>
+            <span class="n">busStatisticsAgregated</span><span class="o">.</span><span class="n">updateLoadPerBusStop</span><span class="p">(</span><span class="n">averageLoad</span><span class="p">,</span> <span class="n">busStopName</span><span class="p">)</span>
+        
+        <span class="n">busStatisticsAgregated</span><span class="o">.</span><span class="n">agregateTotal</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">busStatisticsAgregated</span></div>
+
+    
+    <span class="c1"># CLEAR</span>
+<div class="viewcode-block" id="Statistics.clear">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.Statistics.clear">[docs]</a>
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalNumberOfBuses</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">busStopStatistics</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">busStatistics</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+
+    <span class="c1"># SAVE GRAPHS</span>
+<div class="viewcode-block" id="Statistics.saveAllGraphs">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.Statistics.saveAllGraphs">[docs]</a>
+    <span class="k">def</span> <span class="nf">saveAllGraphs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">busStopStatistics</span><span class="o">.</span><span class="n">savePassengersArrivedPerHour</span><span class="p">(</span><span class="s2">&quot;outputs/passengersArrivedPerHour.png&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">busStopStatistics</span><span class="o">.</span><span class="n">savePassengersDepartedPerHour</span><span class="p">(</span><span class="s2">&quot;outputs/passengersDepartedPerHour.png&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">busStopStatistics</span><span class="o">.</span><span class="n">savePassengersLeftUnboardedPerHour</span><span class="p">(</span><span class="s2">&quot;outputs/passengersLeftUnboardedPerHour.png&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">busStopStatistics</span><span class="o">.</span><span class="n">saveTimeSpentWaitingPerHour</span><span class="p">(</span><span class="s2">&quot;outputs/timeSpentWaitingPerHour.png&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">busStatistics</span><span class="o">.</span><span class="n">saveLoadPerBusStop</span><span class="p">(</span><span class="s2">&quot;outputs/loadPerBusStop.png&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">busStatistics</span><span class="o">.</span><span class="n">saveLoadInPercentPerBusStop</span><span class="p">(</span><span class="s2">&quot;outputs/loadInPercentPerBusStop.png&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># STR</span>
+<div class="viewcode-block" id="Statistics.print">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.Statistics.print">[docs]</a>
+    <span class="k">def</span> <span class="nf">print</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;================================================================</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="s2">&quot;Štatistiky</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="s2">&quot;================================================================</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Celkový počet autobusov: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">totalNumberOfBuses</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Štatistiky zastávok:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">busStopStatistics</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Štatistiky autobusov:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">busStatistics</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="s2">&quot;================================================================</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;================================================================</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="s2">&quot;Statistics</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="s2">&quot;================================================================</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Total number of buses: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">totalNumberOfBuses</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Bus stop statistics:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">busStopStatistics</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Bus statistics:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">busStatistics</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="s2">&quot;================================================================</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+</div>
+
+
+<span class="c1"># ------------------------------ BUSSTOP ------------------------------</span>
+<div class="viewcode-block" id="BusStopStatistics">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics">[docs]</a>
+<span class="k">class</span> <span class="nc">BusStopStatistics</span><span class="p">:</span>
+    <span class="c1"># INIT</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">=</span> <span class="n">language</span>
+        <span class="c1"># total</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersArrived</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersDeparted</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersLeftUnboarded</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalTimeSpentWaiting</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># per hour</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passengersArrivedPerHour</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passengersDepartedPerHour</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passengersLeftUnboardedPerHour</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeSpentWaitingPerHour</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># PER HOUR</span>
+<div class="viewcode-block" id="BusStopStatistics.updatePassengersArrivedPerHour">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.updatePassengersArrivedPerHour">[docs]</a>
+    <span class="k">def</span> <span class="nf">updatePassengersArrivedPerHour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">passengersArrived</span><span class="p">,</span> <span class="n">hour</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">passengersArrivedPerHour</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">passengersArrivedPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">hour</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">passengersArrivedPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">hour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">passengersArrivedPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">passengersArrived</span><span class="p">)</span>
+                <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passengersArrivedPerHour</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">hour</span><span class="p">,</span> <span class="n">passengersArrived</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="BusStopStatistics.updatePassengersDepartedPerHour">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.updatePassengersDepartedPerHour">[docs]</a>
+    <span class="k">def</span> <span class="nf">updatePassengersDepartedPerHour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">passengersDeparted</span><span class="p">,</span> <span class="n">hour</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">passengersDepartedPerHour</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">passengersDepartedPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">hour</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">passengersDepartedPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">hour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">passengersDepartedPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">passengersDeparted</span><span class="p">)</span>
+                <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passengersDepartedPerHour</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">hour</span><span class="p">,</span> <span class="n">passengersDeparted</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="BusStopStatistics.updatePassengersLeftUnboardedPerHour">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.updatePassengersLeftUnboardedPerHour">[docs]</a>
+    <span class="k">def</span> <span class="nf">updatePassengersLeftUnboardedPerHour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">passengersWaiting</span><span class="p">,</span> <span class="n">hour</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">passengersLeftUnboardedPerHour</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">passengersLeftUnboardedPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">hour</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">passengersLeftUnboardedPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">hour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">passengersLeftUnboardedPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">passengersWaiting</span><span class="p">)</span>
+                <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passengersLeftUnboardedPerHour</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">hour</span><span class="p">,</span> <span class="n">passengersWaiting</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="BusStopStatistics.updateTimeSpentWaitingPerHour">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.updateTimeSpentWaitingPerHour">[docs]</a>
+    <span class="k">def</span> <span class="nf">updateTimeSpentWaitingPerHour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeSpentWaiting</span><span class="p">,</span> <span class="n">hour</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timeSpentWaitingPerHour</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeSpentWaitingPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">hour</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">timeSpentWaitingPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">hour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeSpentWaitingPerHour</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">timeSpentWaiting</span><span class="p">)</span>
+                <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeSpentWaitingPerHour</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">hour</span><span class="p">,</span> <span class="n">timeSpentWaiting</span><span class="p">))</span></div>
+
+
+    <span class="c1"># TOTAL</span>
+<div class="viewcode-block" id="BusStopStatistics.agregateTotal">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.agregateTotal">[docs]</a>
+    <span class="k">def</span> <span class="nf">agregateTotal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersArrived</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">passengersArrivedPerHour</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersDeparted</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">passengersDepartedPerHour</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersLeftUnboarded</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">passengersLeftUnboardedPerHour</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalTimeSpentWaiting</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeSpentWaitingPerHour</span><span class="p">])</span></div>
+
+
+    <span class="c1"># CLEAR</span>
+<div class="viewcode-block" id="BusStopStatistics.clear">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.clear">[docs]</a>
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersArrived</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersDeparted</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersLeftUnboarded</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalTimeSpentWaiting</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passengersArrivedPerHour</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passengersDepartedPerHour</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passengersLeftUnboardedPerHour</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeSpentWaitingPerHour</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+
+    <span class="c1"># SHOW GRAPHS</span>
+<div class="viewcode-block" id="BusStopStatistics.showPassengersArrivedPerHour">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.showPassengersArrivedPerHour">[docs]</a>
+    <span class="k">def</span> <span class="nf">showPassengersArrivedPerHour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotPassengersArrivedPerHour</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="BusStopStatistics.showPassengersDepartedPerHour">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.showPassengersDepartedPerHour">[docs]</a>
+    <span class="k">def</span> <span class="nf">showPassengersDepartedPerHour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotPassengersDepartedPerHour</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="BusStopStatistics.showPassengersLeftUnboardedPerHour">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.showPassengersLeftUnboardedPerHour">[docs]</a>
+    <span class="k">def</span> <span class="nf">showPassengersLeftUnboardedPerHour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotPassengersLeftUnboardedPerHour</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="BusStopStatistics.showTimeSpentWaitingPerHour">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.showTimeSpentWaitingPerHour">[docs]</a>
+    <span class="k">def</span> <span class="nf">showTimeSpentWaitingPerHour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotTimeSpentWaitingPerHour</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+    
+    <span class="c1"># SAVE GRAPHS</span>
+<div class="viewcode-block" id="BusStopStatistics.savePassengersArrivedPerHour">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.savePassengersArrivedPerHour">[docs]</a>
+    <span class="k">def</span> <span class="nf">savePassengersArrivedPerHour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotPassengersArrivedPerHour</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="BusStopStatistics.savePassengersDepartedPerHour">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.savePassengersDepartedPerHour">[docs]</a>
+    <span class="k">def</span> <span class="nf">savePassengersDepartedPerHour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotPassengersDepartedPerHour</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="BusStopStatistics.savePassengersLeftUnboardedPerHour">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.savePassengersLeftUnboardedPerHour">[docs]</a>
+    <span class="k">def</span> <span class="nf">savePassengersLeftUnboardedPerHour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotPassengersLeftUnboardedPerHour</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="BusStopStatistics.saveTimeSpentWaitingPerHour">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.saveTimeSpentWaitingPerHour">[docs]</a>
+    <span class="k">def</span> <span class="nf">saveTimeSpentWaitingPerHour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotTimeSpentWaitingPerHour</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+    <span class="c1"># PLOT</span>
+<div class="viewcode-block" id="BusStopStatistics.plotPassengersArrivedPerHour">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.plotPassengersArrivedPerHour">[docs]</a>
+    <span class="k">def</span> <span class="nf">plotPassengersArrivedPerHour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">passengersArrivedPerHour</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">passengersArrivedPerHour</span><span class="p">]</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Hodina&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="s1">&#39;Hour&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cestujúci&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="s1">&#39;Passengers&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;Agregated&quot;</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cestujúci prichádzajúci na </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;Passengers Arrived at </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Cestujúci prichádzajúci na všetky zastávky&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="s1">&#39;Passengers Arrived at All Bus Stops&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BusStopStatistics.plotPassengersDepartedPerHour">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.plotPassengersDepartedPerHour">[docs]</a>
+    <span class="k">def</span> <span class="nf">plotPassengersDepartedPerHour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">passengersDepartedPerHour</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">passengersDepartedPerHour</span><span class="p">]</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Hodina&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="s1">&#39;Hour&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cestujúci&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="s1">&#39;Passengers&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;Agregated&quot;</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cestujúci odchádzajúci z </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;Passengers Departed at </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Cestujúci odchádzajúci zo všetkých zastávok&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="s1">&#39;Passengers Departed at All Bus Stops&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BusStopStatistics.plotPassengersLeftUnboardedPerHour">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.plotPassengersLeftUnboardedPerHour">[docs]</a>
+    <span class="k">def</span> <span class="nf">plotPassengersLeftUnboardedPerHour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">passengersLeftUnboardedPerHour</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">passengersLeftUnboardedPerHour</span><span class="p">]</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Hodina&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="s1">&#39;Hour&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cestujúci&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="s1">&#39;Passengers&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;Agregated&quot;</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cestujúci čakajúci na ďalší autobus na </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;Passengers Waiting for Next Bus at </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Cestujúci čakajúci na ďalší autobus na všetkých zastávkach&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="s1">&#39;Passengers Waiting for Next Bus at All Bus Stops&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BusStopStatistics.plotTimeSpentWaitingPerHour">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.plotTimeSpentWaitingPerHour">[docs]</a>
+    <span class="k">def</span> <span class="nf">plotTimeSpentWaitingPerHour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeSpentWaitingPerHour</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeSpentWaitingPerHour</span><span class="p">]</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Hodina&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="s1">&#39;Hour&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Čas (minúty)&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="s1">&#39;Time (minutes)&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;Agregated&quot;</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Čas strávený čakaním cestujúcich na </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;Time Passengers Spent Waiting at </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Čas strávený čakaním cestujúcich na všetkých zastávkach&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="s1">&#39;Time Passengers Spent Waiting at All Bus Stops&#39;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># STR</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s2">&quot;=============================================================</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Zastávka: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="s2">&quot;=============================================================</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Celkový počet prichádzajúcich cestujúcich: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersArrived</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Celkový počet odchádzajúcich cestujúcich: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersDeparted</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Celkový čas strávený čakaním: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">totalTimeSpentWaiting</span><span class="si">}</span><span class="s2"> minút</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Celkový počet cestujúcich, ktorí ostali neobslúžení: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersLeftUnboarded</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Prichádzajúci cestujúci za hodinu:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">keyValuePairArrayToString</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">passengersArrivedPerHour</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Odchádzajúci cestujúci za hodinu:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">keyValuePairArrayToString</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">passengersDepartedPerHour</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Cestujúci čakajúci na ďalší autobus za hodinu:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">keyValuePairArrayToString</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">passengersLeftUnboardedPerHour</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Čas strávený čakaním za hodinu (v minútach):</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">keyValuePairArrayToString</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timeSpentWaitingPerHour</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="s2">&quot;=============================================================</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;=============================================================</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Bus Stop: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="s2">&quot;=============================================================</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Total passengers arrived: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersArrived</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Total passengers departed: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersDeparted</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Total time spent waiting: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">totalTimeSpentWaiting</span><span class="si">}</span><span class="s2"> minutes</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Total passengers left unboarded: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersLeftUnboarded</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Passengers arrived per hour:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">keyValuePairArrayToString</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">passengersArrivedPerHour</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Passengers departed per hour:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">keyValuePairArrayToString</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">passengersDepartedPerHour</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Passengers waiting for next bus per hour:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">keyValuePairArrayToString</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">passengersLeftUnboardedPerHour</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">&quot;Time spent waiting per hour (in minutes):</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">keyValuePairArrayToString</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timeSpentWaitingPerHour</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                <span class="s2">&quot;=============================================================</span><span class="se">\n</span><span class="s2">&quot;</span>
+    
+<div class="viewcode-block" id="BusStopStatistics.keyValuePairArrayToString">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStopStatistics.keyValuePairArrayToString">[docs]</a>
+    <span class="k">def</span> <span class="nf">keyValuePairArrayToString</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyValuePairArray</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">keyValuePairArray</span><span class="p">])</span></div>
+</div>
+
+    
+<span class="c1"># -------------------------------- BUS --------------------------------</span>
+<div class="viewcode-block" id="BusStatistics">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStatistics">[docs]</a>
+<span class="k">class</span> <span class="nc">BusStatistics</span><span class="p">:</span>
+    <span class="c1"># INIT</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">busNumber</span><span class="p">,</span> <span class="n">capacity</span><span class="p">,</span> <span class="n">seats</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">busNumber</span> <span class="o">=</span> <span class="n">busNumber</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span> <span class="o">=</span> <span class="n">capacity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seats</span> <span class="o">=</span> <span class="n">seats</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">=</span> <span class="n">language</span>
+        <span class="c1"># total</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">averageLoad</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">averageLoadInPercent</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersTransported</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># per bus stop</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loadPerBusStop</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loadInPercentPerBusStop</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># passengers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passengerSatisfactions</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c1"># PER BUS STOP</span>
+<div class="viewcode-block" id="BusStatistics.updateLoadPerBusStop">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStatistics.updateLoadPerBusStop">[docs]</a>
+    <span class="k">def</span> <span class="nf">updateLoadPerBusStop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">load</span><span class="p">,</span> <span class="n">busStopName</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loadPerBusStop</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">busStopName</span><span class="p">,</span> <span class="n">load</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loadInPercentPerBusStop</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">busStopName</span><span class="p">,</span> <span class="n">load</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span><span class="p">))</span></div>
+
+
+    <span class="c1"># PASSENGERS</span>
+<div class="viewcode-block" id="BusStatistics.updatePassengerSatisfactions">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStatistics.updatePassengerSatisfactions">[docs]</a>
+    <span class="k">def</span> <span class="nf">updatePassengerSatisfactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">satisfaction</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">passengerSatisfactions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">satisfaction</span><span class="p">)</span></div>
+
+
+    <span class="c1"># TOTAL</span>
+<div class="viewcode-block" id="BusStatistics.agregateTotal">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStatistics.agregateTotal">[docs]</a>
+    <span class="k">def</span> <span class="nf">agregateTotal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">averageLoad</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">loadPerBusStop</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loadPerBusStop</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">averageLoadInPercent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">averageLoad</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span></div>
+
+    
+<div class="viewcode-block" id="BusStatistics.updateTotalPassengersTransported">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStatistics.updateTotalPassengersTransported">[docs]</a>
+    <span class="k">def</span> <span class="nf">updateTotalPassengersTransported</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">passengersTransported</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersTransported</span> <span class="o">+=</span> <span class="n">passengersTransported</span></div>
+
+
+    <span class="c1"># CLEAR</span>
+<div class="viewcode-block" id="BusStatistics.clear">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStatistics.clear">[docs]</a>
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">averageLoad</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">averageLoadInPercent</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersTransported</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loadPerBusStop</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loadInPercentPerBusStop</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+
+    <span class="c1"># SHOW GRAPHS</span>
+<div class="viewcode-block" id="BusStatistics.showLoadPerBusStop">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStatistics.showLoadPerBusStop">[docs]</a>
+    <span class="k">def</span> <span class="nf">showLoadPerBusStop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotLoadPerBusStop</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="BusStatistics.showLoadInPercentPerBusStop">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStatistics.showLoadInPercentPerBusStop">[docs]</a>
+    <span class="k">def</span> <span class="nf">showLoadInPercentPerBusStop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotLoadInPercentPerBusStop</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+    <span class="c1"># SAVE GRAPHS</span>
+<div class="viewcode-block" id="BusStatistics.saveLoadPerBusStop">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStatistics.saveLoadPerBusStop">[docs]</a>
+    <span class="k">def</span> <span class="nf">saveLoadPerBusStop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotLoadPerBusStop</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="BusStatistics.saveLoadInPercentPerBusStop">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStatistics.saveLoadInPercentPerBusStop">[docs]</a>
+    <span class="k">def</span> <span class="nf">saveLoadInPercentPerBusStop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotLoadInPercentPerBusStop</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+    <span class="c1"># PLOT</span>
+<div class="viewcode-block" id="BusStatistics.plotLoadPerBusStop">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStatistics.plotLoadPerBusStop">[docs]</a>
+    <span class="k">def</span> <span class="nf">plotLoadPerBusStop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loadPerBusStop</span><span class="p">))</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">loadPerBusStop</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">loadPerBusStop</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">averageLoad</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Priemerná naplnenosť: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">averageLoad</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;Average Load: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">averageLoad</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Naplnenosť&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="s1">&#39;Load&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Autobusová zastávka&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="s1">&#39;Bus Stop&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">busNumber</span> <span class="o">!=</span> <span class="s2">&quot;Agregated&quot;</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Naplnenosť autobusu #</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">busNumber</span><span class="si">}</span><span class="s1"> na zastávku&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;Bus #</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">busNumber</span><span class="si">}</span><span class="s1"> Load per Bus Stop&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Priemerná naplnenosť autobusov na zastávku&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;Average Bus Load per Bus Stop&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BusStatistics.plotLoadInPercentPerBusStop">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStatistics.plotLoadInPercentPerBusStop">[docs]</a>
+    <span class="k">def</span> <span class="nf">plotLoadInPercentPerBusStop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loadInPercentPerBusStop</span><span class="p">))</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">loadInPercentPerBusStop</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">loadInPercentPerBusStop</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">averageLoadInPercent</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Priemerná naplnenosť: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">averageLoadInPercent</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="si">}</span><span class="s1">%&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;Average Load: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">averageLoadInPercent</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Naplnenosť&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="s1">&#39;Load&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Autobusová zastávka&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="s1">&#39;Bus Stop&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span><span class="si">}</span><span class="s1">%&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">busNumber</span> <span class="o">!=</span> <span class="s2">&quot;Agregated&quot;</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Naplnenosť autobusu #</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">busNumber</span><span class="si">}</span><span class="s1"> v percentách na zastávku&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;Bus #</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">busNumber</span><span class="si">}</span><span class="s1"> Load in Percent per Bus Stop&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Priemerná naplnenosť autobusov v percentách na zastávku&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;Average Bus Load in Percent per Bus Stop&#39;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># STR</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="s2">&quot;sk&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s2">&quot;=============================================================</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+               <span class="sa">f</span><span class="s2">&quot;Autobus #</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">busNumber</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+               <span class="s2">&quot;=============================================================</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+               <span class="sa">f</span><span class="s2">&quot;Priemerná naplnenosť: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">averageLoad</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+               <span class="sa">f</span><span class="s2">&quot;Priemerná naplnenosť v percentách: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">averageLoadInPercent</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+               <span class="sa">f</span><span class="s2">&quot;Celkový počet prepravených cestujúcich: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersTransported</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+               <span class="sa">f</span><span class="s2">&quot;Naplnenosť na zastávku:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">keyValuePairArrayToString</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loadPerBusStop</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+               <span class="sa">f</span><span class="s2">&quot;Naplnenosť v percentách na zastávku:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">keyValuePairArrayToString</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loadInPercentPerBusStop</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+               <span class="s2">&quot;=============================================================</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;=============================================================</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+               <span class="sa">f</span><span class="s2">&quot;Bus #</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">busNumber</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+               <span class="s2">&quot;=============================================================</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+               <span class="sa">f</span><span class="s2">&quot;Average load: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">averageLoad</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+               <span class="sa">f</span><span class="s2">&quot;Average load in percent: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">averageLoadInPercent</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+               <span class="sa">f</span><span class="s2">&quot;Total passengers transported: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersTransported</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+               <span class="sa">f</span><span class="s2">&quot;Load per bus stop:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">keyValuePairArrayToString</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loadPerBusStop</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+               <span class="sa">f</span><span class="s2">&quot;Load in percent per bus stop:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">keyValuePairArrayToString</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loadInPercentPerBusStop</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+               <span class="s2">&quot;=============================================================</span><span class="se">\n</span><span class="s2">&quot;</span>
+        
+<div class="viewcode-block" id="BusStatistics.keyValuePairArrayToString">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Statistics.BusStatistics.keyValuePairArrayToString">[docs]</a>
+    <span class="k">def</span> <span class="nf">keyValuePairArrayToString</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyValuePairArray</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">keyValuePairArray</span><span class="p">])</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Lukas Katona.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
