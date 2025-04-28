@@ -1,6 +1,26 @@
+"""
+This files contains bus stop chart component
+"""
+
 import reflex as rx
 
-def busStopChart(title: str, data, max: int, numOfEntries: int, leftMargin) -> rx.Component:
+def busStopChart(title: str, data: list[dict[str,int]], max: int, numOfEntries: int, leftMargin: int) -> rx.Component:
+    """
+    Component that displays bus stops on one axis and average load of all vehicles on the other axis in a graph with horizontal columns.
+
+    :param title: Name of the graph
+    :type title: str
+    :param data: data to display in graph
+    :type data: list[dict[str,int]]
+    :param max: maximum value on x axis
+    :type max: int
+    :param numOfEntries: number of stops, used to calculate height of the graph
+    :type numOfEntries: int
+    :param leftMargin: left margin is needed so even the long names of the bus stops are visible
+    :type leftMargin: int
+    :return: Bus stop chart component
+    :rtype: rx.Component
+    """
     return rx.card(
         rx.vstack(
             rx.heading(title, size="4"),

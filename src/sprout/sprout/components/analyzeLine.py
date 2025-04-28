@@ -1,10 +1,8 @@
 import reflex as rx
-import tkinter as tk
 from tkinter import filedialog
 
 from ..backend.InputParser import InputParser
 from ..backend.Simulation import Simulation
-from ..backend.Statistics import Statistics
 
 from .infoCard import infoCard
 from .hourChart import hourChart

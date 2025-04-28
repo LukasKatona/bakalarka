@@ -488,38 +488,122 @@
 </section>
 <section id="module-sprout.components.busStopChart">
 <span id="sprout-components-busstopchart-module"></span><h2>sprout.components.busStopChart module<a class="headerlink" href="#module-sprout.components.busStopChart" title="Link to this heading"></a></h2>
+<p>This files contains bus stop chart component</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.busStopChart.busStopChart">
-<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopChart.</span></span><span class="sig-name descname"><span class="pre">busStopChart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numOfEntries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">leftMargin</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/busStopChart.html#busStopChart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopChart.busStopChart" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopChart.</span></span><span class="sig-name descname"><span class="pre">busStopChart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numOfEntries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">leftMargin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/busStopChart.html#busStopChart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopChart.busStopChart" title="Link to this definition"></a></dt>
+<dd><p>Component that displays bus stops on one axis and average load of all vehicles on the other axis in a graph with horizontal columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<em>str</em>) – Name of the graph</p></li>
+<li><p><strong>data</strong> (<em>list</em><em>[</em><em>dict</em><em>[</em><em>str</em><em>,</em><em>int</em><em>]</em><em>]</em>) – data to display in graph</p></li>
+<li><p><strong>max</strong> (<em>int</em>) – maximum value on x axis</p></li>
+<li><p><strong>numOfEntries</strong> (<em>int</em>) – number of stops, used to calculate height of the graph</p></li>
+<li><p><strong>leftMargin</strong> (<em>int</em>) – left margin is needed so even the long names of the bus stops are visible</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Bus stop chart component</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-sprout.components.busStopTable">
 <span id="sprout-components-busstoptable-module"></span><h2>sprout.components.busStopTable module<a class="headerlink" href="#module-sprout.components.busStopTable" title="Link to this heading"></a></h2>
+<p>This file contains components for a table displaying list of bus stops.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.busStopTable.busStopTable">
 <span class="sig-prename descclassname"><span class="pre">sprout.components.busStopTable.</span></span><span class="sig-name descname"><span class="pre">busStopTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">busStops</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/busStopTable.html#busStopTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopTable.busStopTable" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Table with all the bus stops on the line with coresponding time it takes to get there.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>busStops</strong> (<em>any</em>) – data to display</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Bus stop table component</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.busStopTable.busStopTableIconRow">
-<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopTable.</span></span><span class="sig-name descname"><span class="pre">busStopTableIconRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/components/busStopTable.html#busStopTableIconRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopTable.busStopTableIconRow" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopTable.</span></span><span class="sig-name descname"><span class="pre">busStopTableIconRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/busStopTable.html#busStopTableIconRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopTable.busStopTableIconRow" title="Link to this definition"></a></dt>
+<dd><p>Icon part of one row in a table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>row</strong> (<em>any</em>) – Row data to display</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>row component</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.busStopTable.busStopTableNameRow">
-<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopTable.</span></span><span class="sig-name descname"><span class="pre">busStopTableNameRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/components/busStopTable.html#busStopTableNameRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopTable.busStopTableNameRow" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopTable.</span></span><span class="sig-name descname"><span class="pre">busStopTableNameRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/busStopTable.html#busStopTableNameRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopTable.busStopTableNameRow" title="Link to this definition"></a></dt>
+<dd><p>Bus stop name part of one row in a table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>row</strong> (<em>any</em>) – Row data to display</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>row component</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.busStopTable.busStopTableRows">
-<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopTable.</span></span><span class="sig-name descname"><span class="pre">busStopTableRows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rows</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flex</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/components/busStopTable.html#busStopTableRows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopTable.busStopTableRows" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopTable.</span></span><span class="sig-name descname"><span class="pre">busStopTableRows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rows</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/busStopTable.html#busStopTableRows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopTable.busStopTableRows" title="Link to this definition"></a></dt>
+<dd><p>Wraps all rows in a vertical stack.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rows</strong> (<em>any</em>) – rows data</p></li>
+<li><p><strong>content</strong> (<em>render function</em>) – type of content, time, icon or name</p></li>
+<li><p><strong>flex</strong> (<em>int</em>) – flex of the column</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>column with all the rows</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.busStopTable.busStopTableTimeRow">
-<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopTable.</span></span><span class="sig-name descname"><span class="pre">busStopTableTimeRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/components/busStopTable.html#busStopTableTimeRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopTable.busStopTableTimeRow" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopTable.</span></span><span class="sig-name descname"><span class="pre">busStopTableTimeRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/busStopTable.html#busStopTableTimeRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopTable.busStopTableTimeRow" title="Link to this definition"></a></dt>
+<dd><p>Time part of one row in a table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>row</strong> (<em>any</em>) – Row data to display</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>row component</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-sprout.components.constraintInput">

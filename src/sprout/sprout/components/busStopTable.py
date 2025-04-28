@@ -1,6 +1,18 @@
+"""
+This file contains components for a table displaying list of bus stops.
+"""
+
 import reflex as rx
 
-def busStopTableTimeRow(row):
+def busStopTableTimeRow(row) -> rx.Component:
+    """
+    Time part of one row in a table.
+
+    :param row: Row data to display
+    :type row: any
+    :return: row component
+    :rtype: rx.Component
+    """
     timeDelta, name, even = row[0], row[1], row[2]
     return rx.cond(
         even,
@@ -33,7 +45,15 @@ def busStopTableTimeRow(row):
         )
     )
 
-def busStopTableIconRow(row):
+def busStopTableIconRow(row) -> rx.Component:
+    """
+    Icon part of one row in a table.
+
+    :param row: Row data to display
+    :type row: any
+    :return: row component
+    :rtype: rx.Component
+    """
     timeDelta, name, even = row[0], row[1], row[2]
     return rx.cond(
         even,
@@ -54,7 +74,15 @@ def busStopTableIconRow(row):
         )
     )
 
-def busStopTableNameRow(row):
+def busStopTableNameRow(row) -> rx.Component:
+    """
+    Bus stop name part of one row in a table.
+
+    :param row: Row data to display
+    :type row: any
+    :return: row component
+    :rtype: rx.Component
+    """
     timeDelta, name, even = row[0], row[1], row[2]
     return rx.cond(
         even,
@@ -77,7 +105,19 @@ def busStopTableNameRow(row):
         )
     )
 
-def busStopTableRows(rows, content, flex):
+def busStopTableRows(rows, content, flex) -> rx.Component:
+    """
+    Wraps all rows in a vertical stack.
+
+    :param rows: rows data
+    :type rows: any
+    :param content: type of content, time, icon or name
+    :type content: render function
+    :param flex: flex of the column
+    :type flex: int
+    :return: column with all the rows
+    :rtype: rx.Component
+    """
     return rx.vstack(
         rx.foreach(
             rows,
@@ -89,6 +129,14 @@ def busStopTableRows(rows, content, flex):
     )
 
 def busStopTable(busStops) -> rx.Component:
+    """
+    Table with all the bus stops on the line with coresponding time it takes to get there.
+
+    :param busStops: data to display
+    :type busStops: any
+    :return: Bus stop table component
+    :rtype: rx.Component
+    """
     return rx.card(
         rx.vstack(
             rx.heading("Zastávky linky", size="4", padding_x="3em"),
