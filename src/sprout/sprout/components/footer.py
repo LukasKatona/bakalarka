@@ -1,6 +1,16 @@
+"""
+This file contains the main footer of the web page.
+"""
+
 import reflex as rx
 
 def footer() -> rx.Component:
+    """
+    Simple footer component.
+
+    :return: Footer of the page
+    :rtype: rx.Component
+    """
     return rx.box(
         rx.hstack(
             rx.text("© 2025 Sprout", size="3", weight="medium", flex="1"),

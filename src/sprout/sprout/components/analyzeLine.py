@@ -255,7 +255,7 @@ def analyzeLine() -> rx.Component:
         ),
         rx.hstack(
             rx.button(
-                rx.heading("Vymazať súbory", size="3"),
+                rx.heading("Resetovať", size="3"),
                 on_click=AnalyzeLineState.clear_files(),
                 size="3",
             ),

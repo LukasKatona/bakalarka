@@ -4,13 +4,13 @@ This file contains components for a table displaying list of bus stops.
 
 import reflex as rx
 
-def busStopTableTimeRow(row) -> rx.Component:
+def busStopTableTimeRow(row: tuple[str, str, bool]) -> rx.Component:
     """
     Time part of one row in a table.
 
     :param row: Row data to display
-    :type row: any
-    :return: row component
+    :type row: tuple[str, str, bool]
+    :return: Row component
     :rtype: rx.Component
     """
     timeDelta, name, even = row[0], row[1], row[2]
@@ -45,13 +45,13 @@ def busStopTableTimeRow(row) -> rx.Component:
         )
     )
 
-def busStopTableIconRow(row) -> rx.Component:
+def busStopTableIconRow(row: tuple[str, str, bool]) -> rx.Component:
     """
     Icon part of one row in a table.
 
     :param row: Row data to display
-    :type row: any
-    :return: row component
+    :type row: tuple[str, str, bool]
+    :return: Row component
     :rtype: rx.Component
     """
     timeDelta, name, even = row[0], row[1], row[2]
@@ -74,13 +74,13 @@ def busStopTableIconRow(row) -> rx.Component:
         )
     )
 
-def busStopTableNameRow(row) -> rx.Component:
+def busStopTableNameRow(row: tuple[str, str, bool]) -> rx.Component:
     """
     Bus stop name part of one row in a table.
 
     :param row: Row data to display
-    :type row: any
-    :return: row component
+    :type row: tuple[str, str, bool]
+    :return: Row component
     :rtype: rx.Component
     """
     timeDelta, name, even = row[0], row[1], row[2]
@@ -105,17 +105,17 @@ def busStopTableNameRow(row) -> rx.Component:
         )
     )
 
-def busStopTableRows(rows, content, flex) -> rx.Component:
+def busStopTableRows(rows: list[tuple[str, str, bool]], content, flex: str) -> rx.Component:
     """
     Wraps all rows in a vertical stack.
 
-    :param rows: rows data
-    :type rows: any
-    :param content: type of content, time, icon or name
+    :param rows: Rows data to display
+    :type rows: list[tuple[str, str, bool]]
+    :param content: Type of content, time, icon or name
     :type content: render function
-    :param flex: flex of the column
-    :type flex: int
-    :return: column with all the rows
+    :param flex: Flex of the column
+    :type flex: str
+    :return: Column with all the rows
     :rtype: rx.Component
     """
     return rx.vstack(
@@ -128,12 +128,12 @@ def busStopTableRows(rows, content, flex) -> rx.Component:
         flex=flex,
     )
 
-def busStopTable(busStops) -> rx.Component:
+def busStopTable(busStops: list[tuple[str, str, bool]]) -> rx.Component:
     """
     Table with all the bus stops on the line with coresponding time it takes to get there.
 
-    :param busStops: data to display
-    :type busStops: any
+    :param busStops: Data to display
+    :type busStops: list[tuple[str, str, bool]]
     :return: Bus stop table component
     :rtype: rx.Component
     """

@@ -1,6 +1,22 @@
+"""
+This file contains components for base navigational bar of the web page.
+"""
+
 import reflex as rx
 
 def navbar_item(icon: str, text: str, url: str) -> rx.Component:
+    """
+    One item of the navigational bar with icon name and url for routing.
+
+    :param icon: Icon to display
+    :type icon: str
+    :param text: Name of the option in the bar
+    :type text: str
+    :param url: Address for routing
+    :type url: str
+    :return: Navbar item component
+    :rtype: rx.Component
+    """
     return rx.link(
         rx.hstack(
             rx.icon(icon),
@@ -11,6 +27,12 @@ def navbar_item(icon: str, text: str, url: str) -> rx.Component:
     )
 
 def navbar() -> rx.Component:
+    """
+    Base navigational bar of the web page.
+
+    :return: Navbar component
+    :rtype: rx.Component
+    """
     return rx.box(
         rx.hstack(
             rx.hstack(

@@ -1,7 +1,18 @@
+"""
+This file contains contraint hour input components
+"""
+
 import reflex as rx
 
-
 def constraintHourInput(hour: int) -> rx.Component:
+    """
+    Number input for one hour of the day.
+
+    :param hour: Hour of the day
+    :type hour: int
+    :return: Number input
+    :rtype: rx.Component
+    """
     from .optimizeLine import OptimizeLineState
     return rx.vstack(
         rx.input(
@@ -28,6 +39,12 @@ def constraintHourInput(hour: int) -> rx.Component:
     )
 
 def constraintInput() -> rx.Component:
+    """
+    All 24 number inputs for the whole day, used to constrain number of departures from the bus stop
+
+    :return: 24 number inputs in a row
+    :rtype: rx.Component
+    """
     return rx.vstack(
         rx.text("Pevný počet spojov pre danú hodinu"),
         rx.hstack(

@@ -10,13 +10,13 @@ def busStopChart(title: str, data: list[dict[str,int]], max: int, numOfEntries: 
 
     :param title: Name of the graph
     :type title: str
-    :param data: data to display in graph
+    :param data: Data to display in graph
     :type data: list[dict[str,int]]
-    :param max: maximum value on x axis
+    :param max: Maximum value on x axis
     :type max: int
-    :param numOfEntries: number of stops, used to calculate height of the graph
+    :param numOfEntries: Number of stops, used to calculate height of the graph
     :type numOfEntries: int
-    :param leftMargin: left margin is needed so even the long names of the bus stops are visible
+    :param leftMargin: Left margin is needed so even the long names of the bus stops are visible
     :type leftMargin: int
     :return: Bus stop chart component
     :rtype: rx.Component
