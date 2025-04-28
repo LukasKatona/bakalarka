@@ -8,6 +8,7 @@ from ..backend.Genetics import Genetics
 from ..components.timeTable import timeTable
 from ..components.infoCard import infoCard
 from ..components.constraintInput import constraintInput
+from .numberInput import numberImput
 
 class OptimizeLineState(rx.State):
     selectedTimeTableName: str
@@ -199,244 +200,19 @@ class OptimizeLineState(rx.State):
 def optimizeLine() -> rx.Component:
     return rx.vstack(
         rx.hstack(
-            rx.vstack(
-                rx.text("Veľkosť populácie"),
-                rx.input(
-                    placeholder="Veľkosť populácie",
-                    value=OptimizeLineState.populationSize,
-                    on_change=OptimizeLineState.setPopulationSize,
-                    width="100%",
-                    size="3",
-                    min="1",
-                    type="number",
-                    color_scheme=rx.cond(
-                        OptimizeLineState.populationSize < 1,
-                        "red",
-                        "dark"
-                    ),
-                    variant=rx.cond(
-                        OptimizeLineState.populationSize < 1,
-                        "soft",
-                        "classic"
-                    ),
-                    disabled=rx.cond(
-                        OptimizeLineState.optimizationRunning,
-                        True,
-                        False,
-                    ),
-                ),
-                width="100%",
-                justify="between",
-            ),
-            rx.vstack(
-                rx.text("Počet generácií"),
-                rx.input(
-                    placeholder="Počet generácií",
-                    value=OptimizeLineState.numberOfGenerations,
-                    on_change=OptimizeLineState.set_numberOfGenerations,
-                    width="100%",
-                    size="3",
-                    min="1",
-                    type="number",
-                    color_scheme=rx.cond(
-                        OptimizeLineState.numberOfGenerations < 1,
-                        "red",
-                        "dark"
-                    ),
-                    variant=rx.cond(
-                        OptimizeLineState.numberOfGenerations < 1,
-                        "soft",
-                        "classic"
-                    ),
-                    disabled=rx.cond(
-                        OptimizeLineState.optimizationRunning,
-                        True,
-                        False,
-                    ),
-                ),
-                width="100%",
-                justify="between",
-            ),
-            rx.vstack(
-                rx.text("Pravdepodobnosť mutácie"),
-                rx.input(
-                    placeholder="Pravdepodobnosť mutácie",
-                    value=OptimizeLineState.mutationRate,
-                    on_change=OptimizeLineState.set_mutationRate,
-                    width="100%",
-                    size="3",
-                    min="0",
-                    max="1",
-                    type="number",
-                    color_scheme=rx.cond(
-                        (OptimizeLineState.mutationRate < 0) | (OptimizeLineState.mutationRate > 1),
-                        "red",
-                        "dark"
-                    ),
-                    variant=rx.cond(
-                        (OptimizeLineState.mutationRate < 0) | (OptimizeLineState.mutationRate > 1),
-                        "soft",
-                        "classic"
-                    ),
-                    disabled=rx.cond(
-                        OptimizeLineState.optimizationRunning,
-                        True,
-                        False,
-                    ),
-                ),
-                width="100%",
-                justify="between",
-            ),
-            rx.vstack(
-                rx.text("Maximálny počet spojov za hodinu"),
-                rx.input(
-                    placeholder="Maximálny počet spojov za hodinu",
-                    value=OptimizeLineState.maxConnectionsPerHour,
-                    on_change=OptimizeLineState.set_maxConnectionsPerHour,
-                    width="100%",
-                    size="3",
-                    min="0",
-                    type="number",
-                    color_scheme=rx.cond(
-                        OptimizeLineState.maxConnectionsPerHour < 1,
-                        "red",
-                        "dark"
-                    ),
-                    variant=rx.cond(
-                        OptimizeLineState.maxConnectionsPerHour < 1,
-                        "soft",
-                        "classic"
-                    ),
-                    disabled=rx.cond(
-                        OptimizeLineState.optimizationRunning,
-                        True,
-                        False,
-                    ),
-                ),
-                width="100%",
-                justify="between",
-            ),
+            numberImput("Veľkosť populácie", "Veľkosť populácie", OptimizeLineState.populationSize, OptimizeLineState.setPopulationSize, "1", None, OptimizeLineState.populationSize < 1, OptimizeLineState.optimizationRunning),
+            numberImput("Počet generácií", "Počet generácií", OptimizeLineState.numberOfGenerations, OptimizeLineState.set_numberOfGenerations, "1", None, OptimizeLineState.numberOfGenerations < 1, OptimizeLineState.optimizationRunning),
+            numberImput("Pravdepodobnosť mutácie", "Pravdepodobnosť mutácie", OptimizeLineState.mutationRate, OptimizeLineState.set_mutationRate, "0", "1", (OptimizeLineState.mutationRate < 0) | (OptimizeLineState.mutationRate > 1), OptimizeLineState.optimizationRunning),
+            numberImput("Maximálny počet spojov za hodinu", "Maximálny počet spojov za hodinu", OptimizeLineState.maxConnectionsPerHour, OptimizeLineState.set_maxConnectionsPerHour, "1", None, OptimizeLineState.maxConnectionsPerHour < 1, OptimizeLineState.optimizationRunning),
             width="100%",
             spacing="5",
             align="stretch",
         ),
         rx.hstack(
-            rx.vstack(
-                rx.text("Kapacita vozidla"),
-                rx.input(
-                    placeholder="Kapacita vozidla",
-                    value=OptimizeLineState.vehicleCapacity,
-                    on_change=OptimizeLineState.set_vehicleCapacity,
-                    width="100%",
-                    size="3",
-                    min="0",
-                    type="number",
-                    color_scheme=rx.cond(
-                        OptimizeLineState.vehicleCapacity < 1,
-                        "red",
-                        "dark"
-                    ),
-                    variant=rx.cond(
-                        OptimizeLineState.vehicleCapacity < 1,
-                        "soft",
-                        "classic"
-                    ),
-                    disabled=rx.cond(
-                        OptimizeLineState.optimizationRunning,
-                        True,
-                        False,
-                    ),
-                ),
-                width="100%",
-                justify="between",
-            ),
-            rx.vstack(
-                rx.text("Miest na sedenie"),
-                rx.input(
-                    placeholder="Miest na sedenie",
-                    value=OptimizeLineState.vehicleSeats,
-                    on_change=OptimizeLineState.set_vehicleSeats,
-                    width="100%",
-                    size="3",
-                    min="0",
-                    type="number",
-                    color_scheme=rx.cond(
-                        OptimizeLineState.vehicleSeats < 0,
-                        "red",
-                        "dark"
-                    ),
-                    variant=rx.cond(
-                        OptimizeLineState.vehicleSeats < 0,
-                        "soft",
-                        "classic"
-                    ),
-                    disabled=rx.cond(
-                        OptimizeLineState.optimizationRunning,
-                        True,
-                        False,
-                    ),
-                ),
-                width="100%",
-                justify="between",
-            ),
-            rx.vstack(
-                rx.text("Celkové náklady (Kč/100 miesto-km)"),
-                rx.input(
-                    placeholder="Kč/100 miesto-km",
-                    value=OptimizeLineState.costPerSeatKm,
-                    on_change=OptimizeLineState.set_costPerSeatKm,
-                    width="100%",
-                    size="3",
-                    min="0",
-                    type="number",
-                    color_scheme=rx.cond(
-                        OptimizeLineState.costPerSeatKm < 0,
-                        "red",
-                        "dark"
-                    ),
-                    variant=rx.cond(
-                        OptimizeLineState.costPerSeatKm < 0,
-                        "soft",
-                        "classic"
-                    ),
-                    disabled=rx.cond(
-                        OptimizeLineState.optimizationRunning,
-                        True,
-                        False,
-                    ),
-                ),
-                width="100%",
-                justify="between",
-            ),
-            rx.vstack(
-                rx.text("Dĺžka trasy"),
-                rx.input(
-                    placeholder="Dĺžka trasy",
-                    value=OptimizeLineState.routeLength,
-                    on_change=OptimizeLineState.set_routeLength,
-                    width="100%",
-                    size="3",
-                    min="0",
-                    type="number",
-                    color_scheme=rx.cond(
-                        OptimizeLineState.routeLength < 0,
-                        "red",
-                        "dark"
-                    ),
-                    variant=rx.cond(
-                        OptimizeLineState.routeLength < 0,
-                        "soft",
-                        "classic"
-                    ),
-                    disabled=rx.cond(
-                        OptimizeLineState.optimizationRunning,
-                        True,
-                        False,
-                    ),
-                ),
-                width="100%",
-                justify="between",
-            ),
+            numberImput("Kapacita vozidla", "Kapacita vozidla", OptimizeLineState.vehicleCapacity, OptimizeLineState.set_vehicleCapacity, "1", None, OptimizeLineState.vehicleCapacity < 1, OptimizeLineState.optimizationRunning),
+            numberImput("Miest na sedenie", "Miest na sedenie", OptimizeLineState.vehicleSeats, OptimizeLineState.set_vehicleSeats, "0", None, OptimizeLineState.vehicleSeats < 0, OptimizeLineState.optimizationRunning),
+            numberImput("Celkové náklady (Kč/100 miesto-km)", "Kč/100 miesto-km", OptimizeLineState.costPerSeatKm, OptimizeLineState.set_costPerSeatKm, "0", None, OptimizeLineState.costPerSeatKm < 0, OptimizeLineState.optimizationRunning),
+            numberImput("Dĺžka trasy", "Dĺžka trasy", OptimizeLineState.routeLength, OptimizeLineState.set_routeLength, "0", None, OptimizeLineState.routeLength < 0, OptimizeLineState.optimizationRunning),
             width="100%",
             spacing="5",
             align="stretch",

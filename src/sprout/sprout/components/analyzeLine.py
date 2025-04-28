@@ -7,6 +7,7 @@ from ..backend.Simulation import Simulation
 from .infoCard import infoCard
 from .hourChart import hourChart
 from .busStopChart import busStopChart
+from .numberInput import numberImput
 
 class AnalyzeLineState(rx.State):
     selectedTimeTableName: str
@@ -153,102 +154,10 @@ class AnalyzeLineState(rx.State):
 def analyzeLine() -> rx.Component:
     return rx.vstack(
         rx.hstack(
-            rx.vstack(
-                rx.text("Kapacita vozidla"),
-                rx.input(
-                    placeholder="Kapacita vozidla",
-                    value=AnalyzeLineState.vehicleCapacity,
-                    on_change=AnalyzeLineState.set_vehicleCapacity,
-                    width="100%",
-                    size="3",
-                    min="0",
-                    type="number",
-                    color_scheme=rx.cond(
-                        AnalyzeLineState.vehicleCapacity < 1,
-                        "red",
-                        "dark"
-                    ),
-                    variant=rx.cond(
-                        AnalyzeLineState.vehicleCapacity < 1,
-                        "soft",
-                        "classic"
-                    ),
-                ),
-                width="100%",
-                justify="between",
-            ),
-            rx.vstack(
-                rx.text("Miest na sedenie"),
-                rx.input(
-                    placeholder="Miest na sedenie",
-                    value=AnalyzeLineState.vehicleSeats,
-                    on_change=AnalyzeLineState.set_vehicleSeats,
-                    width="100%",
-                    size="3",
-                    min="0",
-                    type="number",
-                    color_scheme=rx.cond(
-                        AnalyzeLineState.vehicleSeats < 0,
-                        "red",
-                        "dark"
-                    ),
-                    variant=rx.cond(
-                        AnalyzeLineState.vehicleSeats < 0,
-                        "soft",
-                        "classic"
-                    ),
-                ),
-                width="100%",
-                justify="between",
-            ),
-            rx.vstack(
-                rx.text("Celkové náklady (Kč/100 miesto-km)"),
-                rx.input(
-                    placeholder="Kč/100 miesto-km",
-                    value=AnalyzeLineState.costPerSeatKm,
-                    on_change=AnalyzeLineState.set_costPerSeatKm,
-                    width="100%",
-                    size="3",
-                    min="0",
-                    type="number",
-                    color_scheme=rx.cond(
-                        AnalyzeLineState.costPerSeatKm < 0,
-                        "red",
-                        "dark"
-                    ),
-                    variant=rx.cond(
-                        AnalyzeLineState.costPerSeatKm < 0,
-                        "soft",
-                        "classic"
-                    ),
-                ),
-                width="100%",
-                justify="between",
-            ),
-            rx.vstack(
-                rx.text("Dĺžka trasy"),
-                rx.input(
-                    placeholder="Dĺžka trasy",
-                    value=AnalyzeLineState.routeLength,
-                    on_change=AnalyzeLineState.set_routeLength,
-                    width="100%",
-                    size="3",
-                    min="0",
-                    type="number",
-                    color_scheme=rx.cond(
-                        AnalyzeLineState.routeLength < 0,
-                        "red",
-                        "dark"
-                    ),
-                    variant=rx.cond(
-                        AnalyzeLineState.routeLength < 0,
-                        "soft",
-                        "classic"
-                    ),
-                ),
-                width="100%",
-                justify="between",
-            ),
+            numberImput("Kapacita vozidla", "Kapacita vozidla", AnalyzeLineState.vehicleCapacity, AnalyzeLineState.set_vehicleCapacity, "1", None, AnalyzeLineState.vehicleCapacity < 1),
+            numberImput("Miest na sedenie", "Miest na sedenie", AnalyzeLineState.vehicleSeats, AnalyzeLineState.set_vehicleSeats, "0", None, AnalyzeLineState.vehicleSeats < 0),
+            numberImput("Celkové náklady (Kč/100 miesto-km)", "Kč/100 miesto-km", AnalyzeLineState.costPerSeatKm, AnalyzeLineState.set_costPerSeatKm, "0", None, AnalyzeLineState.costPerSeatKm < 0),
+            numberImput("Dĺžka trasy", "Dĺžka trasy", AnalyzeLineState.routeLength, AnalyzeLineState.set_routeLength, "0", None, AnalyzeLineState.routeLength < 0),
             width="100%",
             spacing="5",
             align="stretch",
