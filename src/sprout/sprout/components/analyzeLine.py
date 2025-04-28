@@ -1,3 +1,7 @@
+"""
+This file contains analyze line component and its state.
+"""
+
 import reflex as rx
 from tkinter import filedialog
 
@@ -10,8 +14,8 @@ from .busStopChart import busStopChart
 from .numberInput import numberImput
 
 class AnalyzeLineState(rx.State):
-    selectedTimeTableName: str
-    selectedTimeTable: str
+    selectedTimeTableName: str = ""
+    selectedTimeTable: str = ""
 
     busSopsFilename: str = ""
     selectedBusStops: str = ""
@@ -25,45 +29,76 @@ class AnalyzeLineState(rx.State):
     totalNumberOfBuses: int
     totalPassengersArrived: int
     totalPassengersDeparted: int
-    totalPassengersLeftUnboarded: str
-    totalTimeSpentWaiting: str
-    averageTimeSpentWaiting: str
-    passengersArrivedPerHour = []
-    passengersLeftUnboardedPerHour = []
-    timeSpentWaitingPerHour = []
+    totalPassengersLeftUnboarded: str = ""
+    totalTimeSpentWaiting: str = ""
+    averageTimeSpentWaiting: str = ""
+    passengersArrivedPerHour: list[dict[str,int]] = []
+    passengersLeftUnboardedPerHour: list[dict[str,int]] = []
+    timeSpentWaitingPerHour: list[dict[str,int]] = []
 
     vehicleCapacity: int = 80
     vehicleSeats: int = 30
     costPerSeatKm: float = 99.82
     routeLength: float = 3.8
 
-    averageLoad: str
-    averageLoadInPercent: str
+    averageLoad: str = ""
+    averageLoadInPercent: str = ""
     totalPassengersTransported: int
-    averagePassengerSatisfaction: str
-    loadPerBusStop = []
+    averagePassengerSatisfaction: str = ""
+    loadPerBusStop: list[dict[str,int]] = []
 
-    totalCost: str
+    totalCost: str = ""
 
     showAnalysis: bool = False
 
     @rx.event
-    async def clear_files(self):
+    async def resetAnalysis(self):
+        """
+        Resets all state variables.
+        """
+        self.selectedTimeTableName = ""
+        self.selectedTimeTable = ""
+
         self.busSopsFilename = ""
         self.selectedBusStops = ""
         self.timeTableFilename = ""
-        self.selectedTimeTable = ""
-        self.selectedTimeTableName = ""
         self.busStopTable = []
         self.timeTable = []
-        self.showAnalysis = False
+        
+        self.numberOfBusStops = None
+        self.longestBusStopNameLength = None
+
+        self.totalNumberOfBuses = None
+        self.totalPassengersArrived = None
+        self.totalPassengersDeparted = None
+        self.totalPassengersLeftUnboarded = ""
+        self.totalTimeSpentWaiting = ""
+        self.averageTimeSpentWaiting= ""
+        self.passengersArrivedPerHour = []
+        self.passengersLeftUnboardedPerHour = []
+        self.timeSpentWaitingPerHour = []
+
         self.vehicleCapacity = 80
         self.vehicleSeats = 30
-        self.costPerSeatKm = 99.82
+        self.costPerSeatKm= 99.82
         self.routeLength = 3.8
 
+        self.averageLoad = ""
+        self.averageLoadInPercent  = ""
+        self.totalPassengersTransported = None
+        self.averagePassengerSatisfaction = ""
+        self.loadPerBusStop = []
+
+        self.totalCost = ""
+
+        self.showAnalysis = False
+
+
     @rx.event
-    async def handle_analyze(self):
+    async def handleAnalysis(self):
+        """
+        Handles whole analysis process.
+        """
         if not self.selectedBusStops or not self.selectedTimeTable:
             return
 
@@ -110,7 +145,10 @@ class AnalyzeLineState(rx.State):
         self.showAnalysis = True
 
     @rx.event
-    async def handle_export(self):
+    async def handleExport(self):
+        """
+        Handles export of the analysis to txt file.
+        """
         file_path = filedialog.asksaveasfilename(
             defaultextension=".txt",
             filetypes=[("Text files", "*.txt"), ("All files", "*.*")],
@@ -152,6 +190,12 @@ class AnalyzeLineState(rx.State):
 
 
 def analyzeLine() -> rx.Component:
+    """
+    Analyze line component, contains all number inputs, and analysis results with option to save the results as txt file.
+
+    :return: Analyze line component
+    :rtype: rx.Component
+    """
     return rx.vstack(
         rx.hstack(
             numberImput("Kapacita vozidla", "Kapacita vozidla", AnalyzeLineState.vehicleCapacity, AnalyzeLineState.set_vehicleCapacity, "1", None, AnalyzeLineState.vehicleCapacity < 1),
@@ -165,12 +209,12 @@ def analyzeLine() -> rx.Component:
         rx.hstack(
             rx.button(
                 rx.heading("Resetovať", size="3"),
-                on_click=AnalyzeLineState.clear_files(),
+                on_click=AnalyzeLineState.resetAnalysis(),
                 size="3",
             ),
             rx.button(
                 rx.heading("Analyzovať", size="3"),
-                on_click=AnalyzeLineState.handle_analyze(),
+                on_click=AnalyzeLineState.handleAnalysis(),
                 size="3",
                 disabled=rx.cond(
                     (AnalyzeLineState.selectedBusStops == "") | (AnalyzeLineState.selectedTimeTable == ""),
@@ -225,7 +269,7 @@ def analyzeLine() -> rx.Component:
                 busStopChart("Priemerná naplnenosť naprieč zastávkami", AnalyzeLineState.loadPerBusStop, AnalyzeLineState.vehicleCapacity, AnalyzeLineState.numberOfBusStops, AnalyzeLineState.longestBusStopNameLength),
                 rx.button(
                     rx.heading("Uložiť analýzu", size="3"),
-                    on_click=AnalyzeLineState.handle_export(),
+                    on_click=AnalyzeLineState.handleExport(),
                     size="3",
                 ),
                 spacing="5",

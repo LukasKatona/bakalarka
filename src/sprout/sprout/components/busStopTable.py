@@ -112,7 +112,7 @@ def busStopTableRows(rows: list[tuple[str, str, bool]], content, flex: str) -> r
     :param rows: Rows data to display
     :type rows: list[tuple[str, str, bool]]
     :param content: Type of content, time, icon or name
-    :type content: render function
+    :type content: function
     :param flex: Flex of the column
     :type flex: str
     :return: Column with all the rows

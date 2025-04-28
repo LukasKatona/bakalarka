@@ -1,3 +1,7 @@
+"""
+This file contains optimize line component and its state.
+"""
+
 import reflex as rx
 from datetime import datetime
 
@@ -11,8 +15,8 @@ from ..components.constraintInput import constraintInput
 from .numberInput import numberImput
 
 class OptimizeLineState(rx.State):
-    selectedTimeTableName: str
-    selectedTimeTable: str
+    selectedTimeTableName: str = ""
+    selectedTimeTable: str = ""
 
     busSopsFilename: str = ""
     selectedBusStops: str = ""
@@ -31,14 +35,13 @@ class OptimizeLineState(rx.State):
     costPerSeatKm: float = 99.82
     routeLength: float = 3.8
     
-
     generationNumber: str = "0" + "/" + str(numberOfGenerations)
 
     optimizationRunning: bool = False
     _n_tasks: int = 0
-    startTime: str = ''
-    endTime: str = ''
-    duration: str = ''
+    startTime: str = ""
+    endTime: str = ""
+    duration: str = ""
 
     generation = []
     generationChromosomes: list[list[int]] = []
@@ -53,6 +56,14 @@ class OptimizeLineState(rx.State):
     saveTimeTableName: str = ""
 
     def parseTimeTableToTuple(self, timeTable: TimeTable) -> list[tuple[str, str, bool]]:
+        """
+        Parses TimeTable object to list of tuples for FE rendering.
+
+        :param timeTable: Timetable to parse
+        :type timeTable: TimeTable
+        :return: Formated timetable
+        :rtype: list[tuple[str, str, bool]]
+        """
         timeTableTuple: list[tuple[str, str, bool]] = []
         for hour in range(24):
             hourStr = str(hour).zfill(2) + ":" if hour < 10 else str(hour) + ":"
@@ -66,6 +77,9 @@ class OptimizeLineState(rx.State):
 
     @rx.event
     async def resetOptimization(self):
+        """
+        Resets all state variables.
+        """
         self.busSopsFilename = ""
         self.selectedBusStops = ""
         self.timeTableFilename = ""
@@ -84,6 +98,7 @@ class OptimizeLineState(rx.State):
         self.routeLength = 3.8
 
         self.generationNumber = "0/" + str(self.numberOfGenerations)
+
         self.optimizationRunning = False
         self._n_tasks = 0
         self.startTime = ''
@@ -93,23 +108,35 @@ class OptimizeLineState(rx.State):
         self.generation = []
         self.generationChromosomes = []
         self.selectedChromosomeIndex = int(round(self.numberOfGenerations / 2))
-        selectedScatterPoint = {}
+        self.selectedScatterPoint = {}
 
         self.showOptimization = False
-
-        self.saveTimeTableName = ""
+        
         self.bestTimeTable = []
         self.bestTimeTableString = ""
+        self.bestTimeTableChromosome = []
+        self.saveTimeTableName = ""
 
     @rx.event
-    async def changeConstraints(self, val, hour: int) -> None:
+    async def changeConstraints(self, val: str, hour: int):
+        """
+        Changes constraint in a specific hour.
+
+        :param val: New value
+        :type val: str
+        :param hour: Hour specification
+        :type hour: int
+        """
         if val == "":
             self.constraints[hour] = None
         else:
             self.constraints[hour] = int(val)
 
     @rx.event(background=True)
-    async def handle_optimize(self):
+    async def handleOptimization(self):
+        """
+        Handles whole optimization process.
+        """
         if not self.selectedBusStops:
             return
         
@@ -148,20 +175,35 @@ class OptimizeLineState(rx.State):
             yield rx.toast.success("Optimalizácia dokončená")
 
     @rx.event
-    async def toggle_optimization_run(self):
+    async def toggleOptimizationRun(self):
+        """
+        Starts or stops the optimization process.
+
+        :return: calls handleOptimization
+        :rtype: function
+        """
         self.optimizationRunning = not self.optimizationRunning
         if self.optimizationRunning:
             self.startTime = datetime.now().strftime("%H:%M:%S")
             self.showOptimization = True
-            return OptimizeLineState.handle_optimize
+            return OptimizeLineState.handleOptimization
         
     def initConstraints(self):
+        """
+        Parses statistics of incoming passengers during day and if none are comming during specific hour, its constraint is set to 0.
+        """
         busStops = InputParser.parseBusStopsFromString(self.selectedBusStops)
         busStopRates = {rate[0] for busStop in busStops for rate in busStop.passengerArrivalRatesPerHour}
         self.constraints = [0 if hour not in busStopRates else self.constraints[hour] for hour in range(24)]
 
     @rx.event
     def setTimeTable(self, value):
+        """
+        Selects timetable from best generation.
+
+        :param value: Selected timetable
+        :type value: any
+        """
         self.selectedChromosomeIndex = value[0]
         self.bestTimeTableChromosome = self.generationChromosomes[self.selectedChromosomeIndex]
         self.selectedScatterPoint = self.generation[self.selectedChromosomeIndex]
@@ -171,11 +213,17 @@ class OptimizeLineState(rx.State):
 
     @rx.event
     async def smoothTimeTable(self):
+        """
+        Smooths out the selected timetable using moving average method.
+        """
         self.smoothChromosome()
         self.bestTimeTableString = str(TimeTable(self.bestTimeTableChromosome))
         self.bestTimeTable = self.parseTimeTableToTuple(TimeTable(self.bestTimeTableChromosome))
 
     def smoothChromosome(self):
+        """
+        Smooths out timetable chromosome using moving average method.
+        """
         smoothedChromosome = self.bestTimeTableChromosome.copy()
         for i in range(1, len(self.bestTimeTableChromosome) - 1):
             if self.constraints[i] == None:
@@ -184,6 +232,9 @@ class OptimizeLineState(rx.State):
         
     @rx.event
     async def saveTimeTable(self):
+        """
+        Saves the selected timetable for dropdown in info upload component.
+        """
         from ..components.infoUpload import InfoUploadState
         state = await self.get_state(InfoUploadState)
         if self.saveTimeTableName == "":
@@ -192,12 +243,24 @@ class OptimizeLineState(rx.State):
         self.saveTimeTableName = ""
     
     def setPopulationSize(self, value: str):
+        """
+        Custom setter for populationSize that also changes the slider max value.
+
+        :param value: New value
+        :type value: str
+        """
         if value == "":
             return
         self.populationSize = int(value)
         self.sliderMax = self.populationSize - 1
 
 def optimizeLine() -> rx.Component:
+    """
+    Optimize line component, contains all number inputs, departure constraint input and optimization results with option to save timetable selected from best generation.
+
+    :return: Optimize line component.
+    :rtype: rx.Component
+    """
     return rx.vstack(
         rx.hstack(
             numberImput("Veľkosť populácie", "Veľkosť populácie", OptimizeLineState.populationSize, OptimizeLineState.setPopulationSize, "1", None, OptimizeLineState.populationSize < 1, OptimizeLineState.optimizationRunning),
@@ -230,7 +293,7 @@ def optimizeLine() -> rx.Component:
             rx.button(
                 rx.heading(rx.cond(OptimizeLineState.optimizationRunning, "Zastaviť", "Optimalizovať"), size="3"),
                 on_click=[
-                    OptimizeLineState.toggle_optimization_run(),
+                    OptimizeLineState.toggleOptimizationRun(),
                     rx.cond(OptimizeLineState.optimizationRunning, rx.toast.info("Optimalizácia zastavená"), rx.toast.info("Optimalizácia spustená")),
                 ],
                 size="3",
