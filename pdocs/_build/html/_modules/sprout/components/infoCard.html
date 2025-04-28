@@ -69,12 +69,27 @@
            <div itemprop="articleBody">
              
   <h1>Source code for sprout.components.infoCard</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">reflex</span> <span class="k">as</span> <span class="nn">rx</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This file contains card component for displaying simple information.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">import</span> <span class="nn">reflex</span> <span class="k">as</span> <span class="nn">rx</span>
 
 <div class="viewcode-block" id="infoCard">
 <a class="viewcode-back" href="../../../sprout.components.html#sprout.components.infoCard.infoCard">[docs]</a>
 <span class="k">def</span> <span class="nf">infoCard</span><span class="p">(</span><span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">loading</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">rx</span><span class="o">.</span><span class="n">Component</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Card displaying simple information.</span>
+
+<span class="sd">    :param title: Name of displayed information</span>
+<span class="sd">    :type title: str</span>
+<span class="sd">    :param info: Value of displayed information</span>
+<span class="sd">    :type info: str</span>
+<span class="sd">    :param loading: displays loading indicator if True, defaults to False</span>
+<span class="sd">    :type loading: bool, optional</span>
+<span class="sd">    :return: Info card component</span>
+<span class="sd">    :rtype: rx.Component</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">rx</span><span class="o">.</span><span class="n">card</span><span class="p">(</span>
         <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
             <span class="n">rx</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s2">&quot;4&quot;</span><span class="p">),</span>

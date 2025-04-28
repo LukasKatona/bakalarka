@@ -69,7 +69,11 @@
            <div itemprop="articleBody">
              
   <h1>Source code for sprout.components.layout</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">reflex</span> <span class="k">as</span> <span class="nn">rx</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This file contains base layout of the web page.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">reflex</span> <span class="k">as</span> <span class="nn">rx</span>
 
 <span class="kn">from</span> <span class="nn">.navbar</span> <span class="kn">import</span> <span class="n">navbar</span>
 <span class="kn">from</span> <span class="nn">.footer</span> <span class="kn">import</span> <span class="n">footer</span>
@@ -77,6 +81,14 @@
 <div class="viewcode-block" id="layout">
 <a class="viewcode-back" href="../../../sprout.components.html#sprout.components.layout.layout">[docs]</a>
 <span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="n">content</span><span class="p">:</span> <span class="n">rx</span><span class="o">.</span><span class="n">Component</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">rx</span><span class="o">.</span><span class="n">Component</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base layout with navbar, main content and footer.</span>
+
+<span class="sd">    :param content: Component to display between navbar and footer</span>
+<span class="sd">    :type content: rx.Component</span>
+<span class="sd">    :return: Content wrapped in a layout</span>
+<span class="sd">    :rtype: rx.Component</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
         <span class="n">navbar</span><span class="p">(),</span>
         <span class="n">rx</span><span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;1em&quot;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s2">&quot;70%&quot;</span><span class="p">),</span>

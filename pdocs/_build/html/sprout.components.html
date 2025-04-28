@@ -497,10 +497,10 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>title</strong> (<em>str</em>) – Name of the graph</p></li>
-<li><p><strong>data</strong> (<em>list</em><em>[</em><em>dict</em><em>[</em><em>str</em><em>,</em><em>int</em><em>]</em><em>]</em>) – data to display in graph</p></li>
-<li><p><strong>max</strong> (<em>int</em>) – maximum value on x axis</p></li>
-<li><p><strong>numOfEntries</strong> (<em>int</em>) – number of stops, used to calculate height of the graph</p></li>
-<li><p><strong>leftMargin</strong> (<em>int</em>) – left margin is needed so even the long names of the bus stops are visible</p></li>
+<li><p><strong>data</strong> (<em>list</em><em>[</em><em>dict</em><em>[</em><em>str</em><em>,</em><em>int</em><em>]</em><em>]</em>) – Data to display in graph</p></li>
+<li><p><strong>max</strong> (<em>int</em>) – Maximum value on x axis</p></li>
+<li><p><strong>numOfEntries</strong> (<em>int</em>) – Number of stops, used to calculate height of the graph</p></li>
+<li><p><strong>leftMargin</strong> (<em>int</em>) – Left margin is needed so even the long names of the bus stops are visible</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -518,11 +518,11 @@
 <p>This file contains components for a table displaying list of bus stops.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.busStopTable.busStopTable">
-<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopTable.</span></span><span class="sig-name descname"><span class="pre">busStopTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">busStops</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/busStopTable.html#busStopTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopTable.busStopTable" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopTable.</span></span><span class="sig-name descname"><span class="pre">busStopTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">busStops</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/busStopTable.html#busStopTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopTable.busStopTable" title="Link to this definition"></a></dt>
 <dd><p>Table with all the bus stops on the line with coresponding time it takes to get there.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>busStops</strong> (<em>any</em>) – data to display</p>
+<dd class="field-odd"><p><strong>busStops</strong> (<em>list</em><em>[</em><em>tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>, </em><em>bool</em><em>]</em><em>]</em>) – Data to display</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Bus stop table component</p>
@@ -535,14 +535,14 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.busStopTable.busStopTableIconRow">
-<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopTable.</span></span><span class="sig-name descname"><span class="pre">busStopTableIconRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/busStopTable.html#busStopTableIconRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopTable.busStopTableIconRow" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopTable.</span></span><span class="sig-name descname"><span class="pre">busStopTableIconRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/busStopTable.html#busStopTableIconRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopTable.busStopTableIconRow" title="Link to this definition"></a></dt>
 <dd><p>Icon part of one row in a table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>row</strong> (<em>any</em>) – Row data to display</p>
+<dd class="field-odd"><p><strong>row</strong> (<em>tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>, </em><em>bool</em><em>]</em>) – Row data to display</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>row component</p>
+<dd class="field-even"><p>Row component</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>rx.Component</p>
@@ -552,14 +552,14 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.busStopTable.busStopTableNameRow">
-<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopTable.</span></span><span class="sig-name descname"><span class="pre">busStopTableNameRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/busStopTable.html#busStopTableNameRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopTable.busStopTableNameRow" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopTable.</span></span><span class="sig-name descname"><span class="pre">busStopTableNameRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/busStopTable.html#busStopTableNameRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopTable.busStopTableNameRow" title="Link to this definition"></a></dt>
 <dd><p>Bus stop name part of one row in a table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>row</strong> (<em>any</em>) – Row data to display</p>
+<dd class="field-odd"><p><strong>row</strong> (<em>tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>, </em><em>bool</em><em>]</em>) – Row data to display</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>row component</p>
+<dd class="field-even"><p>Row component</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>rx.Component</p>
@@ -569,18 +569,18 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.busStopTable.busStopTableRows">
-<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopTable.</span></span><span class="sig-name descname"><span class="pre">busStopTableRows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rows</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/busStopTable.html#busStopTableRows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopTable.busStopTableRows" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopTable.</span></span><span class="sig-name descname"><span class="pre">busStopTableRows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rows</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/busStopTable.html#busStopTableRows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopTable.busStopTableRows" title="Link to this definition"></a></dt>
 <dd><p>Wraps all rows in a vertical stack.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>rows</strong> (<em>any</em>) – rows data</p></li>
-<li><p><strong>content</strong> (<em>render function</em>) – type of content, time, icon or name</p></li>
-<li><p><strong>flex</strong> (<em>int</em>) – flex of the column</p></li>
+<li><p><strong>rows</strong> (<em>list</em><em>[</em><em>tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>, </em><em>bool</em><em>]</em><em>]</em>) – Rows data to display</p></li>
+<li><p><strong>content</strong> (<em>render function</em>) – Type of content, time, icon or name</p></li>
+<li><p><strong>flex</strong> (<em>str</em>) – Flex of the column</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>column with all the rows</p>
+<dd class="field-even"><p>Column with all the rows</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>rx.Component</p>
@@ -590,14 +590,14 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.busStopTable.busStopTableTimeRow">
-<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopTable.</span></span><span class="sig-name descname"><span class="pre">busStopTableTimeRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/busStopTable.html#busStopTableTimeRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopTable.busStopTableTimeRow" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">sprout.components.busStopTable.</span></span><span class="sig-name descname"><span class="pre">busStopTableTimeRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/busStopTable.html#busStopTableTimeRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.busStopTable.busStopTableTimeRow" title="Link to this definition"></a></dt>
 <dd><p>Time part of one row in a table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>row</strong> (<em>any</em>) – Row data to display</p>
+<dd class="field-odd"><p><strong>row</strong> (<em>tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>, </em><em>bool</em><em>]</em>) – Row data to display</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>row component</p>
+<dd class="field-even"><p>Row component</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>rx.Component</p>
@@ -608,39 +608,104 @@
 </section>
 <section id="module-sprout.components.constraintInput">
 <span id="sprout-components-constraintinput-module"></span><h2>sprout.components.constraintInput module<a class="headerlink" href="#module-sprout.components.constraintInput" title="Link to this heading"></a></h2>
+<p>This file contains contraint hour input components</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.constraintInput.constraintHourInput">
 <span class="sig-prename descclassname"><span class="pre">sprout.components.constraintInput.</span></span><span class="sig-name descname"><span class="pre">constraintHourInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/constraintInput.html#constraintHourInput"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.constraintInput.constraintHourInput" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Number input for one hour of the day.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hour</strong> (<em>int</em>) – Hour of the day</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number input</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.constraintInput.constraintInput">
 <span class="sig-prename descclassname"><span class="pre">sprout.components.constraintInput.</span></span><span class="sig-name descname"><span class="pre">constraintInput</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/constraintInput.html#constraintInput"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.constraintInput.constraintInput" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>All 24 number inputs for the whole day, used to constrain number of departures from the bus stop</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>24 number inputs in a row</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-sprout.components.footer">
 <span id="sprout-components-footer-module"></span><h2>sprout.components.footer module<a class="headerlink" href="#module-sprout.components.footer" title="Link to this heading"></a></h2>
+<p>This file contains the main footer of the web page.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.footer.footer">
 <span class="sig-prename descclassname"><span class="pre">sprout.components.footer.</span></span><span class="sig-name descname"><span class="pre">footer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/footer.html#footer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.footer.footer" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Simple footer component.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Footer of the page</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-sprout.components.hourChart">
 <span id="sprout-components-hourchart-module"></span><h2>sprout.components.hourChart module<a class="headerlink" href="#module-sprout.components.hourChart" title="Link to this heading"></a></h2>
+<p>This file contains simple column graph with statistics agregated by hour of the day.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.hourChart.hourChart">
-<span class="sig-prename descclassname"><span class="pre">sprout.components.hourChart.</span></span><span class="sig-name descname"><span class="pre">hourChart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/hourChart.html#hourChart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.hourChart.hourChart" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">sprout.components.hourChart.</span></span><span class="sig-name descname"><span class="pre">hourChart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/hourChart.html#hourChart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.hourChart.hourChart" title="Link to this definition"></a></dt>
+<dd><p>Column graph that displays data agregated by hour of the day.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<em>str</em>) – Name of the graph</p></li>
+<li><p><strong>data</strong> (<em>list</em><em>[</em><em>dict</em><em>[</em><em>str</em><em>,</em><em>int</em><em>]</em><em>]</em>) – Data to display</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Hour chart component</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-sprout.components.infoCard">
 <span id="sprout-components-infocard-module"></span><h2>sprout.components.infoCard module<a class="headerlink" href="#module-sprout.components.infoCard" title="Link to this heading"></a></h2>
+<p>This file contains card component for displaying simple information.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.infoCard.infoCard">
 <span class="sig-prename descclassname"><span class="pre">sprout.components.infoCard.</span></span><span class="sig-name descname"><span class="pre">infoCard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loading</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/infoCard.html#infoCard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.infoCard.infoCard" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Card displaying simple information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<em>str</em>) – Name of displayed information</p></li>
+<li><p><strong>info</strong> (<em>str</em>) – Value of displayed information</p></li>
+<li><p><strong>loading</strong> (<em>bool</em><em>, </em><em>optional</em>) – displays loading indicator if True, defaults to False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Info card component</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-sprout.components.infoUpload">
@@ -766,23 +831,62 @@
 </section>
 <section id="module-sprout.components.layout">
 <span id="sprout-components-layout-module"></span><h2>sprout.components.layout module<a class="headerlink" href="#module-sprout.components.layout" title="Link to this heading"></a></h2>
+<p>This file contains base layout of the web page.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.layout.layout">
 <span class="sig-prename descclassname"><span class="pre">sprout.components.layout.</span></span><span class="sig-name descname"><span class="pre">layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Component</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/layout.html#layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.layout.layout" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Base layout with navbar, main content and footer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>content</strong> (<em>rx.Component</em>) – Component to display between navbar and footer</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Content wrapped in a layout</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-sprout.components.navbar">
 <span id="sprout-components-navbar-module"></span><h2>sprout.components.navbar module<a class="headerlink" href="#module-sprout.components.navbar" title="Link to this heading"></a></h2>
+<p>This file contains components for base navigational bar of the web page.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.navbar.navbar">
 <span class="sig-prename descclassname"><span class="pre">sprout.components.navbar.</span></span><span class="sig-name descname"><span class="pre">navbar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/navbar.html#navbar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.navbar.navbar" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Base navigational bar of the web page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Navbar component</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.navbar.navbar_item">
 <span class="sig-prename descclassname"><span class="pre">sprout.components.navbar.</span></span><span class="sig-name descname"><span class="pre">navbar_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/navbar.html#navbar_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.navbar.navbar_item" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>One item of the navigational bar with icon name and url for routing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>icon</strong> (<em>str</em>) – Icon to display</p></li>
+<li><p><strong>text</strong> (<em>str</em>) – Name of the option in the bar</p></li>
+<li><p><strong>url</strong> (<em>str</em>) – Address for routing</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Navbar item component</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-sprout.components.optimizeLine">
@@ -1242,20 +1346,60 @@
 </section>
 <section id="module-sprout.components.timeTable">
 <span id="sprout-components-timetable-module"></span><h2>sprout.components.timeTable module<a class="headerlink" href="#module-sprout.components.timeTable" title="Link to this heading"></a></h2>
+<p>This file contains components for vehicle timetable with its departures.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.timeTable.timeTable">
-<span class="sig-prename descclassname"><span class="pre">sprout.components.timeTable.</span></span><span class="sig-name descname"><span class="pre">timeTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeTable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heading</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Časový</span> <span class="pre">rozpis</span> <span class="pre">linky'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/timeTable.html#timeTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.timeTable.timeTable" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">sprout.components.timeTable.</span></span><span class="sig-name descname"><span class="pre">timeTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeTable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heading</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Časový</span> <span class="pre">rozpis</span> <span class="pre">linky'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/timeTable.html#timeTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.timeTable.timeTable" title="Link to this definition"></a></dt>
+<dd><p>Timetable with departures of the vehicle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeTable</strong> (<em>list</em><em>[</em><em>tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>, </em><em>bool</em><em>]</em><em>]</em>) – Data to display</p></li>
+<li><p><strong>heading</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the timetable, defaults to “Časový rozpis linky”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Timetable component</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.timeTable.timeTableRow">
-<span class="sig-prename descclassname"><span class="pre">sprout.components.timeTable.</span></span><span class="sig-name descname"><span class="pre">timeTableRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/components/timeTable.html#timeTableRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.timeTable.timeTableRow" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">sprout.components.timeTable.</span></span><span class="sig-name descname"><span class="pre">timeTableRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/timeTable.html#timeTableRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.timeTable.timeTableRow" title="Link to this definition"></a></dt>
+<dd><p>One row of the timetablle</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>row</strong> (<em>tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>, </em><em>bool</em><em>]</em>) – Row data to display</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Row component</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.components.timeTable.timeTableRows">
-<span class="sig-prename descclassname"><span class="pre">sprout.components.timeTable.</span></span><span class="sig-name descname"><span class="pre">timeTableRows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rows</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/components/timeTable.html#timeTableRows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.timeTable.timeTableRows" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">sprout.components.timeTable.</span></span><span class="sig-name descname"><span class="pre">timeTableRows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rows</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Component</span></span></span><a class="reference internal" href="_modules/sprout/components/timeTable.html#timeTableRows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.components.timeTable.timeTableRows" title="Link to this definition"></a></dt>
+<dd><p>Wraps all rows in vertical stack.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rows</strong> (<em>list</em><em>[</em><em>tuple</em><em>[</em><em>str</em><em>, </em><em>str</em><em>, </em><em>bool</em><em>]</em><em>]</em>) – Rows data to display</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Column with all the rows</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>rx.Component</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-sprout.components">

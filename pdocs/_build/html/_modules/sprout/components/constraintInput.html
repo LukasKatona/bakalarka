@@ -69,12 +69,23 @@
            <div itemprop="articleBody">
              
   <h1>Source code for sprout.components.constraintInput</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">reflex</span> <span class="k">as</span> <span class="nn">rx</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This file contains contraint hour input components</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">import</span> <span class="nn">reflex</span> <span class="k">as</span> <span class="nn">rx</span>
 
 <div class="viewcode-block" id="constraintHourInput">
 <a class="viewcode-back" href="../../../sprout.components.html#sprout.components.constraintInput.constraintHourInput">[docs]</a>
 <span class="k">def</span> <span class="nf">constraintHourInput</span><span class="p">(</span><span class="n">hour</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">rx</span><span class="o">.</span><span class="n">Component</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Number input for one hour of the day.</span>
+
+<span class="sd">    :param hour: Hour of the day</span>
+<span class="sd">    :type hour: int</span>
+<span class="sd">    :return: Number input</span>
+<span class="sd">    :rtype: rx.Component</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">.optimizeLine</span> <span class="kn">import</span> <span class="n">OptimizeLineState</span>
     <span class="k">return</span> <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
         <span class="n">rx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span>
@@ -104,6 +115,12 @@
 <div class="viewcode-block" id="constraintInput">
 <a class="viewcode-back" href="../../../sprout.components.html#sprout.components.constraintInput.constraintInput">[docs]</a>
 <span class="k">def</span> <span class="nf">constraintInput</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">rx</span><span class="o">.</span><span class="n">Component</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    All 24 number inputs for the whole day, used to constrain number of departures from the bus stop</span>
+
+<span class="sd">    :return: 24 number inputs in a row</span>
+<span class="sd">    :rtype: rx.Component</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
         <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Pevný počet spojov pre danú hodinu&quot;</span><span class="p">),</span>
         <span class="n">rx</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
