@@ -1,28 +1,9 @@
-% Ako funguje DEVS modelovanie
-% https://www.researchgate.net/publication/264004946_DEVS-based_combat_modeling_for_engagement-level_simulation
-
-% Optimalizacia MHD pomocou genetickeho algoritmu
-% https://www.researchgate.net/profile/George-Taylor-28/publication/351226656_Bus_Timetabling_Optimisation_Method_with_Passenger_Waiting_Time_and_Dwell_Time_for_Different_Bus_Passenger_Capacity/links/608bd6c892851c490fa7d27a/Bus-Timetabling-Optimisation-Method-with-Passenger-Waiting-Time-and-Dwell-Time-for-Different-Bus-Passenger-Capacity.pdf
-
-% Optimalizacia MHD pomocou ACO
-% https://www.researchgate.net/publication/308341613_Optimizing_Urban_Public_Transportation_with_Ant_Colony_Algorithm
 
 % Event calendar
 % https://www.fit.vut.cz/person/peringer/public/IMS/prednasky/IMS.pdf
 
-% Zoznam autobusov
-% https://www.dpmb.cz/nas-vozovy-park#autobusy
-
-% Casovy harmonogram linky 46
-% http://www.jrbrno.cz/L46S1Z698
-
 % exponencialne rozdelenie
 % https://www.fit.vut.cz/person/peringer/public/IMS/prednasky/IMS.pdf
 % https://moodle.vut.cz/pluginfile.php/714482/mod_folder/content/0/P%C5%99edn%C3%A1%C5%A1ky/predn04spojNahVel.pdf?forcedownload=1
-% https://numpy.org/doc/stable/reference/random/generated/numpy.random.Generator.exponential.html
 
-% plot
-% https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html
-
-% geneticky algoritmus izu
-% https://moodle.vut.cz/pluginfile.php/803426/mod_page/content/2/20230519-opora-IZU.pdf?time=1714219993762
+plus popisat a ocitovat DEVS
