@@ -69,7 +69,11 @@
            <div itemprop="articleBody">
              
   <h1>Source code for sprout.components.infoUpload</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This file contains info upload component and its state.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">reflex</span> <span class="k">as</span> <span class="nn">rx</span>
 
 <span class="kn">from</span> <span class="nn">..backend.InputParser</span> <span class="kn">import</span> <span class="n">InputParser</span>
@@ -83,6 +87,14 @@
 <div class="viewcode-block" id="getTextFromTXT">
 <a class="viewcode-back" href="../../../sprout.components.html#sprout.components.infoUpload.getTextFromTXT">[docs]</a>
 <span class="k">def</span> <span class="nf">getTextFromTXT</span><span class="p">(</span><span class="n">fileName</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">rx</span><span class="o">.</span><span class="n">Component</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function opens the file and extracts the text inside.</span>
+
+<span class="sd">    :param fileName: Name of the given file</span>
+<span class="sd">    :type fileName: str</span>
+<span class="sd">    :return: Text from the file</span>
+<span class="sd">    :rtype: rx.Component</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="n">fileName</span><span class="p">)</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
         <span class="n">content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
@@ -92,6 +104,14 @@
 <div class="viewcode-block" id="getFilePath">
 <a class="viewcode-back" href="../../../sprout.components.html#sprout.components.infoUpload.getFilePath">[docs]</a>
 <span class="k">def</span> <span class="nf">getFilePath</span><span class="p">(</span><span class="n">fileName</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function for modifying the file name.</span>
+
+<span class="sd">    :param fileName: File name to modify</span>
+<span class="sd">    :type fileName: str</span>
+<span class="sd">    :return: Modified file name</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="n">fileName</span><span class="p">)</span></div>
 
 
@@ -103,6 +123,12 @@
 
     <span class="nd">@rx</span><span class="o">.</span><span class="n">event</span>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">selectTimeTableFromDropdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span> 
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Selects timetable from dropdown.</span>
+
+<span class="sd">        :param value: Selected timetable name</span>
+<span class="sd">        :type value: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="s2">&quot;/analyze&quot;</span><span class="p">:</span>
             <span class="n">stateClass</span> <span class="o">=</span> <span class="n">AnalyzeLineState</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="s2">&quot;/optimize&quot;</span><span class="p">:</span>
@@ -114,10 +140,24 @@
         <span class="n">state</span><span class="o">.</span><span class="n">timeTable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parseTimeTableToTuple</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">selectedTimeTable</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">insertNewTimeTable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeTable</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inserts new timetable to dropdown options</span>
+
+<span class="sd">        :param timeTable: Timetable to insert</span>
+<span class="sd">        :type timeTable: tuple[str, str]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timeTable</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dropdownOptions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timeTable</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">parseBusStopsToTuple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selectedBusStops</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parses the text containing information about bus stops.</span>
+
+<span class="sd">        :param selectedBusStops: Bus stops information</span>
+<span class="sd">        :type selectedBusStops: str</span>
+<span class="sd">        :return: List of formated bus stops</span>
+<span class="sd">        :rtype: list[tuple[str, str, bool]]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">busStops</span> <span class="o">=</span> <span class="n">InputParser</span><span class="o">.</span><span class="n">parseBusStopsFromString</span><span class="p">(</span><span class="n">selectedBusStops</span><span class="p">)</span>
         <span class="n">busStopTuple</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">even</span> <span class="o">=</span> <span class="kc">True</span>
@@ -127,6 +167,14 @@
         <span class="k">return</span> <span class="n">busStopTuple</span>
 
     <span class="k">def</span> <span class="nf">parseTimeTableToTuple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selectedTimeTable</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parses the text containing niformation about timetable.</span>
+
+<span class="sd">        :param selectedTimeTable: Timetable information</span>
+<span class="sd">        :type selectedTimeTable: str</span>
+<span class="sd">        :return: Formated timetable</span>
+<span class="sd">        :rtype: list[tuple[str, str, bool]]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">timeTable</span> <span class="o">=</span> <span class="n">InputParser</span><span class="o">.</span><span class="n">parseTimeTableFromString</span><span class="p">(</span><span class="n">selectedTimeTable</span><span class="p">)</span>
         <span class="n">timeTableTuple</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">hour</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">):</span>
@@ -140,7 +188,13 @@
         <span class="k">return</span> <span class="n">timeTableTuple</span>
 
     <span class="nd">@rx</span><span class="o">.</span><span class="n">event</span>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">handle_upload_bus_stops</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uploadBusStops</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">rx</span><span class="o">.</span><span class="n">UploadFile</span><span class="p">]):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">handleUploadBusStops</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uploadBusStops</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">rx</span><span class="o">.</span><span class="n">UploadFile</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Uploads text file containing information about bus stops.</span>
+
+<span class="sd">        :param uploadBusStops: Bus stop file</span>
+<span class="sd">        :type uploadBusStops: list[rx.UploadFile]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="s2">&quot;/analyze&quot;</span><span class="p">:</span>
             <span class="n">stateClass</span> <span class="o">=</span> <span class="n">AnalyzeLineState</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="s2">&quot;/optimize&quot;</span><span class="p">:</span>
@@ -153,7 +207,13 @@
             <span class="n">state</span><span class="o">.</span><span class="n">initConstraints</span><span class="p">()</span>
         
     <span class="nd">@rx</span><span class="o">.</span><span class="n">event</span>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">handle_upload_time_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uploadTimeTable</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">rx</span><span class="o">.</span><span class="n">UploadFile</span><span class="p">]):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">handleUploadTimeTable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uploadTimeTable</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">rx</span><span class="o">.</span><span class="n">UploadFile</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Uploads text file containing information about timetable.</span>
+
+<span class="sd">        :param uploadTimeTable: Timetable file</span>
+<span class="sd">        :type uploadTimeTable: list[rx.UploadFile]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="s2">&quot;/analyze&quot;</span><span class="p">:</span>
             <span class="n">stateClass</span> <span class="o">=</span> <span class="n">AnalyzeLineState</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="s2">&quot;/optimize&quot;</span><span class="p">:</span>
@@ -168,6 +228,14 @@
 <div class="viewcode-block" id="infoUpload">
 <a class="viewcode-back" href="../../../sprout.components.html#sprout.components.infoUpload.infoUpload">[docs]</a>
 <span class="k">def</span> <span class="nf">infoUpload</span><span class="p">(</span><span class="n">stateClass</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">rx</span><span class="o">.</span><span class="n">Component</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Info upload component, for uploading information about bus stops and timetable. Also displays selected bus stops and timetable.</span>
+
+<span class="sd">    :param stateClass: State of the page on which is the info upload component</span>
+<span class="sd">    :type stateClass: class</span>
+<span class="sd">    :return: Info upload component</span>
+<span class="sd">    :rtype: rx.Component</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
         <span class="n">rx</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
             <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
@@ -220,83 +288,85 @@
                     <span class="n">multiple</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                     <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
                     <span class="n">height</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                    <span class="n">on_drop</span><span class="o">=</span><span class="n">InfoUploadState</span><span class="o">.</span><span class="n">handle_upload_bus_stops</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">upload_files</span><span class="p">(</span><span class="s2">&quot;upload_bus_stops&quot;</span><span class="p">)),</span>
+                    <span class="n">on_drop</span><span class="o">=</span><span class="n">InfoUploadState</span><span class="o">.</span><span class="n">handleUploadBusStops</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">upload_files</span><span class="p">(</span><span class="s2">&quot;upload_bus_stops&quot;</span><span class="p">)),</span>
                 <span class="p">),</span>              
                 <span class="n">flex</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
             <span class="p">),</span>
-            <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
-                    <span class="n">rx</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="s2">&quot;Informácie o časovom rozpise linky&quot;</span><span class="p">),</span>
-                    <span class="n">rx</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">root</span><span class="p">(</span>
-                        <span class="n">rx</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">icon</span><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">)),</span>
-                        <span class="n">rx</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">content</span><span class="p">(</span>
-                            <span class="n">rx</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;rozpis.txt&quot;</span><span class="p">),</span>
-                            <span class="n">rx</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">description</span><span class="p">(</span>
-                                <span class="n">getTextFromTXT</span><span class="p">(</span><span class="s2">&quot;rozpis.txt&quot;</span><span class="p">),</span>
-                            <span class="p">),</span>
-                            <span class="n">rx</span><span class="o">.</span><span class="n">flex</span><span class="p">(</span>
-                                <span class="n">rx</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">close</span><span class="p">(</span>
-                                    <span class="n">rx</span><span class="o">.</span><span class="n">button</span><span class="p">(</span>
-                                        <span class="s2">&quot;Zatvoriť&quot;</span><span class="p">,</span>
-                                        <span class="n">variant</span><span class="o">=</span><span class="s2">&quot;soft&quot;</span><span class="p">,</span>
-                                        <span class="n">color_scheme</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
-                                    <span class="p">),</span>
+            <span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
+                <span class="n">stateClass</span> <span class="o">==</span> <span class="n">AnalyzeLineState</span><span class="p">,</span>
+                <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
+                    <span class="n">rx</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
+                        <span class="n">rx</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="s2">&quot;Informácie o časovom rozpise linky&quot;</span><span class="p">),</span>
+                        <span class="n">rx</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">root</span><span class="p">(</span>
+                            <span class="n">rx</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">icon</span><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">)),</span>
+                            <span class="n">rx</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">content</span><span class="p">(</span>
+                                <span class="n">rx</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;rozpis.txt&quot;</span><span class="p">),</span>
+                                <span class="n">rx</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">description</span><span class="p">(</span>
+                                    <span class="n">getTextFromTXT</span><span class="p">(</span><span class="s2">&quot;rozpis.txt&quot;</span><span class="p">),</span>
                                 <span class="p">),</span>
-                                <span class="n">rx</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">close</span><span class="p">(</span>
-                                    <span class="n">rx</span><span class="o">.</span><span class="n">button</span><span class="p">(</span>
-                                        <span class="s2">&quot;Stiahnuť&quot;</span><span class="p">,</span>
-                                        <span class="n">on_click</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;/rozpis.txt&quot;</span><span class="p">),</span>
+                                <span class="n">rx</span><span class="o">.</span><span class="n">flex</span><span class="p">(</span>
+                                    <span class="n">rx</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">close</span><span class="p">(</span>
+                                        <span class="n">rx</span><span class="o">.</span><span class="n">button</span><span class="p">(</span>
+                                            <span class="s2">&quot;Zatvoriť&quot;</span><span class="p">,</span>
+                                            <span class="n">variant</span><span class="o">=</span><span class="s2">&quot;soft&quot;</span><span class="p">,</span>
+                                            <span class="n">color_scheme</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
+                                        <span class="p">),</span>
                                     <span class="p">),</span>
+                                    <span class="n">rx</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">close</span><span class="p">(</span>
+                                        <span class="n">rx</span><span class="o">.</span><span class="n">button</span><span class="p">(</span>
+                                            <span class="s2">&quot;Stiahnuť&quot;</span><span class="p">,</span>
+                                            <span class="n">on_click</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;/rozpis.txt&quot;</span><span class="p">),</span>
+                                        <span class="p">),</span>
+                                    <span class="p">),</span>
+                                    <span class="n">spacing</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">,</span>
+                                    <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;end&quot;</span><span class="p">,</span>
                                 <span class="p">),</span>
-                                <span class="n">spacing</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">,</span>
-                                <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;end&quot;</span><span class="p">,</span>
+                                <span class="n">max_width</span><span class="o">=</span><span class="s2">&quot;fit-content&quot;</span><span class="p">,</span>
                             <span class="p">),</span>
-                            <span class="n">max_width</span><span class="o">=</span><span class="s2">&quot;fit-content&quot;</span><span class="p">,</span>
-                        <span class="p">),</span>
-                    <span class="p">),</span>
-                    <span class="n">align_items</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
-                <span class="p">),</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span>
-                    <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
-                        <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Nahrajte .txt súbor s infomáciami o časovom rozpise linky.&quot;</span><span class="p">),</span>
-                        <span class="n">rx</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;Nahrať súbor&quot;</span><span class="p">),</span>
-                        <span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                            <span class="n">stateClass</span><span class="o">.</span><span class="n">timeTableFilename</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                            <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">stateClass</span><span class="o">.</span><span class="n">timeTableFilename</span><span class="p">),</span>
-                            <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\u00A0</span><span class="s2">&quot;</span><span class="p">),</span>
                         <span class="p">),</span>
                         <span class="n">align_items</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
                     <span class="p">),</span>
-                    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;upload_time_table&quot;</span><span class="p">,</span>
-                    <span class="n">accept</span><span class="o">=</span><span class="s2">&quot;.txt&quot;</span><span class="p">,</span>
-                    <span class="n">max_files</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                    <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;2em&quot;</span><span class="p">,</span>
-                    <span class="n">multiple</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                    <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                    <span class="n">height</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                    <span class="n">on_drop</span><span class="o">=</span><span class="n">InfoUploadState</span><span class="o">.</span><span class="n">handle_upload_time_table</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">upload_files</span><span class="p">(</span><span class="s2">&quot;upload_time_table&quot;</span><span class="p">)),</span>
+                    <span class="n">rx</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span>
+                        <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
+                            <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Nahrajte .txt súbor s infomáciami o časovom rozpise linky.&quot;</span><span class="p">),</span>
+                            <span class="n">rx</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;Nahrať súbor&quot;</span><span class="p">),</span>
+                            <span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
+                                <span class="n">stateClass</span><span class="o">.</span><span class="n">timeTableFilename</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                                <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">stateClass</span><span class="o">.</span><span class="n">timeTableFilename</span><span class="p">),</span>
+                                <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\u00A0</span><span class="s2">&quot;</span><span class="p">),</span>
+                            <span class="p">),</span>
+                            <span class="n">align_items</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                        <span class="p">),</span>
+                        <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;upload_time_table&quot;</span><span class="p">,</span>
+                        <span class="n">accept</span><span class="o">=</span><span class="s2">&quot;.txt&quot;</span><span class="p">,</span>
+                        <span class="n">max_files</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                        <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;2em&quot;</span><span class="p">,</span>
+                        <span class="n">multiple</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+                        <span class="n">height</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+                        <span class="n">on_drop</span><span class="o">=</span><span class="n">InfoUploadState</span><span class="o">.</span><span class="n">handleUploadTimeTable</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">upload_files</span><span class="p">(</span><span class="s2">&quot;upload_time_table&quot;</span><span class="p">)),</span>
+                    <span class="p">),</span>
+                    <span class="n">rx</span><span class="o">.</span><span class="n">center</span><span class="p">(</span>
+                        <span class="n">rx</span><span class="o">.</span><span class="n">divider</span><span class="p">(),</span>
+                        <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;alebo&quot;</span><span class="p">),</span>
+                        <span class="n">rx</span><span class="o">.</span><span class="n">divider</span><span class="p">(),</span>
+                        <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+                        <span class="n">spacing</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">,</span>
+                    <span class="p">),</span>
+                    <span class="n">rx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
+                        <span class="n">InfoUploadState</span><span class="o">.</span><span class="n">dropdownOptions</span><span class="p">,</span>  
+                        <span class="n">value</span><span class="o">=</span><span class="n">stateClass</span><span class="o">.</span><span class="n">selectedTimeTableName</span><span class="p">,</span>
+                        <span class="n">on_change</span><span class="o">=</span><span class="n">InfoUploadState</span><span class="o">.</span><span class="n">selectTimeTableFromDropdown</span><span class="p">,</span>
+                        <span class="n">size</span><span class="o">=</span><span class="s1">&#39;3&#39;</span><span class="p">,</span>
+                        <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+                    <span class="p">),</span>                 
+                    <span class="n">flex</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
                 <span class="p">),</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">center</span><span class="p">(</span>
-                    <span class="n">rx</span><span class="o">.</span><span class="n">divider</span><span class="p">(),</span>
-                    <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;alebo&quot;</span><span class="p">),</span>
-                    <span class="n">rx</span><span class="o">.</span><span class="n">divider</span><span class="p">(),</span>
-                    <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                    <span class="n">spacing</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">,</span>
-                <span class="p">),</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
-                    <span class="n">InfoUploadState</span><span class="o">.</span><span class="n">dropdownOptions</span><span class="p">,</span>  
-                    <span class="n">value</span><span class="o">=</span><span class="n">stateClass</span><span class="o">.</span><span class="n">selectedTimeTableName</span><span class="p">,</span>
-                    <span class="n">on_change</span><span class="o">=</span><span class="n">InfoUploadState</span><span class="o">.</span><span class="n">selectTimeTableFromDropdown</span><span class="p">,</span>
-                    <span class="n">size</span><span class="o">=</span><span class="s1">&#39;3&#39;</span><span class="p">,</span>
-                    <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                <span class="p">),</span>                 
-                <span class="n">flex</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
             <span class="p">),</span>
             <span class="n">spacing</span><span class="o">=</span><span class="s2">&quot;5&quot;</span><span class="p">,</span>
             <span class="n">align_items</span><span class="o">=</span><span class="s2">&quot;stretch&quot;</span><span class="p">,</span>
             <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
         <span class="p">),</span>
-
         <span class="n">rx</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
             <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
                 <span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
@@ -307,23 +377,25 @@
                     <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\u00A0</span><span class="s2">&quot;</span><span class="p">),</span>
                     
                 <span class="p">),</span>
-                <span class="n">align_items</span><span class="o">=</span><span class="s2">&quot;end&quot;</span><span class="p">,</span>
+                <span class="n">align_items</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">stateClass</span> <span class="o">==</span> <span class="n">AnalyzeLineState</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">),</span>
                 <span class="n">flex</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
             <span class="p">),</span>
-            <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                    <span class="n">stateClass</span><span class="o">.</span><span class="n">timeTable</span><span class="p">,</span>
-                    <span class="n">rx</span><span class="o">.</span><span class="n">box</span><span class="p">(</span>
-                        <span class="n">timeTable</span><span class="p">(</span><span class="n">stateClass</span><span class="o">.</span><span class="n">timeTable</span><span class="p">),</span>
+            <span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
+                <span class="n">stateClass</span> <span class="o">==</span> <span class="n">AnalyzeLineState</span><span class="p">,</span>
+                <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
+                    <span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
+                        <span class="n">stateClass</span><span class="o">.</span><span class="n">timeTable</span><span class="p">,</span>
+                        <span class="n">rx</span><span class="o">.</span><span class="n">box</span><span class="p">(</span>
+                            <span class="n">timeTable</span><span class="p">(</span><span class="n">stateClass</span><span class="o">.</span><span class="n">timeTable</span><span class="p">),</span>
+                        <span class="p">),</span>
+                        <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\u00A0</span><span class="s2">&quot;</span><span class="p">),</span>
                     <span class="p">),</span>
-                    <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\u00A0</span><span class="s2">&quot;</span><span class="p">),</span>
+                    <span class="n">flex</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
                 <span class="p">),</span>
-                <span class="n">flex</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
             <span class="p">),</span>
             <span class="n">spacing</span><span class="o">=</span><span class="s2">&quot;5&quot;</span><span class="p">,</span>
             <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
         <span class="p">),</span>
-
         <span class="n">spacing</span><span class="o">=</span><span class="s2">&quot;5&quot;</span><span class="p">,</span>
         <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
     <span class="p">)</span></div>

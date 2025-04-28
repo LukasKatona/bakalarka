@@ -69,7 +69,11 @@
            <div itemprop="articleBody">
              
   <h1>Source code for sprout.components.optimizeLine</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">reflex</span> <span class="k">as</span> <span class="nn">rx</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This file contains optimize line component and its state.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">reflex</span> <span class="k">as</span> <span class="nn">rx</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
 <span class="kn">from</span> <span class="nn">..backend.models</span> <span class="kn">import</span> <span class="n">TimeTable</span>
@@ -79,12 +83,13 @@
 <span class="kn">from</span> <span class="nn">..components.timeTable</span> <span class="kn">import</span> <span class="n">timeTable</span>
 <span class="kn">from</span> <span class="nn">..components.infoCard</span> <span class="kn">import</span> <span class="n">infoCard</span>
 <span class="kn">from</span> <span class="nn">..components.constraintInput</span> <span class="kn">import</span> <span class="n">constraintInput</span>
+<span class="kn">from</span> <span class="nn">.numberInput</span> <span class="kn">import</span> <span class="n">numberImput</span>
 
 <div class="viewcode-block" id="OptimizeLineState">
 <a class="viewcode-back" href="../../../sprout.components.html#sprout.components.optimizeLine.OptimizeLineState">[docs]</a>
 <span class="k">class</span> <span class="nc">OptimizeLineState</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">State</span><span class="p">):</span>
-    <span class="n">selectedTimeTableName</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">selectedTimeTable</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">selectedTimeTableName</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">selectedTimeTable</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
     <span class="n">busSopsFilename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="n">selectedBusStops</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
@@ -103,14 +108,13 @@
     <span class="n">costPerSeatKm</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">99.82</span>
     <span class="n">routeLength</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.8</span>
     
-
     <span class="n">generationNumber</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">numberOfGenerations</span><span class="p">)</span>
 
     <span class="n">optimizationRunning</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">_n_tasks</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">startTime</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-    <span class="n">endTime</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-    <span class="n">duration</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">startTime</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">endTime</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">duration</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
     <span class="n">generation</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">generationChromosomes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
@@ -125,6 +129,14 @@
     <span class="n">saveTimeTableName</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">parseTimeTableToTuple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeTable</span><span class="p">:</span> <span class="n">TimeTable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parses TimeTable object to list of tuples for FE rendering.</span>
+
+<span class="sd">        :param timeTable: Timetable to parse</span>
+<span class="sd">        :type timeTable: TimeTable</span>
+<span class="sd">        :return: Formated timetable</span>
+<span class="sd">        :rtype: list[tuple[str, str, bool]]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">timeTableTuple</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">hour</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">):</span>
             <span class="n">hourStr</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">hour</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="k">if</span> <span class="n">hour</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">hour</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span>
@@ -138,6 +150,9 @@
 
     <span class="nd">@rx</span><span class="o">.</span><span class="n">event</span>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">resetOptimization</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resets all state variables.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">busSopsFilename</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selectedBusStops</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timeTableFilename</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
@@ -156,6 +171,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">routeLength</span> <span class="o">=</span> <span class="mf">3.8</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">generationNumber</span> <span class="o">=</span> <span class="s2">&quot;0/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numberOfGenerations</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">optimizationRunning</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n_tasks</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">startTime</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
@@ -165,23 +181,35 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">generation</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">generationChromosomes</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selectedChromosomeIndex</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numberOfGenerations</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
-        <span class="n">selectedScatterPoint</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selectedScatterPoint</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">showOptimization</span> <span class="o">=</span> <span class="kc">False</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">saveTimeTableName</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        
         <span class="bp">self</span><span class="o">.</span><span class="n">bestTimeTable</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bestTimeTableString</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bestTimeTableChromosome</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">saveTimeTableName</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
     <span class="nd">@rx</span><span class="o">.</span><span class="n">event</span>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">changeConstraints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">hour</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">changeConstraints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">hour</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Changes constraint in a specific hour.</span>
+
+<span class="sd">        :param val: New value</span>
+<span class="sd">        :type val: str</span>
+<span class="sd">        :param hour: Hour specification</span>
+<span class="sd">        :type hour: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="n">hour</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="n">hour</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
 
     <span class="nd">@rx</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="n">background</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">handle_optimize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">handleOptimization</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles whole optimization process.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectedBusStops</span><span class="p">:</span>
             <span class="k">return</span>
         
@@ -220,20 +248,35 @@
             <span class="k">yield</span> <span class="n">rx</span><span class="o">.</span><span class="n">toast</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="s2">&quot;Optimalizácia dokončená&quot;</span><span class="p">)</span>
 
     <span class="nd">@rx</span><span class="o">.</span><span class="n">event</span>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">toggle_optimization_run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">toggleOptimizationRun</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Starts or stops the optimization process.</span>
+
+<span class="sd">        :return: calls handleOptimization</span>
+<span class="sd">        :rtype: function</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">optimizationRunning</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimizationRunning</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimizationRunning</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">startTime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%H:%M:%S&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">showOptimization</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="k">return</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">handle_optimize</span>
+            <span class="k">return</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">handleOptimization</span>
         
     <span class="k">def</span> <span class="nf">initConstraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parses statistics of incoming passengers during day and if none are comming during specific hour, its constraint is set to 0.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">busStops</span> <span class="o">=</span> <span class="n">InputParser</span><span class="o">.</span><span class="n">parseBusStopsFromString</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selectedBusStops</span><span class="p">)</span>
         <span class="n">busStopRates</span> <span class="o">=</span> <span class="p">{</span><span class="n">rate</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">busStop</span> <span class="ow">in</span> <span class="n">busStops</span> <span class="k">for</span> <span class="n">rate</span> <span class="ow">in</span> <span class="n">busStop</span><span class="o">.</span><span class="n">passengerArrivalRatesPerHour</span><span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">if</span> <span class="n">hour</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">busStopRates</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="n">hour</span><span class="p">]</span> <span class="k">for</span> <span class="n">hour</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">)]</span>
 
     <span class="nd">@rx</span><span class="o">.</span><span class="n">event</span>
     <span class="k">def</span> <span class="nf">setTimeTable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Selects timetable from best generation.</span>
+
+<span class="sd">        :param value: Selected timetable</span>
+<span class="sd">        :type value: any</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selectedChromosomeIndex</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bestTimeTableChromosome</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generationChromosomes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selectedChromosomeIndex</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selectedScatterPoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selectedChromosomeIndex</span><span class="p">]</span>
@@ -243,11 +286,17 @@
 
     <span class="nd">@rx</span><span class="o">.</span><span class="n">event</span>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">smoothTimeTable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Smooths out the selected timetable using moving average method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">smoothChromosome</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bestTimeTableString</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">TimeTable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bestTimeTableChromosome</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bestTimeTable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parseTimeTableToTuple</span><span class="p">(</span><span class="n">TimeTable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bestTimeTableChromosome</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">smoothChromosome</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Smooths out timetable chromosome using moving average method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">smoothedChromosome</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bestTimeTableChromosome</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bestTimeTableChromosome</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
@@ -256,6 +305,9 @@
         
     <span class="nd">@rx</span><span class="o">.</span><span class="n">event</span>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">saveTimeTable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Saves the selected timetable for dropdown in info upload component.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">..components.infoUpload</span> <span class="kn">import</span> <span class="n">InfoUploadState</span>
         <span class="n">state</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_state</span><span class="p">(</span><span class="n">InfoUploadState</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">saveTimeTableName</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
@@ -264,6 +316,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">saveTimeTableName</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     
     <span class="k">def</span> <span class="nf">setPopulationSize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Custom setter for populationSize that also changes the slider max value.</span>
+
+<span class="sd">        :param value: New value</span>
+<span class="sd">        :type value: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">populationSize</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -273,246 +331,27 @@
 <div class="viewcode-block" id="optimizeLine">
 <a class="viewcode-back" href="../../../sprout.components.html#sprout.components.optimizeLine.optimizeLine">[docs]</a>
 <span class="k">def</span> <span class="nf">optimizeLine</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">rx</span><span class="o">.</span><span class="n">Component</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Optimize line component, contains all number inputs, departure constraint input and optimization results with option to save timetable selected from best generation.</span>
+
+<span class="sd">    :return: Optimize line component.</span>
+<span class="sd">    :rtype: rx.Component</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
         <span class="n">rx</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
-            <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Veľkosť populácie&quot;</span><span class="p">),</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span>
-                    <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;Veľkosť populácie&quot;</span><span class="p">,</span>
-                    <span class="n">value</span><span class="o">=</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">populationSize</span><span class="p">,</span>
-                    <span class="n">on_change</span><span class="o">=</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">setPopulationSize</span><span class="p">,</span>
-                    <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                    <span class="n">size</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">,</span>
-                    <span class="nb">min</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-                    <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">,</span>
-                    <span class="n">color_scheme</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">populationSize</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">,</span>
-                        <span class="s2">&quot;red&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;dark&quot;</span>
-                    <span class="p">),</span>
-                    <span class="n">variant</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">populationSize</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">,</span>
-                        <span class="s2">&quot;soft&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;classic&quot;</span>
-                    <span class="p">),</span>
-                    <span class="n">disabled</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">optimizationRunning</span><span class="p">,</span>
-                        <span class="kc">True</span><span class="p">,</span>
-                        <span class="kc">False</span><span class="p">,</span>
-                    <span class="p">),</span>
-                <span class="p">),</span>
-                <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;between&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-            <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Počet generácií&quot;</span><span class="p">),</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span>
-                    <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;Počet generácií&quot;</span><span class="p">,</span>
-                    <span class="n">value</span><span class="o">=</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">numberOfGenerations</span><span class="p">,</span>
-                    <span class="n">on_change</span><span class="o">=</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">set_numberOfGenerations</span><span class="p">,</span>
-                    <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                    <span class="n">size</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">,</span>
-                    <span class="nb">min</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-                    <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">,</span>
-                    <span class="n">color_scheme</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">numberOfGenerations</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">,</span>
-                        <span class="s2">&quot;red&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;dark&quot;</span>
-                    <span class="p">),</span>
-                    <span class="n">variant</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">numberOfGenerations</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">,</span>
-                        <span class="s2">&quot;soft&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;classic&quot;</span>
-                    <span class="p">),</span>
-                    <span class="n">disabled</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">optimizationRunning</span><span class="p">,</span>
-                        <span class="kc">True</span><span class="p">,</span>
-                        <span class="kc">False</span><span class="p">,</span>
-                    <span class="p">),</span>
-                <span class="p">),</span>
-                <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;between&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-            <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Pravdepodobnosť mutácie&quot;</span><span class="p">),</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span>
-                    <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;Pravdepodobnosť mutácie&quot;</span><span class="p">,</span>
-                    <span class="n">value</span><span class="o">=</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">mutationRate</span><span class="p">,</span>
-                    <span class="n">on_change</span><span class="o">=</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">set_mutationRate</span><span class="p">,</span>
-                    <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                    <span class="n">size</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">,</span>
-                    <span class="nb">min</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-                    <span class="nb">max</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-                    <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">,</span>
-                    <span class="n">color_scheme</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="p">(</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">mutationRate</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">mutationRate</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">),</span>
-                        <span class="s2">&quot;red&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;dark&quot;</span>
-                    <span class="p">),</span>
-                    <span class="n">variant</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="p">(</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">mutationRate</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">mutationRate</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">),</span>
-                        <span class="s2">&quot;soft&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;classic&quot;</span>
-                    <span class="p">),</span>
-                    <span class="n">disabled</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">optimizationRunning</span><span class="p">,</span>
-                        <span class="kc">True</span><span class="p">,</span>
-                        <span class="kc">False</span><span class="p">,</span>
-                    <span class="p">),</span>
-                <span class="p">),</span>
-                <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;between&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-            <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Maximálny počet spojov za hodinu&quot;</span><span class="p">),</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span>
-                    <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;Maximálny počet spojov za hodinu&quot;</span><span class="p">,</span>
-                    <span class="n">value</span><span class="o">=</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">maxConnectionsPerHour</span><span class="p">,</span>
-                    <span class="n">on_change</span><span class="o">=</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">set_maxConnectionsPerHour</span><span class="p">,</span>
-                    <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                    <span class="n">size</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">,</span>
-                    <span class="nb">min</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-                    <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">,</span>
-                    <span class="n">color_scheme</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">maxConnectionsPerHour</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">,</span>
-                        <span class="s2">&quot;red&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;dark&quot;</span>
-                    <span class="p">),</span>
-                    <span class="n">variant</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">maxConnectionsPerHour</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">,</span>
-                        <span class="s2">&quot;soft&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;classic&quot;</span>
-                    <span class="p">),</span>
-                    <span class="n">disabled</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">optimizationRunning</span><span class="p">,</span>
-                        <span class="kc">True</span><span class="p">,</span>
-                        <span class="kc">False</span><span class="p">,</span>
-                    <span class="p">),</span>
-                <span class="p">),</span>
-                <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;between&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
+            <span class="n">numberImput</span><span class="p">(</span><span class="s2">&quot;Veľkosť populácie&quot;</span><span class="p">,</span> <span class="s2">&quot;Veľkosť populácie&quot;</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">populationSize</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">setPopulationSize</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">populationSize</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">optimizationRunning</span><span class="p">),</span>
+            <span class="n">numberImput</span><span class="p">(</span><span class="s2">&quot;Počet generácií&quot;</span><span class="p">,</span> <span class="s2">&quot;Počet generácií&quot;</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">numberOfGenerations</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">set_numberOfGenerations</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">numberOfGenerations</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">optimizationRunning</span><span class="p">),</span>
+            <span class="n">numberImput</span><span class="p">(</span><span class="s2">&quot;Pravdepodobnosť mutácie&quot;</span><span class="p">,</span> <span class="s2">&quot;Pravdepodobnosť mutácie&quot;</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">mutationRate</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">set_mutationRate</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">mutationRate</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">mutationRate</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">),</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">optimizationRunning</span><span class="p">),</span>
+            <span class="n">numberImput</span><span class="p">(</span><span class="s2">&quot;Maximálny počet spojov za hodinu&quot;</span><span class="p">,</span> <span class="s2">&quot;Maximálny počet spojov za hodinu&quot;</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">maxConnectionsPerHour</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">set_maxConnectionsPerHour</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">maxConnectionsPerHour</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">optimizationRunning</span><span class="p">),</span>
             <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
             <span class="n">spacing</span><span class="o">=</span><span class="s2">&quot;5&quot;</span><span class="p">,</span>
             <span class="n">align</span><span class="o">=</span><span class="s2">&quot;stretch&quot;</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="n">rx</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
-            <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Kapacita vozidla&quot;</span><span class="p">),</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span>
-                    <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;Kapacita vozidla&quot;</span><span class="p">,</span>
-                    <span class="n">value</span><span class="o">=</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">vehicleCapacity</span><span class="p">,</span>
-                    <span class="n">on_change</span><span class="o">=</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">set_vehicleCapacity</span><span class="p">,</span>
-                    <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                    <span class="n">size</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">,</span>
-                    <span class="nb">min</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-                    <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">,</span>
-                    <span class="n">color_scheme</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">vehicleCapacity</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">,</span>
-                        <span class="s2">&quot;red&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;dark&quot;</span>
-                    <span class="p">),</span>
-                    <span class="n">variant</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">vehicleCapacity</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">,</span>
-                        <span class="s2">&quot;soft&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;classic&quot;</span>
-                    <span class="p">),</span>
-                    <span class="n">disabled</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">optimizationRunning</span><span class="p">,</span>
-                        <span class="kc">True</span><span class="p">,</span>
-                        <span class="kc">False</span><span class="p">,</span>
-                    <span class="p">),</span>
-                <span class="p">),</span>
-                <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;between&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-            <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Miest na sedenie&quot;</span><span class="p">),</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span>
-                    <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;Miest na sedenie&quot;</span><span class="p">,</span>
-                    <span class="n">value</span><span class="o">=</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">vehicleSeats</span><span class="p">,</span>
-                    <span class="n">on_change</span><span class="o">=</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">set_vehicleSeats</span><span class="p">,</span>
-                    <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                    <span class="n">size</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">,</span>
-                    <span class="nb">min</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-                    <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">,</span>
-                    <span class="n">color_scheme</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">vehicleSeats</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span>
-                        <span class="s2">&quot;red&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;dark&quot;</span>
-                    <span class="p">),</span>
-                    <span class="n">variant</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">vehicleSeats</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span>
-                        <span class="s2">&quot;soft&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;classic&quot;</span>
-                    <span class="p">),</span>
-                    <span class="n">disabled</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">optimizationRunning</span><span class="p">,</span>
-                        <span class="kc">True</span><span class="p">,</span>
-                        <span class="kc">False</span><span class="p">,</span>
-                    <span class="p">),</span>
-                <span class="p">),</span>
-                <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;between&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-            <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Celkové náklady (Kč/100 miesto-km)&quot;</span><span class="p">),</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span>
-                    <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;Kč/100 miesto-km&quot;</span><span class="p">,</span>
-                    <span class="n">value</span><span class="o">=</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">costPerSeatKm</span><span class="p">,</span>
-                    <span class="n">on_change</span><span class="o">=</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">set_costPerSeatKm</span><span class="p">,</span>
-                    <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                    <span class="n">size</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">,</span>
-                    <span class="nb">min</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-                    <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">,</span>
-                    <span class="n">color_scheme</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">costPerSeatKm</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span>
-                        <span class="s2">&quot;red&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;dark&quot;</span>
-                    <span class="p">),</span>
-                    <span class="n">variant</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">costPerSeatKm</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span>
-                        <span class="s2">&quot;soft&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;classic&quot;</span>
-                    <span class="p">),</span>
-                    <span class="n">disabled</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">optimizationRunning</span><span class="p">,</span>
-                        <span class="kc">True</span><span class="p">,</span>
-                        <span class="kc">False</span><span class="p">,</span>
-                    <span class="p">),</span>
-                <span class="p">),</span>
-                <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;between&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-            <span class="n">rx</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Dĺžka trasy&quot;</span><span class="p">),</span>
-                <span class="n">rx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span>
-                    <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;Dĺžka trasy&quot;</span><span class="p">,</span>
-                    <span class="n">value</span><span class="o">=</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">routeLength</span><span class="p">,</span>
-                    <span class="n">on_change</span><span class="o">=</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">set_routeLength</span><span class="p">,</span>
-                    <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                    <span class="n">size</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">,</span>
-                    <span class="nb">min</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
-                    <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">,</span>
-                    <span class="n">color_scheme</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">routeLength</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span>
-                        <span class="s2">&quot;red&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;dark&quot;</span>
-                    <span class="p">),</span>
-                    <span class="n">variant</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">routeLength</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span>
-                        <span class="s2">&quot;soft&quot;</span><span class="p">,</span>
-                        <span class="s2">&quot;classic&quot;</span>
-                    <span class="p">),</span>
-                    <span class="n">disabled</span><span class="o">=</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span>
-                        <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">optimizationRunning</span><span class="p">,</span>
-                        <span class="kc">True</span><span class="p">,</span>
-                        <span class="kc">False</span><span class="p">,</span>
-                    <span class="p">),</span>
-                <span class="p">),</span>
-                <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-                <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;between&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
+            <span class="n">numberImput</span><span class="p">(</span><span class="s2">&quot;Kapacita vozidla&quot;</span><span class="p">,</span> <span class="s2">&quot;Kapacita vozidla&quot;</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">vehicleCapacity</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">set_vehicleCapacity</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">vehicleCapacity</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">optimizationRunning</span><span class="p">),</span>
+            <span class="n">numberImput</span><span class="p">(</span><span class="s2">&quot;Miest na sedenie&quot;</span><span class="p">,</span> <span class="s2">&quot;Miest na sedenie&quot;</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">vehicleSeats</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">set_vehicleSeats</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">vehicleSeats</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">optimizationRunning</span><span class="p">),</span>
+            <span class="n">numberImput</span><span class="p">(</span><span class="s2">&quot;Celkové náklady (Kč/100 miesto-km)&quot;</span><span class="p">,</span> <span class="s2">&quot;Kč/100 miesto-km&quot;</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">costPerSeatKm</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">set_costPerSeatKm</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">costPerSeatKm</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">optimizationRunning</span><span class="p">),</span>
+            <span class="n">numberImput</span><span class="p">(</span><span class="s2">&quot;Dĺžka trasy&quot;</span><span class="p">,</span> <span class="s2">&quot;Dĺžka trasy&quot;</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">routeLength</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">set_routeLength</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">routeLength</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">optimizationRunning</span><span class="p">),</span>
             <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
             <span class="n">spacing</span><span class="o">=</span><span class="s2">&quot;5&quot;</span><span class="p">,</span>
             <span class="n">align</span><span class="o">=</span><span class="s2">&quot;stretch&quot;</span><span class="p">,</span>
@@ -530,7 +369,7 @@
             <span class="n">rx</span><span class="o">.</span><span class="n">button</span><span class="p">(</span>
                 <span class="n">rx</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">optimizationRunning</span><span class="p">,</span> <span class="s2">&quot;Zastaviť&quot;</span><span class="p">,</span> <span class="s2">&quot;Optimalizovať&quot;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">),</span>
                 <span class="n">on_click</span><span class="o">=</span><span class="p">[</span>
-                    <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">toggle_optimization_run</span><span class="p">(),</span>
+                    <span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">toggleOptimizationRun</span><span class="p">(),</span>
                     <span class="n">rx</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">OptimizeLineState</span><span class="o">.</span><span class="n">optimizationRunning</span><span class="p">,</span> <span class="n">rx</span><span class="o">.</span><span class="n">toast</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Optimalizácia zastavená&quot;</span><span class="p">),</span> <span class="n">rx</span><span class="o">.</span><span class="n">toast</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Optimalizácia spustená&quot;</span><span class="p">)),</span>
                 <span class="p">],</span>
                 <span class="n">size</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">,</span>
