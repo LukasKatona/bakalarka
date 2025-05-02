@@ -1,3 +1,7 @@
+"""
+This file contains the Bus, BusStop, and TimeTable classes, which are used in the simulation of a bus system.
+"""
+
 from enum import Enum
 from .RandomNumberGenerator import RandomNumberGenerator
 from .Simulation import Simulation
@@ -18,7 +22,13 @@ class BusStop:
         StartBoarding = 2
         FinishBoarding = 3
 
-    def triggerInputSignal(self, signal):
+    def triggerInputSignal(self, signal: InputSignals):
+        """
+        Trigger the input signal for the bus stop. This will change the state of the bus stop and update the statistics.
+
+        :param signal: The input signal to be triggered.
+        :type signal: InputSignals
+        """
         if signal == BusStop.InputSignals.BusArrived:
             self.busArrived()
         elif signal == BusStop.InputSignals.StartBoarding:
@@ -28,9 +38,18 @@ class BusStop:
 
     # OUTPUT SIGNALS
     def setOutputSignals(self):
+        """
+        Bus stop has no output signals. This method is a placeholder for future use.
+        """
         pass
 
     def triggerOutputSignal(self, signal):
+        """
+        Bus stop has no output signals. This method is a placeholder for future use.
+
+        :param signal: The output signal to be triggered.
+        :type signal: OutputSignals
+        """
         pass
 
     # INIT
@@ -46,29 +65,53 @@ class BusStop:
         self.setOutputSignals()
         self.stats = BusStopStatistics(name)
     
+    # METHODS
     def clear(self):
+        """
+        Clear the bus stop statistics and reset the state of the bus stop.
+        """
         self.timeOfLastBusArrival = Simulation.startTime
         self.timeIntervalBetweenBuses = 0
         self.waitingPassengersArrivalTimes = []
         self.stats.clear()
 
-    # METHODS
     def busArrived(self):
+        """
+        Update the state of the bus stop when a bus arrives. This will set the state to BusArrived and update the time it took for the next bus to arrive.
+        """
         self.state = BusStop.State.BusArrived
         self.timeIntervalBetweenBuses = Simulation.currentTime - self.timeOfLastBusArrival
 
     def startBoarding(self):
+        """
+        Update the state of the bus stop when boarding starts. This will set the state to BusBoarding and generate new passengers.
+        """
         self.state = BusStop.State.BusBoarding
         self.waitingPassengersArrivalTimes += self.generatePassengers()
         self.waitingPassengersArrivalTimes.sort()
 
         
     def finishBoarding(self):
+        """
+        Update the state of the bus stop when boarding finishes. This will set the state to Idle and update the time of the last bus arrival.
+        """
         self.state = BusStop.State.Idle
         self.timeOfLastBusArrival = Simulation.currentTime
         self.waitingPassengersArrivalTimes = []
 
     def generatePassengers(self):
+        """
+        Generate passengers based on the passenger arrival rates per hour. This will generate a list of arrival times for the passengers.
+        The arrival times are generated using an exponential distribution based on the rate for the current hour.
+        Instead of using poisson distribution for generating the number of passengers,
+        we use an exponential distribution to generate the time between passenger arrivals.
+        Generated time is added to the time of the last bus arrival to get the arrival time of the passenger.
+        Local simulation time is forwarded by the generated time.
+        This proccess is repeated until the current simulation time is reached.
+
+        :return: A list of arrival times for the passengers.
+        :rtype: list[float]
+        """
         # find the rate for the current hour
         lambdaValue = 0
         currentHour = Simulation.getHour()
@@ -122,26 +165,52 @@ class TimeTable:
             self.minutes = minutes
         
     # METHODS
-    def addRow(self, hour, minutes):
+    def addRow(self, hour: int, minutes: list[int]):
+        """
+        Add a row to the time table. The row contains the hour and a list of minutes.
+
+        :param hour: The hour of the row.
+        :type hour: int
+        :param minutes: The list of minutes for the row.
+        :type minutes: list[int]
+        """
         self.rows.append(TimeTable.TimeTableRow(hour, minutes))
 
-    def getAllTimes(self):
+    def getAllTimes(self) -> list[int]:
+        """
+        Get all times in the time table. The times are represented as a list of integers, where each integer is the time in minutes since midnight.
+
+        :return: The list of departure times in minutes since midnight.
+        :rtype: list[int]
+        """
         times = []
         for row in self.rows:
             for minute in row.minutes:
                 times.append(row.hour * 60 + minute)
         return times
     
-    def getChromosome(self):
+    def getChromosome(self) -> list[int]:
+        """
+        Get the chromosome representation of the time table. The chromosome is a list of integers, where each integer represents the number of departures in the corresponding hour.
+
+        :return: The chromosome representation of the time table.
+        :rtype: list[int]
+        """
         chromosome = [0] * 24
         for row in self.rows:
             chromosome[row.hour] = len(row.minutes)
         return chromosome
     
-    def generateFromChromosome(self, chromosome):
+    def generateFromChromosome(self, chromosome: list[int]):
+        """
+        Generate the time table from a chromosome. The chromosome is a list of integers, where each integer represents the number of departures in the corresponding hour.
+        The minites for each hour are generated based on the number of departures, which are evenly distributed over the hour.
+
+        :param chromosome: The chromosome representation of the time table.
+        :type chromosome: list[int]
+        """
         for i in range(len(chromosome)):
             if chromosome[i] != "0":
-                # generate array of minutes equally distributed in one hour based on number in parts[i]
                 minutes = [int((j) * 60 / (int(chromosome[i]))) for j in range(int(chromosome[i]))]
                 self.addRow(i, minutes)
 
@@ -162,6 +231,12 @@ class Bus:
 
     # INPUT SIGNALS
     def triggerInputSignal(self, signal):
+        """
+        Bus has no input signals. This method is a placeholder for future use.
+
+        :param signal: The input signal to be triggered.
+        :type signal: InputSignals
+        """
         pass
 
     # OUTPUT SIGNALS
@@ -169,15 +244,27 @@ class Bus:
         Arrival = 1
         Boarding = 2
         Departure = 3
-
+        
     def setOutputSignals(self):
+        """
+        Binds the output signals of the bus to the input signals of the bus stop.
+        The output signals are used to notify the bus stop when a bus has arrived, started boarding, or departed.
+        The bus output signals could be binded to multiple other models.
+        For every output signal, a list of tuples is created, where each tuple contains the model that will receive the signal and the input signal that will be triggered.
+        """
         self.signals =  {
             Bus.OutputSignals.Arrival: [(self.currentBusStop, BusStop.InputSignals.BusArrived)],
             Bus.OutputSignals.Boarding: [(self.currentBusStop, BusStop.InputSignals.StartBoarding)],
             Bus.OutputSignals.Departure: [(self.currentBusStop, BusStop.InputSignals.FinishBoarding)]
         }
 
-    def triggerOutputSignal(self, signal):
+    def triggerOutputSignal(self, signal: OutputSignals):
+        """
+        Trigger the output signal for the bus. This will trigger all input signals that are bound to the output signal.
+
+        :param signal: The output signal to be triggered.
+        :type signal: OutputSignals
+        """
         for inputSignal in self.signals[signal]:
             inputSignal[0].triggerInputSignal(inputSignal[1])
 
@@ -194,7 +281,14 @@ class Bus:
         self.stats = BusStatistics(self.busNumber, capacity, seats)
 
     # STATE MACHINE
-    def runBusStopSequence(self, busStop):
+    def runBusStopSequence(self, busStop: BusStop):
+        """
+        Run the bus stop sequence. This will set the current bus stop, bind the output signals to the input signals of the bus stop, and trigger the output signals.
+        The bus will arrive at the stop, board passengers, and depart from the stop.
+
+        :param busStop: The bus stop on which the bus will stop.
+        :type busStop: BusStop
+        """
         self.currentBusStop = busStop
         self.setOutputSignals()
         self.arriveAtStop()
@@ -203,6 +297,10 @@ class Bus:
 
     # METHODS
     def arriveAtStop(self):
+        """
+        Update the state of the bus when it arrives at a stop. This will set the state to Arrived and update the statistics.
+        The bus will notify the bus stop that it has arrived, and the number of passengers leaving the bus will be calculated based on the leaving passengers rate.
+        """
         self.state = Bus.State.Arrived
         # notify bus stop that new bus has arrived
         self.triggerOutputSignal(Bus.OutputSignals.Arrival)
@@ -213,6 +311,11 @@ class Bus:
         self.currentBusStop.stats.updatePassengersDepartedPerHour(numberOfLeavingPassengers, Simulation.getHour())
         
     def boardPassengers(self):
+        """
+        Update the state of the bus when boarding starts. This will set the state to Boarding and update the statistics.
+        The bus will notify the bus stop that boarding has started, and the number of passengers boarding the bus will be calculated based on the number of waiting passengers and the bus capacity.
+        The bus will board passengers until it is full or there are no more waiting passengers.
+        """
         self.state = Bus.State.Boarding
         # notify bus stop to generate new passengers
         self.triggerOutputSignal(Bus.OutputSignals.Boarding)
@@ -233,11 +336,18 @@ class Bus:
         self.stats.updateLoadPerBusStop(self.load, self.currentBusStop.name)
         
     def departFromStop(self):
+        """
+        Update the state of the bus when it departs from a stop. This will set the state to Traveling and update the statistics.
+        The bus will notify the bus stop that it has departed.
+        """
         self.state = Bus.State.Traveling
         # notify bus stop that bus has departed
         self.triggerOutputSignal(Bus.OutputSignals.Departure)    
 
     def updatePassengerSatisfaction(self):
+        """
+        Update the passenger satisfaction based on the current load of the bus and the number of seats.
+        """
         if self.load <= self.seats:
             satisfaction = 1
         elif self.load > self.seats:

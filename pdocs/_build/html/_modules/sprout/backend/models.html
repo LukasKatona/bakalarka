@@ -69,7 +69,11 @@
            <div itemprop="articleBody">
              
   <h1>Source code for sprout.backend.models</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This file contains the Bus, BusStop, and TimeTable classes, which are used in the simulation of a bus system.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">.RandomNumberGenerator</span> <span class="kn">import</span> <span class="n">RandomNumberGenerator</span>
 <span class="kn">from</span> <span class="nn">.Simulation</span> <span class="kn">import</span> <span class="n">Simulation</span>
 <span class="kn">from</span> <span class="nn">.Statistics</span> <span class="kn">import</span> <span class="n">BusStatistics</span><span class="p">,</span> <span class="n">BusStopStatistics</span>
@@ -99,7 +103,13 @@
 
 <div class="viewcode-block" id="BusStop.triggerInputSignal">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.BusStop.triggerInputSignal">[docs]</a>
-    <span class="k">def</span> <span class="nf">triggerInputSignal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signal</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">triggerInputSignal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signal</span><span class="p">:</span> <span class="n">InputSignals</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Trigger the input signal for the bus stop. This will change the state of the bus stop and update the statistics.</span>
+
+<span class="sd">        :param signal: The input signal to be triggered.</span>
+<span class="sd">        :type signal: InputSignals</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">signal</span> <span class="o">==</span> <span class="n">BusStop</span><span class="o">.</span><span class="n">InputSignals</span><span class="o">.</span><span class="n">BusArrived</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">busArrived</span><span class="p">()</span>
         <span class="k">elif</span> <span class="n">signal</span> <span class="o">==</span> <span class="n">BusStop</span><span class="o">.</span><span class="n">InputSignals</span><span class="o">.</span><span class="n">StartBoarding</span><span class="p">:</span>
@@ -112,12 +122,21 @@
 <div class="viewcode-block" id="BusStop.setOutputSignals">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.BusStop.setOutputSignals">[docs]</a>
     <span class="k">def</span> <span class="nf">setOutputSignals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Bus stop has no output signals. This method is a placeholder for future use.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
 
 <div class="viewcode-block" id="BusStop.triggerOutputSignal">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.BusStop.triggerOutputSignal">[docs]</a>
     <span class="k">def</span> <span class="nf">triggerOutputSignal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signal</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Bus stop has no output signals. This method is a placeholder for future use.</span>
+
+<span class="sd">        :param signal: The output signal to be triggered.</span>
+<span class="sd">        :type signal: OutputSignals</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
 
@@ -134,19 +153,25 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">setOutputSignals</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="n">BusStopStatistics</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
     
+    <span class="c1"># METHODS</span>
 <div class="viewcode-block" id="BusStop.clear">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.BusStop.clear">[docs]</a>
     <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clear the bus stop statistics and reset the state of the bus stop.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timeOfLastBusArrival</span> <span class="o">=</span> <span class="n">Simulation</span><span class="o">.</span><span class="n">startTime</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timeIntervalBetweenBuses</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">waitingPassengersArrivalTimes</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
 
 
-    <span class="c1"># METHODS</span>
 <div class="viewcode-block" id="BusStop.busArrived">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.BusStop.busArrived">[docs]</a>
     <span class="k">def</span> <span class="nf">busArrived</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the state of the bus stop when a bus arrives. This will set the state to BusArrived and update the time it took for the next bus to arrive.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">BusStop</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">BusArrived</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timeIntervalBetweenBuses</span> <span class="o">=</span> <span class="n">Simulation</span><span class="o">.</span><span class="n">currentTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeOfLastBusArrival</span></div>
 
@@ -154,6 +179,9 @@
 <div class="viewcode-block" id="BusStop.startBoarding">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.BusStop.startBoarding">[docs]</a>
     <span class="k">def</span> <span class="nf">startBoarding</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the state of the bus stop when boarding starts. This will set the state to BusBoarding and generate new passengers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">BusStop</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">BusBoarding</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">waitingPassengersArrivalTimes</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generatePassengers</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">waitingPassengersArrivalTimes</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span></div>
@@ -163,6 +191,9 @@
 <div class="viewcode-block" id="BusStop.finishBoarding">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.BusStop.finishBoarding">[docs]</a>
     <span class="k">def</span> <span class="nf">finishBoarding</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the state of the bus stop when boarding finishes. This will set the state to Idle and update the time of the last bus arrival.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">BusStop</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">Idle</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timeOfLastBusArrival</span> <span class="o">=</span> <span class="n">Simulation</span><span class="o">.</span><span class="n">currentTime</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">waitingPassengersArrivalTimes</span> <span class="o">=</span> <span class="p">[]</span></div>
@@ -171,6 +202,18 @@
 <div class="viewcode-block" id="BusStop.generatePassengers">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.BusStop.generatePassengers">[docs]</a>
     <span class="k">def</span> <span class="nf">generatePassengers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate passengers based on the passenger arrival rates per hour. This will generate a list of arrival times for the passengers.</span>
+<span class="sd">        The arrival times are generated using an exponential distribution based on the rate for the current hour.</span>
+<span class="sd">        Instead of using poisson distribution for generating the number of passengers,</span>
+<span class="sd">        we use an exponential distribution to generate the time between passenger arrivals.</span>
+<span class="sd">        Generated time is added to the time of the last bus arrival to get the arrival time of the passenger.</span>
+<span class="sd">        Local simulation time is forwarded by the generated time.</span>
+<span class="sd">        This proccess is repeated until the current simulation time is reached.</span>
+
+<span class="sd">        :return: A list of arrival times for the passengers.</span>
+<span class="sd">        :rtype: list[float]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># find the rate for the current hour</span>
         <span class="n">lambdaValue</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">currentHour</span> <span class="o">=</span> <span class="n">Simulation</span><span class="o">.</span><span class="n">getHour</span><span class="p">()</span>
@@ -236,13 +279,27 @@
     <span class="c1"># METHODS</span>
 <div class="viewcode-block" id="TimeTable.addRow">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.TimeTable.addRow">[docs]</a>
-    <span class="k">def</span> <span class="nf">addRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minutes</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">addRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hour</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">minutes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a row to the time table. The row contains the hour and a list of minutes.</span>
+
+<span class="sd">        :param hour: The hour of the row.</span>
+<span class="sd">        :type hour: int</span>
+<span class="sd">        :param minutes: The list of minutes for the row.</span>
+<span class="sd">        :type minutes: list[int]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TimeTable</span><span class="o">.</span><span class="n">TimeTableRow</span><span class="p">(</span><span class="n">hour</span><span class="p">,</span> <span class="n">minutes</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="TimeTable.getAllTimes">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.TimeTable.getAllTimes">[docs]</a>
-    <span class="k">def</span> <span class="nf">getAllTimes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">getAllTimes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get all times in the time table. The times are represented as a list of integers, where each integer is the time in minutes since midnight.</span>
+
+<span class="sd">        :return: The list of departure times in minutes since midnight.</span>
+<span class="sd">        :rtype: list[int]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">times</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">minute</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">minutes</span><span class="p">:</span>
@@ -252,7 +309,13 @@
     
 <div class="viewcode-block" id="TimeTable.getChromosome">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.TimeTable.getChromosome">[docs]</a>
-    <span class="k">def</span> <span class="nf">getChromosome</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">getChromosome</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the chromosome representation of the time table. The chromosome is a list of integers, where each integer represents the number of departures in the corresponding hour.</span>
+
+<span class="sd">        :return: The chromosome representation of the time table.</span>
+<span class="sd">        :rtype: list[int]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">chromosome</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">24</span>
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">:</span>
             <span class="n">chromosome</span><span class="p">[</span><span class="n">row</span><span class="o">.</span><span class="n">hour</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">minutes</span><span class="p">)</span>
@@ -261,10 +324,16 @@
     
 <div class="viewcode-block" id="TimeTable.generateFromChromosome">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.TimeTable.generateFromChromosome">[docs]</a>
-    <span class="k">def</span> <span class="nf">generateFromChromosome</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chromosome</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">generateFromChromosome</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chromosome</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate the time table from a chromosome. The chromosome is a list of integers, where each integer represents the number of departures in the corresponding hour.</span>
+<span class="sd">        The minites for each hour are generated based on the number of departures, which are evenly distributed over the hour.</span>
+
+<span class="sd">        :param chromosome: The chromosome representation of the time table.</span>
+<span class="sd">        :type chromosome: list[int]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">chromosome</span><span class="p">)):</span>
             <span class="k">if</span> <span class="n">chromosome</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;0&quot;</span><span class="p">:</span>
-                <span class="c1"># generate array of minutes equally distributed in one hour based on number in parts[i]</span>
                 <span class="n">minutes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">((</span><span class="n">j</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">/</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">chromosome</span><span class="p">[</span><span class="n">i</span><span class="p">])))</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">chromosome</span><span class="p">[</span><span class="n">i</span><span class="p">]))]</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">minutes</span><span class="p">)</span></div>
 
@@ -294,6 +363,12 @@
 <div class="viewcode-block" id="Bus.triggerInputSignal">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.Bus.triggerInputSignal">[docs]</a>
     <span class="k">def</span> <span class="nf">triggerInputSignal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signal</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Bus has no input signals. This method is a placeholder for future use.</span>
+
+<span class="sd">        :param signal: The input signal to be triggered.</span>
+<span class="sd">        :type signal: InputSignals</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
 
@@ -305,10 +380,16 @@
         <span class="n">Boarding</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="n">Departure</span> <span class="o">=</span> <span class="mi">3</span></div>
 
-
+        
 <div class="viewcode-block" id="Bus.setOutputSignals">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.Bus.setOutputSignals">[docs]</a>
     <span class="k">def</span> <span class="nf">setOutputSignals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Binds the output signals of the bus to the input signals of the bus stop.</span>
+<span class="sd">        The output signals are used to notify the bus stop when a bus has arrived, started boarding, or departed.</span>
+<span class="sd">        The bus output signals could be binded to multiple other models.</span>
+<span class="sd">        For every output signal, a list of tuples is created, where each tuple contains the model that will receive the signal and the input signal that will be triggered.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">signals</span> <span class="o">=</span>  <span class="p">{</span>
             <span class="n">Bus</span><span class="o">.</span><span class="n">OutputSignals</span><span class="o">.</span><span class="n">Arrival</span><span class="p">:</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">currentBusStop</span><span class="p">,</span> <span class="n">BusStop</span><span class="o">.</span><span class="n">InputSignals</span><span class="o">.</span><span class="n">BusArrived</span><span class="p">)],</span>
             <span class="n">Bus</span><span class="o">.</span><span class="n">OutputSignals</span><span class="o">.</span><span class="n">Boarding</span><span class="p">:</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">currentBusStop</span><span class="p">,</span> <span class="n">BusStop</span><span class="o">.</span><span class="n">InputSignals</span><span class="o">.</span><span class="n">StartBoarding</span><span class="p">)],</span>
@@ -318,7 +399,13 @@
 
 <div class="viewcode-block" id="Bus.triggerOutputSignal">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.Bus.triggerOutputSignal">[docs]</a>
-    <span class="k">def</span> <span class="nf">triggerOutputSignal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signal</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">triggerOutputSignal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signal</span><span class="p">:</span> <span class="n">OutputSignals</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Trigger the output signal for the bus. This will trigger all input signals that are bound to the output signal.</span>
+
+<span class="sd">        :param signal: The output signal to be triggered.</span>
+<span class="sd">        :type signal: OutputSignals</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">inputSignal</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="p">[</span><span class="n">signal</span><span class="p">]:</span>
             <span class="n">inputSignal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">triggerInputSignal</span><span class="p">(</span><span class="n">inputSignal</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
 
@@ -338,7 +425,14 @@
     <span class="c1"># STATE MACHINE</span>
 <div class="viewcode-block" id="Bus.runBusStopSequence">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.Bus.runBusStopSequence">[docs]</a>
-    <span class="k">def</span> <span class="nf">runBusStopSequence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">busStop</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">runBusStopSequence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">busStop</span><span class="p">:</span> <span class="n">BusStop</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run the bus stop sequence. This will set the current bus stop, bind the output signals to the input signals of the bus stop, and trigger the output signals.</span>
+<span class="sd">        The bus will arrive at the stop, board passengers, and depart from the stop.</span>
+
+<span class="sd">        :param busStop: The bus stop on which the bus will stop.</span>
+<span class="sd">        :type busStop: BusStop</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">currentBusStop</span> <span class="o">=</span> <span class="n">busStop</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setOutputSignals</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">arriveAtStop</span><span class="p">()</span>
@@ -350,6 +444,10 @@
 <div class="viewcode-block" id="Bus.arriveAtStop">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.Bus.arriveAtStop">[docs]</a>
     <span class="k">def</span> <span class="nf">arriveAtStop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the state of the bus when it arrives at a stop. This will set the state to Arrived and update the statistics.</span>
+<span class="sd">        The bus will notify the bus stop that it has arrived, and the number of passengers leaving the bus will be calculated based on the leaving passengers rate.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">Bus</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">Arrived</span>
         <span class="c1"># notify bus stop that new bus has arrived</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">triggerOutputSignal</span><span class="p">(</span><span class="n">Bus</span><span class="o">.</span><span class="n">OutputSignals</span><span class="o">.</span><span class="n">Arrival</span><span class="p">)</span>
@@ -363,6 +461,11 @@
 <div class="viewcode-block" id="Bus.boardPassengers">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.Bus.boardPassengers">[docs]</a>
     <span class="k">def</span> <span class="nf">boardPassengers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the state of the bus when boarding starts. This will set the state to Boarding and update the statistics.</span>
+<span class="sd">        The bus will notify the bus stop that boarding has started, and the number of passengers boarding the bus will be calculated based on the number of waiting passengers and the bus capacity.</span>
+<span class="sd">        The bus will board passengers until it is full or there are no more waiting passengers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">Bus</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">Boarding</span>
         <span class="c1"># notify bus stop to generate new passengers</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">triggerOutputSignal</span><span class="p">(</span><span class="n">Bus</span><span class="o">.</span><span class="n">OutputSignals</span><span class="o">.</span><span class="n">Boarding</span><span class="p">)</span>
@@ -386,6 +489,10 @@
 <div class="viewcode-block" id="Bus.departFromStop">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.Bus.departFromStop">[docs]</a>
     <span class="k">def</span> <span class="nf">departFromStop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the state of the bus when it departs from a stop. This will set the state to Traveling and update the statistics.</span>
+<span class="sd">        The bus will notify the bus stop that it has departed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">Bus</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">Traveling</span>
         <span class="c1"># notify bus stop that bus has departed</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">triggerOutputSignal</span><span class="p">(</span><span class="n">Bus</span><span class="o">.</span><span class="n">OutputSignals</span><span class="o">.</span><span class="n">Departure</span><span class="p">)</span>    </div>
@@ -394,6 +501,9 @@
 <div class="viewcode-block" id="Bus.updatePassengerSatisfaction">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.models.Bus.updatePassengerSatisfaction">[docs]</a>
     <span class="k">def</span> <span class="nf">updatePassengerSatisfaction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the passenger satisfaction based on the current load of the bus and the number of seats.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">load</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">seats</span><span class="p">:</span>
             <span class="n">satisfaction</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">load</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">seats</span><span class="p">:</span>

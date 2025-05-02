@@ -65,12 +65,12 @@ class AnalyzeLineState(rx.State):
         self.busStopTable = []
         self.timeTable = []
         
-        self.numberOfBusStops = None
-        self.longestBusStopNameLength = None
+        self.numberOfBusStops = 0
+        self.longestBusStopNameLength = 0
 
-        self.totalNumberOfBuses = None
-        self.totalPassengersArrived = None
-        self.totalPassengersDeparted = None
+        self.totalNumberOfBuses = 0
+        self.totalPassengersArrived = 0
+        self.totalPassengersDeparted = 0
         self.totalPassengersLeftUnboarded = ""
         self.totalTimeSpentWaiting = ""
         self.averageTimeSpentWaiting= ""
@@ -85,7 +85,7 @@ class AnalyzeLineState(rx.State):
 
         self.averageLoad = ""
         self.averageLoadInPercent  = ""
-        self.totalPassengersTransported = None
+        self.totalPassengersTransported = 0
         self.averagePassengerSatisfaction = ""
         self.loadPerBusStop = []
 

@@ -69,8 +69,11 @@
            <div itemprop="articleBody">
              
   <h1>Source code for sprout.backend.Simulation</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
-<span class="kn">import</span> <span class="nn">sys</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This file contains the Simulation class, which is used to simulate the bus system.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
 
 <span class="kn">from</span> <span class="nn">.EventCalendar</span> <span class="kn">import</span> <span class="n">Event</span><span class="p">,</span> <span class="n">EventCalendar</span>
 <span class="kn">from</span> <span class="nn">.Statistics</span> <span class="kn">import</span> <span class="n">Statistics</span><span class="p">,</span> <span class="n">averageStatistics</span>
@@ -90,38 +93,54 @@
         <span class="n">Simulation</span><span class="o">.</span><span class="n">endTime</span> <span class="o">=</span> <span class="n">endTime</span>
 
     <span class="c1"># METHODS</span>
-<div class="viewcode-block" id="Simulation.printCurrentTime">
-<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Simulation.Simulation.printCurrentTime">[docs]</a>
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">printCurrentTime</span><span class="p">():</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="p">(</span><span class="n">Simulation</span><span class="o">.</span><span class="n">startTime</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="n">Simulation</span><span class="o">.</span><span class="n">currentTime</span><span class="p">))</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%H:%M&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="Simulation.printCurrentTimeAndMessage">
-<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Simulation.Simulation.printCurrentTimeAndMessage">[docs]</a>
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">printCurrentTimeAndMessage</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="p">(</span><span class="n">Simulation</span><span class="o">.</span><span class="n">startTime</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="n">Simulation</span><span class="o">.</span><span class="n">currentTime</span><span class="p">))</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%H:%M&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
-
-
 <div class="viewcode-block" id="Simulation.forward">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Simulation.Simulation.forward">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">eventTime</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">eventTime</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Move the simulation time forward to the event time.</span>
+
+<span class="sd">        :param eventTime: The time of the event to move to.</span>
+<span class="sd">        :type eventTime: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">Simulation</span><span class="o">.</span><span class="n">currentTime</span> <span class="o">=</span> <span class="n">eventTime</span></div>
 
 
 <div class="viewcode-block" id="Simulation.getHour">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Simulation.Simulation.getHour">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">getHour</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">getHour</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the current hour of the simulation.</span>
+
+<span class="sd">        :return: The current hour of the simulation.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Simulation</span><span class="o">.</span><span class="n">currentTime</span> <span class="o">//</span> <span class="mi">60</span> <span class="o">%</span> <span class="mi">24</span></div>
 
     
 <div class="viewcode-block" id="Simulation.run">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Simulation.Simulation.run">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">startTime</span><span class="p">,</span> <span class="n">endTime</span><span class="p">,</span> <span class="n">busStops</span><span class="p">,</span> <span class="n">timeTable</span><span class="p">,</span> <span class="n">vehicleCapacity</span><span class="p">,</span> <span class="n">vehicleSeats</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">startTime</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">endTime</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">busStops</span><span class="p">,</span> <span class="n">timeTable</span><span class="p">,</span> <span class="n">vehicleCapacity</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">vehicleSeats</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Statistics</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run the simulation for a given time period and return the statistics.</span>
+
+<span class="sd">        :param startTime: The start time of the simulation.</span>
+<span class="sd">        :type startTime: int</span>
+<span class="sd">        :param endTime: The end time of the simulation.</span>
+<span class="sd">        :type endTime: int</span>
+<span class="sd">        :param busStops: The list of bus stops to be used in the simulation.</span>
+<span class="sd">        :type busStops: list[BusStop]</span>
+<span class="sd">        :param timeTable: The timetable to be used in the simulation.</span>
+<span class="sd">        :type timeTable: TimeTable</span>
+<span class="sd">        :param vehicleCapacity: The capacity of the vehicle.</span>
+<span class="sd">        :type vehicleCapacity: int</span>
+<span class="sd">        :param vehicleSeats: The number of seats in the vehicle.</span>
+<span class="sd">        :type vehicleSeats: int</span>
+<span class="sd">        :return: The statistics of the simulation.</span>
+<span class="sd">        :rtype: Statistics</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Bus</span><span class="p">,</span> <span class="n">BusStop</span>
 
         <span class="k">for</span> <span class="n">busStop</span> <span class="ow">in</span> <span class="n">busStops</span><span class="p">:</span>
@@ -178,7 +197,27 @@
 <div class="viewcode-block" id="Simulation.runMultipleThanAverage">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Simulation.Simulation.runMultipleThanAverage">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">runMultipleThanAverage</span><span class="p">(</span><span class="n">startTime</span><span class="p">,</span> <span class="n">endTime</span><span class="p">,</span> <span class="n">busStops</span><span class="p">,</span> <span class="n">timeTable</span><span class="p">,</span> <span class="n">vehicleCapacity</span><span class="p">,</span> <span class="n">vehicleSeats</span><span class="p">,</span> <span class="n">numberOfSimulations</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">runMultipleThanAverage</span><span class="p">(</span><span class="n">startTime</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">endTime</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">busStops</span><span class="p">,</span> <span class="n">timeTable</span><span class="p">,</span> <span class="n">vehicleCapacity</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">vehicleSeats</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">numberOfSimulations</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Statistics</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run multiple simulations and return the average statistics.</span>
+
+<span class="sd">        :param startTime: The start time of the simulation.</span>
+<span class="sd">        :type startTime: int</span>
+<span class="sd">        :param endTime: The end time of the simulation.</span>
+<span class="sd">        :type endTime: int</span>
+<span class="sd">        :param busStops: The list of bus stops to be used in the simulation.</span>
+<span class="sd">        :type busStops: list[BusStop]</span>
+<span class="sd">        :param timeTable: The timetable to be used in the simulation.</span>
+<span class="sd">        :type timeTable: TimeTable</span>
+<span class="sd">        :param vehicleCapacity: The capacity of the vehicle.</span>
+<span class="sd">        :type vehicleCapacity: int</span>
+<span class="sd">        :param vehicleSeats: The number of seats in the vehicle.</span>
+<span class="sd">        :type vehicleSeats: int</span>
+<span class="sd">        :param numberOfSimulations: The number of simulations to run.</span>
+<span class="sd">        :type numberOfSimulations: int</span>
+<span class="sd">        :return: The statistics of the simulation.</span>
+<span class="sd">        :rtype: Statistics</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">statsList</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numberOfSimulations</span><span class="p">):</span>
             <span class="n">stats</span> <span class="o">=</span> <span class="n">Simulation</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">startTime</span><span class="p">,</span> <span class="n">endTime</span><span class="p">,</span> <span class="n">busStops</span><span class="p">,</span> <span class="n">timeTable</span><span class="p">,</span> <span class="n">vehicleCapacity</span><span class="p">,</span> <span class="n">vehicleSeats</span><span class="p">)</span>

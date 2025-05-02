@@ -95,6 +95,7 @@
 </section>
 <section id="module-sprout.backend.EventCalendar">
 <span id="sprout-backend-eventcalendar-module"></span><h2>sprout.backend.EventCalendar module<a class="headerlink" href="#module-sprout.backend.EventCalendar" title="Link to this heading"></a></h2>
+<p>This file contains event calendar class and event class, both used in the simulation based on events.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="sprout.backend.EventCalendar.Event">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sprout.backend.EventCalendar.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actionArgument</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/EventCalendar.html#Event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.EventCalendar.Event" title="Link to this definition"></a></dt>
@@ -107,62 +108,126 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.EventCalendar.EventCalendar.addEvent">
-<span class="sig-name descname"><span class="pre">addEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/EventCalendar.html#EventCalendar.addEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.EventCalendar.EventCalendar.addEvent" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">addEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#sprout.backend.EventCalendar.Event" title="sprout.backend.EventCalendar.Event"><span class="pre">Event</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/EventCalendar.html#EventCalendar.addEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.EventCalendar.EventCalendar.addEvent" title="Link to this definition"></a></dt>
+<dd><p>Add an event to the event calendar.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<a class="reference internal" href="#sprout.backend.EventCalendar.Event" title="sprout.backend.EventCalendar.Event"><em>Event</em></a>) – The event to be added.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.EventCalendar.EventCalendar.getNextEvent">
-<span class="sig-name descname"><span class="pre">getNextEvent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/EventCalendar.html#EventCalendar.getNextEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.EventCalendar.EventCalendar.getNextEvent" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">getNextEvent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#sprout.backend.EventCalendar.Event" title="sprout.backend.EventCalendar.Event"><span class="pre">Event</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/sprout/backend/EventCalendar.html#EventCalendar.getNextEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.EventCalendar.EventCalendar.getNextEvent" title="Link to this definition"></a></dt>
+<dd><p>Get the next event from the event calendar, then remove it from the calendar.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The next event in the calendar, or None if the calendar is empty.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#sprout.backend.EventCalendar.Event" title="sprout.backend.EventCalendar.Event">Event</a> | None</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.EventCalendar.EventCalendar.isEmpty">
-<span class="sig-name descname"><span class="pre">isEmpty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/EventCalendar.html#EventCalendar.isEmpty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.EventCalendar.EventCalendar.isEmpty" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">isEmpty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/sprout/backend/EventCalendar.html#EventCalendar.isEmpty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.EventCalendar.EventCalendar.isEmpty" title="Link to this definition"></a></dt>
+<dd><p>Check if the event calendar is empty.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the event calendar is empty, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-sprout.backend.Genetics">
 <span id="sprout-backend-genetics-module"></span><h2>sprout.backend.Genetics module<a class="headerlink" href="#module-sprout.backend.Genetics" title="Link to this heading"></a></h2>
+<p>This file contains the Genetics class and the Individual class, both used in the genetic algorithm for the optimization of the bus timetable.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="sprout.backend.Genetics.Genetics">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sprout.backend.Genetics.</span></span><span class="sig-name descname"><span class="pre">Genetics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">populationSize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mutationRate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxConnectionsPerHour</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicleCapacity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicleSeats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">costPerSeatKm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">routeLength</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">busStops</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Genetics.html#Genetics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Genetics.Genetics" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Genetics.Genetics.crossover">
-<span class="sig-name descname"><span class="pre">crossover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Genetics.html#Genetics.crossover"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Genetics.Genetics.crossover" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">crossover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#sprout.backend.Genetics.Individual" title="sprout.backend.Genetics.Individual"><span class="pre">Individual</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#sprout.backend.Genetics.Individual" title="sprout.backend.Genetics.Individual"><span class="pre">Individual</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sprout.backend.Genetics.Individual" title="sprout.backend.Genetics.Individual"><span class="pre">Individual</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#sprout.backend.Genetics.Individual" title="sprout.backend.Genetics.Individual"><span class="pre">Individual</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/sprout/backend/Genetics.html#Genetics.crossover"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Genetics.Genetics.crossover" title="Link to this definition"></a></dt>
+<dd><p>Perform uniform crossover between two parents to create two offsprings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent1</strong> (<a class="reference internal" href="#sprout.backend.Genetics.Individual" title="sprout.backend.Genetics.Individual"><em>Individual</em></a>) – First parent individual.</p></li>
+<li><p><strong>parent2</strong> (<a class="reference internal" href="#sprout.backend.Genetics.Individual" title="sprout.backend.Genetics.Individual"><em>Individual</em></a>) – Second parent individual.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Two new individuals created from the parents.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[<a class="reference internal" href="#sprout.backend.Genetics.Individual" title="sprout.backend.Genetics.Individual">Individual</a>, <a class="reference internal" href="#sprout.backend.Genetics.Individual" title="sprout.backend.Genetics.Individual">Individual</a>]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Genetics.Genetics.crowdingDistanceAssignment">
-<span class="sig-name descname"><span class="pre">crowdingDistanceAssignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">front</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Genetics.html#Genetics.crowdingDistanceAssignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Genetics.Genetics.crowdingDistanceAssignment" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">crowdingDistanceAssignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">front</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sprout.backend.Genetics.Individual" title="sprout.backend.Genetics.Individual"><span class="pre">Individual</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Genetics.html#Genetics.crowdingDistanceAssignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Genetics.Genetics.crowdingDistanceAssignment" title="Link to this definition"></a></dt>
+<dd><p>Assign crowding distance to each individual in the front.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>front</strong> (<em>list</em><em>[</em><a class="reference internal" href="#sprout.backend.Genetics.Individual" title="sprout.backend.Genetics.Individual"><em>Individual</em></a><em>]</em>) – The front of individuals to assign crowding distance to.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Genetics.Genetics.initPopulation">
 <span class="sig-name descname"><span class="pre">initPopulation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Genetics.html#Genetics.initPopulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Genetics.Genetics.initPopulation" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Initialize the population with random individuals.
+Then sort the population using non-dominated sorting and assign crowding distance to each individual.
+Finally, create the first offspring population.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Genetics.Genetics.makeNewPopulation">
 <span class="sig-name descname"><span class="pre">makeNewPopulation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Genetics.html#Genetics.makeNewPopulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Genetics.Genetics.makeNewPopulation" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Create a new population of offsprings by selecting parents from the current generation and applying crossover.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Genetics.Genetics.nonDominatedSort">
 <span class="sig-name descname"><span class="pre">nonDominatedSort</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Genetics.html#Genetics.nonDominatedSort"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Genetics.Genetics.nonDominatedSort" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Perform non-dominated sorting on the current generation of individuals.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Genetics.Genetics.parentSelection">
-<span class="sig-name descname"><span class="pre">parentSelection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Genetics.html#Genetics.parentSelection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Genetics.Genetics.parentSelection" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">parentSelection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#sprout.backend.Genetics.Individual" title="sprout.backend.Genetics.Individual"><span class="pre">Individual</span></a></span></span><a class="reference internal" href="_modules/sprout/backend/Genetics.html#Genetics.parentSelection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Genetics.Genetics.parentSelection" title="Link to this definition"></a></dt>
+<dd><p>Select two parents from the current generation using tournament selection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A parent individual selected from the current generation.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#sprout.backend.Genetics.Individual" title="sprout.backend.Genetics.Individual">Individual</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Genetics.Genetics.updateGeneration">
 <span class="sig-name descname"><span class="pre">updateGeneration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Genetics.html#Genetics.updateGeneration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Genetics.Genetics.updateGeneration" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Main loop of the genetic algorithm.
+It updates the generation by combining the current generation and the offspring population.
+Then it sorts the combined population using non-dominated sorting and assigns crowding distance to each individual.
+Finally, it promotes the best individuals to the next generation and creates a new offspring population.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -173,33 +238,70 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Genetics.Individual.calculateFitness">
 <span class="sig-name descname"><span class="pre">calculateFitness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Genetics.html#Individual.calculateFitness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Genetics.Individual.calculateFitness" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Calculate the fitness values of the individual based on the simulation results.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Genetics.Individual.constraintDominates">
-<span class="sig-name descname"><span class="pre">constraintDominates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Genetics.html#Individual.constraintDominates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Genetics.Individual.constraintDominates" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">constraintDominates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#sprout.backend.Genetics.Individual" title="sprout.backend.Genetics.Individual"><span class="pre">Individual</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/sprout/backend/Genetics.html#Individual.constraintDominates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Genetics.Individual.constraintDominates" title="Link to this definition"></a></dt>
+<dd><p>Check if this individual dominates the other individual based on the constraints and domination results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#sprout.backend.Genetics.Individual" title="sprout.backend.Genetics.Individual"><em>Individual</em></a>) – The other individual to compare with.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if this individual dominates the other, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Genetics.Individual.dominates">
-<span class="sig-name descname"><span class="pre">dominates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/sprout/backend/Genetics.html#Individual.dominates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Genetics.Individual.dominates" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">dominates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#sprout.backend.Genetics.Individual" title="sprout.backend.Genetics.Individual"><span class="pre">Individual</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/sprout/backend/Genetics.html#Individual.dominates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Genetics.Individual.dominates" title="Link to this definition"></a></dt>
+<dd><p>Check if this individual dominates the other individual based on the cost and satisfaction values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#sprout.backend.Genetics.Individual" title="sprout.backend.Genetics.Individual"><em>Individual</em></a>) – The other individual to compare with.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if this individual dominates the other, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Genetics.Individual.generateRandomChromosome">
-<span class="sig-name descname"><span class="pre">generateRandomChromosome</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Genetics.html#Individual.generateRandomChromosome"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Genetics.Individual.generateRandomChromosome" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">generateRandomChromosome</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/sprout/backend/Genetics.html#Individual.generateRandomChromosome"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Genetics.Individual.generateRandomChromosome" title="Link to this definition"></a></dt>
+<dd><p>Generate a random chromosome with 24 integers, each representing the number of connections per hour.
+If the constraint for that hour is not None, use the constraint value instead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of integers representing the chromosome.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[int]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Genetics.Individual.mutate">
 <span class="sig-name descname"><span class="pre">mutate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Genetics.html#Individual.mutate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Genetics.Individual.mutate" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Mutate the chromosome of the individual by randomly changing the number of connections per hour for each hour if the mutation rate is met and the constraint for that hour is None.</p>
+</dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-sprout.backend.InputParser">
 <span id="sprout-backend-inputparser-module"></span><h2>sprout.backend.InputParser module<a class="headerlink" href="#module-sprout.backend.InputParser" title="Link to this heading"></a></h2>
+<p>This file contains InputParser class with static methods for parsing the input.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="sprout.backend.InputParser.HourRate">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sprout.backend.InputParser.</span></span><span class="sig-name descname"><span class="pre">HourRate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hour</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sprout.backend.InputParser.HourRate" title="Link to this definition"></a></dt>
@@ -225,52 +327,150 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.InputParser.InputParser.parseBusStopsFromFile">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseBusStopsFromFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sprout.backend.models.BusStop" title="sprout.backend.models.BusStop"><span class="pre">BusStop</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/sprout/backend/InputParser.html#InputParser.parseBusStopsFromFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.InputParser.InputParser.parseBusStopsFromFile" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Parse the bus stops from a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>FileDescriptorOrPath</em>) – The file containing the bus stops.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of bus stops.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[<a class="reference internal" href="#sprout.backend.models.BusStop" title="sprout.backend.models.BusStop">BusStop</a>]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.InputParser.InputParser.parseBusStopsFromString">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseBusStopsFromString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sprout.backend.models.BusStop" title="sprout.backend.models.BusStop"><span class="pre">BusStop</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/sprout/backend/InputParser.html#InputParser.parseBusStopsFromString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.InputParser.InputParser.parseBusStopsFromString" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseBusStopsFromString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sprout.backend.models.BusStop" title="sprout.backend.models.BusStop"><span class="pre">BusStop</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/sprout/backend/InputParser.html#InputParser.parseBusStopsFromString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.InputParser.InputParser.parseBusStopsFromString" title="Link to this definition"></a></dt>
+<dd><p>Parse the bus stops from a string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>string</strong> (<em>str</em>) – The string containing the bus stops.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of bus stops.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[<a class="reference internal" href="#sprout.backend.models.BusStop" title="sprout.backend.models.BusStop">BusStop</a>]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.InputParser.InputParser.parseTimeTableFromFile">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseTimeTableFromFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#sprout.backend.models.TimeTable" title="sprout.backend.models.TimeTable"><span class="pre">TimeTable</span></a></span></span><a class="reference internal" href="_modules/sprout/backend/InputParser.html#InputParser.parseTimeTableFromFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.InputParser.InputParser.parseTimeTableFromFile" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Parse the time table from a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>FileDescriptorOrPath</em>) – The file containing the time table.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The time table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#sprout.backend.models.TimeTable" title="sprout.backend.models.TimeTable">TimeTable</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.InputParser.InputParser.parseTimeTableFromString">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseTimeTableFromString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#sprout.backend.models.TimeTable" title="sprout.backend.models.TimeTable"><span class="pre">TimeTable</span></a></span></span><a class="reference internal" href="_modules/sprout/backend/InputParser.html#InputParser.parseTimeTableFromString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.InputParser.InputParser.parseTimeTableFromString" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseTimeTableFromString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#sprout.backend.models.TimeTable" title="sprout.backend.models.TimeTable"><span class="pre">TimeTable</span></a></span></span><a class="reference internal" href="_modules/sprout/backend/InputParser.html#InputParser.parseTimeTableFromString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.InputParser.InputParser.parseTimeTableFromString" title="Link to this definition"></a></dt>
+<dd><p>Parse the time table from a string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>string</strong> (<em>str</em>) – The string containing the time table.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The time table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#sprout.backend.models.TimeTable" title="sprout.backend.models.TimeTable">TimeTable</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-sprout.backend.RandomNumberGenerator">
 <span id="sprout-backend-randomnumbergenerator-module"></span><h2>sprout.backend.RandomNumberGenerator module<a class="headerlink" href="#module-sprout.backend.RandomNumberGenerator" title="Link to this heading"></a></h2>
+<p>This file contains the RandomNumberGenerator class, which is used to generate random numbers.
+It is important to have a single static instance of the random number generator to ensure that the random numbers are generated in a consistent manner.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="sprout.backend.RandomNumberGenerator.RandomNumberGenerator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sprout.backend.RandomNumberGenerator.</span></span><span class="sig-name descname"><span class="pre">RandomNumberGenerator</span></span><a class="reference internal" href="_modules/sprout/backend/RandomNumberGenerator.html#RandomNumberGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.RandomNumberGenerator.RandomNumberGenerator" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.RandomNumberGenerator.RandomNumberGenerator.exponential">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exponential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/RandomNumberGenerator.html#RandomNumberGenerator.exponential"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.RandomNumberGenerator.RandomNumberGenerator.exponential" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exponential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></span><a class="reference internal" href="_modules/sprout/backend/RandomNumberGenerator.html#RandomNumberGenerator.exponential"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.RandomNumberGenerator.RandomNumberGenerator.exponential" title="Link to this definition"></a></dt>
+<dd><p>Generate random numbers from an exponential distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scale</strong> (<em>float</em><em>, </em><em>optional</em>) – The scale parameter, which is the inverse of the rate parameter (lambda), defaults to 1.0</p></li>
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of random numbers to generate, defaults to None (single value)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Random numbers from the exponential distribution. If size is None, a single float is returned; otherwise, an array of floats is returned.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray | float</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.RandomNumberGenerator.RandomNumberGenerator.integers">
-<span class="sig-name descname"><span class="pre">integers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">high</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/RandomNumberGenerator.html#RandomNumberGenerator.integers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.RandomNumberGenerator.RandomNumberGenerator.integers" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">integers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">high</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></span></span><a class="reference internal" href="_modules/sprout/backend/RandomNumberGenerator.html#RandomNumberGenerator.integers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.RandomNumberGenerator.RandomNumberGenerator.integers" title="Link to this definition"></a></dt>
+<dd><p>Generate random integers from a uniform distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>low</strong> (<em>int</em><em>, </em><em>optional</em>) – Lower boundry, defaults to 0</p></li>
+<li><p><strong>high</strong> (<em>int</em><em>, </em><em>optional</em>) – Upper boundry, defaults to 1</p></li>
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of random integers to generate, defaults to None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Random integers from the uniform distribution. If size is None, a single integer is returned; otherwise, an array of integers is returned.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray | int</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.RandomNumberGenerator.RandomNumberGenerator.uniform">
-<span class="sig-name descname"><span class="pre">uniform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">high</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/RandomNumberGenerator.html#RandomNumberGenerator.uniform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.RandomNumberGenerator.RandomNumberGenerator.uniform" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">uniform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">high</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></span><a class="reference internal" href="_modules/sprout/backend/RandomNumberGenerator.html#RandomNumberGenerator.uniform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.RandomNumberGenerator.RandomNumberGenerator.uniform" title="Link to this definition"></a></dt>
+<dd><p>Generate random numbers from a uniform distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>low</strong> (<em>float</em><em>, </em><em>optional</em>) – Lower boundry, defaults to 0.0</p></li>
+<li><p><strong>high</strong> (<em>float</em><em>, </em><em>optional</em>) – Upper boundry, defaults to 1.0</p></li>
+<li><p><strong>size</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of random numbers to generate, defaults to None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Random numbers from the uniform distribution. If size is None, a single float is returned; otherwise, an array of floats is returned.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray | float</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-sprout.backend.Simulation">
 <span id="sprout-backend-simulation-module"></span><h2>sprout.backend.Simulation module<a class="headerlink" href="#module-sprout.backend.Simulation" title="Link to this heading"></a></h2>
+<p>This file contains the Simulation class, which is used to simulate the bus system.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="sprout.backend.Simulation.Simulation">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sprout.backend.Simulation.</span></span><span class="sig-name descname"><span class="pre">Simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initialTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Simulation.html#Simulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Simulation.Simulation" title="Link to this definition"></a></dt>
@@ -287,33 +487,77 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Simulation.Simulation.forward">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eventTime</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Simulation.html#Simulation.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Simulation.Simulation.forward" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eventTime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Simulation.html#Simulation.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Simulation.Simulation.forward" title="Link to this definition"></a></dt>
+<dd><p>Move the simulation time forward to the event time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>eventTime</strong> (<em>int</em>) – The time of the event to move to.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Simulation.Simulation.getHour">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getHour</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Simulation.html#Simulation.getHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Simulation.Simulation.getHour" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Simulation.Simulation.printCurrentTime">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">printCurrentTime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Simulation.html#Simulation.printCurrentTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Simulation.Simulation.printCurrentTime" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Simulation.Simulation.printCurrentTimeAndMessage">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">printCurrentTimeAndMessage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Simulation.html#Simulation.printCurrentTimeAndMessage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Simulation.Simulation.printCurrentTimeAndMessage" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getHour</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/sprout/backend/Simulation.html#Simulation.getHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Simulation.Simulation.getHour" title="Link to this definition"></a></dt>
+<dd><p>Get the current hour of the simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current hour of the simulation.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Simulation.Simulation.run">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">busStops</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeTable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicleCapacity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicleSeats</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Simulation.html#Simulation.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Simulation.Simulation.run" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startTime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">busStops</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeTable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicleCapacity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicleSeats</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#sprout.backend.Statistics.Statistics" title="sprout.backend.Statistics.Statistics"><span class="pre">Statistics</span></a></span></span><a class="reference internal" href="_modules/sprout/backend/Simulation.html#Simulation.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Simulation.Simulation.run" title="Link to this definition"></a></dt>
+<dd><p>Run the simulation for a given time period and return the statistics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>startTime</strong> (<em>int</em>) – The start time of the simulation.</p></li>
+<li><p><strong>endTime</strong> (<em>int</em>) – The end time of the simulation.</p></li>
+<li><p><strong>busStops</strong> (<em>list</em><em>[</em><a class="reference internal" href="#sprout.backend.models.BusStop" title="sprout.backend.models.BusStop"><em>BusStop</em></a><em>]</em>) – The list of bus stops to be used in the simulation.</p></li>
+<li><p><strong>timeTable</strong> (<a class="reference internal" href="#sprout.backend.models.TimeTable" title="sprout.backend.models.TimeTable"><em>TimeTable</em></a>) – The timetable to be used in the simulation.</p></li>
+<li><p><strong>vehicleCapacity</strong> (<em>int</em>) – The capacity of the vehicle.</p></li>
+<li><p><strong>vehicleSeats</strong> (<em>int</em>) – The number of seats in the vehicle.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The statistics of the simulation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#sprout.backend.Statistics.Statistics" title="sprout.backend.Statistics.Statistics">Statistics</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Simulation.Simulation.runMultipleThanAverage">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">runMultipleThanAverage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">busStops</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeTable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicleCapacity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicleSeats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numberOfSimulations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Simulation.html#Simulation.runMultipleThanAverage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Simulation.Simulation.runMultipleThanAverage" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">runMultipleThanAverage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startTime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">busStops</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeTable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicleCapacity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicleSeats</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numberOfSimulations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#sprout.backend.Statistics.Statistics" title="sprout.backend.Statistics.Statistics"><span class="pre">Statistics</span></a></span></span><a class="reference internal" href="_modules/sprout/backend/Simulation.html#Simulation.runMultipleThanAverage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Simulation.Simulation.runMultipleThanAverage" title="Link to this definition"></a></dt>
+<dd><p>Run multiple simulations and return the average statistics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>startTime</strong> (<em>int</em>) – The start time of the simulation.</p></li>
+<li><p><strong>endTime</strong> (<em>int</em>) – The end time of the simulation.</p></li>
+<li><p><strong>busStops</strong> (<em>list</em><em>[</em><a class="reference internal" href="#sprout.backend.models.BusStop" title="sprout.backend.models.BusStop"><em>BusStop</em></a><em>]</em>) – The list of bus stops to be used in the simulation.</p></li>
+<li><p><strong>timeTable</strong> (<a class="reference internal" href="#sprout.backend.models.TimeTable" title="sprout.backend.models.TimeTable"><em>TimeTable</em></a>) – The timetable to be used in the simulation.</p></li>
+<li><p><strong>vehicleCapacity</strong> (<em>int</em>) – The capacity of the vehicle.</p></li>
+<li><p><strong>vehicleSeats</strong> (<em>int</em>) – The number of seats in the vehicle.</p></li>
+<li><p><strong>numberOfSimulations</strong> (<em>int</em>) – The number of simulations to run.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The statistics of the simulation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#sprout.backend.Statistics.Statistics" title="sprout.backend.Statistics.Statistics">Statistics</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sprout.backend.Simulation.Simulation.startTime">
@@ -332,62 +576,50 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Statistics.BusStatistics.agregateTotal">
 <span class="sig-name descname"><span class="pre">agregateTotal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStatistics.agregateTotal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStatistics.agregateTotal" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Agregate the total statistics from the per bus stop statistics.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Statistics.BusStatistics.clear">
 <span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStatistics.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStatistics.clear" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStatistics.keyValuePairArrayToString">
-<span class="sig-name descname"><span class="pre">keyValuePairArrayToString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyValuePairArray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStatistics.keyValuePairArrayToString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStatistics.keyValuePairArrayToString" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStatistics.plotLoadInPercentPerBusStop">
-<span class="sig-name descname"><span class="pre">plotLoadInPercentPerBusStop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStatistics.plotLoadInPercentPerBusStop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStatistics.plotLoadInPercentPerBusStop" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStatistics.plotLoadPerBusStop">
-<span class="sig-name descname"><span class="pre">plotLoadPerBusStop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStatistics.plotLoadPerBusStop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStatistics.plotLoadPerBusStop" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStatistics.saveLoadInPercentPerBusStop">
-<span class="sig-name descname"><span class="pre">saveLoadInPercentPerBusStop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStatistics.saveLoadInPercentPerBusStop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStatistics.saveLoadInPercentPerBusStop" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStatistics.saveLoadPerBusStop">
-<span class="sig-name descname"><span class="pre">saveLoadPerBusStop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStatistics.saveLoadPerBusStop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStatistics.saveLoadPerBusStop" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStatistics.showLoadInPercentPerBusStop">
-<span class="sig-name descname"><span class="pre">showLoadInPercentPerBusStop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStatistics.showLoadInPercentPerBusStop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStatistics.showLoadInPercentPerBusStop" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStatistics.showLoadPerBusStop">
-<span class="sig-name descname"><span class="pre">showLoadPerBusStop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStatistics.showLoadPerBusStop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStatistics.showLoadPerBusStop" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Clear the statistics.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Statistics.BusStatistics.updateLoadPerBusStop">
-<span class="sig-name descname"><span class="pre">updateLoadPerBusStop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">busStopName</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStatistics.updateLoadPerBusStop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStatistics.updateLoadPerBusStop" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">updateLoadPerBusStop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">busStopName</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStatistics.updateLoadPerBusStop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStatistics.updateLoadPerBusStop" title="Link to this definition"></a></dt>
+<dd><p>Update the load per bus stop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>load</strong> (<em>int</em>) – The load of the bus at the bus stop.</p></li>
+<li><p><strong>busStopName</strong> (<em>str</em>) – The name of the bus stop.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Statistics.BusStatistics.updatePassengerSatisfactions">
-<span class="sig-name descname"><span class="pre">updatePassengerSatisfactions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">satisfaction</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStatistics.updatePassengerSatisfactions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStatistics.updatePassengerSatisfactions" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">updatePassengerSatisfactions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">satisfaction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStatistics.updatePassengerSatisfactions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStatistics.updatePassengerSatisfactions" title="Link to this definition"></a></dt>
+<dd><p>Update the passenger satisfaction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>satisfaction</strong> (<em>float</em>) – The satisfaction of the passenger.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Statistics.BusStatistics.updateTotalPassengersTransported">
-<span class="sig-name descname"><span class="pre">updateTotalPassengersTransported</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">passengersTransported</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStatistics.updateTotalPassengersTransported"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStatistics.updateTotalPassengersTransported" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">updateTotalPassengersTransported</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">passengersTransported</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStatistics.updateTotalPassengersTransported"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStatistics.updateTotalPassengersTransported" title="Link to this definition"></a></dt>
+<dd><p>Update the total number of passengers transported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>passengersTransported</strong> (<em>int</em>) – The number of passengers transported.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -398,97 +630,70 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Statistics.BusStopStatistics.agregateTotal">
 <span class="sig-name descname"><span class="pre">agregateTotal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.agregateTotal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.agregateTotal" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Agregate the total statistics from the per hour statistics.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Statistics.BusStopStatistics.clear">
 <span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.clear" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStopStatistics.keyValuePairArrayToString">
-<span class="sig-name descname"><span class="pre">keyValuePairArrayToString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyValuePairArray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.keyValuePairArrayToString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.keyValuePairArrayToString" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStopStatistics.plotPassengersArrivedPerHour">
-<span class="sig-name descname"><span class="pre">plotPassengersArrivedPerHour</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.plotPassengersArrivedPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.plotPassengersArrivedPerHour" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStopStatistics.plotPassengersDepartedPerHour">
-<span class="sig-name descname"><span class="pre">plotPassengersDepartedPerHour</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.plotPassengersDepartedPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.plotPassengersDepartedPerHour" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStopStatistics.plotPassengersLeftUnboardedPerHour">
-<span class="sig-name descname"><span class="pre">plotPassengersLeftUnboardedPerHour</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.plotPassengersLeftUnboardedPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.plotPassengersLeftUnboardedPerHour" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStopStatistics.plotTimeSpentWaitingPerHour">
-<span class="sig-name descname"><span class="pre">plotTimeSpentWaitingPerHour</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.plotTimeSpentWaitingPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.plotTimeSpentWaitingPerHour" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStopStatistics.savePassengersArrivedPerHour">
-<span class="sig-name descname"><span class="pre">savePassengersArrivedPerHour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.savePassengersArrivedPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.savePassengersArrivedPerHour" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStopStatistics.savePassengersDepartedPerHour">
-<span class="sig-name descname"><span class="pre">savePassengersDepartedPerHour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.savePassengersDepartedPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.savePassengersDepartedPerHour" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStopStatistics.savePassengersLeftUnboardedPerHour">
-<span class="sig-name descname"><span class="pre">savePassengersLeftUnboardedPerHour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.savePassengersLeftUnboardedPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.savePassengersLeftUnboardedPerHour" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStopStatistics.saveTimeSpentWaitingPerHour">
-<span class="sig-name descname"><span class="pre">saveTimeSpentWaitingPerHour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.saveTimeSpentWaitingPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.saveTimeSpentWaitingPerHour" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStopStatistics.showPassengersArrivedPerHour">
-<span class="sig-name descname"><span class="pre">showPassengersArrivedPerHour</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.showPassengersArrivedPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.showPassengersArrivedPerHour" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStopStatistics.showPassengersDepartedPerHour">
-<span class="sig-name descname"><span class="pre">showPassengersDepartedPerHour</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.showPassengersDepartedPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.showPassengersDepartedPerHour" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStopStatistics.showPassengersLeftUnboardedPerHour">
-<span class="sig-name descname"><span class="pre">showPassengersLeftUnboardedPerHour</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.showPassengersLeftUnboardedPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.showPassengersLeftUnboardedPerHour" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.BusStopStatistics.showTimeSpentWaitingPerHour">
-<span class="sig-name descname"><span class="pre">showTimeSpentWaitingPerHour</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.showTimeSpentWaitingPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.showTimeSpentWaitingPerHour" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Clear the statistics.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Statistics.BusStopStatistics.updatePassengersArrivedPerHour">
-<span class="sig-name descname"><span class="pre">updatePassengersArrivedPerHour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">passengersArrived</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.updatePassengersArrivedPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.updatePassengersArrivedPerHour" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">updatePassengersArrivedPerHour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">passengersArrived</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.updatePassengersArrivedPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.updatePassengersArrivedPerHour" title="Link to this definition"></a></dt>
+<dd><p>Update the number of passengers arrived per hour.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>passengersArrived</strong> (<em>int</em>) – The number of passengers arrived.</p></li>
+<li><p><strong>hour</strong> (<em>int</em>) – The hour of the day (0-23).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Statistics.BusStopStatistics.updatePassengersDepartedPerHour">
-<span class="sig-name descname"><span class="pre">updatePassengersDepartedPerHour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">passengersDeparted</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.updatePassengersDepartedPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.updatePassengersDepartedPerHour" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">updatePassengersDepartedPerHour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">passengersDeparted</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.updatePassengersDepartedPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.updatePassengersDepartedPerHour" title="Link to this definition"></a></dt>
+<dd><p>Update the number of passengers departed per hour.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>passengersDeparted</strong> (<em>int</em>) – The number of passengers departed.</p></li>
+<li><p><strong>hour</strong> (<em>int</em>) – The hour of the day (0-23).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Statistics.BusStopStatistics.updatePassengersLeftUnboardedPerHour">
-<span class="sig-name descname"><span class="pre">updatePassengersLeftUnboardedPerHour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">passengersWaiting</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.updatePassengersLeftUnboardedPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.updatePassengersLeftUnboardedPerHour" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">updatePassengersLeftUnboardedPerHour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">passengersWaiting</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.updatePassengersLeftUnboardedPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.updatePassengersLeftUnboardedPerHour" title="Link to this definition"></a></dt>
+<dd><p>Update the number of passengers left unboarded per hour.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>passengersWaiting</strong> (<em>int</em>) – The number of passengers left unboarded.</p></li>
+<li><p><strong>hour</strong> (<em>int</em>) – The hour of the day (0-23).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Statistics.BusStopStatistics.updateTimeSpentWaitingPerHour">
-<span class="sig-name descname"><span class="pre">updateTimeSpentWaitingPerHour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeSpentWaiting</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.updateTimeSpentWaitingPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.updateTimeSpentWaitingPerHour" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">updateTimeSpentWaitingPerHour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeSpentWaiting</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#BusStopStatistics.updateTimeSpentWaitingPerHour"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.BusStopStatistics.updateTimeSpentWaitingPerHour" title="Link to this definition"></a></dt>
+<dd><p>Update the time spent waiting per hour.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeSpentWaiting</strong> (<em>int</em>) – The time spent waiting (in minutes).</p></li>
+<li><p><strong>hour</strong> (<em>int</em>) – The hour of the day (0-23).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -498,39 +703,89 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Statistics.Statistics.agregateBusStatistics">
-<span class="sig-name descname"><span class="pre">agregateBusStatistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">busStatistics</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#Statistics.agregateBusStatistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.Statistics.agregateBusStatistics" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">agregateBusStatistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">busStatistics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sprout.backend.Statistics.BusStatistics" title="sprout.backend.Statistics.BusStatistics"><span class="pre">BusStatistics</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#sprout.backend.Statistics.BusStatistics" title="sprout.backend.Statistics.BusStatistics"><span class="pre">BusStatistics</span></a></span></span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#Statistics.agregateBusStatistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.Statistics.agregateBusStatistics" title="Link to this definition"></a></dt>
+<dd><p>Agregate bus statistics from a list of bus statistics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>busStatistics</strong> (<em>list</em><em>[</em><a class="reference internal" href="#sprout.backend.Statistics.BusStatistics" title="sprout.backend.Statistics.BusStatistics"><em>BusStatistics</em></a><em>]</em>) – List of bus statistics to be agregated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The agregated bus statistics.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#sprout.backend.Statistics.BusStatistics" title="sprout.backend.Statistics.BusStatistics">BusStatistics</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Statistics.Statistics.agregateBusStopStatistics">
-<span class="sig-name descname"><span class="pre">agregateBusStopStatistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">busStopStatistics</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#Statistics.agregateBusStopStatistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.Statistics.agregateBusStopStatistics" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">agregateBusStopStatistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">busStopStatistics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sprout.backend.Statistics.BusStopStatistics" title="sprout.backend.Statistics.BusStopStatistics"><span class="pre">BusStopStatistics</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#sprout.backend.Statistics.BusStopStatistics" title="sprout.backend.Statistics.BusStopStatistics"><span class="pre">BusStopStatistics</span></a></span></span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#Statistics.agregateBusStopStatistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.Statistics.agregateBusStopStatistics" title="Link to this definition"></a></dt>
+<dd><p>Agregate bus stop statistics from a list of bus stop statistics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>busStopStatistics</strong> (<em>list</em><em>[</em><a class="reference internal" href="#sprout.backend.Statistics.BusStopStatistics" title="sprout.backend.Statistics.BusStopStatistics"><em>BusStopStatistics</em></a><em>]</em>) – List of bus stop statistics to be agregated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The agregated bus stop statistics.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#sprout.backend.Statistics.BusStopStatistics" title="sprout.backend.Statistics.BusStopStatistics">BusStopStatistics</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Statistics.Statistics.clear">
 <span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#Statistics.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.Statistics.clear" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Clear the statistics.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.Statistics.Statistics.print">
 <span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#Statistics.print"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.Statistics.print" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="sprout.backend.Statistics.Statistics.saveAllGraphs">
-<span class="sig-name descname"><span class="pre">saveAllGraphs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#Statistics.saveAllGraphs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.Statistics.saveAllGraphs" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sprout.backend.Statistics.averageStatistics">
-<span class="sig-prename descclassname"><span class="pre">sprout.backend.Statistics.</span></span><span class="sig-name descname"><span class="pre">averageStatistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statsList</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#averageStatistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.averageStatistics" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">sprout.backend.Statistics.</span></span><span class="sig-name descname"><span class="pre">averageStatistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statsList</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sprout.backend.Statistics.Statistics" title="sprout.backend.Statistics.Statistics"><span class="pre">Statistics</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#sprout.backend.Statistics.Statistics" title="sprout.backend.Statistics.Statistics"><span class="pre">Statistics</span></a></span></span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#averageStatistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.averageStatistics" title="Link to this definition"></a></dt>
+<dd><p>Calculate the average statistics from a list of statistics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>statsList</strong> (<em>list</em><em>[</em><a class="reference internal" href="#sprout.backend.Statistics.Statistics" title="sprout.backend.Statistics.Statistics"><em>Statistics</em></a><em>]</em>) – List of statistics to be averaged.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The average statistics.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#sprout.backend.Statistics.Statistics" title="sprout.backend.Statistics.Statistics">Statistics</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sprout.backend.Statistics.keyValuePairArrayToString">
+<span class="sig-prename descclassname"><span class="pre">sprout.backend.Statistics.</span></span><span class="sig-name descname"><span class="pre">keyValuePairArrayToString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyValuePairArray</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/sprout/backend/Statistics.html#keyValuePairArrayToString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.Statistics.keyValuePairArrayToString" title="Link to this definition"></a></dt>
+<dd><p>Convert a list of key-value pairs to a string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>keyValuePairArray</strong> (<em>list</em><em>[</em><em>tuple</em><em>[</em><em>str</em><em> | </em><em>int</em><em>, </em><em>int</em><em> | </em><em>float</em><em>]</em><em>]</em>) – List of key-value pairs to be converted to a string.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>String representation of the key-value pairs.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-sprout.backend.models">
 <span id="sprout-backend-models-module"></span><h2>sprout.backend.models module<a class="headerlink" href="#module-sprout.backend.models" title="Link to this heading"></a></h2>
+<p>This file contains the Bus, BusStop, and TimeTable classes, which are used in the simulation of a bus system.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="sprout.backend.models.Bus">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sprout.backend.models.</span></span><span class="sig-name descname"><span class="pre">Bus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">firstBusStop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capacity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seats</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#Bus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.Bus" title="Link to this definition"></a></dt>
@@ -582,12 +837,17 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.Bus.arriveAtStop">
 <span class="sig-name descname"><span class="pre">arriveAtStop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#Bus.arriveAtStop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.Bus.arriveAtStop" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Update the state of the bus when it arrives at a stop. This will set the state to Arrived and update the statistics.
+The bus will notify the bus stop that it has arrived, and the number of passengers leaving the bus will be calculated based on the leaving passengers rate.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.Bus.boardPassengers">
 <span class="sig-name descname"><span class="pre">boardPassengers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#Bus.boardPassengers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.Bus.boardPassengers" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Update the state of the bus when boarding starts. This will set the state to Boarding and update the statistics.
+The bus will notify the bus stop that boarding has started, and the number of passengers boarding the bus will be calculated based on the number of waiting passengers and the bus capacity.
+The bus will board passengers until it is full or there are no more waiting passengers.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sprout.backend.models.Bus.busCounter">
@@ -597,32 +857,58 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.Bus.departFromStop">
 <span class="sig-name descname"><span class="pre">departFromStop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#Bus.departFromStop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.Bus.departFromStop" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Update the state of the bus when it departs from a stop. This will set the state to Traveling and update the statistics.
+The bus will notify the bus stop that it has departed.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.Bus.runBusStopSequence">
-<span class="sig-name descname"><span class="pre">runBusStopSequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">busStop</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#Bus.runBusStopSequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.Bus.runBusStopSequence" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">runBusStopSequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">busStop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#sprout.backend.models.BusStop" title="sprout.backend.models.BusStop"><span class="pre">BusStop</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#Bus.runBusStopSequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.Bus.runBusStopSequence" title="Link to this definition"></a></dt>
+<dd><p>Run the bus stop sequence. This will set the current bus stop, bind the output signals to the input signals of the bus stop, and trigger the output signals.
+The bus will arrive at the stop, board passengers, and depart from the stop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>busStop</strong> (<a class="reference internal" href="#sprout.backend.models.BusStop" title="sprout.backend.models.BusStop"><em>BusStop</em></a>) – The bus stop on which the bus will stop.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.Bus.setOutputSignals">
 <span class="sig-name descname"><span class="pre">setOutputSignals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#Bus.setOutputSignals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.Bus.setOutputSignals" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Binds the output signals of the bus to the input signals of the bus stop.
+The output signals are used to notify the bus stop when a bus has arrived, started boarding, or departed.
+The bus output signals could be binded to multiple other models.
+For every output signal, a list of tuples is created, where each tuple contains the model that will receive the signal and the input signal that will be triggered.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.Bus.triggerInputSignal">
 <span class="sig-name descname"><span class="pre">triggerInputSignal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#Bus.triggerInputSignal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.Bus.triggerInputSignal" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Bus has no input signals. This method is a placeholder for future use.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>signal</strong> (<a class="reference internal" href="#sprout.backend.models.BusStop.InputSignals" title="sprout.backend.models.BusStop.InputSignals"><em>InputSignals</em></a>) – The input signal to be triggered.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.Bus.triggerOutputSignal">
-<span class="sig-name descname"><span class="pre">triggerOutputSignal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#Bus.triggerOutputSignal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.Bus.triggerOutputSignal" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">triggerOutputSignal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#sprout.backend.models.Bus.OutputSignals" title="sprout.backend.models.Bus.OutputSignals"><span class="pre">OutputSignals</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#Bus.triggerOutputSignal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.Bus.triggerOutputSignal" title="Link to this definition"></a></dt>
+<dd><p>Trigger the output signal for the bus. This will trigger all input signals that are bound to the output signal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>signal</strong> (<a class="reference internal" href="#sprout.backend.models.Bus.OutputSignals" title="sprout.backend.models.Bus.OutputSignals"><em>OutputSignals</em></a>) – The output signal to be triggered.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.Bus.updatePassengerSatisfaction">
 <span class="sig-name descname"><span class="pre">updatePassengerSatisfaction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#Bus.updatePassengerSatisfaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.Bus.updatePassengerSatisfaction" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Update the passenger satisfaction based on the current load of the bus and the number of seats.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -677,22 +963,40 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.BusStop.busArrived">
 <span class="sig-name descname"><span class="pre">busArrived</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#BusStop.busArrived"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.BusStop.busArrived" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Update the state of the bus stop when a bus arrives. This will set the state to BusArrived and update the time it took for the next bus to arrive.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.BusStop.clear">
 <span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#BusStop.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.BusStop.clear" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Clear the bus stop statistics and reset the state of the bus stop.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.BusStop.finishBoarding">
 <span class="sig-name descname"><span class="pre">finishBoarding</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#BusStop.finishBoarding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.BusStop.finishBoarding" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Update the state of the bus stop when boarding finishes. This will set the state to Idle and update the time of the last bus arrival.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.BusStop.generatePassengers">
 <span class="sig-name descname"><span class="pre">generatePassengers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#BusStop.generatePassengers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.BusStop.generatePassengers" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Generate passengers based on the passenger arrival rates per hour. This will generate a list of arrival times for the passengers.
+The arrival times are generated using an exponential distribution based on the rate for the current hour.
+Instead of using poisson distribution for generating the number of passengers,
+we use an exponential distribution to generate the time between passenger arrivals.
+Generated time is added to the time of the last bus arrival to get the arrival time of the passenger.
+Local simulation time is forwarded by the generated time.
+This proccess is repeated until the current simulation time is reached.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of arrival times for the passengers.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[float]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.BusStop.printAllInfo">
@@ -702,22 +1006,36 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.BusStop.setOutputSignals">
 <span class="sig-name descname"><span class="pre">setOutputSignals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#BusStop.setOutputSignals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.BusStop.setOutputSignals" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Bus stop has no output signals. This method is a placeholder for future use.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.BusStop.startBoarding">
 <span class="sig-name descname"><span class="pre">startBoarding</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#BusStop.startBoarding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.BusStop.startBoarding" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Update the state of the bus stop when boarding starts. This will set the state to BusBoarding and generate new passengers.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.BusStop.triggerInputSignal">
-<span class="sig-name descname"><span class="pre">triggerInputSignal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#BusStop.triggerInputSignal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.BusStop.triggerInputSignal" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">triggerInputSignal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#sprout.backend.models.BusStop.InputSignals" title="sprout.backend.models.BusStop.InputSignals"><span class="pre">InputSignals</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#BusStop.triggerInputSignal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.BusStop.triggerInputSignal" title="Link to this definition"></a></dt>
+<dd><p>Trigger the input signal for the bus stop. This will change the state of the bus stop and update the statistics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>signal</strong> (<a class="reference internal" href="#sprout.backend.models.BusStop.InputSignals" title="sprout.backend.models.BusStop.InputSignals"><em>InputSignals</em></a>) – The input signal to be triggered.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.BusStop.triggerOutputSignal">
 <span class="sig-name descname"><span class="pre">triggerOutputSignal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#BusStop.triggerOutputSignal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.BusStop.triggerOutputSignal" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Bus stop has no output signals. This method is a placeholder for future use.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>signal</strong> (<a class="reference internal" href="#sprout.backend.models.Bus.OutputSignals" title="sprout.backend.models.Bus.OutputSignals"><em>OutputSignals</em></a>) – The output signal to be triggered.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -733,23 +1051,57 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.TimeTable.addRow">
-<span class="sig-name descname"><span class="pre">addRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hour</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minutes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#TimeTable.addRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.TimeTable.addRow" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">addRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hour</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minutes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#TimeTable.addRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.TimeTable.addRow" title="Link to this definition"></a></dt>
+<dd><p>Add a row to the time table. The row contains the hour and a list of minutes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hour</strong> (<em>int</em>) – The hour of the row.</p></li>
+<li><p><strong>minutes</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – The list of minutes for the row.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.TimeTable.generateFromChromosome">
-<span class="sig-name descname"><span class="pre">generateFromChromosome</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#TimeTable.generateFromChromosome"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.TimeTable.generateFromChromosome" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">generateFromChromosome</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chromosome</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#TimeTable.generateFromChromosome"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.TimeTable.generateFromChromosome" title="Link to this definition"></a></dt>
+<dd><p>Generate the time table from a chromosome. The chromosome is a list of integers, where each integer represents the number of departures in the corresponding hour.
+The minites for each hour are generated based on the number of departures, which are evenly distributed over the hour.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>chromosome</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – The chromosome representation of the time table.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.TimeTable.getAllTimes">
-<span class="sig-name descname"><span class="pre">getAllTimes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#TimeTable.getAllTimes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.TimeTable.getAllTimes" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">getAllTimes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/sprout/backend/models.html#TimeTable.getAllTimes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.TimeTable.getAllTimes" title="Link to this definition"></a></dt>
+<dd><p>Get all times in the time table. The times are represented as a list of integers, where each integer is the time in minutes since midnight.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The list of departure times in minutes since midnight.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[int]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sprout.backend.models.TimeTable.getChromosome">
-<span class="sig-name descname"><span class="pre">getChromosome</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sprout/backend/models.html#TimeTable.getChromosome"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.TimeTable.getChromosome" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">getChromosome</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/sprout/backend/models.html#TimeTable.getChromosome"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sprout.backend.models.TimeTable.getChromosome" title="Link to this definition"></a></dt>
+<dd><p>Get the chromosome representation of the time table. The chromosome is a list of integers, where each integer represents the number of departures in the corresponding hour.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The chromosome representation of the time table.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[int]</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

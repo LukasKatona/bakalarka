@@ -69,44 +69,10 @@
            <div itemprop="articleBody">
              
   <h1>Source code for sprout.backend.EventCalendar</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="EventCalendar">
-<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.EventCalendar.EventCalendar">[docs]</a>
-<span></span><span class="k">class</span> <span class="nc">EventCalendar</span><span class="p">:</span>
-    <span class="c1"># INIT</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">maxId</span> <span class="o">=</span> <span class="mi">0</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This file contains event calendar class and event class, both used in the simulation based on events.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
-    <span class="c1"># METHODS</span>
-<div class="viewcode-block" id="EventCalendar.isEmpty">
-<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.EventCalendar.EventCalendar.isEmpty">[docs]</a>
-    <span class="k">def</span> <span class="nf">isEmpty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span></div>
-
-
-<div class="viewcode-block" id="EventCalendar.addEvent">
-<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.EventCalendar.EventCalendar.addEvent">[docs]</a>
-    <span class="k">def</span> <span class="nf">addEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
-        <span class="n">event</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxId</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">maxId</span> <span class="o">+=</span> <span class="mi">1</span></div>
-
-
-<div class="viewcode-block" id="EventCalendar.getNextEvent">
-<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.EventCalendar.EventCalendar.getNextEvent">[docs]</a>
-    <span class="k">def</span> <span class="nf">getNextEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">event</span>
-        <span class="k">return</span> <span class="kc">None</span></div>
-
-    
-    <span class="c1"># STR</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">])</span></div>
-
-            
 <div class="viewcode-block" id="Event">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.EventCalendar.Event">[docs]</a>
 <span class="k">class</span> <span class="nc">Event</span><span class="p">:</span>
@@ -119,6 +85,11 @@
 
     <span class="c1"># CALL</span>
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Call the action associated with the event, with the action arguments.</span>
+
+<span class="sd">        :raises TypeError: If the action is not callable.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">actionArgument</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -128,6 +99,62 @@
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">action_str</span> <span class="o">=</span> <span class="s2">&quot;Bus #&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="vm">__self__</span><span class="o">.</span><span class="n">busNumber</span><span class="p">)</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="p">,</span> <span class="s1">&#39;__self__&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s1">&#39;busNumber&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">action</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="o">/</span><span class="mi">60</span><span class="p">)</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="o">%</span><span class="mi">60</span><span class="p">)</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">action_str</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">actionArgument</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+
+    
+<div class="viewcode-block" id="EventCalendar">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.EventCalendar.EventCalendar">[docs]</a>
+<span class="k">class</span> <span class="nc">EventCalendar</span><span class="p">:</span>
+    <span class="c1"># INIT</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxId</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># METHODS</span>
+<div class="viewcode-block" id="EventCalendar.isEmpty">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.EventCalendar.EventCalendar.isEmpty">[docs]</a>
+    <span class="k">def</span> <span class="nf">isEmpty</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if the event calendar is empty.</span>
+
+<span class="sd">        :return: True if the event calendar is empty, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="EventCalendar.addEvent">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.EventCalendar.EventCalendar.addEvent">[docs]</a>
+    <span class="k">def</span> <span class="nf">addEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an event to the event calendar.</span>
+
+<span class="sd">        :param event: The event to be added.</span>
+<span class="sd">        :type event: Event</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxId</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxId</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="EventCalendar.getNextEvent">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.EventCalendar.EventCalendar.getNextEvent">[docs]</a>
+    <span class="k">def</span> <span class="nf">getNextEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Event</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the next event from the event calendar, then remove it from the calendar.</span>
+
+<span class="sd">        :return: The next event in the calendar, or None if the calendar is empty.</span>
+<span class="sd">        :rtype: Event | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">event</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    
+    <span class="c1"># STR</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">])</span></div>
 
 </pre></div>
 

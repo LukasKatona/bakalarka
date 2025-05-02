@@ -69,7 +69,12 @@
            <div itemprop="articleBody">
              
   <h1>Source code for sprout.backend.RandomNumberGenerator</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This file contains the RandomNumberGenerator class, which is used to generate random numbers.</span>
+<span class="sd">It is important to have a single static instance of the random number generator to ensure that the random numbers are generated in a consistent manner.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <div class="viewcode-block" id="RandomNumberGenerator">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.RandomNumberGenerator.RandomNumberGenerator">[docs]</a>
@@ -81,19 +86,53 @@
 <div class="viewcode-block" id="RandomNumberGenerator.exponential">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.RandomNumberGenerator.RandomNumberGenerator.exponential">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">exponential</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">exponential</span><span class="p">(</span><span class="n">scale</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate random numbers from an exponential distribution.</span>
+
+<span class="sd">        :param scale: The scale parameter, which is the inverse of the rate parameter (lambda), defaults to 1.0</span>
+<span class="sd">        :type scale: float, optional</span>
+<span class="sd">        :param size: The number of random numbers to generate, defaults to None (single value)</span>
+<span class="sd">        :type size: int, optional</span>
+<span class="sd">        :return: Random numbers from the exponential distribution. If size is None, a single float is returned; otherwise, an array of floats is returned.</span>
+<span class="sd">        :rtype: np.ndarray | float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">RandomNumberGenerator</span><span class="o">.</span><span class="n">_rng</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span></div>
 
     
 <div class="viewcode-block" id="RandomNumberGenerator.uniform">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.RandomNumberGenerator.RandomNumberGenerator.uniform">[docs]</a>
-    <span class="k">def</span> <span class="nf">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">uniform</span><span class="p">(</span><span class="n">low</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate random numbers from a uniform distribution.</span>
+
+<span class="sd">        :param low: Lower boundry, defaults to 0.0</span>
+<span class="sd">        :type low: float, optional</span>
+<span class="sd">        :param high: Upper boundry, defaults to 1.0</span>
+<span class="sd">        :type high: float, optional</span>
+<span class="sd">        :param size: The number of random numbers to generate, defaults to None</span>
+<span class="sd">        :type size: int, optional</span>
+<span class="sd">        :return: Random numbers from the uniform distribution. If size is None, a single float is returned; otherwise, an array of floats is returned.</span>
+<span class="sd">        :rtype: np.ndarray | float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">RandomNumberGenerator</span><span class="o">.</span><span class="n">_rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="n">high</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span></div>
 
     
 <div class="viewcode-block" id="RandomNumberGenerator.integers">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.RandomNumberGenerator.RandomNumberGenerator.integers">[docs]</a>
-    <span class="k">def</span> <span class="nf">integers</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">integers</span><span class="p">(</span><span class="n">low</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate random integers from a uniform distribution.</span>
+
+<span class="sd">        :param low: Lower boundry, defaults to 0</span>
+<span class="sd">        :type low: int, optional</span>
+<span class="sd">        :param high: Upper boundry, defaults to 1</span>
+<span class="sd">        :type high: int, optional</span>
+<span class="sd">        :param size: The number of random integers to generate, defaults to None</span>
+<span class="sd">        :type size: int, optional</span>
+<span class="sd">        :return: Random integers from the uniform distribution. If size is None, a single integer is returned; otherwise, an array of integers is returned.</span>
+<span class="sd">        :rtype: np.ndarray | int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">RandomNumberGenerator</span><span class="o">.</span><span class="n">_rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="n">high</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">))</span></div>
 </div>
 

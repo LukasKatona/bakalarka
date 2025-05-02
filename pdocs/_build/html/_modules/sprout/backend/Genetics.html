@@ -69,159 +69,13 @@
            <div itemprop="articleBody">
              
   <h1>Source code for sprout.backend.Genetics</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This file contains the Genetics class and the Individual class, both used in the genetic algorithm for the optimization of the bus timetable.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">.RandomNumberGenerator</span> <span class="kn">import</span> <span class="n">RandomNumberGenerator</span>
 <span class="kn">from</span> <span class="nn">.Simulation</span> <span class="kn">import</span> <span class="n">Simulation</span>
 <span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">TimeTable</span>
-
-
-<div class="viewcode-block" id="Genetics">
-<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Genetics">[docs]</a>
-<span class="k">class</span> <span class="nc">Genetics</span><span class="p">:</span>
-    <span class="c1"># INIT</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">populationSize</span><span class="p">,</span> <span class="n">mutationRate</span><span class="p">,</span> <span class="n">maxConnectionsPerHour</span><span class="p">,</span> <span class="n">vehicleCapacity</span><span class="p">,</span> <span class="n">vehicleSeats</span><span class="p">,</span> <span class="n">costPerSeatKm</span><span class="p">,</span> <span class="n">routeLength</span><span class="p">,</span> <span class="n">busStops</span><span class="p">,</span> <span class="n">constraints</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">populationSize</span> <span class="o">=</span> <span class="n">populationSize</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mutationRate</span> <span class="o">=</span> <span class="n">mutationRate</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">maxConnectionsPerHour</span> <span class="o">=</span> <span class="n">maxConnectionsPerHour</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vehicleCapacity</span> <span class="o">=</span> <span class="n">vehicleCapacity</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vehicleSeats</span> <span class="o">=</span> <span class="n">vehicleSeats</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">costPerSeatKm</span> <span class="o">=</span> <span class="n">costPerSeatKm</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">routeLength</span> <span class="o">=</span> <span class="n">routeLength</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">busStops</span> <span class="o">=</span> <span class="n">busStops</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span> <span class="o">=</span> <span class="n">constraints</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">generation</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">offsprings</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">initPopulation</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="c1"># METHODS</span>
-<div class="viewcode-block" id="Genetics.initPopulation">
-<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Genetics.initPopulation">[docs]</a>
-    <span class="k">def</span> <span class="nf">initPopulation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">populationSize</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Individual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mutationRate</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxConnectionsPerHour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vehicleCapacity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vehicleSeats</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">costPerSeatKm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">routeLength</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">busStops</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">nonDominatedSort</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">front</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">crowdingDistanceAssignment</span><span class="p">(</span><span class="n">front</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">makeNewPopulation</span><span class="p">()</span></div>
-
-        
-<div class="viewcode-block" id="Genetics.updateGeneration">
-<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Genetics.updateGeneration">[docs]</a>
-    <span class="k">def</span> <span class="nf">updateGeneration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">generation</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">offsprings</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">nonDominatedSort</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">generation</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">populationSize</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">crowdingDistanceAssignment</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">generation</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">individual</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">populationSize</span><span class="p">:</span>
-                <span class="k">break</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">individual</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">makeNewPopulation</span><span class="p">()</span></div>
-
-
-<div class="viewcode-block" id="Genetics.makeNewPopulation">
-<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Genetics.makeNewPopulation">[docs]</a>
-    <span class="k">def</span> <span class="nf">makeNewPopulation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">offsprings</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">populationSize</span><span class="o">/</span><span class="mi">2</span><span class="p">)):</span>
-            <span class="n">parent1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parentSelection</span><span class="p">()</span>
-            <span class="n">parent2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parentSelection</span><span class="p">()</span>
-            <span class="n">child1</span><span class="p">,</span> <span class="n">child2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">crossover</span><span class="p">(</span><span class="n">parent1</span><span class="p">,</span> <span class="n">parent2</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">offsprings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child1</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">offsprings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child2</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="Genetics.parentSelection">
-<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Genetics.parentSelection">[docs]</a>
-    <span class="k">def</span> <span class="nf">parentSelection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">parent1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">[</span><span class="n">RandomNumberGenerator</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">))]</span>
-        <span class="n">parent2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">[</span><span class="n">RandomNumberGenerator</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">))]</span>
-        <span class="k">if</span> <span class="n">parent1</span> <span class="o">&lt;</span> <span class="n">parent2</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">parent1</span>
-        <span class="k">return</span> <span class="n">parent2</span></div>
-
-
-<div class="viewcode-block" id="Genetics.crossover">
-<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Genetics.crossover">[docs]</a>
-    <span class="k">def</span> <span class="nf">crossover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent1</span><span class="p">,</span> <span class="n">parent2</span><span class="p">):</span>
-        <span class="n">newChromosome1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">24</span>
-        <span class="n">newChromosome2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">24</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">RandomNumberGenerator</span><span class="o">.</span><span class="n">uniform</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>
-                <span class="n">newChromosome1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent1</span><span class="o">.</span><span class="n">chromosome</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                <span class="n">newChromosome2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent2</span><span class="o">.</span><span class="n">chromosome</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">newChromosome1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent2</span><span class="o">.</span><span class="n">chromosome</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                <span class="n">newChromosome2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent1</span><span class="o">.</span><span class="n">chromosome</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">Individual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mutationRate</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxConnectionsPerHour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vehicleCapacity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vehicleSeats</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">costPerSeatKm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">routeLength</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">busStops</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="p">,</span> <span class="n">newChromosome1</span><span class="p">),</span> <span class="n">Individual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mutationRate</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxConnectionsPerHour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vehicleCapacity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vehicleSeats</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">costPerSeatKm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">routeLength</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">busStops</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="p">,</span> <span class="n">newChromosome2</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="Genetics.nonDominatedSort">
-<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Genetics.nonDominatedSort">[docs]</a>
-    <span class="k">def</span> <span class="nf">nonDominatedSort</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
-        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">:</span>
-            <span class="n">p</span><span class="o">.</span><span class="n">dominatesOver</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">p</span><span class="o">.</span><span class="n">dominationCount</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">constraintDominates</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
-                    <span class="n">p</span><span class="o">.</span><span class="n">dominatesOver</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">q</span><span class="o">.</span><span class="n">constraintDominates</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
-                    <span class="n">p</span><span class="o">.</span><span class="n">dominationCount</span> <span class="o">+=</span><span class="mi">1</span>
-            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">dominationCount</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">p</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="mi">1</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">nextFront</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">dominatesOver</span><span class="p">:</span>
-                    <span class="n">q</span><span class="o">.</span><span class="n">dominationCount</span> <span class="o">-=</span> <span class="mi">1</span>
-                    <span class="k">if</span> <span class="n">q</span><span class="o">.</span><span class="n">dominationCount</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                        <span class="n">q</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
-                        <span class="n">nextFront</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
-            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nextFront</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="Genetics.crowdingDistanceAssignment">
-<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Genetics.crowdingDistanceAssignment">[docs]</a>
-    <span class="k">def</span> <span class="nf">crowdingDistanceAssignment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">front</span><span class="p">):</span>
-        <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">front</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">individual</span> <span class="ow">in</span> <span class="n">front</span><span class="p">:</span>
-            <span class="n">individual</span><span class="o">.</span><span class="n">distance</span> <span class="o">=</span> <span class="mi">0</span>
-        
-        <span class="n">front</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">front</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">individual</span><span class="p">:</span> <span class="n">individual</span><span class="o">.</span><span class="n">cost</span><span class="p">)</span>
-        <span class="nb">min</span> <span class="o">=</span> <span class="n">front</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cost</span>
-        <span class="nb">max</span> <span class="o">=</span> <span class="n">front</span><span class="p">[</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">cost</span>
-        <span class="n">front</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">distance</span> <span class="o">=</span> <span class="n">front</span><span class="p">[</span><span class="n">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">distance</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">length</span> <span class="o">-</span> <span class="mi">2</span><span class="p">):</span>
-            <span class="n">front</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">distance</span> <span class="o">+=</span> <span class="p">(</span><span class="n">front</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">cost</span> <span class="o">-</span> <span class="n">front</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">cost</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">max</span> <span class="o">-</span> <span class="nb">min</span><span class="p">)</span>
-
-        <span class="n">front</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">front</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">individual</span><span class="p">:</span> <span class="n">individual</span><span class="o">.</span><span class="n">satisfaction</span><span class="p">)</span>
-        <span class="nb">min</span> <span class="o">=</span> <span class="n">front</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">satisfaction</span>
-        <span class="nb">max</span> <span class="o">=</span> <span class="n">front</span><span class="p">[</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">satisfaction</span>
-        <span class="n">front</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">distance</span> <span class="o">=</span> <span class="n">front</span><span class="p">[</span><span class="n">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">distance</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">length</span> <span class="o">-</span> <span class="mi">2</span><span class="p">):</span>
-            <span class="n">front</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">distance</span> <span class="o">+=</span> <span class="p">(</span><span class="n">front</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">satisfaction</span> <span class="o">-</span> <span class="n">front</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">satisfaction</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">max</span> <span class="o">-</span> <span class="nb">min</span><span class="p">)</span></div>
-
-    <span class="c1"># STR</span>
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">individual</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">:</span>
-            <span class="n">output</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">individual</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-        <span class="k">return</span> <span class="n">output</span></div>
-
 
 <div class="viewcode-block" id="Individual">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Individual">[docs]</a>
@@ -251,7 +105,14 @@
     <span class="c1"># METHODS</span>
 <div class="viewcode-block" id="Individual.generateRandomChromosome">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Individual.generateRandomChromosome">[docs]</a>
-    <span class="k">def</span> <span class="nf">generateRandomChromosome</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">generateRandomChromosome</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate a random chromosome with 24 integers, each representing the number of connections per hour.</span>
+<span class="sd">        If the constraint for that hour is not None, use the constraint value instead.</span>
+
+<span class="sd">        :return: A list of integers representing the chromosome.</span>
+<span class="sd">        :rtype: list[int]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">chromosome</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">):</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
@@ -264,6 +125,9 @@
 <div class="viewcode-block" id="Individual.calculateFitness">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Individual.calculateFitness">[docs]</a>
     <span class="k">def</span> <span class="nf">calculateFitness</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the fitness values of the individual based on the simulation results.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cost</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">satisfaction</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">timeTable</span> <span class="o">=</span> <span class="n">TimeTable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chromosome</span><span class="p">)</span>
@@ -275,7 +139,15 @@
 
 <div class="viewcode-block" id="Individual.constraintDominates">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Individual.constraintDominates">[docs]</a>
-    <span class="k">def</span> <span class="nf">constraintDominates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">constraintDominates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;Individual&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if this individual dominates the other individual based on the constraints and domination results.</span>
+
+<span class="sd">        :param other: The other individual to compare with.</span>
+<span class="sd">        :type other: Individual</span>
+<span class="sd">        :return: True if this individual dominates the other, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">totalPassengersLeftUnboarded</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">totalPassengersLeftUnboarded</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dominates</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -284,24 +156,229 @@
 
 <div class="viewcode-block" id="Individual.dominates">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Individual.dominates">[docs]</a>
-    <span class="k">def</span> <span class="nf">dominates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">dominates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;Individual&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if this individual dominates the other individual based on the cost and satisfaction values.</span>
+
+<span class="sd">        :param other: The other individual to compare with.</span>
+<span class="sd">        :type other: Individual</span>
+<span class="sd">        :return: True if this individual dominates the other, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cost</span> <span class="o">&lt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">cost</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">satisfaction</span> <span class="o">&gt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">satisfaction</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cost</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">cost</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">satisfaction</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">satisfaction</span><span class="p">)</span></div>
 
         
 <div class="viewcode-block" id="Individual.mutate">
 <a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Individual.mutate">[docs]</a>
     <span class="k">def</span> <span class="nf">mutate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Mutate the chromosome of the individual by randomly changing the number of connections per hour for each hour if the mutation rate is met and the constraint for that hour is None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">RandomNumberGenerator</span><span class="o">.</span><span class="n">uniform</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">mutationRate</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">chromosome</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">RandomNumberGenerator</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxConnectionsPerHour</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span></div>
 
             
-    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;Individual&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compare this individual with another individual based on the rank and distance values.</span>
+
+<span class="sd">        :param other: The other individual to compare with.</span>
+<span class="sd">        :type other: Individual</span>
+<span class="sd">        :return: True if this individual is better than the other, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">rank</span><span class="p">)</span> <span class="ow">or</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">rank</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">distance</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">distance</span><span class="p">))</span>
 
     <span class="c1"># STR</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">chromosome</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fitness</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+
+<div class="viewcode-block" id="Genetics">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Genetics">[docs]</a>
+<span class="k">class</span> <span class="nc">Genetics</span><span class="p">:</span>
+    <span class="c1"># INIT</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">populationSize</span><span class="p">,</span> <span class="n">mutationRate</span><span class="p">,</span> <span class="n">maxConnectionsPerHour</span><span class="p">,</span> <span class="n">vehicleCapacity</span><span class="p">,</span> <span class="n">vehicleSeats</span><span class="p">,</span> <span class="n">costPerSeatKm</span><span class="p">,</span> <span class="n">routeLength</span><span class="p">,</span> <span class="n">busStops</span><span class="p">,</span> <span class="n">constraints</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">populationSize</span> <span class="o">=</span> <span class="n">populationSize</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mutationRate</span> <span class="o">=</span> <span class="n">mutationRate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxConnectionsPerHour</span> <span class="o">=</span> <span class="n">maxConnectionsPerHour</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vehicleCapacity</span> <span class="o">=</span> <span class="n">vehicleCapacity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vehicleSeats</span> <span class="o">=</span> <span class="n">vehicleSeats</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">costPerSeatKm</span> <span class="o">=</span> <span class="n">costPerSeatKm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">routeLength</span> <span class="o">=</span> <span class="n">routeLength</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">busStops</span> <span class="o">=</span> <span class="n">busStops</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span> <span class="o">=</span> <span class="n">constraints</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generation</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offsprings</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initPopulation</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># METHODS</span>
+<div class="viewcode-block" id="Genetics.initPopulation">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Genetics.initPopulation">[docs]</a>
+    <span class="k">def</span> <span class="nf">initPopulation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the population with random individuals.</span>
+<span class="sd">        Then sort the population using non-dominated sorting and assign crowding distance to each individual.</span>
+<span class="sd">        Finally, create the first offspring population.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">populationSize</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Individual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mutationRate</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxConnectionsPerHour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vehicleCapacity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vehicleSeats</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">costPerSeatKm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">routeLength</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">busStops</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nonDominatedSort</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">front</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">crowdingDistanceAssignment</span><span class="p">(</span><span class="n">front</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">makeNewPopulation</span><span class="p">()</span></div>
+
+        
+<div class="viewcode-block" id="Genetics.updateGeneration">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Genetics.updateGeneration">[docs]</a>
+    <span class="k">def</span> <span class="nf">updateGeneration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Main loop of the genetic algorithm.</span>
+<span class="sd">        It updates the generation by combining the current generation and the offspring population.</span>
+<span class="sd">        Then it sorts the combined population using non-dominated sorting and assigns crowding distance to each individual.</span>
+<span class="sd">        Finally, it promotes the best individuals to the next generation and creates a new offspring population.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generation</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">offsprings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nonDominatedSort</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generation</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">populationSize</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">crowdingDistanceAssignment</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generation</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">individual</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">populationSize</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">individual</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">makeNewPopulation</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Genetics.makeNewPopulation">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Genetics.makeNewPopulation">[docs]</a>
+    <span class="k">def</span> <span class="nf">makeNewPopulation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a new population of offsprings by selecting parents from the current generation and applying crossover.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offsprings</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">populationSize</span><span class="o">/</span><span class="mi">2</span><span class="p">)):</span>
+            <span class="n">parent1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parentSelection</span><span class="p">()</span>
+            <span class="n">parent2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parentSelection</span><span class="p">()</span>
+            <span class="n">child1</span><span class="p">,</span> <span class="n">child2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">crossover</span><span class="p">(</span><span class="n">parent1</span><span class="p">,</span> <span class="n">parent2</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">offsprings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">offsprings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Genetics.parentSelection">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Genetics.parentSelection">[docs]</a>
+    <span class="k">def</span> <span class="nf">parentSelection</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Individual</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Select two parents from the current generation using tournament selection.</span>
+
+<span class="sd">        :return: A parent individual selected from the current generation.</span>
+<span class="sd">        :rtype: Individual</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parent1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">[</span><span class="n">RandomNumberGenerator</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">))]</span>
+        <span class="n">parent2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">[</span><span class="n">RandomNumberGenerator</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">))]</span>
+        <span class="k">if</span> <span class="n">parent1</span> <span class="o">&lt;</span> <span class="n">parent2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">parent1</span>
+        <span class="k">return</span> <span class="n">parent2</span></div>
+
+
+<div class="viewcode-block" id="Genetics.crossover">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Genetics.crossover">[docs]</a>
+    <span class="k">def</span> <span class="nf">crossover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent1</span><span class="p">:</span> <span class="n">Individual</span><span class="p">,</span> <span class="n">parent2</span> <span class="p">:</span> <span class="n">Individual</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Individual</span><span class="p">,</span> <span class="n">Individual</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform uniform crossover between two parents to create two offsprings.</span>
+
+<span class="sd">        :param parent1: First parent individual.</span>
+<span class="sd">        :type parent1: Individual</span>
+<span class="sd">        :param parent2: Second parent individual.</span>
+<span class="sd">        :type parent2: Individual</span>
+<span class="sd">        :return: Two new individuals created from the parents.</span>
+<span class="sd">        :rtype: tuple[Individual, Individual]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">newChromosome1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">24</span>
+        <span class="n">newChromosome2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">24</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">RandomNumberGenerator</span><span class="o">.</span><span class="n">uniform</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>
+                <span class="n">newChromosome1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent1</span><span class="o">.</span><span class="n">chromosome</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">newChromosome2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent2</span><span class="o">.</span><span class="n">chromosome</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">newChromosome1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent2</span><span class="o">.</span><span class="n">chromosome</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">newChromosome2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent1</span><span class="o">.</span><span class="n">chromosome</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">Individual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mutationRate</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxConnectionsPerHour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vehicleCapacity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vehicleSeats</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">costPerSeatKm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">routeLength</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">busStops</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="p">,</span> <span class="n">newChromosome1</span><span class="p">),</span> <span class="n">Individual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mutationRate</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxConnectionsPerHour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vehicleCapacity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vehicleSeats</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">costPerSeatKm</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">routeLength</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">busStops</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="p">,</span> <span class="n">newChromosome2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Genetics.nonDominatedSort">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Genetics.nonDominatedSort">[docs]</a>
+    <span class="k">def</span> <span class="nf">nonDominatedSort</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform non-dominated sorting on the current generation of individuals.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">dominatesOver</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">dominationCount</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">constraintDominates</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+                    <span class="n">p</span><span class="o">.</span><span class="n">dominatesOver</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">q</span><span class="o">.</span><span class="n">constraintDominates</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+                    <span class="n">p</span><span class="o">.</span><span class="n">dominationCount</span> <span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">dominationCount</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">nextFront</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">dominatesOver</span><span class="p">:</span>
+                    <span class="n">q</span><span class="o">.</span><span class="n">dominationCount</span> <span class="o">-=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">q</span><span class="o">.</span><span class="n">dominationCount</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">q</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+                        <span class="n">nextFront</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nextFront</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fronts</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Genetics.crowdingDistanceAssignment">
+<a class="viewcode-back" href="../../../sprout.backend.html#sprout.backend.Genetics.Genetics.crowdingDistanceAssignment">[docs]</a>
+    <span class="k">def</span> <span class="nf">crowdingDistanceAssignment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">front</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Individual</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Assign crowding distance to each individual in the front.</span>
+
+<span class="sd">        :param front: The front of individuals to assign crowding distance to.</span>
+<span class="sd">        :type front: list[Individual]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">front</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">individual</span> <span class="ow">in</span> <span class="n">front</span><span class="p">:</span>
+            <span class="n">individual</span><span class="o">.</span><span class="n">distance</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="n">front</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">front</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">individual</span><span class="p">:</span> <span class="n">individual</span><span class="o">.</span><span class="n">cost</span><span class="p">)</span>
+        <span class="nb">min</span> <span class="o">=</span> <span class="n">front</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cost</span>
+        <span class="nb">max</span> <span class="o">=</span> <span class="n">front</span><span class="p">[</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">cost</span>
+        <span class="n">front</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">distance</span> <span class="o">=</span> <span class="n">front</span><span class="p">[</span><span class="n">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">distance</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">length</span> <span class="o">-</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">front</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">distance</span> <span class="o">+=</span> <span class="p">(</span><span class="n">front</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">cost</span> <span class="o">-</span> <span class="n">front</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">cost</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">max</span> <span class="o">-</span> <span class="nb">min</span><span class="p">)</span>
+
+        <span class="n">front</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">front</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">individual</span><span class="p">:</span> <span class="n">individual</span><span class="o">.</span><span class="n">satisfaction</span><span class="p">)</span>
+        <span class="nb">min</span> <span class="o">=</span> <span class="n">front</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">satisfaction</span>
+        <span class="nb">max</span> <span class="o">=</span> <span class="n">front</span><span class="p">[</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">satisfaction</span>
+        <span class="n">front</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">distance</span> <span class="o">=</span> <span class="n">front</span><span class="p">[</span><span class="n">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">distance</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">length</span> <span class="o">-</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">front</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">distance</span> <span class="o">+=</span> <span class="p">(</span><span class="n">front</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">satisfaction</span> <span class="o">-</span> <span class="n">front</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">satisfaction</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">max</span> <span class="o">-</span> <span class="nb">min</span><span class="p">)</span></div>
+
+
+    <span class="c1"># STR</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">individual</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">individual</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">output</span></div>
 
 </pre></div>
 
