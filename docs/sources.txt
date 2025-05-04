@@ -2,6 +2,3 @@
 % Event calendar
 % https://www.fit.vut.cz/person/peringer/public/IMS/prednasky/IMS.pdf
 
-% exponencialne rozdelenie
-% https://www.fit.vut.cz/person/peringer/public/IMS/prednasky/IMS.pdf
-% https://moodle.vut.cz/pluginfile.php/714482/mod_folder/content/0/P%C5%99edn%C3%A1%C5%A1ky/predn04spojNahVel.pdf?forcedownload=1

@@ -255,6 +255,7 @@ V algoritme~\ref{algoritmus_generovanie_cestujucich} je popísaný proces genero
 Ak by stačil počet cestujúcich, ktorý za daný časový interval prišli, stačilo by nám Poissonovo rozdelenie.
 Avšak pre výpočet doby čakania na zastávke je potrebné vedieť aj čas príchodu jednotlivých cestujúcich.
 Preto je použité exponenciálne rozdelenie, ktoré generuje náhodný časový interval medzi príchodami jednotlivých cestujúcich.
+Vzťah medzi týmito dvoma rozdeleniami je a podrobnejší popis exponenciálneho rozdelenia je v článku~\cite{geraghty2022exponential}.
 Pripočítaním tohto intervalu k aktuálnemu modelovému času sa získa čas príchodu cestujúceho.
 Modelový čas sa o tento vygenerovaný časový údaj posunie.
 Tento proces sa opakuje až dokým modelový čas nedosiahne čas príchodu ďalšieho vozidla.
@@ -388,7 +389,7 @@ Tieto udalosti sú v prípade tohto modelu príchody vozidiel na zastáky.
 V rámci jednej udalosti sa vykoná rutina obslúženia cestujúcich čakajúcich na zastávke.
 Všetky udalosti sú naplánované na začiatku simulácie, pretože vďaka časovému rozpisu presne vieme všetky príchody vozidiel na jednotlivé zastávky.
 Príchody na prvú zastávku sú dané hlavným časovým rozpisom, príchody na ostatné zastávky sú odvodené od času potrebného na prejdenie z jednej zastávky na druhú.
-Pseudokód plánovania udalostí je uvedený v algoritme~\ref{algoritmus_planovanie_udalosti}.
+Pseudokód plánovania udalostí je uvedený v algoritme~\ref{algoritmus_planovanie_udalosti} a je prevzaný zo študijnej opory predmetu Modelovanie a simulácie~\cite{peringer2022ims}, ktorý je vyučovaný na Fakulte informatiky Vysokého učení technického v Brne.
 V priebehu simulácie už netreba žiadne ďalšie udalosti plánovať.
 
 \vspace*{\dimexpr0.5\baselineskip\relax}
@@ -462,7 +463,7 @@ Zber a agregácia štatistík (viď kapitola~\ref{vystupy_simulacneho_modelu}) s
 
 \section{Výstupy simulačného modelu}\label{vystupy_simulacneho_modelu}
 
-Hlavný zmisel simulácie je zber informácií, ktoré by sme inak museli získať z pozorovania reélnej prevádzky linky.
+Hlavný zmysel simulácie je zber informácií, ktoré by sme inak museli získať z pozorovania reélnej prevádzky linky.
 Efektivitu každého jedného časového rozpisu, ktorý program vytvorí je potrebné otestovať a ohodnotiť aby sme našli ten najlepší z nich, skôr ako ho začneme používať v reálnej prevádzke.
 Na ohodnotenie jednotlivých rozpisov slúžia štatistiky získané počas simulácie.
 Štatistiky sa zbierajú pre každú zastávku~\ref{tab:busStopStatistics_class}. aj pre každé vozidlo~\ref{tab:busStatistics_class}. osobitne.
