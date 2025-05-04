@@ -92,9 +92,117 @@ Najdôležitejšou časťou bude časový rozpis, ktorý bude obsahovať odchody
 Na základe informácii získaných z priebehu simulácie sa následne tento rozpis ohodnotí a toto ohodnotenie sa využije v genetickom algoritme na optimalizáciu časového rozpisu.
 Viac informácií o optimalizácii a genetickom algoritme je v kapitole~\ref{optimalizacia}.
 
-Na modelovanie bol použitý formalizmus DEVS (Descrete Event Symulation System), po slovensky diskrétna simulácia riadená udalosťami.
-Ide o typ simulácie, kde sa modelový čas posúva skokovo a to od jednej udalosti k druhej.
-%TODO dokoncit popis DEVS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{DEVS formalizmus}
+Na modelovanie bol použitý formalizmus DEVS (Discrete Event System Specification).
+Všetky informácie o tomto formalizme v tejto sekcii boli čerpané zo zborníka z konferencie WSC 2018~\cite{tendeloo2018discrete}, kde je DEVS podrobne popísaný.
+Tento formalizmus je založený na diskrétnych udalostiach, pri ktorých sa celý modelový systém posúva skokovo v čase dopredu.
+Pri každej takejto udalosti sa mení vnútorný stav systému a vykonáva sa nejaká akcia.
+Veľkou výhodov tohto formalizmu je jeho modularita.
+Atomické modely sa dajú pomocou vstupných a výstupných signálov prepojiť do zloženého modelu.
+
+\subsection*{Atomické modely}
+Atomický model je základným stavebným kameňom DEVS formalizmu.
+Tento model je definovaný ako štvorica $\langle S, q_{init}, {\delta}_{int}, ta \rangle$, kde:
+\begin{itemize}
+  \item $S$ je množina stavov modelu
+  \item $q_{init}$ je počiatočný stav modelu, ktorý je prvkom množiny $S$, v pôvodnej definícii DEVS tento prvok neexistoval, no podľa zdroja~\cite{tendeloo2018discrete} je potrebný pre správne fungovanie modelu
+  \item ${\delta}_{int}$ je funkcia, ktorá určuje prechody medzi stavmi modelu
+  \item $ta$ je funkcia, ktorá určuje ako dlho model zotrvá v danom stave, musí byť definovaná pre každý stav modelu
+\end{itemize}
+
+Ako príklad môže poslúžiť jednoduchý model semafóru, ten sa za normálnej prevádzky nachádza v troch stavoch.
+Raz svieti na zeleno, inokedy na oranžovo alebo červeno.
+Každá farba zotrvá rozsvietená stanovený čas a tiež je dané, aká farba bude následovať.
+Formálny zápis by potom vyzeral takto:
+
+\[\langle S, q_{init}, \delta_{int}, ta \rangle\]
+\[S = \{\text{Zelená}, \text{Oranžová}, \text{Červená} \}\]
+\[q_{init} = \text{Zelená}\]
+\[\delta_{int} = \{ \text{Zelená} \rightarrow \text{Oranžová}, \text{Oranžová} \rightarrow \text{Červená}, \text{Červená} \rightarrow \text{Zelená} \}\]
+\[ta = \{ \text{Zelená} \rightarrow 57, \text{Oranžová} \rightarrow 3, \text{Červená} \rightarrow 60 \}\]
+
+\subsection*{Výstupné signály}
+Výstupné signály slúžia na to aby model mohol komunikovať so svojím okolím, konkrétne aby mohol informovať o zmenách svojeho vnútorného stavu.
+Každý model môže mať viacero výstupných signálov, ktoré sú definované ako množina $Y$.
+Okrem výstupných signálov, musia byť definované aj výstupné funkcie $\lambda$.
+\begin{itemize}
+  \item $Y$ je množina výstupných signálov modelu, pomocou ktorých dáva model vedieť svojmu okoliu, že sa nastala nejaká udalosť, napríklad, že sa zmenil jeho stav
+  \item $\lambda$ je funkcia, ktorá slúži na generovanie samotnej udalosti, táto funkcia je definovaná pre každý stav modelu a určuje aké výstupné signály sa budú odosielať do okolia modelu pri prechode do iného stavu
+\end{itemize}
+Pre príklad semafóru môžeme definovať výstupné signály, koré nám povedia, aká farba práve svieti na semafóre.
+Pri definovaní týchto signálov a výstupnej funkcie si treba dať pozor na to, že tieto udalosti sú diskrétne a keď chceme signalizovať napríklad to, že semafór svieti na červeno, musíme to urobiť ešte pred prechodom do stavu červenej farby a teda táto funkcia musí byť definovaná pre stav oranžovej farby.
+\[Y = \{\text{\textit{svieti\_zelená}}, \text{\textit{svieti\_oranžová}}, \text{\textit{svieti\_červená}} \}\]
+\[\lambda = \{ \text{Zelená} \rightarrow \text{\textit{svieti\_oranžová}}, \text{Oranžová} \rightarrow \text{\textit{svieti\_červená}}, \text{Červená} \rightarrow \text{\textit{svieti\_zelená}} \}\]
+
+\subsection*{Vstupné signály}
+Vstupné signály slúžia na ovládanie modelu z vobnku.
+Napríklad spomínaný semafór doteraz pracoval len na základe svojich vnútorne definovaných stavov a prechodov medzi nimi.
+V prípade, že nastane nejaká externá udalosť, napríklad sa niekto rozhodne semafór vypnúť, je potrebné nejakým spôsobom informovať model o tejto udalosti.
+O to sa starajú vstupné signály, ktoré sú definované ako množina $X$.
+Taktiež je potrebné definovať aj funkciu externých prechodov ${\delta}_{ext}$.
+\begin{itemize}
+  \item $X$ je množina vstupných signálov modelu, ide o externé udalosti, ktorých príchod model očakáva
+  \item ${\delta}_{ext}$ je funkcia, ktorá určuje do akého stavu sa model dostane po príchode externého signálu, táto funkcia je definovaná pre každý stav modelu a pre každý vstupný signál
+\end{itemize}
+Príklad so semafórom rozšírime o nový stav, v ktorom je semafór vypnutý.
+Semafór v tomto stave zotrvá neobmedzene dlho, pokým nepríde ďalší vstupný signál, ktorý ho zapne.
+Potom môžeme pridať vstupné signály a funkciu externých prechodov.
+\[S = S \cup \{ \text{Vypnutý} \}\]
+\[ta = ta \cup \{ \text{Vypnutý} \rightarrow \infty \}\]
+\[X = \{\text{\textit{vypnúť}}, \text{\textit{zapnúť}} \}\]
+\[\delta_{ext} = \{ (\text{Zelená, \textit{vypnúť}}) \rightarrow \text{Vypnutý},\]
+\[(\text{Oranžová, \textit{vypnúť}}) \rightarrow \text{Vypnutý},\]
+\[(\text{Červená, \textit{vypnúť}}) \rightarrow \text{Vypnutý},\]
+\[(\text{Vypnutý, \textit{zapnúť}}) \rightarrow \text{Červená} \}\]  
+
+\subsection*{Zložené modely}
+Jedinou úlohou zložených modelov je definícia vzťahov medzi jednotlivými atomickými modelmi.
+Zložený model nemá definované žiadne vlastné stavy ani prechody medzi nimi.
+To všetko je zabalené v atomických modeloch, z ktorých sa skladá.
+Zložený model je definovaný ako sedmica $\langle D, \{M_i\}, \{I_i\}, X_{self}, Y_{self}, \text{\textit{select}}, \{Z_{i,j}\} \rangle$, kde:
+\begin{itemize}
+  \item $D$ je množina všetkých atomických modelov, ktoré sú súčasťou zloženého modelu
+  \item $\{M_i\} = \{ \langle S_i, q_{init,i}, {\delta}_{int,i}, ta_i, Y_i, {\lambda}_i, X_i, {\delta}_{ext,i} \rangle | i \in D\}$ sú jednotlivé definície atomických modelov z množiny $D$
+  \item $\{I_i\}$ pre každý atomický model z $D$ je definovaná množina modelov, na ktoré má vplyv, teda modely, ktoré sú prepojené s daným atomickým modelom v smere, že výstupný signál daného modelu je napojený na vstupný signál modelu, na ktorý má vplyv
+  \item $X_{self}$ je množina vstupných signálov zloženého modelu, ktorými sa dá model ovládať z vonku
+  \item $Y_{self}$ je množina výstupných signálov zloženého modelu, ktorými model komunikuje so svojím okolím
+  \item $\text{\textit{select}}$ je funckcia, ktorá určuje prioritu v skupine konfliktných modelov, prepojovaním atomických modelov sa môže stať, že v rovnakom momente bude chcieť viacero modelov poslať výstupný signál do jedného modelu, táto funkcia určuje, ktorý z nich bude mať prednosť
+  \item  
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \section{Popis simulačného modelu}
 Na začiatok je potrebné definovať základné prvky modelu (viď obrázok~\ref{fig:simulacny_model}), ich stavy a vzťahy medzi nimi.
