@@ -92,21 +92,6 @@ Najdôležitejšou časťou bude časový rozpis, ktorý bude obsahovať odchody
 Na základe informácii získaných z priebehu simulácie sa následne tento rozpis ohodnotí a toto ohodnotenie sa využije v genetickom algoritme na optimalizáciu časového rozpisu.
 Viac informácií o optimalizácii a genetickom algoritme je v kapitole~\ref{optimalizacia}.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 \section{DEVS formalizmus}
 Na modelovanie bol použitý formalizmus DEVS (Discrete Event System Specification).
 Všetky informácie o tomto formalizme v tejto sekcii boli čerpané zo zborníka z konferencie WSC 2018~\cite{tendeloo2018discrete}, kde je DEVS podrobne popísaný.
@@ -182,51 +167,221 @@ Zložený model je definovaný ako sedmica $\langle D, \{M_i\}, \{I_i\}, X_{self
   \item $X_{self}$ je množina vstupných signálov zloženého modelu, ktorými sa dá model ovládať z vonku
   \item $Y_{self}$ je množina výstupných signálov zloženého modelu, ktorými model komunikuje so svojím okolím
   \item $\text{\textit{select}}$ je funckcia, ktorá určuje prioritu v skupine konfliktných modelov, prepojovaním atomických modelov sa môže stať, že v rovnakom momente bude chcieť viacero modelov poslať výstupný signál do jedného modelu, táto funkcia určuje, ktorý z nich bude mať prednosť
-  \item  
+  \item $\{Z_{i,j}\}$ je množina prepojení medzi atomickými modelmi, slúži ako mapovacia funkcia medzi výstupným signálom jedného modelu a vstupným signálom druhého modelu, takto sa dajú prepoiť vstupné a výstupné signalý nie len atomických modelov, ale aj samotného zloženého modelu
 \end{itemize}
+Príklad zloženého modelu bude ukázaný neskôr v následujúcej sekcii kde bude popísaný model použitý v simulácii problému, ktorý rieši táto práca.
+Jeden príklad, ktorý pri tejto práci veľmi pomohol pochopiť ako sa atomické modely skladajú do zložených je popísaný v článku~\cite{seo2014devs}.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\subsection*{Zhrnutie}
+DEVS formalizmus umožňuje definíciu atomocických modelov, ktorým je možné priradiť stavy, prechody medzi nimi, vstupné a výstupné signály, a definovať ich správanie.
+Tieto atomické modely sa dajú spájať do zložených modelov definovaním väzieb medzi nimi.
+Všetky informácie o DEVS formalizme, definície jednotlivých prvkov a aj príklady sú čerpané zo zborníka z konferencie WSC 2018~\cite{tendeloo2018discrete}.
+Zároveň sú v tomto zborníku uvedené aj príklady kódu napísané v jazyku \texttt{Python}, s použitím knižnice \texttt{PythonPDEVS}.
+Trochu zložitejšie, no za to podrobnejšie a formálnejšie vysvetlenie DEVS formalizmu je popísané v originálnej špecifikácii v knihe~\cite{zeigler2000theory}.
 
 \section{Popis simulačného modelu}
-Na začiatok je potrebné definovať základné prvky modelu (viď obrázok~\ref{fig:simulacny_model}), ich stavy a vzťahy medzi nimi.
+Na začiatok je potrebné definovať základné atomické prvky modelu (viď obrázok~\ref{fig:simulacny_model}), ich stavy a prepojenie medzi nimi.
 Simulačný model je zložený z troch hlavných častí, tými sú:
 \begin{itemize}
-  \item \textbf{Kalendár udalostí} --- dôležitý pre plánovanie udalostí v modeli
-  \item \textbf{Model správania zastávky} --- dôležitý pre príchod a odchod cestujúcich
-  \item \textbf{Model správania vozidla} --- dôležitý pre prepravu cestujúcich medzi zastávkami
+  \item \textbf{Atomický model zastávky} --- dôležitý pre príchod a odchod cestujúcich
+  \item \textbf{Atomický model vozidla} --- dôležitý pre prepravu cestujúcich medzi zastávkami
 \end{itemize}
+
+V simulácii sa budú nachádzať viaceré inštancie modelu zastávky, každá reprezentujúca jednu zastávku na linke.
+Vozidiel bude taktiež viacero, neberieme do úvahy fizcké vozidlá a fakt, že v reálnom živote sa tieto vozidlá na linke v priebehú dňa niekoľkokrát otočia.
+Dôležitá je trasa, ktorú prejdu, preto jedna inštancia modelu vozidla reprezentuje jednu cestu, ktorú vozidlo prejde, inými slovami jeden spoj MHD.
+Cestujúcich v modeli nie je potrebné reprezentovať ako samostatný atomický model, sú reprezentovaní len jedným číslom, časom kedy prišli na zastávku.
+Sú súčasťou modelu zastávky, konkrétne tej na ktorej čakajú.
+
+\newpage
+\subsection*{Atomický model zastávky}\label{model_zastavky}
+
+Model zastávky slúži na reprezentáciu jednotlivých zastávok na linke.
+Každá reálna zastávka je v systéme ako samostatná inštancia modelu zastávky.
+Je pasívna, to znamená, že jej vnútorný stav sa plne odvíja od aktivácie jej vstupných signálov.
+Ako je vidieť vo formálnej definícii, tento model nemá definované žiadne interné prechody, ani výstupné signály.
+
+\[\langle S_i, q_{init,i}, {\delta}_{int,i}, ta_i, Y_i, {\lambda}_i, X_i, {\delta}_{ext,i} \rangle\]
+\[S = \{\text{Cestujúci čakajú}, \text{Vozidlo na zastávke}, \text{Cestujúci nastupojú} \}\]
+\[q_{init} = \text{Cestujúci čakajú}\]
+\[\delta_{int} = \emptyset\]
+\[ta = \{ \text{Cestujúci čakajú} \rightarrow \infty, \text{Vozidlo na zastávke} \rightarrow \infty, \text{Cestujúci nastupojú} \rightarrow \infty \}\]
+\[Y = \emptyset\]
+\[\lambda = \emptyset\]
+\[X = \{\text{\textit{?Vozidlo\_prišlo}}, \text{\textit{?Začiatok\_nastupovania}}, \text{\textit{?Koniec\_nastupovania}} \}\]
+\[\delta_{ext} = \{ (\text{Cestujúci čakajú, \textit{?Vozidlo\_prišlo}}) \rightarrow \text{Vozidlo na zastávke},\]
+\[(\text{Vozidlo na zastávke, \textit{?Začiatok\_nastupovania}}) \rightarrow \text{Cestujúci nastupojú},\]
+\[(\text{Cestujúci nastupojú, \textit{?Koniec\_nastupovania}}) \rightarrow \text{Cestujúci čakajú} \}\]
+
+Na obrázku~\ref{fig:model_zastavky} je graficky znázornený stavový automat.
+Je na ňom vidieť tri stavy modelu, a prechody medzi nimi, ktoré sú zapríčinené tromi vstupnými signálmi.
+Stavy modelu sú popísané v tabuľke~\ref{tab:stavy_zastavky} a akcie, ktoré sa vykonajú pri príchode vstupného signálu sú popísané v tabuľke~\ref{tab:inputs_zastavky}.
+To kedy sa tieto vstupné signály aktivujú bude popísané neskôr v rámci definície zloženého modelu.
+
+\begin{figure}[h]\label{fig:model_zastavky}
+  \centering
+  \includegraphics[width=0.6\textwidth]{DEVS-zastavka-sk.drawio.pdf}
+  \caption{Stavový automat modelu zastávky}
+\end{figure}
+
+\begin{table}[h]\label{tab:stavy_zastavky}
+  \centering
+  \begin{tabularx}{\textwidth}{|l|X|}
+    \hline
+    \textbf{Stav} & \textbf{Popis} \\ \hline
+    Cestujúci čakajú & na zastávke nie je žiadne vozidlo \\ \hline
+    Vozidlo na zastávke & na zastávku práve prišlo vozidlo \\ \hline
+    Cestujúci nastupojú & cestujúci nastupujú do vozidla \\ \hline
+  \end{tabularx}
+  \caption{Stavy modelu zastávky}
+\end{table}
+
+\begin{table}[h]\label{tab:inputs_zastavky}
+  \centering
+  \begin{tabularx}{\textwidth}{|l|X|}
+    \hline
+    \textbf{Vstupný signál} & \textbf{Akcia ktorú spúšťa} \\ \hline
+    ?Vozidlo\_prišlo & výpočet časového intervalu medzi posledným príchodom vozidla a terajším príchodom\\ \hline
+    ?Začiatok\_nastupovania & generovanie príchodov cestujúcich \\ \hline
+    ?Koniec\_nastupovania & prepísanie času posledného príchodu vozidla \\ \hline
+  \end{tabularx}
+  \caption{Vstupné signály modelu zastávky}
+\end{table}
+
+\subsubsection*{Generovanie príchodov cestujúcich}
+Cestujúci sa generujú na základne exponenciálneho rozdelenia s parametrom $\lambda$.
+Tento parameter je v rámci jednej zastávky každú hodinu iný, pretože počet prichádzajúcich cestujúcich sa v priebehu dňa mení.
+V algoritme~\ref{algoritmus_generovanie_cestujucich} je popísaný proces generovania cestujúcich na zastávke.
+Ak by stačil počet cestujúcich, ktorý za daný časový interval prišli, stačilo by nám Poissonovo rozdelenie.
+Avšak pre výpočet doby čakania na zastávke je potrebné vedieť aj čas príchodu jednotlivých cestujúcich.
+Preto je použité exponenciálne rozdelenie, ktoré generuje náhodný časový interval medzi príchodami jednotlivých cestujúcich.
+Pripočítaním tohto intervalu k aktuálnemu modelovému času sa získa čas príchodu cestujúceho.
+Modelový čas sa o tento vygenerovaný časový údaj posunie.
+Tento proces sa opakuje až dokým modelový čas nedosiahne čas príchodu ďalšieho vozidla.
+
+\vspace*{\dimexpr0.5\baselineskip\relax}
+\begin{algorithm}[H]\label{algoritmus_generovanie_cestujucich}
+\caption{Generovanie cestujúcich}
+  získanie $\lambda$ pre danú zastáku a hodinu\;
+  \While{modelový čas < čas príchodu vozidla} {
+    vygenerovanie času príchodu cestujúceho\;
+    pridanie cestujúceho do fronty\;
+    zmena modelového času na čas príchodu cestujúceho\;
+  }
+\end{algorithm}
+
+\newpage
+\subsection*{Atomický model vozidla}\label{model_vozidla}
+
+Každé vozidlo, respektíve jedna trasa ktorú vozidlo podľa časového rozpisu prejde, je reprezentovaná jednou inštanciou modelu vozidla.
+
+\[\langle S_i, q_{init,i}, {\delta}_{int,i}, ta_i, Y_i, {\lambda}_i, X_i, {\delta}_{ext,i} \rangle\]
+\[S = \{\text{Na ceste}, \text{Na zastávke}, \text{Nakladá cestujúcich} \}\]
+\[q_{init} = \text{Na ceste}\]
+\[\delta_{int} = \{ \text{Na ceste} \rightarrow \text{Na zastávke}, \text{Na zastávke} \rightarrow \text{Nakladá cestujúcich},\]
+\[\text{Nakladá cestujúcich} \rightarrow \text{Na ceste} \}\]
+\[ta = \{ \text{Na ceste} \rightarrow \infty, \text{Na zastávke} \rightarrow 0, \text{Nakladá cestujúcich} \rightarrow 0 \}\]
+\[Y = \{\text{\textit{!Príchod}}, \text{\textit{!Nastupovanie}}, \text{\textit{!Odchod}} \}\]
+\[\lambda = \{ \text{Na ceste} \rightarrow \text{\textit{!Príchod}}, \text{Na zastávke} \rightarrow \text{\textit{!Nastupovanie}},\]
+\[\text{Nakladá cestujúcich} \rightarrow \text{\textit{!Odchod}} \}\]
+\[X = \{ \text{\textit{?Príchod\_vozidla}} \}\]
+\[\delta_{ext} = \{ (\text{Na ceste, \textit{?Príchod\_vozidla}}) \rightarrow \text{Na zastávke} \}\]
+
+Na obrázku~\ref{fig:model_vozidla} je graficky znázornený stavový automat.
+Je na ňom vidieť tri stavy modelu, a prechody medzi nimi, ktoré zároveň generujú tri výstupné signály.
+Stavy modelu sú popísané v tabuľke~\ref{tab:stavy_vozidla} a akcie, ktoré sa vykonajú spolu s generovaním výstupných signálov sú popísané v tabuľke~\ref{tab:outputs_vozidla}.
+Vo formánej definícii vyššie je vidieť, že model vozidla zotrváva v stave \textbf{Na ceste} neobmedzene dlho.
+Prechod z tohoto stavu je podmienený príchodom vstupného signálu \textit{?Príchod\_vozidla}.
+Pôvod tohoto signálu bude popísaný neskôr v rámci definície zloženého modelu.
+
+\begin{figure}[h]\label{fig:model_vozidla}
+  \centering
+  \includegraphics[width=0.6\textwidth]{DEVS-vozidlo-sk.drawio.pdf}
+  \caption{Stavový automat modelu vozidla}
+\end{figure}
+
+\begin{table}[h]\label{tab:stavy_vozidla}
+  \centering
+  \begin{tabularx}{\textwidth}{|l|X|}
+    \hline
+    \textbf{Stav} & \textbf{Popis} \\ \hline
+    Na ceste & vozidlo sa pohybuje medzi zastávkami \\ \hline
+    Na zastávke & vozidlo práve prišlo na zastávku \\ \hline
+    Nakladá cestujúcich & vozidlo nakladá cestujúcich \\ \hline
+  \end{tabularx}
+  \caption{Stavy modelu vozidla}
+\end{table}
+
+\begin{table}[h]\label{tab:outputs_vozidla}
+  \centering
+  \begin{tabularx}{\textwidth}{|l|X|}
+    \hline
+    \textbf{Výstupný signál} & \textbf{Akcia ktorú spúšťa} \\ \hline
+    !Príchod & výstup cestujúcich podľa koeficientu danej zastávky, ak je koeficient 0,7, vystúpi 70 percent cestujúcich \\ \hline
+    !Nastupovanie & nástup cestujúcich do vozidla, tí čo sa nezmestia odchádzajú nespokojní \\ \hline
+    !Odchod & okrem aktivácie prepojených vstupných signálov sa nič iné nevykonáva \\ \hline
+  \end{tabularx}
+  \caption{Výstupné signály modelu vozidla}
+\end{table}
+
+\subsubsection*{Obsluha zastávky}
+
+Každé vozidlo začina na prvej zastávke v rozpise, ale počas simulácie sa musí pohybovať medzi zastávkami.
+Proces ktorý vozidlo vykoná pri príchode na každú zastávku je popísaný v algoritme~\ref{algoritmus_obsluha_zastavky}.
+Tento proces je vyvolaný príchodom vstupného signálu \textit{?Príchod\_vozidla}.
+
+\vspace*{\dimexpr0.5\baselineskip\relax}
+\begin{algorithm}[H]\label{algoritmus_obsluha_zastavky}
+\caption{Obsluha zastávky}
+  prepojenie výstupných signálov vozidla so vstupnými signálmi zastávky\;
+  aktivácia výstupného signálu \textbf{!Príchod}\;
+  aktivácia výstupného signálu \textbf{!Nastupovanie}\;
+  aktivácia výstupného signálu \textbf{!Odchod}\;
+\end{algorithm}
+
+\newpage
+\subsection*{Zložený model}
+Zložený simulačný model v tejto práci pozostáva z dvoch atomických modelov, modelu zastávky a vozidla.
+Prepojenie týchto atomických modelov je graficky znázornené na obrázku~\ref{fig:simulacny_model}.
+
+\[D = \{ \text{Zastávka}, \text{Vozidlo} \}\]
+\[M_{Zastávka} = \langle \ldots \rangle\]
+\[M_{Vozidlo} = \langle \ldots \rangle\]
+\[I_{Zastávka} = \emptyset\]
+\[I_{Vozidlo} = \{ \text{Zastávka} \}\]
+\[X_{self} = \emptyset\]
+\[Y_{self} = \{ \text{\textit{!Príchod\_vozidla}} \}\]
+\[\text{\textit{select}} = \{ \{Zastávka,Vozidlo\} \rightarrow Vozidlo, \{Zastávka\} \rightarrow Zastávka, \{Vozidlo\} \rightarrow Vozidlo \}\]
+\[Z_{i,j,self} = \{ \text{\textit{!Príchod\_vzidla}} \rightarrow \text{\textit{?Príchod\_vzidla}},\]
+\[\text{\textit{!Príchod}} \rightarrow \text{\textit{?Vozidlo\_prišlo}},\]
+\[\text{\textit{!Nastupovanie}} \rightarrow \text{\textit{?Začiatok\_nastupovania}},\]
+\[\text{\textit{!Odchod}} \rightarrow \text{\textit{?Koniec\_nastupovania}} \}\]
+
+Samotný zložený model má navyše ešte jeden výstupný signál, ktorý je prepojený s modelom vozidla.
+Týmto signálom sa spúšťa rutina obsluhy zastávky v rámci vozidla.
+Vozidlo sa dostáva zo stavu \textbf{Na ceste} do stavu \textbf{Na zastávke}.
+Výstupný signál zloženého modelu \textit{!Príchod\_vzidla} sa generuje pri spracovaní udalosti z kalenádara udalostí, oba tieto koncepty sú popísané neskôr.
 
 \begin{figure}[h]\label{fig:simulacny_model}
   \centering
   \includegraphics[width=0.9\textwidth]{DEVS-sk.drawio.pdf}
-  \caption{Schéma simulačného modelu}
+  \caption{Schéma zloženého simulačného modelu}
 \end{figure}
 
-V simulácii sa budú nachádzať viaceré inštancie modelu zastávky, každá reprezentujúc jednu zastávku na linke.
-Vozidiel bude taktiež viacero, neberieme do úvahy fizcké vozidlá a fakt, že v reálnom živote sa tieto vozidlá na linke v priebehú dňa niekoľkokrát otočia.
-Dôležitá je trasa, ktorú prejdu, preto jedna inštancia modelu vozidla reprezentuje jednu cestu, ktorú vozidlo prejde.
-Cestujúcich v modeli nie je potrebné reprezentovať ako samostatný model, sú reprezentovaní len jedným číslom, časom kedy prišli na zastávku.
-Sú súčasťou modelu zastávky, konkrétne tej na ktorej čakajú.
+\subsection*{Udalosť príchodu vozidla na zastávku}
+Udalosť práchodu vozidla na zastávku vyvolá spustenie rutiny obslúženia cestujúcich, ktorí čakajú na zastávke. Táto rutina je popísaná v algoritme~\ref{algoritmus_obsluha_zastavky}.
+Parametre tejto udalosti sú:
+\begin{itemize}
+  \item \textbf{Čas príchodu} --- čas, kedy vozidlo prichádza na zastávku
+  \item \textbf{Zastávka} --- zastávka, na ktorej sa udalosť vykonáva
+  \item \textbf{Vozidlo} --- vozidlo, ktoré prichádza na zastávku
+\end{itemize}
+
+Vozidlo začína udalosť v stave \textbf{Na ceste}, príde na zastávku uvedenú v parametri udalosti, vykoná rutinu nástupu a výstupu cestujúcich a odíte na ďalšiu zastávku.
+Za jednu udalosť teda vozidlo prejde všetkými svojimi vnútorným stavmi, udalosť končí opäť v stave \textbf{Na ceste}.
+Zastávka ktorá je uvedená v parametri udalosti tiež prejde všetkými svojimi vnútornými stavmi vďaka prepojeniu výstupných signálov vozidla so vstupnými signálmi zastávky.
 
 \subsection*{Kalendár udalostí}
-
 Kalendár udalostí je základným prvkom modelu, ktorý riadi priebeh simulácie.
 V kalendári sú uložené všetky udalosti, ktoré sa majú v modeli stať.
 Tieto udalosti sú v prípade tohto modelu príchody vozidiel na zastáky.
@@ -270,121 +425,6 @@ Pseudokód riadenia simulácie je popísaný v algoritme~\ref{algoritmus_riadeni
 Pre potreby časového rozpisu stačí simulovať jeden deň, v prípade rôznych rozpisov v čase pracovnýh dní a v čase sviatkov a víkendov ide o kompletne iný rozpis, ktorý sa musí simulovať a optimalizovať samostatne.
 Všetky naplánované udalsti by mali byť v rámci jedného dňa, preto by simulácia mala končiť vždy vyprázdnením kalendára udalostí a nie prekročením koncového času.
 
-\subsection*{Model správania zastávky}\label{model_zastavky}
-
-Model správania zastávky slúži na reprezentáciu jednotlivých zastávok na linke.
-Každá reálna zastávka je v systéme ako samostatná inštancia modelu správania zastávky.
-Je pasívna, to znamená, že jej vnútorný stav sa plne odvíja od prichádzajúcich vonkajších signálov.
-
-\begin{figure}[h]\label{fig:model_zastavky}
-  \centering
-  \includegraphics[width=0.6\textwidth]{DEVS-zastavka-sk.drawio.pdf}
-  \caption{Stavový automat modelu zastávky}
-\end{figure}
-
-Ako je vidieť na obrázku~\ref{fig:model_zastavky}, model zastávky má tri stavy:
-\begin{itemize}
-  \item \textbf{Cestujúci čakajú} --- na zastávke nie je žiadne vozidlo
-  \item \textbf{Vozidlo na zastávke} --- na zastávku práve prišlo vozidlo
-  \item \textbf{Cestujúci nastupojú} --- cestujúci nastupujú do vozidla
-\end{itemize}
-
-Dôleťitejšie sú však vstupné signály, ktorími je celý stavový automat riadený.
-Zároveň sa pri prechodoch medzi stavmi vykonávajú akcie pre obsluhu cestujúcich.
-
-Vstpný signál \textbf{?Vozidlo\_prišlo} mení vnútorný stav zastávky z \textbf{Cestujúci čakajú} na \textbf{Vozidlo na zastávke}.
-Taktiež s vypočíta dĺžka intervalo medzi posledným príchodom vozidla a terajším príchodom.
-Tento údaj slúži pre vygenerovanie prichádzajúcich cestujúcich.
-
-Vstupný signál \textbf{?Začiatok\_nastupovania} mení vnútorný stav zastávky z \textbf{Vozidlo na zastávke} na \textbf{Cestujúci nastupujú}.
-Pri tomto prechode sa vygenerujú časi všetkých cestujúcich, ktorí prišli od posledného príchodu vozidla.
-
-Vstupný signál \textbf{?Koniec\_nastupovania} mení vnútorný stav zastávky z \textbf{Cestujúci nastupujú} na \textbf{Cestujúci čakajú}.
-Prepíše sa čas posledného príchodu vozidla.
-
-\subsubsection{Generovanie cestujúcich}
-
-Cestujúci sa generujú na základne exponenciálneho rozdelenia s parametrom $\lambda$.
-Tento parameter je v rámci jednej zastávky každú hodinu iný, pretože počet prichádzajúcich cestujúcich sa v priebehu dňa mení.
-V algoritme~\ref{algoritmus_generovanie_cestujucich} je popísaný proces generovania cestujúcich na zastávke.
-Ak by stačil počet cestujúcich, ktorý za daný časový interval prišli, stačilo by nám Poissonovo rozdelenie.
-Avšak pre výpočet doby čakania na zastávke je potrebné vedieť aj čas príchodu jednotlivých cestujúcich.
-Preto je použité exponenciálne rozdelenie, ktoré generuje náhodný časový interval medzi príchodami jednotlivých cestujúcich.
-Pripočítaním tohto intervalu k aktuálnemu modelovému času sa získa čas príchodu cestujúceho.
-Modelový čas sa o tento vygenerovaný časový údaj posunie.
-Tento proces sa opakuje až dokým modelový čas nedosiahne čas príchodu ďalšieho vozidla.
-
-\vspace*{\dimexpr0.5\baselineskip\relax}
-\begin{algorithm}[H]\label{algoritmus_generovanie_cestujucich}
-\caption{Generovanie cestujúcich}
-  získanie $\lambda$ pre danú zastáku a hodinu\;
-  \While{modelový čas < čas príchodu vozidla} {
-    vygenerovanie času príchodu cestujúceho\;
-    pridanie cestujúceho do fronty\;
-    zmena modelového času na čas príchodu cestujúceho\;
-  }
-\end{algorithm}
-
-\subsection*{Model správania vozidla}\label{model_vozidla}
-
-Každé vozidlo, respektíve jedna trasa ktorú vozidlo podľa časového rozpisu prejde, je reprezentovaná jednou inštanciou modelu vozidla.
-Model správania vozidla je na rozdiel od modelu zastávky aktívnym prvkom, nemá žiadne vstupné signály, iba výstupné.
-Tieto výstupné signály sú prepojené so vstupnými signálmi modelu zastávky ako je vidieť na obrázku~\ref{fig:simulacny_model}.
-
-\begin{figure}[h]\label{fig:model_vozidla}
-  \centering
-  \includegraphics[width=0.6\textwidth]{DEVS-vozidlo-sk.drawio.pdf}
-  \caption{Stavový automat modelu vozidla}
-\end{figure}
-
-Na obrázku~\ref{fig:model_vozidla} je vidieť stavový automat modelu vozidla.
-Model správania vozidla má tri stavy:
-\begin{itemize}
-  \item \textbf{Na ceste} --- vozidlo sa pohybuje medzi zastávkami
-  \item \textbf{Na zastávke} --- vozidlo práve prišlo na zastávku
-  \item \textbf{Nakladá cestujúcich} --- vozidlo nakladá cestujúcich
-\end{itemize}
-
-Výsupný signál \textbf{!Príchod} mení vnútorný stav vozidla z \textbf{Na ceste} na \textbf{Na zastávke}.
-Pri tomto prechode vystúpia cestujúci podľa koeficientu zastávky na ktorú vozidlo práve prišlo.
-Napríklad ak je vo vozidle 100 cestujúcich a koeficient zastávky je 0.7, pretože sa jedná o prestupnú zastávku, vystúpi 70 cestujúcich.
-
-Výstupný signál \textbf{!Nastupovanie} mení vnútorný stav vozidla z \textbf{Na zastávke} na \textbf{Nakladá cestujúcich}.
-Zastávka, na ktorej sa vozidlo práve nachádza tento signál zachytí a vygeneruje nových cestujúcich.
-Pokiaľ to dovoluje kapacita vozidla, všetci cestujúci nastúpia.
-V opačnom prípade nastúpia len tí, ktorí prišli skôr a tí čo prišli neskôr musia ostať čakať na ďalšie vozidlo.
-
-Výstupný signál \textbf{!Odchod} mení vnútorný stav vozidla z \textbf{Nakladá cestujúcich} na \textbf{Na ceste}.
-Informuje sa príslušná zastávka a nič viac sa pri tomto prechode nevykonáva.
-
-\subsubsection{Obsluha zastávky}
-
-Každé vozidlo začina na prvej zastávke v rozpise, ale počas simulácie sa musí pohybovať medzi zastávkami.
-Proces ktorý vozidlo vykoná pri príchode na každú zastávku je popísaný v algoritme~\ref{algoritmus_obsluha_zastavky}.
-
-\vspace*{\dimexpr0.5\baselineskip\relax}
-\begin{algorithm}[H]\label{algoritmus_obsluha_zastavky}
-\caption{Obsluha zastávky}
-  prepojenie výstupných signálov vozidla so vstupnými signálmi zastávky\;
-  aktivácia výstupného signálu \textbf{!Príchod}\;
-  aktivácia výstupného signálu \textbf{!Nastupovanie}\;
-  aktivácia výstupného signálu \textbf{!Odchod}\;
-\end{algorithm}
-
-\subsection*{Udalosť príchodu vozidla na zastávku}
-
-Udalosť práchodu vozidla na zastávku vyvolá spustenie rutiny obslúženia cestujúcich, ktorí čakajú na zastávke. Táto rutina je popísaná v algoritme~\ref{algoritmus_obsluha_zastavky}.
-Parametre tejto udalosti sú:
-\begin{itemize}
-  \item \textbf{Čas príchodu} --- čas, kedy vozidlo prichádza na zastávku
-  \item \textbf{Zastávka} --- zastávka, na ktorej sa udalosť vykonáva
-  \item \textbf{Vozidlo} --- vozidlo, ktoré prichádza na zastávku
-\end{itemize}
-
-Vozidlo začína udalosť v stave \textbf{Na ceste}, príde na zastávku uvedenú v parametri udalosti, vykoná rutinu nástupu a výstupu cestujúcich a odíte na ďalšiu zastávku.
-Za jednu udalosť teda vozidlo prejde všetkými svojimi vnútorným stavmi, udalosť končí v opaäť v stave \textbf{Na ceste}.
-Zastávka ktorá je uvedená v parametri udalosti tiež prejde všetkými svojimi vnútornými stavmi na základe posielaných signálov od vozidla.
-
 \section{Implementácia simulačného modelu}
 
 Simulačný model je implementovaný v jazyku Python bez využitia externých knižníc.
@@ -420,11 +460,7 @@ Na generovanie náhodného príchodu cestujúcich slúži trieda \texttt{RandomN
 
 Zber a agregácia štatistík (viď kapitola~\ref{vystupy_simulacneho_modelu}) sú implementované v triedach \texttt{Statistics}, \texttt{BusStatistics} a \texttt{BusStopStatistics}.
 
-Podrobnejšie informácie o kóde sa nachádzajú v programovej dokumentácii, v prílohe~\ref{prilohy_programova_dokumentacia}.
-Programová dokumentácia bola vygenerovaná pomocou nástroja Sphinx\footnote{\url{https://www.sphinx-doc.org}}.
-
-\section{Výstupy simulačného modelu}
-\label{vystupy_simulacneho_modelu}
+\section{Výstupy simulačného modelu}\label{vystupy_simulacneho_modelu}
 
 Hlavný zmisel simulácie je zber informácií, ktoré by sme inak museli získať z pozorovania reélnej prevádzky linky.
 Efektivitu každého jedného časového rozpisu, ktorý program vytvorí je potrebné otestovať a ohodnotiť aby sme našli ten najlepší z nich, skôr ako ho začneme používať v reálnej prevádzke.
