@@ -7,6 +7,11 @@ build:
   tools:
     python: "3.10"
 
+# Install dependencies
+python:
+  install:
+    - requirements: requirements.txt
+
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
    configuration: pdocs/conf.py
