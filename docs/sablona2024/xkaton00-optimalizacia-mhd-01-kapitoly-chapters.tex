@@ -365,7 +365,7 @@ Výstupný signál zloženého modelu \textit{!Príchod\_vzidla} sa generuje pri
 
 \begin{figure}[h]\label{fig:simulacny_model}
   \centering
-  \includegraphics[width=0.9\textwidth]{DEVS-sk.drawio.pdf}
+  \includegraphics[width=\linewidth]{DEVS-sk.drawio.pdf}
   \caption{Schéma zloženého simulačného modelu}
 \end{figure}
 
@@ -425,41 +425,6 @@ Pseudokód riadenia simulácie je popísaný v algoritme~\ref{algoritmus_riadeni
 
 Pre potreby časového rozpisu stačí simulovať jeden deň, v prípade rôznych rozpisov v čase pracovnýh dní a v čase sviatkov a víkendov ide o kompletne iný rozpis, ktorý sa musí simulovať a optimalizovať samostatne.
 Všetky naplánované udalsti by mali byť v rámci jedného dňa, preto by simulácia mala končiť vždy vyprázdnením kalendára udalostí a nie prekročením koncového času.
-
-\section{Implementácia simulačného modelu}
-
-Simulačný model je implementovaný v jazyku Python bez využitia externých knižníc.
-Trieda \texttt{EventCalendar} obsahuje kód základných operácií nad kalendárom udalostí:
-\begin{itemize}
-  \item \texttt{isEmpty()} --- vráti \texttt{True} ak je kalendár udalostí prázdny, inak \texttt{False}
-  \item \texttt{addEvent(event)} --- pridá udalosť do kalendára
-  \item \texttt{getNextEvent()} --- vráti udalosť s najmenším časom v kalendári a odstráni ju z kalendára
-\end{itemize}
-
-Trieda \texttt{Event} reprezentuje jednu udalosť.
-Obsahuje:
-\begin{itemize}
-  \item metóda \texttt{\_\_call\_\_()} --- vykoná akciu
-  \item atribúty \texttt{action} a \texttt{actionArgument}
-\end{itemize}
-
-len metódu \texttt{\_\_call\_\_()}, ktorá vykoná udalosť uloženú v atribúte \texttt{action} s argumentami volania uloženými v \texttt{actionArgument}.
-
-Modelový čas je implementovaný v triede \texttt{Simulation}.
-Obsahuje:
-\begin{itemize}
-  \item metódy \texttt{forward(time)} a \texttt{getHour()}
-  \item atribúty \texttt{startTime}, \texttt{currentTime} a \texttt{endTime}
-\end{itemize}
-
-Trieda \texttt{BusStop} reprezentuje jednu zastávku, rovnako tak trieda \texttt{Bus} reprezentuje jedno vozidlo.
-Tieto dve triedy sú písané podľa vzoru DEVS formalizmu. Obsahujú stavy, vstupné a výstupné signály a metódy, v ktorých sa nachádzjú akcie pre jednotlivé prechody medzi stavmi.
-Cestujúci sú reprezentovaní ako pole čisel, časov ich príchodu.
-Toto pole je parametrom \texttt{waitingPassengersArrivalTimes} jednotlivých inštancií triedy \texttt{BusStop}.
-
-Na generovanie náhodného príchodu cestujúcich slúži trieda \texttt{RandomNumberGenerator}, ktorá obsahuje statické metódy na generovanie náhodných čísel.
-
-Zber a agregácia štatistík (viď kapitola~\ref{vystupy_simulacneho_modelu}) sú implementované v triedach \texttt{Statistics}, \texttt{BusStatistics} a \texttt{BusStopStatistics}.
 
 \section{Výstupy simulačného modelu}\label{vystupy_simulacneho_modelu}
 
@@ -792,8 +757,6 @@ V prípade časového rozpisu MHD je chromozóm reprezentovaný ako pole obsahuj
   \caption{Príklad chromozómu}
 \end{table}
 
-
-
 \subsection*{Fitness funkcia --- výpočet cieľov}
 Pre ohodnotenie kvality časového rozpisu sa zvolili dva hlavné ciele:
 \begin{itemize}
@@ -815,10 +778,9 @@ Nakoniec sa vypočíta priemer spokojnosti všetkých cestujúcich.
 Hodnota sa pohybuje od 0 do 1 a genetický algoritmus uprednostňuje vyššie hodnoty, teda spokojnejších cestujúcich.
 
 Celkové náklady na prevádzku linky sú vypočítané z počtu spojov v časovom rozpise, kapacity použitých vozidiel, dĺžky trasy a nákladov na jeden miestokilometer.
-Jeden miestokilometer je definovaný ako vzdialenosť jedného kilometra, ktorú prejde jedno miesto vo vozidle.
+Jeden miestokilometer je definovaný ako vzdialenosť jedného kilometra, ktorú prejde jedno miesto vo vozidle~\cite{iata_rpks_asks}.
 Potom vozidlo s kapacitu 80 miest, ktoré prejde 10 km, prejde 800 miestokilometrov.
 Miestokilometre sa môžu násobiť aj počtom vozidiel, potom dve takéto vozidlá by prešli 1600 miestokilometrov.
-Informácie o tejto jednotke sú prevzaté od pána Michala Hlaváčka, zamestnanca Dopravného podniku mesta Brno, pomoocu mailovej komunikácie, ktorá je dostupná v prílohe~\ref{prilohy_mail_hlavacek}.
 Tento údaj je potrebný pretože náklady vo finančnom pláne Dopravného podniku mesta Brno sú udávané v českých korunách na 100 miestokilometrov.
 Tento finančný plán je súčasťou zmluvy medzi mestom Brno a Dopravným podníkom mesta Brna~\cite{brno_dpmb_smlouva_2023}.
 Celý výpočet nákladov na prevádzku linky teda závisí od štyroch premenných a je daný vzorcom:
@@ -1849,7 +1811,7 @@ Tento súbor sa nachádza aj v ostatných adresároch.
 \end{table}
 
 V tabuľke~\ref{tab:source_codes} je stručne popísaný obsah jednotlivých súborov zdrojových kódov a ich rozdelenie medzi jednotlié moduly.
-Podrobnejší popis celého zdrojového kódu je dostupný v programovej dokumentácii~\cite{pdocs}, ktorá bola vygenerovaná pomocou nástroja \texttt{Sphinx}~\cite{sphinx_doc}.
+Podrobnejší popis celého zdrojového kódu je dostupný v programovej dokumentácii~\cite{sprout_docs}, ktorá bola vygenerovaná pomocou nástroja \texttt{Sphinx}~\cite{sphinx_doc}.
 
 \chapter{Záver}\label{zaver}
 
