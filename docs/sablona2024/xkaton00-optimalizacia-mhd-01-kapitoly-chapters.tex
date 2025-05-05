@@ -810,7 +810,7 @@ Tieto základné informácie o fungovaní multi-objektívnych genetických algor
   \centering
   \begin{tikzpicture}
     \begin{axis}[
-      xlabel={Náklady (nižšie je lepšie)},
+      xlabel={Náklady v Kč (nižšie je lepšie)},
       ylabel={Spokojnosť (vyššie je lepšie)},
       title={Príklad Pareto frontu},
       grid=major,
@@ -1202,7 +1202,7 @@ Tieto experimenty sú bližšie popísané v kapitole~\ref{experimenty}.
   \centering
   \begin{tikzpicture}
     \begin{axis}[
-      xlabel={Náklady (nižšie je lepšie)},
+      xlabel={Náklady v Kč (nižšie je lepšie)},
       ylabel={Spokojnosť (vyššie je lepšie)},
       title={Populácia na začiatku a na konci optimalizácie},
       grid=major,
@@ -1812,6 +1812,18 @@ Tento súbor sa nachádza aj v ostatných adresároch.
 
 V tabuľke~\ref{tab:source_codes} je stručne popísaný obsah jednotlivých súborov zdrojových kódov a ich rozdelenie medzi jednotlié moduly.
 Podrobnejší popis celého zdrojového kódu je dostupný v programovej dokumentácii~\cite{sprout_docs}, ktorá bola vygenerovaná pomocou nástroja \texttt{Sphinx}~\cite{sphinx_doc}.
+
+\subsection*{Inštalácia a spustenie aplikácie}
+Postup inštalácie a spustenia aplikácie na lokálnom počítači je nasledovný:
+\begin{enumerate}
+  \item Nainštalujte si \texttt{Python} vo verzii 3.10.
+  \item Nainštalujte si \texttt{pip} vo verzii 24.3.
+  \item (Volitelné) v koreňovom adresári projektu vytvorte virtuálne prostredie príkazom \texttt{python -m venv venv}.
+  \item Aktivujte virtuálne prostredie príkazom \texttt{venv\textbackslash Scripts\textbackslash activate} na Windows alebo \texttt{source venv/bin/activate} na Linuxe.
+  \item Nainštalujte potrebné knižnice príkazom \texttt{pip install -r requirements.txt}.
+  \item Pomocou príkazu \texttt{cd src/sprout} sa presuňte do adresára s aplikáciou.
+  \item Spustite aplikáciu príkazom \texttt{reflex run}.
+\end{enumerate}
 
 \chapter{Záver}\label{zaver}
 
