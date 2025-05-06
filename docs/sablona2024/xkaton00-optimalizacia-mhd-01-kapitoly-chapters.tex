@@ -1,104 +1,97 @@
 \chapter{Úvod}\label{uvod}
 
 Mestskú hromadnú opravu využíva takmer každý človek a preto sa oplatí pracovať na jej efektivite.
-Zmyslom tejto práce je nazrieť do problematiky vytvárania a správy jednotlivých liniek mestksej hromadnej dopravy, ich analýze a optimalizácie.
-Ďalej vytvoriť nástroj, ktorý pomôže analytikom pri vytváraní nových liniek alebo optimalizácii existujúcich.
-Tento nástroj popísať a otestovať na reálnych dátach.
-Výsledkom celej práce by teda malo byť teoretické zefektívnenie mestskej hromadnej dopravy.
+Zmyslom tejto práce je nazrieť do problematiky vytvárania a správy jednotlivých liniek mestksej hromadnej dopravy, ich analýze a optimalizácie, vytvoriť nástroj, ktorý pomôže analytikom pri vytváraní nových liniek alebo optimalizácii existujúcich.
+Výsledkom celej práce je teoretické zefektívnenie mestskej hromadnej dopravy.
 
-Mestská hromadná doprava je systém, ktorý je pre mnoho ľudí veľmi dôležitý, preto sa oplatí investovať čas a námahu do jeho optimalizácie.
-Keďže aj mne je problém s dlhým čakaním na zastávke alebo preplneným autobusm blízky, rozhodol som sa venovať sa práve jemu.
+Mestská hromadná doprava je systém, ktorý je pre ľudí žijúcich v mestách a prímestských oblastiach existenčne dôležitý, preto sa oplatí investovať čas a námahu do jeho optimalizácie.
+Kedže je problematika mestksej hromadnej dopravy aj mne blízka, z pohľadu cestujúceho sa s ňou stretávam každý deň, rozhodol som sa zamerať na túto tému.
 
-Ľudia odnepamäti nachádzjú inspiráciu pre svoje vynálezy v prírode a tomuto trendu neunikla ani informatika, ktorá má od prírody zo všetkých oborov asi najďalej.
-Algoritmy inšpirované prírodov prinášaju riešenia na problémy, ktoré by sme inými spôsobmi vedeli vyriešiť len za nereálne dlhý čas.
-Táto časť informaiky ma veľmi zaujala a preto som sa rozhodol nájsť ďalšie využitie pre jeden z týchto algoritmov.
-Tieto algoritmy sa používajú pre komplexné problémy s veľkým množstvom navzájom sa ovplyvňujúcich premenných.
-Jedným z takýchto problémov možu byť optimalizácie rôznych systémov.
+Ľudia od nepamäti nachádzjú inšpiráciu pre takmer všetky svoje vynálezy v prírode a tomuto trendu neunikla ani informatika, ktorá má od prírody zo všetkých vedných oborov asi najďalej.
+Algoritmy inšpirované prírodou prinášajú riešenia na problémy, ktoré by sme inými spôsobmi vedeli vyriešiť len za nereálne dlhý čas.
+Táto časť informaiky ma veľmi zaujala a preto som sa rozhodol nájsť ďalšie možné využitie pre jeden z týchto algoritmov, ktoré sa používajú pre komplexné problémy s veľkým množstvom navzájom sa ovplyvňujúcich premenných.
 
 Cieľom tejto práce je vytvoriť nástroj, ktorý za pomoci genetického algoritmu a používateľských obmedzení nájde optimálny časový rozpis jednej linky mestskej hromadnej dopravy.
-Zároveň sa tento nástroj bude dať použiť na analýzu už existujúcich rozpisov a ich porovnanie s novými riešeniami.
-Nástroj bude mať uživateľské rozhranie pre rýchlu manipuláciu so vstupnými dátami a prehľadné zobrazenie výsledkov.
+Zároveň sa tento nástroj bude dať použiť na analýzu už existujúcich rozpisov.
+Nástroj obsahuje uživateľské rozhranie pre rýchlu manipuláciu so vstupnými dátami a prehľadné zobrazenie výsledkov.
+Použité technológie boli inšpírované prípadovou štúdiou~\cite{kate2021optimising}, ktorá pomocou simulácie a evolučných algoritmov dokázala optimalizovať cesty autonómnych vozidiel.
 
 Práca je rozdelená na 7 kapitol vrátane úvodu a záveru, z toho najdoležitejšie sú kapitoly~\ref{relevantne_vlastnosti} až~\ref{nastroj}.
 
-Na zostrojenie simulačného modelu treba najprv vyhodnotiť, ktoré vlastnosti reálneho systému sú pre nás relevantné.
-V kapitole~\ref{relevantne_vlastnosti} je popísaná konzultácia s analytikom Dopravného podniku mesta Brno, ktorý poskytol informácie z reálneho života.
-Popísal postupy a metódy, ktoré sa používajú pre optimalizáciu liniek teraz a vytýčil vlastnosti na ktoré je potrebné sa zamerať. 
+Na zostrojenie simulačného modelu je potrebné najprv získať informácie, vlastnosti reálneho systému a vyhodnotiť, ktoré z nich sú pre nás relevantné.
+Kapitolo~\ref{relevantne_vlastnosti} popisuje konzultáciu s analytikom Dopravného podniku mesta Brno, ktorý popísal postupy a metódy, ktoré sa používajú pre optimalizáciu liniek v súčastnosti a vytýčil vlastnosti, na ktoré je dôležité sa zamerať pri simulácii a optimalizácii časového rozpisu linky.
 
-Zo získaných informácií bol vytvorený simulačný model, ktorého popis, stručné zhrnutie implementácie a jednotlivé experimenty s ním sú popísané v kapitole~\ref{simulacny_model}.
+Zo získaných informácií bol následne vytvorený simulačný model, ktorého popis je popísaný v kapitole~\ref{simulacny_model}.
 Výstupy simulačného modelu sú základom pre optimalizáciu časového rozpisu linky.
-Ide o sériu grafov, na ktorých môže používateľ vidieť vyťaženosť linky v priebehu dňa a naprieč zastávkami.
-Tieto informácie poslúžili k validácii simulačného modelu a na ohodnotenie jednotlivých rozpisov.
+Obsahujú sériu grafov, na ktorých používateľ vidí vyťaženosť linky v priebehu dňa a na jednotlivých zastávkach.
+Získané výsledky boli použité k validácii simulačného modelu a na ohodnotenie jednotlivých rozpisov.
 
-V kapitole~\ref{optimalizacia} je popísaný proces optimalizácie časového rozpisu linky mestskej hromadnej dopravy.
-Jednotlivé rozpisy ohodnotené na základe informácií získaných zo simulácie sa použijú ako jedinci v genetickom algoritme.
-Genetický aloritmus bude tieto rozpisy krížiť medzi sebou a mutovať, aby našiel čo najlepšie riešenie.
-Výsledky optimalizácie budú porovnané s pôvodnými rozpismi a ohodnotené.
+Kapitola~\ref{optimalizacia} popisuje proces optimalizácie časového rozpisu linky mestskej hromadnej dopravy.
+Jednotlivé rozpisy ohodnotené na základe štatistík získaných zo simulácie budú použité ako jedinci v genetickom algoritme.
+Genetický aloritmus následne tieto rozpisy kríži medzi sebou a mutuje, aby našiel čo optimálne riešenie.
 
-V kapitole~\ref{experimenty}, sú popísané experimenty optimalizácie.
-Aplikácia a optimalizačný algoritmus sa testoval priebežne počas vývoja.
-V tejto kapitole sú uvedené experimenty, ktoré sa realizovali až po dokončení vývoja.
-Konkrétne ide o experimenty, ktoré skúmajú správanie sa optimalizačného algoritmu vzhľadom na zmeny vstupov ako dĺžka trasy a kapaicta vozidla.
+Kapitola~\ref{experimenty} popisuje experimenty optimalizácie.
+Aplikácia a optimalizačný algoritmus bol testovaný priebežne.
+Kapitola obsahuje konkrétne experimenty, ktoré sa realizovali po dokončení vývoja,
+skúmajúce správanie sa optimalizačného algoritmu vzhľadom na zmeny vstupov ako dĺžka trasy a kapacita vozidla.
 
-Samotný program by v praxi nebol moc použiteľný bez používateľského rozhrania.
-V kapitole~\ref{nastroj} je popísaný návrh a implementácia uživateľského rozhrania analytického nástroja.
-Tento nástroj umožňuje používateľovi jednoducho zadať vstupné dáta, spustiť analýzu a optimalizáciu časového rozpisu a zobraziť výsledky.
-Jednou z najdôležitejších častí tohto rozhrania je zadávanie používateľských obmedzení, ktoré musí výsledny časový rozpis splňovať.
+Samotný algoritmus by nebol v praxi použiteľný bez používateľského rozhrania.
+Kapitola~\ref{nastroj} popisuje návrh a implementácia uživateľského rozhrania analytického nástroja, umožňujúceho používateľovi jednoducho zadať vstupné dáta, spustiť analýzu a optimalizáciu časového rozpisu a vyhodnotiť výsledky.
+Jednou z najdôležitejších častí tohto rozhrania je zadávanie používateľských obmedzení, ktoré musí výsledný časový rozpis obsahovať.
 
-V závere~\ref{zaver} je uvedené zhrnutie dosiahnutých výsledkov práce.
-Táto kpitola taktiež obsahuje možné budúce rozšírenia aplikácie.
+Záver~\ref{zaver} obsahuje zhrnutie dosiahnutých výsledkov tejto bakalárskej práce a možné budúce rozšírenia aplikácie.
 
 \chapter{Relevantné vlastnosti mestskej hromadnej dopravy}\label{relevantne_vlastnosti}
 
-Systém mestkej hromadnej dopravy je veľmi komplexný, každá jeho časť stojí za zváženie možnej optimalizácie.
-Ako prvý krok je teda výber tej časti, ktorá sa bude optimalizovať.
-Pre toto rozhodnutie sú potrebné informácie o reálnom systéme, doterajších postupoch, spôsoboch analýzy a optimalizácie.
+Systém mestkej hromadnej dopravy je veľmi komplexný, obsahuje mnoho častí, na ktoré by bolo vhodné sa zamerať z pohľadu optimalizácie.
+Prvým rozhodnutím je výber častí mestskej hromadnej dopravy, ktorá je vhodná na optimalizáciu.
+Pre uskutočnenie správneho rozhodnutia sú potrebné informácie o reálnom systéme, doterajších postupoch, spôsoboch analýzy a optimalizácie.
 
 \section{Konzultácia s analytikom Dopravného podniku}
-Pre získanie potrebných informácií som sa obrátil na pána Michaela Kříže, analytika Dopravného podniku mesta Brno.
-Stretnutie s pánom Křížom prebehlo 7. 10. 2024 v priestoroch dopravného podniku.
-Vďaka získaným informáciam som sa rozhodol zamerať na analýzu a optimalizáciu časového rozpisu jednej linky mestskej hromadnej dopravy.
-Optimalizovať viac ako jednu linku naraz by pravdepodobne prinieslo lepšie výsledky, ale to len teoreticky.
-V praxi by sa to z finančných a časových dôvodov neoplatilo.
-Zhodli sme sa na tom, že najlepšie bude optimalizovať jednu linku a to iba jedným smerom, pretože druhý smer linky sa dá považovať za samostatnú linku, minimálne v rámci nárokov cestujúcich.
+Pre získanie relevantných informácií mi bolo doporučené obrátiť sa na pána Michaela Kříže, analytika Dopravného podniku mesta Brno (DPMB).
+Stretnutie s pánom Křížom prebehlo 7. 10. 2024 v priestoroch administratívy DPMB.
+Na základe získaných informácií som sa rozhodol zamerať na analýzu a optimalizáciu časového rozpisu jednej linky mestskej hromadnej dopravy.
+Optimalizácia viac ako jednej linky naraz by pravdepodobne prinieslo lepšie výsledky, ale len v čisto teoretickej rovine.
+V praxi je to z finančných a časových dôvodov neefektívne.
+Vzájomne sme sa zhodli na tom, že najlepšie bude optimalizovať jednu linku a to iba jedným smerom, nakoľko druhý smer linky sa dá považovať za samostatnú linku, minimálne v rámci nárokov cestujúcej verejnosti.
 
-\section{Získané informácie}
+\section{Získané relevantné vlastnosti}
 
-Informácie, ktoré sú dôležité pre analýzu a optimalizáciu časového rozpisu linky mestskej hromadnej dopravy sú:
+Vlastnosti, ktoré sú potrebné pre správnu analýzu a optimalizáciu časového rozpisu linky mestskej hromadnej dopravy sú:
 
 \begin{itemize}
-  \item \textbf{Počet zastávok} --- potrebné pre zostavenie samotného rozpisu aj simulačného modelu, nie je dôležitý len počet, ale aj informácie o jednotlivých zastávkach.
-  \item \textbf{Čas potrebný na prejdenie od jednej zastávky k druhej} --- tiež je to súčasťou rozpisu, zároveň sa touto informáciou riadi plánovanie udalostí v simulačnom modeli, viac v kapitole~\ref{simulacny_model}.
-  \item \textbf{Počet odchodov vozidla z jeho prvej zastávky za celý deň} --- celkový počet vozidiel, respektíve ciest ktoré vozidlá danej linky za deň absolvujú, tento parameter je dôležitý pre optimalizáciu, pre dopravný podnik je výhodné mať čo najmenší počet vozidiel, ktoré sú v prevádzke, šetrí to palivo, údržbu aj ľudské zdroje.
-  \item \textbf{Počet odchodov vozidla z jeho prvej zastávky za hodinu} --- myslí sa tým jeden riadok v časovom rozpise, mal by byť priamo úmerný priemernému počtu cestujúcich čakajúcich na danú linku v danej hodine.
-  \item \textbf{Počet cestujúcich čakajúcich na jednotlivých zastávkach} --- časový rozpis musí dostatočne uspokojiť potreby všetkých cestujúcich, zároveň je ťažké získať presné hodnoty. Pri reálnom použití by sa mala spraviť štúdia ktorá by tieto hodnoty získala. Na návrh pána Kříže som na testovacie účely použil hodnoty, ktoré sú úmerné počtu odchádzajúcich vozidiel v hodine a kapacite vozidiel, povedal, že linky v Brne sú už celkom dobre naplánované a preto by mali byť tieto hodnoty približne správne. Jedná sa o nemenný vstup optimalizácie, ktorému sa má časový rozpis prispôsobiť, preto je teoreticky jedno aké hodnoty budú do systému zadané.
-  \item \textbf{Doba čakania na zastávke} --- užitočný parameter pre analytika, ktorý slúži na overenie toho, či je časový rozpis kvalitný.
-  \item \textbf{Počet cestujúcich vo vozidie} --- tretí dôležitý parameter pre optimalizáciu, vysoká preplnenosť vozidla má za dôsledok nekomfortné cestovanie, na druhej strane, príliš prázdne vozidlo je neefektívne využité zo strany dopravného podniku.
-  \item \textbf{Kapacita vozidla} --- každé vozidlo prenesie naraz len isté množstvo cestujúcich, zároveň sa od preplnenosti vozidla odvíja komfort cestujúcich. Informácie o kapacite konkrétných vozidiel sú dostupné na webovej stránke dopravného podniku~\cite{dpmb_vozy}.
-  \item \textbf{Miest na sedenie} --- To či si cestujúci zadne alebo bude musieť počas jazdy stáť ovplyvňuje jeho spokojnosť a komfort. Čím viac ľudí bude musieť stáť v preplnených vozidlách, tým horšie bude rozpis ohodnotený.
-  \item \textbf{Počet cestujúcich, ktorí nenásúpia kvôli preplnenosti vozidla} --- v extrémnych prípadoch može nastať, že bude vozidlo úplne plné a zvyšní cestujúci sa do neho už nezmestia, rozpisy pri ktorých sa toto bude diať budú veľmi negatívne ohodnocované aby sa táto nežiadúca situácia čo najviac eliminova, viac v kapitole o optimalizácii~\ref{optimalizacia}.
-  \item \textbf{Počet vystupujúcich cestujúcich na jednotlivých zastávkach} --- tento parameter je potrebný pre simuláciu, keďže do vozidla s istou kapacitou priebežne nastupuje veľa cestujúcich, musia z neho aj vystupovať, každá zastávka bude mať pridelený koeficient dôležitosti, ktorý bude určovať aký podiel cestujúcich vystúpi na danej zastávke. Na prvej zastávke je tento koeficient 0, keďze na nej cestujúci iba nastupojú, na poslednej zastávke je koeficient 1, keďže na nej cestujúci iba vystupujú a na zastávkach medzi nimi sa koeficient mení podľa toho aký podiel cestujúcich na danej zastávke priemerne vystupuje, prestupné zastávky budú mať vyšší koeficient ako tie, ktoré cestujúcich len zbierajú.
-  \item \textbf{Náklady na prevádzku} --- Náklady na prevádzku sú potrebné pre optimalizáciu, pretože zo strany dopravného podniku chceme, aby boli čo najnižšie. Náklady jednotlivých typov vozidiel sú súčasťou finančného plánu zahrnutého v zmluve~\cite{brno_dpmb_smlouva_2023}.
-  \item \textbf{Dĺžka trasy} --- Tento parameter je potrebný na výpočet celkových nákladov na prevádzku linky. Dĺžky jednotlivých liniek sú spomenuté v zmluve~\cite{brno_dpmb_smlouva_2023}.
+  \item \textbf{Počet zastávok a informácie o nich} --- potrebné pre zostavenie samotného rozpisu aj simulačného modelu, nie je dôležitý len počet, ale aj informácie o jednotlivých zastávkach.
+  \item \textbf{Čas jazdy medzi jednotlivými zastávkami} --- je to dôležitou súčasťou rozpisu, zároveň sa touto informáciou riadi plánovanie udalostí v simulačnom modeli, viac v kapitole~\ref{simulacny_model}.
+  \item \textbf{Počet odchodov vozidla z jeho prvej zastávky za celý deň} --- celkový počet vozidiel, respektíve ciest, ktoré vozidlá danej linky za deň absolvujú. Tento parameter je dôležitý pre optimalizáciu, nakoľko pre dopravný podnik je výhodné mať čo najmenší počet vozidiel, ktoré vykonávajú obsluhu jednotlivých trás, šetrí to palivo, údržbu aj ľudské zdroje.
+  \item \textbf{Počet odchodov vozidla z jeho prvej zastávky za hodinu} --- myslí sa tým jeden riadok časového rozpisu, mal by byť priamo úmerný priemernému počtu cestujúcich čakajúcich na danú linku v danej hodine.
+  \item \textbf{Počet cestujúcich čakajúcich na jednotlivých zastávkach} --- časový rozpis by mal v čo najvyššej miere uspokojiť prepravné potreby väčšiny cestujúcich. Na prvotné testovacie účely boli použité hodnoty zodpovedajúce reálnemu počtu odchádzajúcich vozidiel za hodinu a ich kapacite dlhodobo existujúcej linky DPMB, ktorá je do veľej miery praxou optimalizovaná.
+  \item \textbf{Doba čakania na zastávke} --- užitočný parameter pre analytika, ktorý slúži na overenie kvality časového rozpisu, ak je doba čakania na zastávke dlhá, je to známka toho, že rozpis nie je optimálny a je potrebné ho upraviť.
+  \item \textbf{Počet cestujúcich vo vozidie} --- dôležitý parameter pre optimalizáciu. Vysoká preplnenosť vozidla má za dôsledok nekomfortné cestovanie, na druhej strane, príliš prázdne vozidlo je neefektívne pre dopravný podnik.
+  \item \textbf{Kapacita vozidla} --- každé vozidlo má presne definovanú maximálnu kapacitu, zároveň sa od naplnenosti vozidla odvíja komfort cestujúcich. Informácie o kapacite konkrétných vozidiel sú získané z webovej stránky dopravného podniku~\cite{dpmb_vozy}.
+  \item \textbf{Miest na sedenie} --- to či cestujúci sedí alebo bude musieť počas jazdy stáť ovplyvňuje jeho spokojnosť, ktorá výrazne ovplivňuje ohodnotenie rozpisu z pohľadu optimalizácie.
+  \item \textbf{Počet cestujúcich, ktorí nenásúpia kvôli preplnenosti vozidla} --- v extrémnych prípadoch može nastať situácia, že bude vozidlo úplne plné a nebude možné aby do neho pristúpilo viac cestujúcich. Rozpisy, pri ktorých táto situácia vznikne budú veľmi negatívne ohodnocované z pohľadu optimalizácie aby sa táto nežiadúca situácia čo najviac eliminovala, viac v kapitole o optimalizácii~\ref{optimalizacia}.
+  \item \textbf{Počet vystupujúcich cestujúcich na jednotlivých zastávkach} --- tento parameter je potrebný pre simuláciu, keďže do vozidla s presne definovanou kapacitou cestujúci priebežne nastupujú aj vystupujú. Každá zastávka má pridelený koeficient dôležitosti, ktorý určuje aký podiel z prepravovaných cestujúcich vystúpi na danej zastávke. Prvá zastávka má tento koeficient 0 (cestujúci iba nastupujú), na konečnej zastávke je koeficient 1 (cestujúci iba vystupujú). Na ostatných zastávkach sa koeficient mení podľa toho, aký podiel cestujúcich na danej zastávke priemerne vystupuje pričom prestupné zastávky majú vyšší koeficient ako neprestupné.
+  \item \textbf{Náklady na prevádzku} --- náklady na prevádzku sú hlavným parametrom optimalizácie časových rozpisov jednotlivých liniek vyžadovaným DPMB. Náklady jednotlivých typov vozidiel sú súčasťou finančného plánu zahrnutého v zmluve~\cite{brno_dpmb_smlouva_2023}.
+  \item \textbf{Dĺžka trasy} --- parameter potrebný na výpočet celkových nákladov na prevádzku linky. Dĺžky jednotlivých liniek sú obsahom zmluvy~\cite{brno_dpmb_smlouva_2023}.
 \end{itemize}
 
-\chapter{Simulačný model linky mestskej hormadnej dopravy}\label{simulacny_model}
+\chapter{Simulačný model linky mestskej hromadnej dopravy}\label{simulacny_model}
 
-Druhým hlavným krokom po získaní potrebných informácií je zostrojenie simulačného modelu.
-Problém optimalizácie časového rozpisu linky mestskej hromadnej dopravy je veľmi komplexný a vytvoriť program ktorý by ho riešil analyticky by bolo veľmi náročné.
-Preto sme sa rozhodli vytvoriť simulačný model, ktorý bude reprezentovať jednu linku MHD.
-Jeho súčasťou budú jednotlivé zastávky, vozidlá a cestujúci, ktorí budú vozidlá využívať na prepravu medzi zastávkami.
-Najdôležitejšou časťou bude časový rozpis, ktorý bude obsahovať odchody jednotlivých vozidiel.
-Na základe informácii získaných z priebehu simulácie sa následne tento rozpis ohodnotí a toto ohodnotenie sa využije v genetickom algoritme na optimalizáciu časového rozpisu.
+Krokom následujúcim po získaní potrebných informácií je zostrojenie simulačného modelu.
+Problém optimalizácie časového rozpisu linky mestskej hromadnej dopravy je veľmi komplexný.
+Program, ktorý by tento problém riešil analytickým spôsobom by bol veľmi neefektívny a mal by priveľkú časovú zložitosť výpočtu.
+Preto sme sa rozhodli využiť stochastický spôsob, to jest vytvorenie simulačného modelu, ktorého výstupy budú následne využité pri optimalizácii genetickým algoritmom.
+Simulačný model bude reprezentovať jednu linku MHD, idúcu jedným smerom.
+Časti modelu sú zastávky, vozidlá a cestujúci, pričom najdôležitejšou časťou je časový rozpis, ktorý obsahuje odchody jednotlivých vozidiel.
+Na základe informácii získaných z priebehu simulácie sa rozpis ohodnotí a toto ohodnotenie sa využije v genetickom algoritme na jeho optimalizáciu.
 Viac informácií o optimalizácii a genetickom algoritme je v kapitole~\ref{optimalizacia}.
 
-\section{DEVS formalizmus}
+\section{DEVS --- Discrete Event System Specification}
 Na modelovanie bol použitý formalizmus DEVS (Discrete Event System Specification).
-Všetky informácie o tomto formalizme v tejto sekcii boli čerpané zo zborníka z konferencie WSC 2018~\cite{tendeloo2018discrete}, kde je DEVS podrobne popísaný.
+Všetky informácie o tomto formalizme v tejto sekcii sú čerpané zo zborníka z konferencie WSC 2018~\cite{tendeloo2018discrete}, kde je DEVS podrobne popísaný.
 Tento formalizmus je založený na diskrétnych udalostiach, pri ktorých sa celý modelový systém posúva skokovo v čase dopredu.
 Pri každej takejto udalosti sa mení vnútorný stav systému a vykonáva sa nejaká akcia.
-Veľkou výhodov tohto formalizmu je jeho modularita.
-Atomické modely sa dajú pomocou vstupných a výstupných signálov prepojiť do zloženého modelu.
+Veľkou výhodou tohto formalizmu je jeho modularita --- atomické modely sa dajú pomocou vstupných a výstupných signálov prepojiť do zloženého modelu.
 
 \subsection*{Atomické modely}
 Atomický model je základným stavebným kameňom DEVS formalizmu.
@@ -107,10 +100,10 @@ Tento model je definovaný ako štvorica $\langle S, q_{init}, {\delta}_{int}, t
   \item $S$ je množina stavov modelu
   \item $q_{init}$ je počiatočný stav modelu, ktorý je prvkom množiny $S$, v pôvodnej definícii DEVS tento prvok neexistoval, no podľa zdroja~\cite{tendeloo2018discrete} je potrebný pre správne fungovanie modelu
   \item ${\delta}_{int}$ je funkcia, ktorá určuje prechody medzi stavmi modelu
-  \item $ta$ je funkcia, ktorá určuje ako dlho model zotrvá v danom stave, musí byť definovaná pre každý stav modelu
+  \item $ta$ je funkcia, ktorá určuje, ako dlho model zotrvá v danom stave, musí byť definovaná pre každý stav modelu
 \end{itemize}
 
-Ako príklad môže poslúžiť jednoduchý model semafóru, ten sa za normálnej prevádzky nachádza v troch stavoch.
+Vhodným príkladom je jednoduchý model semafóru, ten sa za normálnej prevádzky nachádza v troch stavoch.
 Raz svieti na zeleno, inokedy na oranžovo alebo červeno.
 Každá farba zotrvá rozsvietená stanovený čas a tiež je dané, aká farba bude následovať.
 Formálny zápis by potom vyzeral takto:
@@ -122,26 +115,26 @@ Formálny zápis by potom vyzeral takto:
 \[ta = \{ \text{Zelená} \rightarrow 57, \text{Oranžová} \rightarrow 3, \text{Červená} \rightarrow 60 \}\]
 
 \subsection*{Výstupné signály}
-Výstupné signály slúžia na to aby model mohol komunikovať so svojím okolím, konkrétne aby mohol informovať o zmenách svojeho vnútorného stavu.
+Výstupné signály slúžia na to, aby model mohol komunikovať so svojím okolím, konkrétne aby mohol informovať o zmenách svojeho vnútorného stavu.
 Každý model môže mať viacero výstupných signálov, ktoré sú definované ako množina $Y$.
 Okrem výstupných signálov, musia byť definované aj výstupné funkcie $\lambda$.
 \begin{itemize}
   \item $Y$ je množina výstupných signálov modelu, pomocou ktorých dáva model vedieť svojmu okoliu, že sa nastala nejaká udalosť, napríklad, že sa zmenil jeho stav
   \item $\lambda$ je funkcia, ktorá slúži na generovanie samotnej udalosti, táto funkcia je definovaná pre každý stav modelu a určuje aké výstupné signály sa budú odosielať do okolia modelu pri prechode do iného stavu
 \end{itemize}
-Pre príklad semafóru môžeme definovať výstupné signály, koré nám povedia, aká farba práve svieti na semafóre.
-Pri definovaní týchto signálov a výstupnej funkcie si treba dať pozor na to, že tieto udalosti sú diskrétne a keď chceme signalizovať napríklad to, že semafór svieti na červeno, musíme to urobiť ešte pred prechodom do stavu červenej farby a teda táto funkcia musí byť definovaná pre stav oranžovej farby.
+V náväznosti na príklad semafóru môžeme definovať výstupné signály, koré nám povedia, aká farba práve svieti na semafóre.
+Pri definovaní týchto signálov a výstupnej funkcie treba dbať na to, že tieto udalosti sú diskrétne a keď chceme signalizovať napríklad to, že semafór svieti na červeno, musíme to urobiť ešte pred prechodom do stavu červenej farby a teda táto funkcia musí byť definovaná pre stav oranžovej farby.
 \[Y = \{\text{\textit{svieti\_zelená}}, \text{\textit{svieti\_oranžová}}, \text{\textit{svieti\_červená}} \}\]
 \[\lambda = \{ \text{Zelená} \rightarrow \text{\textit{svieti\_oranžová}}, \text{Oranžová} \rightarrow \text{\textit{svieti\_červená}}, \text{Červená} \rightarrow \text{\textit{svieti\_zelená}} \}\]
 
 \subsection*{Vstupné signály}
-Vstupné signály slúžia na ovládanie modelu z vobnku.
+Vstupné signály slúžia na ovládanie modelu z vonku.
 Napríklad spomínaný semafór doteraz pracoval len na základe svojich vnútorne definovaných stavov a prechodov medzi nimi.
 V prípade, že nastane nejaká externá udalosť, napríklad sa niekto rozhodne semafór vypnúť, je potrebné nejakým spôsobom informovať model o tejto udalosti.
 O to sa starajú vstupné signály, ktoré sú definované ako množina $X$.
 Taktiež je potrebné definovať aj funkciu externých prechodov ${\delta}_{ext}$.
 \begin{itemize}
-  \item $X$ je množina vstupných signálov modelu, ide o externé udalosti, ktorých príchod model očakáva
+  \item $X$ je množina vstupných signálov modelu, externých udalostí, ktorých príchod model očakáva
   \item ${\delta}_{ext}$ je funkcia, ktorá určuje do akého stavu sa model dostane po príchode externého signálu, táto funkcia je definovaná pre každý stav modelu a pre každý vstupný signál
 \end{itemize}
 Príklad so semafórom rozšírime o nový stav, v ktorom je semafór vypnutý.
@@ -158,7 +151,7 @@ Potom môžeme pridať vstupné signály a funkciu externých prechodov.
 \subsection*{Zložené modely}
 Jedinou úlohou zložených modelov je definícia vzťahov medzi jednotlivými atomickými modelmi.
 Zložený model nemá definované žiadne vlastné stavy ani prechody medzi nimi.
-To všetko je zabalené v atomických modeloch, z ktorých sa skladá.
+To všetko je súčasťou atomických modeloch, z ktorých sa skladá.
 Zložený model je definovaný ako sedmica $\langle D, \{M_i\}, \{I_i\}, X_{self}, Y_{self}, \text{\textit{select}}, \{Z_{i,j}\} \rangle$, kde:
 \begin{itemize}
   \item $D$ je množina všetkých atomických modelov, ktoré sú súčasťou zloženého modelu
@@ -167,38 +160,36 @@ Zložený model je definovaný ako sedmica $\langle D, \{M_i\}, \{I_i\}, X_{self
   \item $X_{self}$ je množina vstupných signálov zloženého modelu, ktorými sa dá model ovládať z vonku
   \item $Y_{self}$ je množina výstupných signálov zloženého modelu, ktorými model komunikuje so svojím okolím
   \item $\text{\textit{select}}$ je funckcia, ktorá určuje prioritu v skupine konfliktných modelov, prepojovaním atomických modelov sa môže stať, že v rovnakom momente bude chcieť viacero modelov poslať výstupný signál do jedného modelu, táto funkcia určuje, ktorý z nich bude mať prednosť
-  \item $\{Z_{i,j}\}$ je množina prepojení medzi atomickými modelmi, slúži ako mapovacia funkcia medzi výstupným signálom jedného modelu a vstupným signálom druhého modelu, takto sa dajú prepoiť vstupné a výstupné signalý nie len atomických modelov, ale aj samotného zloženého modelu
+  \item $\{Z_{i,j}\}$ je množina prepojení medzi atomickými modelmi, slúži ako mapovacia funkcia medzi výstupným signálom jedného modelu a vstupným signálom druhého modelu, takto sa dajú prepojiť vstupné a výstupné signály nie len atomických modelov, ale aj samotného zloženého modelu
 \end{itemize}
-Príklad zloženého modelu bude ukázaný neskôr v následujúcej sekcii kde bude popísaný model použitý v simulácii problému, ktorý rieši táto práca.
-Jeden príklad, ktorý pri tejto práci veľmi pomohol pochopiť ako sa atomické modely skladajú do zložených je popísaný v článku~\cite{seo2014devs}.
+Príklad zloženého modelu bude popísaný v následujúcej sekcii, kde bude použitý na modelovanie linky mestskej hromadnej dopravy.
+Skladanie atomických modelov do žložených mi pomohol lepše pochopiť zrozumitelne popísaný príklad v článku~\cite{seo2014devs}.
 
 \subsection*{Zhrnutie}
-DEVS formalizmus umožňuje definíciu atomocických modelov, ktorým je možné priradiť stavy, prechody medzi nimi, vstupné a výstupné signály, a definovať ich správanie.
-Tieto atomické modely sa dajú spájať do zložených modelov definovaním väzieb medzi nimi.
+DEVS formalizmus umožňuje definíciu atomických modelov, ktorým je možné priradiť stavy, prechody medzi nimi, vstupné a výstupné signály, ako aj definovať ich správanie.
+Tieto atomické modely sa dajú spájať do zložených modelov definovaním väzieb medzi nimi navzájom.
 Všetky informácie o DEVS formalizme, definície jednotlivých prvkov a aj príklady sú čerpané zo zborníka z konferencie WSC 2018~\cite{tendeloo2018discrete}.
-Zároveň sú v tomto zborníku uvedené aj príklady kódu napísané v jazyku \texttt{Python}, s použitím knižnice \texttt{PythonPDEVS}.
-Trochu zložitejšie, no za to podrobnejšie a formálnejšie vysvetlenie DEVS formalizmu je popísané v originálnej špecifikácii v knihe~\cite{zeigler2000theory}.
+Tento zborník obsahuje aj príklady kódu napísané v jazyku \texttt{Python}, s použitím knižnice \texttt{PythonPDEVS}.
+Trochu zložitejším, no o to podrobnejším a formálnejším spôsobom je popísané vysvetlenie DEVS formalizmu je popísané v originálnej špecifikácii v knihe~\cite{zeigler2000theory}.
 
 \section{Popis simulačného modelu}
-Na začiatok je potrebné definovať základné atomické prvky modelu (viď obrázok~\ref{fig:simulacny_model}), ich stavy a prepojenie medzi nimi.
-Simulačný model je zložený z troch hlavných častí, tými sú:
+Ako prvé je potrebné definovať základné atomické prvky modelu, ich stavy a prepojenie medzi nimi.
+Simulačný model je zložený z dvoch hlavných častí, tými sú:
 \begin{itemize}
   \item \textbf{Atomický model zastávky} --- dôležitý pre príchod a odchod cestujúcich
   \item \textbf{Atomický model vozidla} --- dôležitý pre prepravu cestujúcich medzi zastávkami
 \end{itemize}
 
-V simulácii sa budú nachádzať viaceré inštancie modelu zastávky, každá reprezentujúca jednu zastávku na linke.
-Vozidiel bude taktiež viacero, neberieme do úvahy fizcké vozidlá a fakt, že v reálnom živote sa tieto vozidlá na linke v priebehú dňa niekoľkokrát otočia.
-Dôležitá je trasa, ktorú prejdu, preto jedna inštancia modelu vozidla reprezentuje jednu cestu, ktorú vozidlo prejde, inými slovami jeden spoj MHD.
-Cestujúcich v modeli nie je potrebné reprezentovať ako samostatný atomický model, sú reprezentovaní len jedným číslom, časom kedy prišli na zastávku.
-Sú súčasťou modelu zastávky, konkrétne tej na ktorej čakajú.
+Simulácia obsahuje viaceré inštancie modelu zastávky, každá reprezentujúca jednu konkrétnu zastávku na linke,
+viaceré inštancie modelu vozidla, ktoré reprezentujú jednu cestu od nástupnej na konečnú zastávku (nejedná sa o fyzické vozidlá).
+Atomický model cestujúcich nie je potrebný, sú súčasťou modelu zastávky, na ktorej čakajú.
+Sú reprezentovaní jedným číslom, časom kedy prišli na zastávku.
 
 \newpage
 \subsection*{Atomický model zastávky}\label{model_zastavky}
 
-Model zastávky slúži na reprezentáciu jednotlivých zastávok na linke.
-Každá reálna zastávka je v systéme ako samostatná inštancia modelu zastávky.
-Je pasívna, to znamená, že jej vnútorný stav sa plne odvíja od aktivácie jej vstupných signálov.
+Model zastávky predstavuje jednotlivé zastávky na linke, každá reálna zastávka je v systéme ako samostatná inštancia modelu zastávky.
+Je pasívný, to znamená, že jeho vnútorný stav sa plne odvíja od aktivácie vstupných signálov.
 Ako je vidieť vo formálnej definícii, tento model nemá definované žiadne interné prechody, ani výstupné signály.
 
 \[\langle S_i, q_{init,i}, {\delta}_{int,i}, ta_i, Y_i, {\lambda}_i, X_i, {\delta}_{ext,i} \rangle\]
@@ -213,10 +204,10 @@ Ako je vidieť vo formálnej definícii, tento model nemá definované žiadne i
 \[(\text{Vozidlo na zastávke, \textit{?Začiatok\_nastupovania}}) \rightarrow \text{Cestujúci nastupojú},\]
 \[(\text{Cestujúci nastupojú, \textit{?Koniec\_nastupovania}}) \rightarrow \text{Cestujúci čakajú} \}\]
 
-Na obrázku~\ref{fig:model_zastavky} je graficky znázornený stavový automat.
-Je na ňom vidieť tri stavy modelu, a prechody medzi nimi, ktoré sú zapríčinené tromi vstupnými signálmi.
+Na obrázku~\ref{fig:model_zastavky} je graficky znázornený stavový automat modelu zastávky.
+Zobrazuje tri stavy modelu a prechody medzi nimi, ktoré sú vyvolané tromi vstupnými signálmi.
 Stavy modelu sú popísané v tabuľke~\ref{tab:stavy_zastavky} a akcie, ktoré sa vykonajú pri príchode vstupného signálu sú popísané v tabuľke~\ref{tab:inputs_zastavky}.
-To kedy sa tieto vstupné signály aktivujú bude popísané neskôr v rámci definície zloženého modelu.
+To, kedy sa tieto vstupné signály aktivujú, bude popísané v rámci definície zloženého modelu neskôr.
 
 \begin{figure}[h]\label{fig:model_zastavky}
   \centering
@@ -231,7 +222,7 @@ To kedy sa tieto vstupné signály aktivujú bude popísané neskôr v rámci de
     \textbf{Stav} & \textbf{Popis} \\ \hline
     Cestujúci čakajú & na zastávke nie je žiadne vozidlo \\ \hline
     Vozidlo na zastávke & na zastávku práve prišlo vozidlo \\ \hline
-    Cestujúci nastupojú & cestujúci nastupujú do vozidla \\ \hline
+    Cestujúci nastupujú & cestujúci nastupujú do vozidla \\ \hline
   \end{tabularx}
   \caption{Stavy modelu zastávky}
 \end{table}
@@ -241,7 +232,7 @@ To kedy sa tieto vstupné signály aktivujú bude popísané neskôr v rámci de
   \begin{tabularx}{\textwidth}{|l|X|}
     \hline
     \textbf{Vstupný signál} & \textbf{Akcia ktorú spúšťa} \\ \hline
-    ?Vozidlo\_prišlo & výpočet časového intervalu medzi posledným príchodom vozidla a terajším príchodom\\ \hline
+    ?Vozidlo\_prišlo & výpočet časového intervalu medzi posledným príchodom a aktuálnym príchodom vozidla \\ \hline
     ?Začiatok\_nastupovania & generovanie príchodov cestujúcich \\ \hline
     ?Koniec\_nastupovania & prepísanie času posledného príchodu vozidla \\ \hline
   \end{tabularx}
@@ -249,21 +240,21 @@ To kedy sa tieto vstupné signály aktivujú bude popísané neskôr v rámci de
 \end{table}
 
 \subsubsection*{Generovanie príchodov cestujúcich}
-Cestujúci sa generujú na základne exponenciálneho rozdelenia s parametrom $\lambda$.
+Generovanie príchodov cestujúcich prebieha na základe exponenciálneho rozdelenia s parametrom $\lambda$ v časovom intervale medzi príchodom posledného a aktuálneho vozidla.
 Tento parameter je v rámci jednej zastávky každú hodinu iný, pretože počet prichádzajúcich cestujúcich sa v priebehu dňa mení.
-V algoritme~\ref{algoritmus_generovanie_cestujucich} je popísaný proces generovania cestujúcich na zastávke.
-Ak by stačil počet cestujúcich, ktorý za daný časový interval prišli, stačilo by nám Poissonovo rozdelenie.
-Avšak pre výpočet doby čakania na zastávke je potrebné vedieť aj čas príchodu jednotlivých cestujúcich.
-Preto je použité exponenciálne rozdelenie, ktoré generuje náhodný časový interval medzi príchodami jednotlivých cestujúcich.
-Vzťah medzi týmito dvoma rozdeleniami je a podrobnejší popis exponenciálneho rozdelenia je v článku~\cite{geraghty2022exponential}.
-Pripočítaním tohto intervalu k aktuálnemu modelovému času sa získa čas príchodu cestujúceho.
-Modelový čas sa o tento vygenerovaný časový údaj posunie.
-Tento proces sa opakuje až dokým modelový čas nedosiahne čas príchodu ďalšieho vozidla.
+V algoritme~\ref{algoritmus_generovanie_cestujucich} je popísaný proces generovania príchodu cestujúcich na zastávku.
+Ak by nám na správne fungovanie modelu stačil iba počet cestujúcich, na jeho výpočet by sme použili Poissonovo rozdelenie.
+Pre výpočet doby čakania na zastávke je potrebné vedieť aj čas príchodu jednotlivých cestujúcich.
+Preto je v simulačnom modeli použité exponenciálne rozdelenie, ktoré generuje náhodný časový interval medzi príchodami jednotlivých cestujúcich.
+Vzťah medzi týmito dvoma rozdeleniami a podrobnejší popis exponenciálneho rozdelenia je v článku~\cite{geraghty2022exponential}.
+Pripočítaním náhodného časového intervalu k aktuálnemu modelovému času sa vygeneruje čas príchodu cestujúceho, ktorý sa uloží do fronty predstavujúcej všetkých cestujúcich čakajúcich na zastávke.
+Modelový čas sa zmení na čas príchodu cestujúceho.
+Tento proces sa opakuje až kým modelový čas nedosiahne čas príchodu aktuálneho vozidla.
 
 \vspace*{\dimexpr0.5\baselineskip\relax}
 \begin{algorithm}[H]\label{algoritmus_generovanie_cestujucich}
-\caption{Generovanie cestujúcich}
-  získanie $\lambda$ pre danú zastáku a hodinu\;
+\caption{Generovanie príchodov cestujúcich}
+  získanie $\lambda$ pre danú zastávku a hodinu\;
   \While{modelový čas < čas príchodu vozidla} {
     vygenerovanie času príchodu cestujúceho\;
     pridanie cestujúceho do fronty\;
@@ -274,7 +265,7 @@ Tento proces sa opakuje až dokým modelový čas nedosiahne čas príchodu ďal
 \newpage
 \subsection*{Atomický model vozidla}\label{model_vozidla}
 
-Každé vozidlo, respektíve jedna trasa ktorú vozidlo podľa časového rozpisu prejde, je reprezentovaná jednou inštanciou modelu vozidla.
+Každé vozidlo, respektíve jedna trasa, ktorú vozidlo podľa časového rozpisu prejde, je reprezentovaná jednou inštanciou modelu vozidla.
 
 \[\langle S_i, q_{init,i}, {\delta}_{int,i}, ta_i, Y_i, {\lambda}_i, X_i, {\delta}_{ext,i} \rangle\]
 \[S = \{\text{Na ceste}, \text{Na zastávke}, \text{Nakladá cestujúcich} \}\]
@@ -288,12 +279,12 @@ Každé vozidlo, respektíve jedna trasa ktorú vozidlo podľa časového rozpis
 \[X = \{ \text{\textit{?Príchod\_vozidla}} \}\]
 \[\delta_{ext} = \{ (\text{Na ceste, \textit{?Príchod\_vozidla}}) \rightarrow \text{Na zastávke} \}\]
 
-Na obrázku~\ref{fig:model_vozidla} je graficky znázornený stavový automat.
-Je na ňom vidieť tri stavy modelu, a prechody medzi nimi, ktoré zároveň generujú tri výstupné signály.
+Na obrázku~\ref{fig:model_vozidla} je graficky znázornený stavový automat modelu vozidla.
+Zobrazuje tri stavy modelu a prechody medzi nimi, ktoré zároveň generujú tri výstupné signály.
 Stavy modelu sú popísané v tabuľke~\ref{tab:stavy_vozidla} a akcie, ktoré sa vykonajú spolu s generovaním výstupných signálov sú popísané v tabuľke~\ref{tab:outputs_vozidla}.
-Vo formánej definícii vyššie je vidieť, že model vozidla zotrváva v stave \textbf{Na ceste} neobmedzene dlho.
+Vo formálnej definícii vyššie je uvedené, že model vozidla zotrváva v stave \textbf{Na ceste} neobmedzene dlho.
 Prechod z tohoto stavu je podmienený príchodom vstupného signálu \textit{?Príchod\_vozidla}.
-Pôvod tohoto signálu bude popísaný neskôr v rámci definície zloženého modelu.
+Pôvod tohoto signálu bude popísaný v rámci definície zloženého modelu neskôr.
 
 \begin{figure}[h]\label{fig:model_vozidla}
   \centering
@@ -308,7 +299,7 @@ Pôvod tohoto signálu bude popísaný neskôr v rámci definície zloženého m
     \textbf{Stav} & \textbf{Popis} \\ \hline
     Na ceste & vozidlo sa pohybuje medzi zastávkami \\ \hline
     Na zastávke & vozidlo práve prišlo na zastávku \\ \hline
-    Nakladá cestujúcich & vozidlo nakladá cestujúcich \\ \hline
+    Nakladá cestujúcich & vozidlo nakladá cestujúcich \\ \hline % TODO zmenit nakalda cestujucich
   \end{tabularx}
   \caption{Stavy modelu vozidla}
 \end{table}
@@ -318,8 +309,8 @@ Pôvod tohoto signálu bude popísaný neskôr v rámci definície zloženého m
   \begin{tabularx}{\textwidth}{|l|X|}
     \hline
     \textbf{Výstupný signál} & \textbf{Akcia ktorú spúšťa} \\ \hline
-    !Príchod & výstup cestujúcich podľa koeficientu danej zastávky, ak je koeficient 0,7, vystúpi 70 percent cestujúcich \\ \hline
-    !Nastupovanie & nástup cestujúcich do vozidla, tí čo sa nezmestia odchádzajú nespokojní \\ \hline
+    !Príchod & výstup cestujúcich podľa koeficientu danej zastávky, napríklad ak je koeficient 0,7, vystúpi 70 percent cestujúcich \\ \hline
+    !Nastupovanie & nástup cestujúcich do vozidla, tí ktorí sa nezmestia do vozidla sú nespokojní a následne opúšťajú systém \\ \hline % TODO zmenit nastupovanie
     !Odchod & okrem aktivácie prepojených vstupných signálov sa nič iné nevykonáva \\ \hline
   \end{tabularx}
   \caption{Výstupné signály modelu vozidla}
@@ -327,8 +318,8 @@ Pôvod tohoto signálu bude popísaný neskôr v rámci definície zloženého m
 
 \subsubsection*{Obsluha zastávky}
 
-Každé vozidlo začina na prvej zastávke v rozpise, ale počas simulácie sa musí pohybovať medzi zastávkami.
-Proces ktorý vozidlo vykoná pri príchode na každú zastávku je popísaný v algoritme~\ref{algoritmus_obsluha_zastavky}.
+Každé vozidlo začina na prvej zastávke v rozpise a počas simulácie sa musí pohybovať medzi zastávkami.
+Proces, ktorý vozidlo vykoná pri príchode na každú zastávku, je popísaný v algoritme~\ref{algoritmus_obsluha_zastavky}.
 Tento proces je vyvolaný príchodom vstupného signálu \textit{?Príchod\_vozidla}.
 
 \vspace*{\dimexpr0.5\baselineskip\relax}
@@ -346,14 +337,14 @@ Zložený simulačný model v tejto práci pozostáva z dvoch atomických modelo
 Prepojenie týchto atomických modelov je graficky znázornené na obrázku~\ref{fig:simulacny_model}.
 
 \[D = \{ \text{Zastávka}, \text{Vozidlo} \}\]
-\[M_{Zastávka} = \langle \ldots \rangle\]
+\[M_{Zastávka} = \langle \ldots \rangle\] % TODO Zastávka Zastvka
 \[M_{Vozidlo} = \langle \ldots \rangle\]
 \[I_{Zastávka} = \emptyset\]
 \[I_{Vozidlo} = \{ \text{Zastávka} \}\]
 \[X_{self} = \emptyset\]
 \[Y_{self} = \{ \text{\textit{!Príchod\_vozidla}} \}\]
 \[\text{\textit{select}} = \{ \{Zastávka,Vozidlo\} \rightarrow Vozidlo, \{Zastávka\} \rightarrow Zastávka, \{Vozidlo\} \rightarrow Vozidlo \}\]
-\[Z_{i,j,self} = \{ \text{\textit{!Príchod\_vzidla}} \rightarrow \text{\textit{?Príchod\_vzidla}},\]
+\[Z_{i,j,self} = \{ \text{\textit{!Príchod\_vozidla}} \rightarrow \text{\textit{?Príchod\_vozidla}},\]
 \[\text{\textit{!Príchod}} \rightarrow \text{\textit{?Vozidlo\_prišlo}},\]
 \[\text{\textit{!Nastupovanie}} \rightarrow \text{\textit{?Začiatok\_nastupovania}},\]
 \[\text{\textit{!Odchod}} \rightarrow \text{\textit{?Koniec\_nastupovania}} \}\]
@@ -361,7 +352,7 @@ Prepojenie týchto atomických modelov je graficky znázornené na obrázku~\ref
 Samotný zložený model má navyše ešte jeden výstupný signál, ktorý je prepojený s modelom vozidla.
 Týmto signálom sa spúšťa rutina obsluhy zastávky v rámci vozidla.
 Vozidlo sa dostáva zo stavu \textbf{Na ceste} do stavu \textbf{Na zastávke}.
-Výstupný signál zloženého modelu \textit{!Príchod\_vzidla} sa generuje pri spracovaní udalosti z kalenádara udalostí, oba tieto koncepty sú popísané neskôr.
+Výstupný signál zloženého modelu \textit{!Príchod\_vozidla} sa generuje pri spracovaní udalosti z kalenádara udalostí, oba tieto koncepty sú popísané neskôr.
 
 \begin{figure}[h]\label{fig:simulacny_model}
   \centering
@@ -370,7 +361,7 @@ Výstupný signál zloženého modelu \textit{!Príchod\_vzidla} sa generuje pri
 \end{figure}
 
 \subsection*{Udalosť príchodu vozidla na zastávku}
-Udalosť práchodu vozidla na zastávku vyvolá spustenie rutiny obslúženia cestujúcich, ktorí čakajú na zastávke. Táto rutina je popísaná v algoritme~\ref{algoritmus_obsluha_zastavky}.
+Udalosť príchodu vozidla na zastávku vyvolá spustenie rutiny obslúženia cestujúcich, ktorí čakajú na zastávke. Táto rutina je popísaná v algoritme~\ref{algoritmus_obsluha_zastavky}.
 Parametre tejto udalosti sú:
 \begin{itemize}
   \item \textbf{Čas príchodu} --- čas, kedy vozidlo prichádza na zastávku
@@ -378,25 +369,25 @@ Parametre tejto udalosti sú:
   \item \textbf{Vozidlo} --- vozidlo, ktoré prichádza na zastávku
 \end{itemize}
 
-Vozidlo začína udalosť v stave \textbf{Na ceste}, príde na zastávku uvedenú v parametri udalosti, vykoná rutinu nástupu a výstupu cestujúcich a odíte na ďalšiu zastávku.
-Za jednu udalosť teda vozidlo prejde všetkými svojimi vnútorným stavmi, udalosť končí opäť v stave \textbf{Na ceste}.
-Zastávka ktorá je uvedená v parametri udalosti tiež prejde všetkými svojimi vnútornými stavmi vďaka prepojeniu výstupných signálov vozidla so vstupnými signálmi zastávky.
+Vozidlo začína udalosť v stave \textbf{Na ceste}, príde na zastávku uvedenú v parametri udalosti, vykoná rutinu nástupu a výstupu cestujúcich a odchádza na ďalšiu zastávku.
+Za jednu udalosť teda vozidlo prechádza všetkými svojimi vnútorným stavmi, udalosť končí opäť v stave \textbf{Na ceste}.
+Zastávka, ktorá je uvedená v parametri udalosti, rovnako prechádza všetkými svojimi vnútornými stavmi vďaka prepojeniu výstupných signálov vozidla so vstupnými signálmi zastávky.
 
 \subsection*{Kalendár udalostí}
 Kalendár udalostí je základným prvkom modelu, ktorý riadi priebeh simulácie.
-V kalendári sú uložené všetky udalosti, ktoré sa majú v modeli stať.
-Tieto udalosti sú v prípade tohto modelu príchody vozidiel na zastáky.
+V kalendári sú uložené všetky udalosti, ktoré sa majú v modeli vykonať.
+Vykonávané udalosti sú v prípade tohto modelu príchody vozidiel na zastávky.
 V rámci jednej udalosti sa vykoná rutina obslúženia cestujúcich čakajúcich na zastávke.
-Všetky udalosti sú naplánované na začiatku simulácie, pretože vďaka časovému rozpisu presne vieme všetky príchody vozidiel na jednotlivé zastávky.
-Príchody na prvú zastávku sú dané hlavným časovým rozpisom, príchody na ostatné zastávky sú odvodené od času potrebného na prejdenie z jednej zastávky na druhú.
-Pseudokód plánovania udalostí je uvedený v algoritme~\ref{algoritmus_planovanie_udalosti} a je prevzaný zo študijnej opory predmetu Modelovanie a simulácie~\cite{peringer2022ims}, ktorý je vyučovaný na Fakulte informatiky Vysokého učení technického v Brne.
-V priebehu simulácie už netreba žiadne ďalšie udalosti plánovať.
+Všetky udalosti sú naplánované na začiatku simulácie, pretože na základe časovému rozpisu sú presne definované všetky príchody vozidiel na jednotlivé zastávky.
+Príchody na počiatočnú zastávku sú dané hlavným časovým rozpisom, príchody na ostatné zastávky sú odvodené od času potrebného na presun z jednej zastávky na následujúcu. % TODO zmenit prvu na pociatocnu
+Pseudokód plánovania udalostí je uvedený v algoritme~\ref{algoritmus_planovanie_udalosti} a spolu s kódom v implementácii je prevzatý zo študijnej opory predmetu Modelovanie a simulácie~\cite{peringer2022ims}, ktorý je vyučovaný na Fakulte informatiky Vysokého učení technického v Brne.
+V priebehu simulácie už nie je potrebné plánovať žiadne ďalšie udalosti.
 
 \vspace*{\dimexpr0.5\baselineskip\relax}
 \begin{algorithm}[H]\label{algoritmus_planovanie_udalosti}
   \caption{Plánovanie udalostí}
     \For{čas v časovom rozpise počiatočnej zastávky} {
-      Vytvorí sa vozidlo\;
+      Vytvorí sa vozidlo (inicializuje sa objekt)\;
       \For{zastávka na linke} {
         Pridá sa udalosť príchodu vozidla na danú zastávku\;
       }
@@ -404,9 +395,9 @@ V priebehu simulácie už netreba žiadne ďalšie udalosti plánovať.
 \end{algorithm}
 \vspace*{\dimexpr0.5\baselineskip\relax}
 
-Po naplánovaní všetkých udalostí sa začne simulácia.
-Postupne sa vykonávajú jednotlivé udalosti a simulácia sa diskrétne posúva vpred, až kým nie je kalendár udalostí prázdny alebo nie je dosiahnutý koncový čas simulácie.
-Pseudokód riadenia simulácie je popísaný v algoritme~\ref{algoritmus_riadenia_simulacie}.
+Po naplánovaní všetkých udalostí sa spustí simulácia.
+Postupne sa vykonávajú jednotlivé udalosti a simulácia sa diskrétne posúva vpred dovtedy, až kým nie je kalendár udalostí prázdny alebo nie je dosiahnutý koncový čas simulácie.
+Pseudokód riadenia simulácie je popísaný v algoritme~\ref{algoritmus_riadenia_simulacie}, teno kód je tiež prevzatý zo študijnej opory~\cite{peringer2022ims}.
 
 \vspace*{\dimexpr0.5\baselineskip\relax}
 \begin{algorithm}[H]\label{algoritmus_riadenia_simulacie}
@@ -423,15 +414,16 @@ Pseudokód riadenia simulácie je popísaný v algoritme~\ref{algoritmus_riadeni
 \end{algorithm}
 \vspace*{\dimexpr0.5\baselineskip\relax}
 
-Pre potreby časového rozpisu stačí simulovať jeden deň, v prípade rôznych rozpisov v čase pracovnýh dní a v čase sviatkov a víkendov ide o kompletne iný rozpis, ktorý sa musí simulovať a optimalizovať samostatne.
-Všetky naplánované udalsti by mali byť v rámci jedného dňa, preto by simulácia mala končiť vždy vyprázdnením kalendára udalostí a nie prekročením koncového času.
+Pre potreby časového rozpisu stačí simulovať jeden deň.
+V prípade rôznych rozpisov v čase pracovnýh dní a v čase sviatkov a víkendov sa jedná o kompletne iný rozpis, ktorý sa musí simulovať a optimalizovať samostatne.
+Všetky naplánované udalsti by mali byť v rámci jedného dňa, preto simulácia vždy končí vyprázdnením kalendára udalostí a nie prekročením koncového času.
 
 \section{Výstupy simulačného modelu}\label{vystupy_simulacneho_modelu}
 
-Hlavný zmysel simulácie je zber informácií, ktoré by sme inak museli získať z pozorovania reélnej prevádzky linky.
-Efektivitu každého jedného časového rozpisu, ktorý program vytvorí je potrebné otestovať a ohodnotiť aby sme našli ten najlepší z nich, skôr ako ho začneme používať v reálnej prevádzke.
+Hlavný zmysel simulácie je postupné generovanie informácií, ktoré by sme inak museli získať z pozorovania reélnej prevádzky linky.
+Efektivitu každého jedného časového rozpisu, ktorý program vytvorí, je potrebné otestovať a ohodnotiť, pre výber najlepšieho z nich, skôr ako ho začneme používať v reálnej prevádzke.
 Na ohodnotenie jednotlivých rozpisov slúžia štatistiky získané počas simulácie.
-Štatistiky sa zbierajú pre každú zastávku~\ref{tab:busStopStatistics_class}. aj pre každé vozidlo~\ref{tab:busStatistics_class}. osobitne.
+Štatistiky sa zbierajú pre každú zastávku~\ref{tab:busStopStatistics_class}. aj pre každé vozidlo~\ref{tab:busStatistics_class} osobitne.
 Následne sa agregujú do jednoho objektu \texttt{Statistics}, ktorého obsah je popísaný v tabuľke~\ref{tab:statistics_class}.
 \begin{table}[h]\label{tab:statistics_class}
   \centering
@@ -454,10 +446,10 @@ Následne sa agregujú do jednoho objektu \texttt{Statistics}, ktorého obsah je
     \texttt{totalPassengersDeparted} & Koľko cestujúcich vytúpilo na zastávke za deň \\ \hline
     \texttt{totalPassengersLeftUnboarded} & Počet cestujúcich, ktorí sa nezmestili do vozidla \\ \hline
     \texttt{totalTimeSpentWaiting} & Čas, ktorý cestujúci strávili čakaním na zastávke \\ \hline
-    \texttt{passengersArrivedPerHour} & Počet cestujúcich, ktorí prišli na zastávku v jednotlivých hodinách \\ \hline
-    \texttt{passengersDepartedPerHour} & Počet cestujúcich, ktorí vystúpili na zastávke v jednotlivých hodinách \\ \hline
-    \texttt{passengersLeftUnboardedPerHour} & Počet cestujúcich, ktorí sa nezmestili do vozidla v jednotlivých hodinách \\ \hline
-    \texttt{timeSpentWaitingPerHour} & Čas, ktorý cestujúci strávili čakaním na zastávke v jednotlivých hodinách \\ \hline
+    \texttt{passengersArrivedPerHour} & Počet cestujúcich, ktorí prišli na zastávku za hodinu \\ \hline
+    \texttt{passengersDepartedPerHour} & Počet cestujúcich, ktorí vystúpili na zastávke za hodinu \\ \hline
+    \texttt{passengersLeftUnboardedPerHour} & Počet cestujúcich, ktorí sa nezmestili do vozidla za hodinu \\ \hline
+    \texttt{timeSpentWaitingPerHour} & Čas, ktorý cestujúci strávili čakaním na zastávke za hodinu \\ \hline
   \end{tabularx}
   \caption{Trieda \texttt{busStopStatistics}}
 \end{table}
@@ -467,7 +459,7 @@ Následne sa agregujú do jednoho objektu \texttt{Statistics}, ktorého obsah je
   \begin{tabularx}{\textwidth}{|l|X|}
     \hline
     \textbf{Parameter} & \textbf{Popis} \\ \hline
-    \texttt{capacity} & Kapacita vozidla \\ \hline
+    \texttt{capacity} & Celková kapacita vozidla \\ \hline
     \texttt{seats} & Počet miest na sedenie \\ \hline
     \texttt{averageLoad} & Priemerná naplnenosť vozidla \\ \hline
     \texttt{averageLoadInPercent} & Priemerná naplnenosť vozidla v percentách \\ \hline
@@ -480,29 +472,28 @@ Následne sa agregujú do jednoho objektu \texttt{Statistics}, ktorého obsah je
 \end{table}
 
 \subsection*{Počet spojov v priebehu dňa na linke}
-Tento údaj slúži pre optimalizáciu, z pohľadu dopravného podniku chceme, aby bol pocet spojov čo najmenší aby ušetrili na prevádzkových nákladoch.
-Z pohľadu cestujúcich chceme aby bol počet spojov čo najväčší, aby nemuseli čakať na spoj dlhšie ako je nutné.
-Je potrebné nájsť kompromis medzi týmito dvoma extrémami.
+Tento údaj slúži pre optimalizáciu prevádzkových nákladov. Z pohľadu dopravného podniku je potrebné dosiahnuť, aby bol počet spojov čo najnižší.
+Z pohľadu cestujúcich je potrebné aby bol počet spojov čo najväčší, aby nemuseli čakať dlho na spoj a estovali komfortne.
+Preto je dôležité nájsť správny kompromis medzi týmito dvoma požiadavkami.
 
 \subsection*{Koľko cestujúcich prišlo na zastávku za deň}
 Celkový počet cestujúcich za deň je dobrým indikátorom toho, ako sú namáhané jednotlivé časti linky.
 V prípadoch, kedy na zastávky v strede trasy prichádza oveľa viac cestujúcich ako na koncové zastávky, posilňuje dopravný podnik práve túto strednú časť ďalšími spojmi.
 
-\subsection*{Koľko cestujúcich vytúpilo na zastávke za deň}
+\subsection*{Koľko cestujúcich vystúpilo na zastávke za deň}
 Je potrebné aby sme v rámci simulácie rátali aj s cestujúcimi, ktorí z vozidiel vystupujú, inak by sa kapacita vozidla hneď naplnila.
 Ide o dôležitú časť reálneho systému, ktorú nemôžeme zanedbať ani pri simulácii.
 Slúži na validáciu modelu.
 
 \subsection*{Počet cestujúcich, ktorí sa nezmestili do vozidla}
-Občas sa stane, že je vozidlo tak preplnené, že nie všetci cestujúci, ktorí čakali na zastávke do neho nastúpia.
-Rozpisy, pri ktorých sa tento jav vyskytne budú mať horšie hodnotenie.
+Môže nastať situácia, že je vozidlo tak preplnené, že nie je možné aby všetci cestujúci čakajúci na zastávke do neho nastúpili.
+Rozpisy, pri ktorých sa tento jav vyskytne, budú mať horšie hodnotenie.
 
 \subsection*{Čas, ktorý cestujúci strávili čakaním na zastávke}
-Celkový čas, ktorý dokopy čakali cestujúci na zastácke.
-Možno atraktívnejšia informácia je priemerný čas, ktorý čakal jeden cestujúci.
+Čas, ktorý cestujúci strávili čakaním na zastávke sledujeme v dvoch rôznych údajoch, raz ako celkový čas čakania a raz ako priemerný čas čakania jedného cestujúceho.
 V oboch prípadoch chceme, aby bol tento čas čo najnižší.
 
-\subsection*{Počet cestujúcich, ktorí prišli na zastávku v jednotlivých hodinách}
+\subsection*{Počet cestujúcich, ktorí prišli na zastávku za hodinu}
 Tento údaj má skôr informatívny charakter, pretože ide o vstup programu.
 Algoritmus sa snaží vytvoriť rozpis, ktorý by bol schopný prepraviť všetkých cestujúcich.
 Na grafe~\ref{fig:passengersArrivedPerHour} je vidieť, že v priebehu dňa sa počet cestujúcich prichádzajúcich na zastávku mení.
@@ -538,16 +529,16 @@ V týchto časoch by malo chodiť viac spojov.
   \caption{Počet cestujúcich prichádzajúcich na zastávku za hodinu}
 \end{figure}
 
-\subsection*{Počet cestujúcich, ktorí vystúpili na zastávke v jednotlivých hodinách}
-Ide o rovnaký údaj ako bol počet cestujúcich, ktorí vystúpili na zastávke za celý deň, ale rozdelený na jednotlivé hodiny dňa.
+\subsection*{Počet cestujúcich, ktorí vystúpili na zastávke za hodinu}
+Jedná sa o rovnaký údaj ako je počet cestujúcich, ktorí vystúpili na zastávke za celý deň, ale rozdelený na jednotlivé hodiny dňa.
 
-\subsection*{Počet cestujúcich, ktorí sa nezmestili do vozidla v jednotlivých hodinách}
-Tento údaj je vhodný na zistenie, ktorá časť dňa je poddimenzovaná a bolo by vhodné v tom čase posilniť linku o viacej spojov.
+\subsection*{Počet cestujúcich, ktorí sa nezmestili do vozidla za hodinu}
+Tento údaj informuje, že linka je v určitej časti dňa poddimenzovaná a bolo by vhodné v tomto čase linku posilniť.
 
-\subsection*{Čas, ktorý cestujúci strávili čakaním na zastávke v jednotlivých hodinách}
+\subsection*{Čas, ktorý cestujúci strávili čakaním na zastávke za hodinu}
 Čas strávený čakaním na zastávke by mal byť počas celého dňa približne rovnaký.
-Na grafe~\ref{fig:timeSpentWaitingPerHour} je vidieť ako sa priemerný čas čakanie pohybuje približne 5 minút, ale o desiatej hodine večer tento čas náhle vzrastie.
-To znamená, že by v tejto hodine malo byť nasadených viac spojov.
+Na grafe~\ref{fig:timeSpentWaitingPerHour} je vidieť ako sa priemerný čas čakania pohybuje v rozsahu približne 5 minút, ale o desiatej hodine večer tento čas náhle narastá.
+Z uvedeného vyplíva, že by v tejto hodine malo byť nasadených viac vozidiel.
 \begin{figure}[h]\label{fig:timeSpentWaitingPerHour}
   \centering
   \begin{tikzpicture}
@@ -579,38 +570,32 @@ To znamená, že by v tejto hodine malo byť nasadených viac spojov.
   \caption{Priemerný čas strávený čakaním za hodinu}
 \end{figure}
 
-\subsection*{Kapacita vozidla}
+\subsection*{Celková kapacita vozidla}
 Tento parameter je dôležitý, pretože na základe neho sa rozhoduje, koľko cestujúcich môže nastúpiť do vozidla.
 Zároveň slúži pre výpočet naplnenosti vozidla v percentách.
-Príliš malá alebo príliš veľká naplnenosť vozidla môže byť nežiaduca.
-Na ohodnotenie toho, ako moc je vozidlo naplnené teda treba poznať aj jeho kapacitu.
+Príliš malá alebo príliš veľká naplnenosť vozidla môže byť nežiadúca.
 
 \subsection*{Počet miest na sedenie}
 Počet miest na sedenie hrá rolu pri výpočte spokojnosti nastupujúceho cestujúceho.
-Pokiaľ má možnosť si sadnúť jeho spokojnosť bude vyššia ako keď by mal stáť.
+Pokiaľ má možnosť si sadnúť, jeho spokojnosť bude vyššia, ako keby mal stáť.
 
 \subsection*{Priemerná naplnenosť vozidla}
-Priemerná naplnenosť vozidla je dôležitý parameter, ktorý nám hovorí, ako moc sú vozidlá využívané.
-Z pohľadu cestujúcich je lepšie, ak je vozidlo prázdnejšie, ale z pohľadu dopravného podniku je to nevyužitý potenciál.
+Priemerná naplnenosť vozidla je dôležitý parameter, ktorý nás informuje, ako veľmi sú vozidlá využívané.
+Z pohľadu cestujúcich je lepšie, ak je vozidlo prázdnejšie, ale z pohľadu efektivity dopravného podniku je prázdnejšie vozidlo nevyužitý ekonomický potenciál.
 Preto je potrebné nájsť kompromis medzi týmito dvoma požiadavkami.
-To aká naplnenosť je optimálna je už úlohou analytika, ktorý bude tento program využívať.
-Povedzme, že sa rozhodne pre naplnenosť 70\%.
-Potom čim ďalej bude priemerná naplnenosť vozidiel od tejto hodnoty, tým horšie bude rozpis ohodnotený.
+Vyhodnotenie údaju priemernej naplnenosti vozidla a jeho optimalizácia je úlohou analytika dopravného podniku, ktorý môže tento výstup využívať pri svojej práci.
 
 \subsection*{Celkový počet prevezených cestujúcich}
-Celkový počet prevezených cestujúcich záleží od toho, koľko cestujúcich prišlo na jednotlivé zastávky a či sa im podarilo nastúpiť do vozidiel.
-V ideálnom prípade sa tento počet bude rovnať počtu cestujúcich, ktorí prišli na zastávky.
-V extrémnych prípadoch sa môže stať, že niektorí cestujúci zostanú na zastávkach a nezoberie ich žiadne vozidlo.
-V prípade štatistiky jednotlivých vozidiel, môže byť tento počet použitý na ich porovnanie.
-Počas dňa by mali všetky vozidlá prepraviť približne rovnaký počet cestujúcich.
-Ak tomu tak nie je a sú vyťažené nerovnomerne, rozpis by sa mal ohodnotiť negatívne.
+Celkový počet prevezených cestujúcich závisí od toho, koľko cestujúcich prišlo na jednotlivé zastávky a či sa im podarilo nastúpiť do jednotlivých vozidiel.
+V ideálnom prípade sa tento počet bude rovnať celkovému počtu cestujúcich, ktorí prišli na zastávky.
+V extrémnych prípadoch sa môže stať, že niektorí cestujúci zostanú na zastávkach a nenastúpia do žiadneho vozidla.
 
 \subsection*{Naplnenosť vozidla na jednotlivých zastávkach}
-Na grafe~\ref{fig:averageLoad} je znázornené ako sa naplnenosť vozidiel mení počas ich jazdy.
+Graf~\ref{fig:averageLoad} znázorňuje ako sa naplnenosť vozidiel mení počas ich jazdy.
 Konkrétne sa jedná o linku 46 v Brne.
 Naplnenosť sa postupne zvyšuje až kým nepríde na jednu z hlavných prestupných zastávok, Štefánikova čtvrť.
 Tu vystúpi veľké množstvo cestujúcich a naplnenosť vozidla sa zníži.
-Pokiaľ má linka príliš veľké výkivy v naplnenosti vozidiel naprieč svojou trasou, môže to byť znakom toho, že je potrebné trasu na určitých úsekoch posilniť inou linkou.
+Pokiaľ má linka príliš veľké výkyvy v naplnenosti vozidiel počas svojej trasy, je to znakom toho, že je potrebné trasu na určitých úsekoch posilniť inou linkou.
 \begin{figure}[h]\label{fig:averageLoad}
   \centering
   \begin{tikzpicture}
@@ -648,12 +633,12 @@ Pokiaľ má linka príliš veľké výkivy v naplnenosti vozidiel naprieč svojo
       };
     \end{axis}
   \end{tikzpicture}
-  \caption{Priemerná naplnenosť vozidla na jednotlivých zastávkach}
+  \caption{Priemerná naplnenosť vozidla na jednotlivých zastávkach linky 46}
 \end{figure}
 
 \subsection*{Spokojnosť jednotlivých zákazníkov}
-Spokojnosť zákazníkov je klúčová pri optimalizácii časového rozpisu, na základe nej sa bude rozpis ohodnocovať.
-Spokojnosť sa počíta pre každého cestujúceho a nakonci sa vypočíta priemer za celý deň.
+Spokojnosť jednotlivých zákazníkov je klúčová pri optimalizácii časového rozpisu, na základe nej sa rozpis ohodnocuje.
+Spokojnosť program počíta za každého cestujúceho a nakoniec program vypočíta priemer za celý deň.
 
 \chapter{Optimalizácia časového rozpisu linky mestskej hormadnej dopravy}\label{optimalizacia}
 
@@ -1341,7 +1326,7 @@ Cieľom bolo preskúmať, ako algoritmus reaguje na zmeny v parametroch ako sú 
 
 Každý experiment bol vykonaný s rovnakými parametrami pre genetický algoritmus, aby sa zabezpečila konzistentnosť výsledkov:
 \begin{itemize}
-  \item \textbf{Počet jedincov v populácii} --- 50 pre krátku trasu, 10 pre dlhú trasu \footnote{Tento počet bol znížený z dôvodu dlhšej doby výpočtu.}
+  \item \textbf{Počet jedincov v populácii} --- 50 pre krátku trasu, 10 pre dlhú trasu \footnote{Tento počet bol znížený z dôvodu dlhej doby výpočtu.}
   \item \textbf{Počet generácií} --- 100
   \item \textbf{Pravdepodobnosť mutácie} --- 5\%
   \item \textbf{Maximálny počet spojov za hodinu} --- 15
