@@ -644,25 +644,27 @@ Spokojnosť program počíta za každého cestujúceho a nakoniec program vypoč
 
 Táto kapitola pojednáva o potrebných vstupoch, obmedzeniach, použitej optimalizačnej metóde a výstupoch optimalizácie.
 
-Na optimalizáciu bol použitý genetický algoritmus.
+Na optimalizáciu časového rozpisu bol použitý genetický algoritmus.
 Genetický algoritmus je heuristická optimalizačná metóda, ktorá sa inšpiruje evolučnou biológiou.
 Je založená na princípe prírodného výberu, kde sa najlepšie jedince z populácie vyberajú na reprodukciu a vytvárajú novú generáciu.
 Vlastnosti jedincov by sa mali v priebehu generácií zlepšovať, až kým sa nenájde optimálne riešenie.
 Okrem nájdenia optimálneho riešenia, môže byť genetický algoritmus ukončený aj dosiahnutím maximálneho počtu generácií alebo stagnáciou kvality riešenia.
-Na ohodnotenie jedinca sa používa fitness funkcia, ktorá hodnotí kvalitu riešenia na základe zadaných kritérií.
+Na ohodnotenie jedinca sa používa takzvaná fitness funkcia, ktorá hodnotí kvalitu riešenia na základe zadaných kritérií.
 V prípade časových rozpisov MHD sa na výpočet fitness funkcie používajú štatistiky zo simulácie, ktoré sú popísané v kapitole~\ref{vystupy_simulacneho_modelu}.
 
-\section{Vstupy potrebné od používateľa}\label{vstupy_pouzivatela}
-Na to aby mohol algoritmus fungovať, je potrebné zadať niekoľko vstupných parametrov.
-Najdôležitejším z nich sú informácie o zastávkach. O každej zastávke je potrebné zadať:
+\section{Potrebné používateľské vstupy}\label{vstupy_pouzivatela}
+Pre správne fungovanie algoritmu, je potrebné zadať niekoľko povinných vstupných parametrov týkajúcich sa zastávok, linky a samotného genetického algoritmu.
+
+\subsubsection{Vstupné parametre zastávky}
 \begin{itemize}
-  \item \textbf{Názov zastávky} --- názov zastávky, ktorý sa zobrazuje na výstupoch
-  \item \textbf{Čas príchodu} --- čas potrebný na prejdenie od prvej zastávky po túto zastávku
+  \item \textbf{Názov zastávky} --- názov zastávky, zobrazovaný na výstupoch
+  \item \textbf{Čas príchodu} --- predpokladaný čas potrebný na prejazd od počiatočnej zastávky
   \item \textbf{Štatistika o príchodoch cestujúcich} --- priemerný počet prichádzajúcich cestujúcich v každej hodine dňa
-  \item \textbf{Pravdepodobnosť výstupu cestujúceho} --- údaj potrebný pre priebežné vyprázdnenie vozidla
+  \item \textbf{Pravdepodobnosť výstupu cestujúceho} --- koeficient potrebný pre priebežné vyprázdnenie vozidla
 \end{itemize}
-Tieto informácie sa zadávajú vo forme textového súboru, každá zastávka je na samostatnom riadoku a jednotlivé údaje sú oddelené dvojbodkou.
-Príklad toho ako by mali vyzerať záznami o zastávkach:
+Tieto informácie sa importujú formou textového súboru, každá zastávka je na samostatnom riadku a jednotlivé údaje sú oddelené dvojbodkou.
+
+Vzor formátu importovaného súboru:
 
 \noindent \texttt{Lesná, Haškova:0:[(5, 60), (6, 90), \ldots , (21, 40), (22, 30)]:0 \newline
   Brechtova:1:[(5, 60), (6, 90), \ldots , (21, 40), (22, 30)]:0.1 \newline
@@ -670,45 +672,47 @@ Príklad toho ako by mali vyzerať záznami o zastávkach:
   \ldots
 }
 
-Ďalšie dôležité informácie o linke sú:
+\subsubsection{Vstupné parametre linky}
 \begin{itemize}
-  \item \textbf{Kapacita vozidla} --- maximálny počet cestujúcich, ktorý sa zmestí do vozidla
-  \item \textbf{Miest na sedenie} --- počet miest na sedenie v vozidle
-  \item \textbf{Celkové náklady} --- udávané v Kč/100 miesto-km (tabuľková hodnota) 
-  \item \textbf{Dĺžka trasy} --- dĺžka trasy v km
+  \item \textbf{Kapacita vozidla} --- maximálny možný počet cestujúcich vo vozidle
+  \item \textbf{Miesta na sedenie} --- počet miest na sedenie vo vozidle
+  \item \textbf{Celkové náklady} --- udávané v korunách na 100 miestokilometrov (vysvetlné v sekcii~\ref{fitness})  
+  \item \textbf{Dĺžka trasy} --- dĺžka trasy v kilometroch
 \end{itemize}
-Kapacita vozidla a počet miest na sedenie sú potrebné pre výpočet naplnenosti vozidla, od ktorého sa potom odvíja spokojnosť cestujúcich.
+Kapacita vozidla a počet miest na sedenie sú potrebné pre výpočet naplnenosti vozidla, od ktorej sa potom odvíja spokojnosť cestujúcich.
 Celkové náklady na 100 miestokilometrov a dĺžka trasy sú potrebné pre výpočet nákladov na prevádzku linky.
-Podrobnejší popis výpočtu celkovej spokojnosti a nákladov na prevádzku je v kapitole~\ref{implementacia_genetickeho_algoritmu}.
+Podrobnejší popis výpočtu celkovej spokojnosti a nákladov na prevádzku je v kapitole~\ref{fitness}.
 
-Ďalšími dôležitými vstupnými parametrami sú parametre genetického algoritmu:
+\subsubsection{Vstupné parametre genetického algoritmu}
 \begin{itemize}
-  \item \textbf{Veľkosť populácie} --- počet jedincov v jednej generácii
-  \item \textbf{Počet generácií} --- počet generácií, ktoré sa majú vykonať
+  \item \textbf{Veľkosť populácie} --- počet jedincov (časových rozpisov) v jednej generácii genetického algoritmu
+  \item \textbf{Počet generácií} --- počet generácií, ktoré sa majú algoritmom vykonať
   \item \textbf{Pravdepodobnosť mutácie} --- pravdepodobnosť, že sa v jedincovi vyskytne mutácia
   \item \textbf{Maximálny počet spojov za hodinu} --- maximálny počet spojov, ktorý môže byť vygenerovaný za hodinu
 \end{itemize}
-Poslednou informáciou, ktorá je od používateľa potrebná sú obmedzenia na počet spojov za hodinu.
-Používateľ takto môže nastaviť fixný počet spojov, ktorý sa má vygenerovať za hodinu.
-Toto sa využíva hľavne pri plánovaní náväznosti liniek, kedy je potrebné aby sa niektoré spoje stretli na prestupnej zastávke.
+
+\subsubsection{Vstupné obmedzenia časového rozpisu}
+Poslednou informáciou, ktorá je od používateľa potrebná je obmedzenie počtu spojov za hodinu.
+Používateľ takto môže nastavuje fixný počet spojov, ktorý sa musí vygenerovať za hodinu.
+Toto obmedzenie sa využíva hľavne pri plánovaní náväznosti liniek, kedy je potrebné, aby sa niektoré spoje stretli na prestupnej zastávke.
 Obvykle sa to robí tak, že sa nastaví rovnaký počet spojov pre všetky prestupné linky, ktoré sa na tejto zastávke stretávajú.
-Toto obmedzenie využíva aj predbežná analýza, ktorá sa vykonáva pred optimalizáciou.
-V prípade ak pre niektorú hodinu neexistuje údaj o priemernom počte prichádzajúcich cestujúcich naprieč všetkými zastávkami, nastaví sa fixný počet spojov v danej hodine na 0.
-Tento krok výrazne prispieva k lepším výsledkom optimalizácie, pretože dopredu vieme, že v tejto hodine nebude žiaden spoj potrebný.
-Zároveň s nižším počtom spojov vo všetkých rozpisoch počas optimalizácie sa výpočet výrazne urýchli.
+
+Toto obmedzenie je využívané aj v predbežnej analýze, ktorá sa vykonáva pred optimalizáciou.
+V prípade že pre niektorú hodinu neexistuje údaj o priemernom počte prichádzajúcich cestujúcich na všetky zastávky linky, automaticky sa nastaví fixný počet spojov v danej hodine na 0 (napríklad nočná linka nepremáva cez deň).
+Zadaním vstupných ombedzení časového rozpisu sa znižuje náročnosť výpočtu a zvyšuje kvalita nájdeného riešenia.
 
 \section{Základná implementácia genetického algoritmu}\label{implementacia_genetickeho_algoritmu}
 Na optimalizáciu časového rozpisu bol použitý genetický algoritmus.
 Genetický algoritmus je heuristická optimalizačná metóda, ktorá sa inšpiruje Darwinovou teóriou evolúcie.
 Podľa citátu od Charlesa Darwina, "V prírode je prežitie a úspech otázkou tých najschopnejších a najpríťažlivejších",
-aj genetický algoritmus sa snaží nájsť najlepšie riešenie problému pomocou evolučného procesu.
+aj genetický algoritmus sa snaží nájsť najlepšie riešenie pomocou evolučného procesu.
 
-Používajú sa postupy ako je náhodná mutácia jedinca a rozne typy výberu a kríženia jedincov.
-Myšlienka je, že najlepší jedinci v generácii buď splňujú požiadavky alebo sú veľmi blízko k optimálnemu riešeniu.
-Predpokladá sa, že týto jedinci majú najlepšie predispozície na to, aby ich potomkovia boli o krok bližšie k optimálnemu riešeniu.
+Používajú sa postupy ako náhodná mutácia jedinca, rôzne typy výberu a kríženia jedincov.
+Základnou premysou je, že najlepší jedinci v generácii buď splňujú zadané požiadavky alebo sú veľmi blízko k ich splneniu.
+Predpokladá sa, že týto jedinci majú najvhodnejšie predispozície na to, aby ich potomkovia lepšie spĺňali zadané podmienky.
 Využitie genetického algoritmu je efektívne v prípadoch, kedy by deterministické metódy trvali príliš dlho alebo by vôbec neboli schopné nájsť optimálne riešenie.
 Genetický algoritmus bol prvýkrát predstavený okolo roku 1960 Johnom Hollandom na Univerzite v Michigane.
-Tieto informácie sú prevzaté zo zborníku z konferencie ICCES 2019~\cite{immanuel2019genetic}.
+Uvedené informácie sú prevzaté zo zborníku z konferencie ICCES 2019~\cite{immanuel2019genetic}.
 
 \vspace*{\dimexpr0.5\baselineskip\relax}
 \begin{algorithm}[H]\label{algoritmus_geneticky_algoritmus}
@@ -724,6 +728,7 @@ Tieto informácie sú prevzaté zo zborníku z konferencie ICCES 2019~\cite{imma
   }
   Výber najlepšieho jedinca z populácie\;
 \end{algorithm}
+\vspace*{\dimexpr0.5\baselineskip\relax}
 
 V prípade optimalizácie časového rozpisu MHD sa jedincami stávajú samotné časové rozpisy.
 Na základe simulácie jedného dňa na linke s použitým časovým rozpisom sa získajú štatistiky, ktoré sa následne použijú na ohodnotenie kvality jedinca.
@@ -731,7 +736,7 @@ Na základe simulácie jedného dňa na linke s použitým časovým rozpisom sa
 \subsection*{Reprezentácia jedinca}
 V genetickom algoritme je jedinec reprezentovaný takzvaným chromozómom.
 Chromozóm je reťazec génov, informácií o jedincovi.
-V prípade časového rozpisu MHD je chromozóm reprezentovaný ako pole obsahujúce 24 čísel (viď tabuľku~\ref{tab:chromosome}), ktoré predstavujú počet odchodov vozidiel z prvej zastávky linky v jednotlivých hodinách dňa.
+V prípade časového rozpisu MHD je chromozómom pole obsahujúce 24 čísel (viď tabuľku~\ref{tab:chromosome}), ktoré predstavujú počet odchodov vozidiel z počiatočnej zastávky linky v jednotlivých hodinách dňa.
 
 \begin{table}[h]\label{tab:chromosome}
   \centering
@@ -742,46 +747,49 @@ V prípade časového rozpisu MHD je chromozóm reprezentovaný ako pole obsahuj
   \caption{Príklad chromozómu}
 \end{table}
 
-\subsection*{Fitness funkcia --- výpočet cieľov}
-Pre ohodnotenie kvality časového rozpisu sa zvolili dva hlavné ciele:
+\subsection*{Fitness funkcia --- výpočet cieľov}\label{fitness}
+Pre ohodnotenie kvality časového rozpisu boli definované dva hlavné ciele:
 \begin{itemize}
-  \item \textbf{Spokojnosť cestujúcich} --- priemerné percentuálne zhodnotenie spokojnosti všetkých cestujúcich, ktorí prišli za deň na zastávku
-  \item \textbf{Náklady na prevádzku} --- celkové náklady na prevádzku linky za deň, udávané v Kč/100 miesto-km
+  \item \textbf{Spokojnosť cestujúcich} --- priemerné percentuálne hodnotenie spokojnosti všetkých cestujúcich, ktorí prišli za daný deň na zastávku
+  \item \textbf{Náklady na prevádzku} --- celkové náklady na prevádzku linky za deň, udávané v korunách na 100 miestokilometrov
 \end{itemize}
 
-Výpočet spokojnosti cestujúceho sa vykonáva v čase nástupu do vozidla. Zhodnocuje sa aktuálna naplnenosť vozidla a na základe toho sa vypočíta percentuálne zhodnotenie spokojnosti.
+Výpočet spokojnosti cestujúceho sa vykonáva v čase nástupu do vozidla. Hodnotí sa aktuálna naplnenosť vozidla, na základe ktorej sa vypočíta percentuálne hodnotenie spokojnosti.
 Potrebné parametre pre výpočet sú kapacita vozidla, počet miest na sedenie a aktuálna naplnenosť vozidla.
+
 Výpočet sa riadi následujúcimi troma podmienkami:
 \begin{enumerate}
   \item Ak sú vo vozidle voľné miesta na sedenie, cestujúci si sadne a jeho spokojnosť je 1
   \item Ak je vozidlo úplne plné a cestujúci sa do neho nezmestí, jeho spokojnosť je 0
-  \item Ak je vo vozidle miesto, ale už len na státie, spokojnosť vozidla závisí od aktuálnej naplnenosti vozidla a je vypočítaná ako: \begin{equation}
+  \item Ak je vo vozidle miesto, ale už len na státie, spokojnosť vozidla závisí od aktuálnej naplnenosti cestujúceho a je vypočítaná podľa rovnice~\ref{eq_spokojnost} následovne: \begin{equation}\label{eq_spokojnost}
       \text{spokojnosť} = 1 - \frac{\text{aktualna naplnenosť vozidla} - \text{počet miest na sedenie}}{\text{kapacita vozidla}  - \text{počet miest na sedenie}}
     \end{equation}
 \end{enumerate}
-Nakoniec sa vypočíta priemer spokojnosti všetkých cestujúcich.
-Hodnota sa pohybuje od 0 do 1 a genetický algoritmus uprednostňuje vyššie hodnoty, teda spokojnejších cestujúcich.
+Spokojnosť všetkých cestujúcich sa vypočíta ako priemer spokojnosti jednotlivých cestujúcich.
+Hodnota spokojnosti sa pohybuje od 0 do 1 a genetický algoritmus automaticky uprednostňuje vyššie hodnoty, teda dosiahnutie vyššej spokojnosti u cestujúcich.
+\vspace*{\dimexpr0.5\baselineskip\relax}
 
-Celkové náklady na prevádzku linky sú vypočítané z počtu spojov v časovom rozpise, kapacity použitých vozidiel, dĺžky trasy a nákladov na jeden miestokilometer.
+Celkové náklady na prevádzku linky sú vypočítané z počtu a kapacity použitých vozidiel v časovom rozpise, dĺžky trasy a nákladov na jeden miestokilometer.
 Jeden miestokilometer je definovaný ako vzdialenosť jedného kilometra, ktorú prejde jedno miesto vo vozidle~\cite{iata_rpks_asks}.
-Potom vozidlo s kapacitu 80 miest, ktoré prejde 10 km, prejde 800 miestokilometrov.
+Napríklad vozidlo s kapacitu 80 miest, ktoré prejde 10 kilometrov, prejde 800 miestokilometrov.
 Miestokilometre sa môžu násobiť aj počtom vozidiel, potom dve takéto vozidlá by prešli 1600 miestokilometrov.
-Tento údaj je potrebný pretože náklady vo finančnom pláne Dopravného podniku mesta Brno sú udávané v českých korunách na 100 miestokilometrov.
+Miestokilometer je potrebný pre výpočet efektivity linky, pretože náklady vo finančnom pláne Dopravného podniku mesta Brno sú udávané v českých korunách na 100 miestokilometrov.
 Tento finančný plán je súčasťou zmluvy medzi mestom Brno a Dopravným podníkom mesta Brna~\cite{brno_dpmb_smlouva_2023}.
-Celý výpočet nákladov na prevádzku linky teda závisí od štyroch premenných a je daný vzorcom:
-\begin{equation}
-  \text{ceľkové náklady} = \frac{\text{dĺžka trasy} \cdot \text{počet spojov} \cdot \text{kapacita vozidla}}{100} \cdot \text{náklady}
+Celý výpočet nákladov na prevádzku linky teda závisí od štyroch premenných a je daný rovnicou~\ref{eq_naklady}:
+\begin{equation}\label{eq_naklady}
+  \text{celkové náklady} = \frac{\text{dĺžka trasy} \cdot \text{počet spojov} \cdot \text{kapacita vozidla}}{100} \cdot \text{náklady}
 \end{equation}
 
-Tieto dva ciele sú v konflikte, pretože čím viac spojov je na linke, tým je spokojnosť cestujúcich vyššia, ale náklady na prevádzku sú tiež vyššie.
-Tento problém rieši multi-objektívna optimalizácia, ktorá sa snaží nájsť optimálne riešenie pre oba ciele naraz.
+Tieto dva ciele sú v neustálom konflikte --- viac spojov na linke a vyššia spokojnosť cestujúcich voči rastúcim nákladom na prevádzku DPMB.
+Túto situáciu rieši multi-objektívna optimalizácia, ktorá sa snaží nájsť optimálne riešenie pre oba ciele naraz.
 
-\subsection*{Genetický algoritmus s viacero cieľmi}
-Genetický algoritmus, v ktorom sa snažíme dosiahnuť optimálneho kompromisu medzi viacero cieľmi sa nazýva multi-objektívny genetický algoritmus.
-Jeho myšlienka spočíva v nájdení Pareto frontu, čo je množina všetkých možných riešení, ktoré sú optimálne z pohľadu všetkých cieľov.
+\subsection*{Genetický algoritmus s viacerými cieľmi}
+Genetický algoritmus, ktorým sa snažíme dosiahnuť optimálneho kompromisu medzi viacerými cieľmi sa nazýva multi-objektívny genetický algoritmus.
+Jeho podstata spočíva v nájdení Pareto frontu, čo je množina všetkých možných riešení, ktoré sú optimálne z pohľadu všetkých cieľov.
 To znamená, že neexistuje žiaden iný jedinec, ktorý by bol lepší v oboch cieľoch naraz.
-Ak je jeden jedinec lepší v oboch cieľoch, hovoríme, že dominuje iného jedinca.
-V prípade, že dominuje iba v jendom, ale v druhom nie, patria do rovnakej skupiny, sú si rovnocenní.
+
+Ak existuje jeden jedinec, ktorý je lepší v oboch cieľoch, hovoríme, že dominuje iného jedinca.
+V prípade, že dominuje iba v jednom cieli, ale v druhom nie, patria do rovnakej skupiny --- sú si rovnocenní.
 Ak je jedinec horší v oboch cieľoch, hovoríme, že je dominovaný.
 Každá generácia sa rozdelí do rovnocenných skupín, pri výbere rodičov sa uprednostňujú jedinci z lepšej skupiny.
 Algoritmus sa snaží nájsť Pareto front, množinu tých najlepších možných jedincov.
@@ -789,7 +797,7 @@ Postupnou evolúciou jedinci získavajú lepšie vlastnosti a čím novšia je g
 Na obrázku~\ref{fig:pareto_front} je znázornený Pareto front pre dva ciele, spokojnosť a náklady.
 Multi-objektívne genetické algoritmy dokážu pracovať aj s viac ako dvoma cieľmi.
 Pre optimalizáciu časového rozpisu však stačia dva, jeden zo strany zákazníka (spokojnosť) a druhý zo strany dopravného podniku (náklady).
-Tieto základné informácie o fungovaní multi-objektívnych genetických algoritmov s použitím Pareto frontu sú prevzaté z článku~\cite{ngatchou2005pareto}.
+Tieto základné informácie o fungovaní multi-objektívnych genetických algoritmov s použitím Pareto frontu boli prevzaté z článku~\cite{ngatchou2005pareto}.
 
 \begin{figure}[h]\label{fig:pareto_front}
   \centering
@@ -866,9 +874,9 @@ Tieto základné informácie o fungovaní multi-objektívnych genetických algor
 Pre účely multi-objektívnej optimalizácie bol použitý algoritmus NSGA-II (Non-dominated Sorting Genetic Algorithm II).
 V článku~\cite{deb2002nsga} je porovnanie tohto algoritmu s inými multi-objektívnymi genetickými algoritmami.
 NSGA-II vo viacerých testoch preukázal, že má lepšie rozloženie a diverzitu jedincov v Pareto fronte ako iné algoritmy.
-Práve pre túto vlastnosť bol zvolený aj pre túto prácu.
+Práve pre túto vlastnosť bol zvolený aj pre optimalizáciu časového rozpisu.
 Okrem testov je v článku~\cite{deb2002nsga} aj podrobný popis fungovania algoritmu.
-Algoritmy~\ref{algoritmus_nsga2},~\ref{algoritmus_non_dominated_sorting},~\ref{algoritmus_crowding_distance_assignment} a~\ref{algoritmus_comparsion_operator} boli z tohto článku prevzaté a mierne upravené pre účely tejto práce.
+Algoritmy~\ref{algoritmus_nsga2},~\ref{algoritmus_non_dominated_sorting},~\ref{algoritmus_crowding_distance_assignment} a~\ref{algoritmus_comparsion_operator} boli z tohto článku prevzaté a mierne upravené pre naše účely.
 
 NSGA-II je založený na triedení jedincov do frontov na základe ich dominancie nad inými jedincami.
 Pri výbere jedincov pri krížení sa uprednostňujú jedinci z lepších frontov.
@@ -885,7 +893,7 @@ V NSGA-II neexistuje konštanta, ktorá by udávala počet elitných jedincov, k
 Pri vytváraní novej generácie sa najprv vytvorí nová populácia z rodičov a ich potomkov.
 Táto, dvojnásobne veľká populácia sa následne rozdelí do frontov a pre každého jedinca sa vypočíta zhluková vzdialenosť na základe jeho vzdialenosti od svojich susedov vo fronte.
 Potom sa najepšie fronty prenesú do novej generácie.
-Posledný prenášaný front sa pravdepodobne nezmestí celý, vtedy sa vyberie toľko jedincov z daného frontu aby bola populácia rovnako veľká naprieč všetkými generáciami.
+Posledný prenášaný front sa pravdepodobne do novej generácie nezmestí celý, vtedy sa vyberie toľko jedincov z daného frontu, aby bola populácia rovnako veľká naprieč všetkými generáciami.
 Jedinci z posledného frontu sa vyberajú na základe zhlukovej vzdialenosti, aby sa zachovala vyššia diverzita.
 
 \subsection*{Rýchle nedominantné triedenie}
@@ -953,12 +961,12 @@ Toto triedenie teda iteratívne nachádza najlepší front a odstraňuje ho z pr
 V rámci jednoho frontu sa jedinci porovnávajú na základe zhlukovej vzdialenosti.
 Zhluková vzdialenosť je definovaná ako vzdialenosť jedinca od jeho susedov vo fronte.
 Vypočítava sa pre každý cieľ zvlášť a následne sa spočíta.
-Najdôležitejšou časťou algoritmu~\ref{algoritmus_crowding_distance_assignment} je cyklus, ktorý sa vykonáva pre každý cieľ $c$, teda v prípade tejto práce pre spokojnosť zákazníkov a celkové náklady.
+Najdôležitejšou časťou algoritmu~\ref{algoritmus_crowding_distance_assignment} je cyklus, ktorý sa vykonáva pre každý cieľ $c$, teda v prípade optimalizácie časového rozpisu pre spokojnosť zákazníkov a celkové náklady.
 Výpočet hodnôt oboch cieľov je popísaný v sekcii~\ref{implementacia_genetickeho_algoritmu}.
 Najprv sa jedinci zoradia podľa dosiahnutých hodnôt cieľa $c$.
 Následne sa vytýčia krajné body, jedincom s najmenšou a najväčšou hodnotou cieľa $c$ sa priradí nekonečná zhluková vzdialenosť, pretože sú najviac diverzní.
 Pre všetkých ostatných jedincov vo fronte a pre cieľ $c$ sa vypočíta zhluková vzdialenosť ako podiel rozdielu hodnôt susedov a rozdielu krajných jedincov.
-Tieto dielčie vzdialenosti sa postupne sčítavajú do celkovej zhlukovej vzdialenosti jedinca.
+Tieto čiastočné vzdialenosti sa postupne sčítavajú do celkovej zhlukovej vzdialenosti jedinca.
 
 \vspace*{\dimexpr0.5\baselineskip\relax}
 \begin{algorithm}[h]\label{algoritmus_crowding_distance_assignment}
@@ -996,23 +1004,22 @@ Tento porovnávací operátor je znázornený v algoritme~\ref{algoritmus_compar
 
 Toto porovnávanie sa dá rozšíriť aj o rôzne obmedzenia.
 Napríklad, v rámci optimalizácie časového rozpisu máme dva cieľe, spokojnosť zákazníkov a celkové náklady, ale porovnávanie sme rozšírili o to, v ktorom rozpise dôjde menej často k úplnému preplneniu vozidla.
-Sledujeme počet prípdov, kedy sa nejaký cestujúci nezmestil do vozidla.
-V prípade, že aspoň jeden z porovnávaných jedincov má tento počet väčší ako 0, vyhráva ten, ktorý má tento počet menší.
+Sledujeme počet prípadov, kedy sa nejaký cestujúci nezmestil do vozidla.
+V prípade, že aspoň jeden z porovnávaných jedincov má tento počet väčší ako 0, vyhráva ten, ktorý má tento počet nižší.
 Všeobecne môže byť obmedzení aj viac, v takom prípade sa porovnáva počet porušenia daných obmedzení.
 Napríklad ak by sme mali tri rôzne obmedzenia, časový rozpis môže porušovať 0, 1, 2 alebo 3 z nich.
 Vyhráva ten rozpis ktorý ich porušuje menej.
 V prípade ak oba rozpisy porušujú rovnaký počet obmedzení, porovnáme ich podľa operátora $\prec_n$.
-Pre potreby tejto práce máme len jedno spomínané obmedzenie, bližšie informácie k implementácii viacerých obmedzení sú v článku~\cite{deb2002nsga}.
+V optimalizácii časového ropisu máme len jedno obmedzenie, počet cestujúcich, ktorí sa nezmestili do vozidla, bližšie informácie k implementácii viacerých obmedzení sú v článku~\cite{deb2002nsga}.
 
 \subsection*{Inicializácia prvej generácie}
-Populácia prvej genrácie sa musí spracovať trochu inak ako ostatné generácie.
+Populácia prvej genrácie je potrebné spracovať iným spôsobom ako ostatné generácie.
 Hlavný cyklus algoritmu NSGA-II sa začína spojením rodičov a potomkov do jedného celku.
-Na začiatku však žiadnych potomkov nemáme.
 Algoritmus~\ref{algoritmus_initialization_generation} popisuje ako sa vytvorí populácia prvej generácie a jej potomkovia.
-Najprv sa vytvorí prvá generácia jedincov, tým sa náhodne vygenerujú chromozómy.
+Najprv sa vytvorí prvá generácia jedincov (rodičov), tým sa náhodne vygenerujú chromozómy.
 Následne sa týto jedinci roztriedia na fronty pomocou rýchleho nedominantného triedenia.
 V rámci každého frontu sa vypočíta zhluková vzdialenosť každého jedinca.
-Na základe získaných ohodnotení sa vyberú tí lepší rodičia a za pomoci kríženia a mutácie sa vytvorí prvá generácia potomkov.
+Na základe získaných ohodnotení sa vyberú najvhodnejší rodičia a za pomoci kríženia a mutácie sa vytvorí prvá generácia potomkov.
 
 \vspace*{\dimexpr0.5\baselineskip\relax}
 \begin{algorithm}[h]\label{algoritmus_initialization_generation}
@@ -1032,7 +1039,7 @@ Na základe získaných ohodnotení sa vyberú tí lepší rodičia a za pomoci 
 \end{algorithm}
 
 \subsection*{Hlavná slučka algoritmu NSGA-II}
-Po inicializácii prvej generácie sa ostatné môžu spracovávať rovnako.
+Po inicializácii prvej generácie sa následné generácie spracovávajú rovnako.
 Ako je vidieť v algoritme~\ref{algoritmus_nsga2}, hlavná slučka začína spojením rodičov a potomkov do jednej populácie.
 Novo vzniknutá populácia sa následne rozdelí do frontov na základe ich dominancie.
 Následuje kombinovaný cyklus na spracovanie jednotlivých frontov, ktorý ma dve úlohy:
@@ -1040,12 +1047,12 @@ Následuje kombinovaný cyklus na spracovanie jednotlivých frontov, ktorý ma d
   \item Priradenie zhlukovej vzdialenosti jedincov v aktuálnom fronte
   \item Priradenie jedincov aktuálneho frontu do novej generácie
 \end{enumerate}
-Tento cyklus sa vykonáva pokým sa celý následujúci front zmestí do novej generácie.
-Posledný front, ten ktorý sa už nezmestí celý, sa musí spracovať osobitne.
-Prvky z tohot frontu sa usporiadajú na základe zhlukovej vzdialenosti a do novej generácie sa prenesú len tie jedince, ktoré sa tam zmestia.
+Tento cyklus sa vykonáva dovtedy, kým sa celý následujúci front zmestí do novo vytváranej generácie.
+Posledný front, ten ktorý sa už nezmestí celý, sa spracováva osobitne.
+Prvky z tohto frontu sa usporiadajú na základe zhlukovej vzdialenosti a do novej generácie sa prenesú len najlepšie jedince, ktoré sa tam zmestia.
 Z novovzniknutej populácie sa následne vytvorí nová generácia potomkov.
-Vo všeobecnosti sa táto slučka vykonáva pokiaľ nie je dosiahnutý maximálny počet generácií alebo pokiaľ nebol nájdený optimálny jedinec.
-V prípade tejto práce sa však bere do úvahy iba maximálny počet generácií.
+Vo všeobecnosti sa táto slučka vykonáva, pokiaľ nie je dosiahnutý maximálny počet generácií alebo pokiaľ nebol nájdený optimálny jedinec.
+V prípade tejto práce sa však berie do úvahy iba maximálny počet generácií.
 
 \vspace*{\dimexpr0.5\baselineskip\relax}
 \begin{algorithm}[h]\label{algoritmus_nsga2}
@@ -1074,7 +1081,7 @@ Tento proces sa dá rozdeliť na tri hlavné časti:
   \item Mutácia potomkov
 \end{enumerate}
 Z každého kríženia vzniknú dvaja noví potomkovia, to znamená, že tento proces asa musí vykonať $N/2$ krát, pokiaľ je veľkosť populácie $N$.
-Druhá možnosť ako ukončiť tento proces je znázornená v algoritme~\ref{algoritmus_vytvorenie_novych_potomkov}, kde sa noví potomkovia prídávajú do množiny $Q$ pokiaľ je ich počet menší ako $N$.
+Druhá možnosť ako ukončiť tento proces je znázornená v algoritme~\ref{algoritmus_vytvorenie_novych_potomkov}, kde sa noví potomkovia pridávajú do množiny $Q$ pokiaľ je ich počet menší ako $N$.
 
 \vspace*{\dimexpr0.5\baselineskip\relax}
 \begin{algorithm}[h]\label{algoritmus_vytvorenie_novych_potomkov}
@@ -1095,15 +1102,14 @@ Druhá možnosť ako ukončiť tento proces je znázornená v algoritme~\ref{alg
 
 \subsection*{Výber rodiča}
 Pred tým ako sa budú rodičia medzi sebou krížiť, je potrebné ich vybrať.
-Pre túto prácu bol zvolený turnajový výber rodiča.
-Turnajový výber funguje tak, že sa náhodne vyberie $k$ jedincov z populácie, z ktorých sa turnajovým spôsobom vyberie ten najlepší.
+Pre výber vhodných rodičov na kríženie bol zvolený turnajový výber rodiča.
+Turnajový výber funguje tak, že sa náhodne vyberie $k$~jedincov z populácie, z ktorých sa turnajovým spôsobom vyberie ten najlepší.
 V algoritme~\ref{algoritmus_vyber_rodica} je zvolený turnajový výber s $k = 2$, \textit{binary tournament}, teda sa vyberú dvaja náhodní jedinci a porovnajú sa pomocou porovnávacieho operátora $\prec_n$.
 
-Turnajový výber bol pre túto prácu zvolený, pretože je jednoduchý na implementáciu a má dobré výsledky v porovnaní s inými typmi výberu rodičov.
-V zborníku z konferencie CEC~\cite{farias2018parent} je porovnanie roznych typov výberu rodičov.
+Turnajový výber bol pre zvolený, pre jednoduchosť na implementáciu a jeho dobré výsledky v porovnaní s inými typmi výberu rodičov.
+V zborníku z konferencie CEC~\cite{farias2018parent} je uvedené porovnanie rôznych typov výberu rodičov.
 Turnajový výber má veľmi podobné výsledky ako náhodný výber rodiča, pravdepodobne z dôvodu malého počtu jedincov v turnaji.
-Vyšší počet by však mohol celú optimalizáciu spomaliť.
-Pokusmi sme odhadli počet jedincov v turnaji na 2.
+Vyšší počet by mohol negatívne vplívať na rýchlosť výpočtu optimalizácie.
 
 \vspace*{\dimexpr0.5\baselineskip\relax}
 \begin{algorithm}[h]\label{algoritmus_vyber_rodica}
@@ -1130,8 +1136,8 @@ Tento proces sa opakuje pre všetky gény v chromozómoch rodičov.
 Je vidieť, že takýmto krížením vzniknú dvaja noví jedinci, preto stačí toto kríženie vykonať len $N/2$ krát, pokiaľ je veľkosť populácie $N$.
 
 Tento typ kríženia je známy ako \textit{uniform crossover} a je veľmi populárny v genetických algoritmoch.
-Porovnanie rôznych typov kríženia je v zborníku z konferencie ICIIP~\cite{bala2015comparative}.
-Na základe výsledkov v tomto článku bol zvolený typ kríženia s najväčšou diverzitou výsledkov aby sa zamedzilo predčasnej konvergencii, teda aby sa algoritmus nezastavil na lokálnom minime.
+Porovnanie rôznych typov kríženia je uvedené v zborníku z konferencie ICIIP~\cite{bala2015comparative}.
+Na základe výsledkov uvedených v tomto zborníku bol zvolený typ kríženia s najväčšou diverzitou výsledkov, aby sa zamedzilo predčasnej konvergencii, teda aby sa algoritmus nezastavil na lokálnom minime.
 
 \vspace*{\dimexpr0.5\baselineskip\relax}
 \begin{algorithm}[h]\label{algoritmus_krizenie_rodicov}
@@ -1174,11 +1180,11 @@ Ak je toto číslo menšie ako pravdepodobnosť mutácie, gén sa nahradí náho
 Výstupom klasického genetického algoritmu by mal byť jedinec s najlepším ohodnotením.
 V prípade NSGA-II je to front s najlepšími jedincami.
 Keďže všetky jedince v najlepšom fronte sú rovnako dobré, nedá sa jednoznačne určiť, ktorý z nich je najlepší.
-Ich ohodnotenie je závislé od viacerých cieľov, v prípade tejto práce dvoch.
+Ich ohodnotenie je závislé od viacerých cieľov, v prípade optimalizácie časového rozpisu dvoch.
 Po skončení optimalizácie sa celá posledná generácia približuje optimálnemu frontu riešení.
 To znamená, že všetky časové rozpisy v poslednej generácii sú rovnako dobrým výsledkom.
-Pre výber toho najlepšieho jedinca je potrebné rozhodnúť sa, ktorý z cieľov je dôležitejší, prípade ich váhy.
-Táto práca sa už musí nechať na používateľa programu, ktorý sa sám rozhodne, ktorý z rozpisov je pre neho najlepší.
+Pre výber toho najlepšieho jedinca je potrebné rozhodnúť sa, ktorý z cieľov je dôležitejší.
+Toto rozhodnutie sa musí nechať na používateľa programu, ktorý z rozpisov je pre neho najlepší.
 Z výsledkov priebežných experimentov počas vývoja programu sa ukázalo, že rozpisy s vyššou spokojnosťou cestujúcich majú z pravidla aj vyššie celkové náklady.
 Ako postupne klesajú náklady, klesá aj spokojnosť cestujúcich, pretože sa znižuje počet spojov, to má za následok preplnenejšie vozidlá a dlhšie čakacie doby na zastávkach.
 Tieto experimenty sú bližšie popísané v kapitole~\ref{experimenty}.
