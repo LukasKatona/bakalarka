@@ -1328,7 +1328,7 @@ Použitie NSGA-II umožnilo zachovať diverzitu riešení, čo poskytuje použí
 \chapter{Experimenty}\label{experimenty}
 
 V tejto kapitole sú podrobne popísané experimentálne scenáre, ktoré boli navrhnuté na posúdenie výkonnosti optimalizačného algoritmu aplikovaného na plánovanie liniek MHD.
-Cieľom bolo preskúmať, ako algoritmus reaguje na zmeny v parametroch ako sú dĺžka trasy, dĺžka vozidla a počet zastávok.
+Cieľom bolo preskúmať reakcie algoritmu na zmeny v parametroch ako sú dĺžka trasy, dĺžka vozidla a počet zastávok.
 
 Každý experiment bol vykonaný s rovnakými parametrami pre genetický algoritmus, aby sa zabezpečila konzistentnosť výsledkov:
 \begin{itemize}
@@ -1339,14 +1339,14 @@ Každý experiment bol vykonaný s rovnakými parametrami pre genetický algorit
 \end{itemize}
 Ostatné parametre sú špecifické pre jednotlivé experimenty a sú uvedené v tabuľkách v príslušných sekciách.
 
-Parametre zariadenia na ktorom boli experimenty vykonané sú:
+Parametre zariadenia, na ktorom boli experimenty vykonané, sú:
 \begin{itemize}
   \item \textbf{Operačný systém} --- Windows 11 Pro 64-bit
   \item \textbf{Procesor} --- Intel Core i7--9750H CPU @ 2.60GHz
   \item \textbf{RAM} --- 16 GB DDR4
 \end{itemize}
 
-Všetky experimenty boli vykonané na rovnakom zariadení, aby sa zabezpečila konzistentnosť výsledkov,
+Všetky experimenty boli vykonané na rovnakom zariadení, aby sa zabezpečila konzistentnosť výsledkov
 a v rovnakom čase, aby sa minimalizoval vplyv vonkajších faktorov.
 Každý experiment trval približne od 45 minút do 1.5 hodiny v závislosti od dĺžky trasy a počtu zastávok.
 
@@ -1371,8 +1371,9 @@ Parametry experimentu sú uvedené v tabuľke~\ref{tab:shortDshortVin}.
 \end{table}
 
 Ako je vidieť v tabuľke~\ref{tab:shortDshortVout}, optimalizácia prebehla úspešne.
-Algoritmus bol schopný vygenerovať rozpis, pri ktorom je spokojnosť cestujúcich 94\% a počet cestujúcich.
-Vozidlá sú v priemere zaplnené do jednej tretiny, pretože ich je až 115, to je o 3 spoje menej ako je aktu8lny rozpis linky 46.
+Algoritmus bol schopný vygenerovať rozpis, pri ktorom je spokojnosť cestujúcich 94\% a počet neobslúžených cestujúcich je 0.
+Vozidlá sú v priemere zaplnené do jednej tretiny, pretože ich je až 115, to je o 3 vozidlá menej ako je aktuálny rozpis linky 46.
+Z toho vyplíva, že musia byť menšie aj celkové prevádzkové náklady linky 46.
 
 \begin{table}[h]
   \centering
@@ -1416,13 +1417,14 @@ Parametry experimentu sú uvedené v tabuľke~\ref{tab:shortDlongVin}.
   \label{tab:shortDlongVin}
 \end{table}
 
-V tabuľke~\ref{tab:shortDlongVout} sú vidieť zmeny oproti predošlému experimentu.
-Navýšenie kapacity jednoho vozidla má vplyv na:
+V tabuľke~\ref{tab:shortDlongVout} sú vidieť výsledky optimalizácie rovnakej linky ako v predošlom experimente, avšak s vozidlom s vyššou kapacitou.
+Navýšenie kapacity vozidla má vplyv na:
 \begin{itemize}
   \item Priemerná čakacia doba sa zvýšila o 2 minúty
-  \item Spokojnosť cestiujúcich sa zvýšila o 4,54\%
+  \item Spokojnosť cestujúcich sa zvýšila o 4,54\%
   \item Počet vozidiel sa znížil o 43 kusov
   \item Priemerná naplnenosť vozidiel sa znížila o 6,42\%
+  \item Celkové náklady sa zvýšili o 8183 Kč
 \end{itemize}
 
 \begin{table}[h]
@@ -1520,6 +1522,7 @@ Oproti experimentu s dlhou cestou ale krátkym vozidlom sa zmenili následovné 
   \item Spokojnosť cestiujúcich sa zvýšila o 1,88\%
   \item Počet vozidiel sa znížil o 29 kusov
   \item Priemerná naplnenosť vozidiel sa znížila o 9,04\%
+  \item Celkové náklady sa zvýšili o 90518 Kč
 \end{itemize}
 
 \begin{table}[h]
@@ -1545,43 +1548,42 @@ Celý rozpis zastávok, časový rozpis a grafy podrobnejšie popisujúce tento 
 
 \chapter{Nástroj na analýzu a optimalizáciu časových rozpisov}\label{nastroj}
 
-Poslednoučasťou tejto práce je implementácia nástroja na analýzu a optimalizáciu časových rozpisov.
-Tento nástroj bude slúžiť ako rozhranie medzi požívateľom a optimalizačným algoritmom.
+Poslednou časťou tejto práce je implementácia nástroja na analýzu a optimalizáciu časových rozpisov.
+Tento nástroj slúži ako rozhranie medzi požívateľom a optimalizačným algoritmom.
 Nástroj bude mať dve hlavné funkcie:
 \begin{itemize}
   \item \textbf{Analýza časového rozpisu} --- nástroj prevezme existujúci časový rozpis a vykoná analýzu jeho kvality. Na to poslúži spustenie simulácie, zber štatistík a ich vizualizácia.
   \item \textbf{Optimalizácia časového rozpisu} --- nástroj vygeneruje nové časové rozpisy na základe vstupných parametrov a požiadaviek používateľa. Na to poslúži optimalizačný algoritmus NSGA-II.
 \end{itemize}
 
-Uživateľské rozhranie by malo byť intuitívne a jednoduché.
-Hlavným cieľom tejto práce je optimalizácia, preto je kladený väčší dôraz na ňu ako na samotné užívateľské rozhranie.
-Toto rozhranie, bez ohľadu na to ako moc jednoduché bude, je dôležité, preto tento krok nesmie byť zanedbaný.
+Používateľské rozhranie by malo byť intuitívne a jednoduché.
+Hlavným cieľom tejto práce je optimalizácia, preto je kladený väčší dôraz na ňu ako na samotné používateľské rozhranie.
+Toto rozhranie je pre používanie optimalizačného algoritmu nevyhnutné, bez ohľadu na jeho jednoduchosť, nesmie byť jeho vývoj zanedbaný.
 
-\section{Návrh uživateľského rozhrania}\label{nastroj_uzivatelske_rozhranie}
+\section{Návrh používateľského rozhrania}\label{nastroj_uzivatelske_rozhranie}
 
-Prvým krokom pri tovrbe u živateľských rozhraní je návrh.
-Najprv si treba premyslieť, čo všetko bude nástroj robiť a aké funkcie bude mať.
-Tento nástroj by mal vedieť analyzovať nahrané časové rozpisy, vizualizovať zistenia zo simulácie, prezentovať ich formou grafov a štatistík.
-Ďalej by mal vedieť optimalizovať časové rozpisy. Výpočet optimalizácie pomocou genetického algoritmu je časovo náročný úkon a preto by bolo vhodné používateľa informovať o priebehu optimalizácie.
-Po dokončení optimalizácie by mal mať používateľ možnosť vybrať si rozpis, ktorý sa mu páči najviac a uložiť si ho.
-Malo by byť možné analyzovať aj uložené rozpisy.
-Prípadne by nástroj mohol ponúkať exportovanie analýzy rozpisu.
+Prvý krok pri tvorbe používateľských rozhraní je jeho návrh.
+Je dôležité si premyslieť funkcionalitu akú bude rozhranie poskytovať.
+Tento nástroj by mal vedieť analyzovať nainportované časové rozpisy, vizualizovať výsledky simulácie, prezentovať ich formou grafov a štatistík a optimalizovať časové rozpisy.
+Výpočet optimalizácie pomocou genetického algoritmu je časovo náročný úkon a preto je nutné používateľa informovať o jeho priebehu formou zobrazenia aktuálnej generácie.
+Po dokončení optimalizácie bude mať používateľ možnosť vybrať si rozpis, ktorý najviac zodpovedá jeho potrebám a uložiť si ho.
+Používateľské rozhranie by malo umožniť aj analýzu už uložených rozpisov, prípadne export jednotlivých analýz do napríklad textového súboru alebo PDF.
 
-Všetky tieto funkcie sa dajú rozdeliť medzi dve stránky, stránku pre analýzu a stránku pre optimalizáciu.
-Na prepínanie medzi stránkami poslúži jednoduché menu v hornej časti okna.
+Všetky uvedené funkcie budú rozdelené medzi dve stránky, stránku pre analýzu a stránku pre optimalizáciu.
+Na prepínanie medzi stránkami bude slúžiť jednoduché menu v hornej časti okna.
 Na ich návrh boli použité wireframy.
 
 \newpage
 \subsection*{Stránka pre analýzu časového rozpisu}
 Na stránke analýzy časového rozpisu bude možné:
 \begin{itemize}
-  \item nahrať informáie o zastávkach
-  \item nahrať informácie o časovom rozpise
-  \item nahrať uložený časový rozpis
+  \item naimportovať informácie o zastávkach
+  \item naimportovať informácie o časovom rozpise
+  \item vybrať uložený časový rozpis
   \item zadať parametre pre simuláciu
-  \item Resetovať stránku
+  \item resetovať stránku (vyprázdniť vstupy)
   \item spustiť simuláciu
-  \item zobraziť výsledky simulácie, vrátane grafov a štatistík
+  \item zobraziť výsledky analýzy, vrátane grafov a štatistík
   \item uložiť výsledky analýzy
 \end{itemize}
 
@@ -1593,11 +1595,11 @@ Na stránke analýzy časového rozpisu bude možné:
 
 Na obrázku~\ref{fig:wireframe_analyze} je znázornený wireframe pre túto stránku.
 Funkcie spomenuté vyššie sú usporiadané rovnako ako jednotlivé elementy stránky.
-Pre nahranie informácií o zastávke a novom časovom rozpise bude slúžiť vyberač súborov.
-Informácie by mali byť uložené v textovom súbore.
-Uživateľské rozhranie by malo obsahovať nápovedu, ktorá používateľovi ukáže aký formát majú mať vstupné súbory.
+Na import informácií o zastávke a nového časového ropisu bude slúžiť vyberač súborov.
+Importný súbor bude vo formáte TXT.
+Uživateľské rozhranie by malo obsahovať nápovedu, ktorá používateľovi poskytne vzor formátu vsupných súborov.
 
-\noindent Formát potrebný na spracovanie informácií o zastávkach:
+\noindent Formát potrebný na import informácií o zastávkach:
 
 \noindent \texttt{Lesná, Haškova:0:[(5, 60), (6, 90), \ldots , (21, 40), (22, 30)]:0 \newline
   Brechtova:1:[(5, 60), (6, 90), \ldots , (21, 40), (22, 30)]:0.1 \newline
@@ -1605,7 +1607,7 @@ Uživateľské rozhranie by malo obsahovať nápovedu, ktorá používateľovi u
   \ldots
 }
 
-\noindent Formát potrebný na spracovanie informácií o časovom rozpise:
+\noindent Formát potrebný na import informácií o časovom rozpise:
 
 \noindent \texttt{04: \newline
   05:01,11,21,31,41,51 \newline
@@ -1633,24 +1635,24 @@ Medzi tieto výsledky budú patriť agregované hodnoty:
   \item Celkový počet vozidiel
   \item Priemerná naplnenosť vozidiel
 \end{itemize}
-Taktiež budú na stránke zobrazené grafy s hodnotami rôznych štatistík za hodinu aby boli vidieť zmeny v priebehu dňa, konkrétne:
+Taktiež budú na stránke zobrazené grafy s hodnotami rôznych štatistík za hodinu, aby boli vidieť zmeny v priebehu dňa, konkrétne:
 \begin{itemize}
   \item Cestujúci prichádzajúci za hodinu
   \item Priemerný čas strávený čakaním za hodinu
-  \item Počet prípadov kedy sa cestujúci nezmestili do vozidla za hodinu
+  \item Počet neobslúžených cestujúcich za hodinu
 \end{itemize}
 Posledným grafom bude:
 \begin{itemize}
-  \item Priemerná naplnenosť vozidiel naprieč zastávkami
+  \item Priemerná naplnenosť vozidiel na linke
 \end{itemize}
-Po stlačení tlačítka \texttt{Uložiť analýzu} sa otvorí vyberač súborov, aby si používateľ mohol vybrať kam sa analýza uloží.
-Analýza sa bude ukladať vo forme textovévo súboru.
+Po stlačení tlačítka \texttt{Uložiť analýzu} sa otvorí vyberač súborov, aby si používateľ mohol z adresárovej štruktúry vybrať kam sa vygenerovaného analýza uloží.
+Analýza sa bude ukladať vo formáte TXT.
 
 \newpage
 \subsection*{Stránka pre optimalizáciu časového rozpisu}
 Na stránke optimalizácie časového rozpisu bude možné:
 \begin{itemize}
-  \item nahrať informáie o zastávkach
+  \item naimportovať informácie o zastávkach
   \item zadať parametre pre optimalizáciu
   \item Resetovať stránku
   \item spustiť optimalizáciu
@@ -1667,13 +1669,13 @@ Na stránke optimalizácie časového rozpisu bude možné:
 
 Na obrázku~\ref{fig:wireframe_optimize} je znázornený wireframe pre túto stránku.
 Pre nahranie informácií o zastávke bude slúžiť rovnaký vyberač súborov ako na stránke analýzy.
-Vyberač pre časový rozpis tu nie je potrebný, pretože z hladiska optimalizácie je časový rozpis výstupom a nie vstupom.
-Číselné vstupné parametre pre simuláciu sú rovnaké ako na stránke analýzy, ale pre genetický algoritmus tu sú štyri nové a to \texttt{Velkosť populácie}, \texttt{Počet generácií}, \texttt{Pravdepodobnosť mutácie} a \texttt{Maximálny počet spojov za hodinu}.
+Vyberač pre časový rozpis v tomto prípade nie je potrebný, pretože z pohľadu optimalizácie je časový rozpis výstupom a nie vstupom.
+Číselné vstupné parametre pre simuláciu sú rovnaké ako na stránke analýzy, ale pre genetický algoritmus je navyše potrebné zadať štyri nové a to \texttt{Velkosť populácie}, \texttt{Počet generácií}, \texttt{Pravdepodobnosť mutácie} a \texttt{Maximálny počet spojov za hodinu}.
 Tlačítko \texttt{Resetovať} vymaže všetky vstupy aj výstupy optimalizácie.
-Tlačítko \texttt{Optimalizovať} spustí optimalizáciu čaového rozpisu.
+Tlačítko \texttt{Optimalizovať} spustí optimalizáciu časového rozpisu.
 Používateľ by mal počas optimalizácie byť schopný vidieť:
 \begin{itemize}
-  \item V koľkatej generácii sa algoritmus nachádza
+  \item Ktorú generáciu algoritmus aktuálne spracováva
   \item Koľko generácií bude algoritmus spracovávať
   \item Kedy optimalizácia začala
   \item Kedy optimalizácia skončila (ak už skončila)
@@ -1681,40 +1683,38 @@ Používateľ by mal počas optimalizácie byť schopný vidieť:
   \item Graf s priebežnými dosiahnutými cieľmi jednotlivých jedincov v aktuálne dosiahnutej generácii
 \end{itemize}
 Po dokončení optimalizácie by mal byť používateľ schopný prezrieť si všetky rozpisy v poslednej generácii.
-To bude zabezpečené posuvným tiahlom, a zobrazením aktuálne vybraného rozpisu.
+To bude zabezpečené posuvným tiahlom a zobrazením aktuálne vybraného rozpisu.
 Tiahlo bude mať toľko krokov, koľko je rozpisov v generácii.
 Vyplnením textového vstupu pre názov rozpisu a stlačením tlačítka \texttt{Uložiť rozpis} sa rozpis uloží.
-Nepomenovaný rozpis sa označí časom a dátumom vytvorenia.
+Nepomenovaný rozpis sa pri uložení automaticky pomenuje časom a dátumom jeho vytvorenia %TODO dopisat format
 
 \section{Implementácia nástroja}\label{nastroj_implementacia}
 
-Po návrhu náslduje implementácia.
-Predtým však treba vybrať technológie, ktoré sú na to vhodné a navrhnúť architektúru aplikácie.
-
+Po návrhu následuje implementácia.
+Prvým krokom implementácie je výber vhodných technológií a druhým je návrh architektúry aplikácie.
 
 \subsection*{Použité technológie}
 Ako programovací jazyk bol zvolený \texttt{Python} a to preto, lebo je veľmi verzatilný.
-Výhodnejšie by možno bolo naprogramovať optimalizačný algoritmus v jazyku \texttt{C} alebo \texttt{C++}, ktoré sú rýchlejšie.
+Ďalšou možnosťou by bolo naprogramovať optimalizačný algoritmus v jazyku \texttt{C} alebo \texttt{C++}, ktoré sú rýchlejšie.
 
-\texttt{Python} bol však vybraný vďaka jednoduchému použitiu a tomu, že sa v ňom dá pohodlne napísať ako backend, tak aj frontend.
-Na to aby sa mohlol v tomto jazyku písať aj frontend bol využitý framework \texttt{Reflex}.
+\texttt{Python} bol však vybraný vďaka jednoduchému použitiu a možnostiam naprogramovania ako backendu, tak aj frontendu (na programovanie frontendu bol využitý framework \texttt{Reflex}~\cite{reflex_docs}).
 
-Vďaka tomtu frameworku je možné písať webové komponenty a celé stránky priamo v jazyku \texttt{Python}.
+Vďaka tomuto frameworku je možné písať webové komponenty a celé stránky priamo v jazyku \texttt{Python}.
 Každý komponent je písaný formou funkcie, ktorá vracia jeho obsah.
-Tým sa dajú komponnty zhlukovať do väčších komponentov alebo stránok.
-Vstupy komponentov sa dajú predávať ako parametre jeho funkcie, alebo môže komponent pracovať s premennými, ktoré sú súčasťou triedy \texttt{State}.
+Tým sa dajú komponenty zhlukovať do väčších komponentov alebo stránok.
+Vstupy komponentov sa dajú predávať ako parametre jeho funkcie alebo môže komponent pracovať s premennými, ktoré sú súčasťou triedy \texttt{State}.
 \texttt{State} je trieda, ktorá počas behu aplikácie uchováva jej stav.
 K premenným tohto stavu sa dá jednoducho pristupovať, čítať ich hodnoty aj prepisovať ich.
-Takýchto tried môže byť v aplikácii viacej a jeden komponent môže pracovať s premennými aj viacerých stavov.
+Takýchto tried môže byť v aplikácii viacej a jeden komponent môže pracovať s premennými viacerých stavov.
 Stav okrem premenných obsahuje aj metódy, ktoré sa volajú pri danej udalosti.
-Medzi udalosti patrí napríklad stlačenie konkrétneho tlačítka, alebo zmena hodnoty v jednom z textových vstupov.
+Medzi udalosti patrí napríklad stlačenie konkrétneho tlačítka alebo zmena hodnoty v jednom z textových vstupov.
 V týchto metódach sa môže pristupovať aj k premenným iného stavu.               
 
 Informácie o použítí tohoto frameworku boli čerpané z jeho oficiálnej dokumentácie~\cite{reflex_docs}.
 
-Takáto verzatilita jazyka a frameworku bola pri tejto práci veľmi výtaná. 
-Treba si však dávať pozor, pretože priveľká sloboda v písaní kódu môže mať za následok neprehľadný, príliš previazaný kód, ktorý sa bude v budúcnosti ťažko rozširovať.
-Pretože sa s týmito technológiami dá aplikácia napísať naozaj veľmi veľa spôsobmi, je potrebné zvoliť si dobrú architektúru, rozčlenenie aplikácie na moduly, a tie na jednotlivé webové komponenty alebo backendové skripty.
+Takáto verzatilita jazyka a frameworku bola pri programovaní tohto nástroja veľmi vítaná,
+treba však dávať pozor na prehladnosť a previazanosť kódu aby sa v budúcnosti dal ľahko rozširovať.
+Je potrebné zvoliť si dobrú architektúru, rozčlenenie aplikácie na moduly a tie na jednotlivé webové komponenty alebo backendové skripty, pretože tieto technológie umožňujú veľkú variabilitu písania zdrojového kódu aplikácie.
 
 \subsection*{Architektúra aplikácie}
 Aplikácia sa volá SPROUT, čo znamená \textit{Smart Performance and Resource Optimization for Urban Transport}, po slovensky inteligentná optimalizácia výkonu a zdrojov verejnej dopravy.
@@ -1722,7 +1722,7 @@ Touto skratkou je označený aj hlavný adresár, ktorý obsahuje všetky zdrojo
 V ňom sa nachádzajú adresáre \texttt{backend}, v ktorom sú skripty obsahujúce logiku, simulačný model, kalendár udalostí, genetický algoritmus a podobné, \texttt{components}, ktorý obsahuje webové komponenty a \texttt{pages}, kde sú uložené zdrojové kódy jednotlivých stránok aplikácie.
 Ďalej sa tu nachádza \texttt{sprout.py}, súbor, ktorý obsahuje koreňový element aplikácie a smerovanie medzi jednotlivými stránkami.
 Posledným súborom v tomto adresári je \texttt{\_\_init\_\_.py}, ktorý slúži na inicializáciu adresára ako \texttt{Python} modulu.
-Tento súbor sa nachádza aj v ostatných adresároch.
+Tento inicializačný súbor sa nachádza aj vo všetkých ostatných adresároch.
 
 \dirtree{%
   .1 sprout.
@@ -1769,8 +1769,8 @@ Tento súbor sa nachádza aj v ostatných adresároch.
     \hline
     \textbf{Súbor} & \textbf{Obsah} \\ \hline
     Backendové skripty & \\
-    EventCalendar.py & trieda kalendára udalostí a udalsti \\
-    Genetics.py & trida genetického algoritmu a jedného jedinca \\
+    EventCalendar.py & trieda kalendára udalostí a udalosti \\
+    Genetics.py & trieda genetického algoritmu a jedného jedinca \\
     InputParser.py & trieda s metódami na spracovanie vstupu \\
     models.py &  model zastávky, vozidla a časového rozpisu\\
     RandomNumberGenerator.py & trieda generátora náhodných čísel \\
@@ -1778,15 +1778,15 @@ Tento súbor sa nachádza aj v ostatných adresároch.
     Statistics.py & trieda na zber a spracovanie štatistík \\ \hline
     Webové komponenty & \\
     analyzeLine.py & analýza časového rozpisu \\
-    busStopChart.py & zobrazenie grafu so zastávkami na jednej z osí \\
+    busStopChart.py & zobrazenie grafu so zastávkami na osi x \\
     busStopTable.py &zobrazenie tabuľky so zastávkami \\
     constraintInput.py & zadanie obmedzení počtu spojov za hodinu \\
     footer.py & pätička webovej aplikácie \\
-    hourChart.py & zobrazenie grafu s hodinami na jednej s osí \\
+    hourChart.py & zobrazenie grafu s hodinami na osi x \\
     infoCard.py & zobrazenie jednočíselných štatistík \\
-    infoUpload.py & nahranie súboru \\
+    infoUpload.py & import súboru \\
     layout.py & základné rozloženie stránky \\
-    navbar.py & horné navigačné menu \\
+    navbar.py & vrchné navigačné menu \\
     numberInput.py & zadanie jednočíselných vstupov \\
     optimizeLine.py & optimalizácia časového rozpisu \\
     rozpis.txt & vzorový príklad informácií o časovom rozpise \\
@@ -1801,7 +1801,7 @@ Tento súbor sa nachádza aj v ostatných adresároch.
   \caption{Zdrojové kódy}
 \end{table}
 
-V tabuľke~\ref{tab:source_codes} je stručne popísaný obsah jednotlivých súborov zdrojových kódov a ich rozdelenie medzi jednotlié moduly.
+V tabuľke~\ref{tab:source_codes} je stručne popísaný obsah jednotlivých súborov zdrojových kódov a ich rozdelenie medzi jednotlivé moduly.
 Podrobnejší popis celého zdrojového kódu je dostupný v programovej dokumentácii~\cite{sprout_docs}, ktorá bola vygenerovaná pomocou nástroja \texttt{Sphinx}~\cite{sphinx_doc}.
 
 \subsection*{Inštalácia a spustenie aplikácie}
@@ -1810,7 +1810,7 @@ Postup inštalácie a spustenia aplikácie na lokálnom počítači je nasledovn
   \item Nainštalujte si \texttt{Python} vo verzii 3.10.
   \item Nainštalujte si \texttt{pip} vo verzii 24.3.
   \item (Volitelné) v koreňovom adresári projektu vytvorte virtuálne prostredie príkazom \texttt{python -m venv venv}.
-  \item Aktivujte virtuálne prostredie príkazom \texttt{venv\textbackslash Scripts\textbackslash activate} na Windows alebo \texttt{source venv/bin/activate} na Linuxe.
+  \item Aktivujte virtuálne prostredie príkazom \texttt{venv\textbackslash Scripts\textbackslash activate} na Windowse alebo \texttt{source venv/bin/activate} na Linuxe.
   \item Nainštalujte potrebné knižnice príkazom \texttt{pip install -r requirements.txt}.
   \item Pomocou príkazu \texttt{cd src/sprout} sa presuňte do adresára s aplikáciou.
   \item Spustite aplikáciu príkazom \texttt{reflex run}.
@@ -1818,21 +1818,20 @@ Postup inštalácie a spustenia aplikácie na lokálnom počítači je nasledovn
 
 \chapter{Záver}\label{zaver}
 
-Cieľom tejto práce bolo vyvynúť nástroj, ktorý by v určitom ohlade optimalizoval mestskú hromadnú dopravu.
-Ako cieľ optimalizácie bol vybraný časový rozpis.
+Cieľom tejto práce bolo vyvinúť nástroj, ktorý by umožnil zjednodušene optimalizovať mestskú hromadnú dopravu.
+Ako cieľ optimalizácie bol vybraný časový rozpis linky MHD.
 Optimalizácia bola realizovaná pomocou multi-objektívneho genetického algoritmu NSGA-II.
 
 Táto práca mala splniť následujúce body:
 \begin{enumerate}
-  \item Preskúmajte problematiku vytvárania siete mestskej hromadnej dopravy, jej modelovania a optimalizácie pre mestá do pol milióna obyvateľov. Na návrh môjho garanta bol simulačný model navrhnutý pomocou DEVS, poznatky o tomto formalizme boli čerpané zo zborníku z konferencie WSC~\cite{tendeloo2018discrete} a príklad, ktorý pomohol k porozumeniu je z článku~\cite{seo2014devs}. 
-  \item Pre mesto veľkosti krajského mesta Českej republiky získajte alebo odhadnite dáta, z ktorých zostavíte model miestnej mestskej hromadnej dopravy. Informácie boli získané priamo z Dopravného podniku mesta Brno, viac informácií je v kapitole~\ref{relevantne_vlastnosti}.
-  \item Oboznámte sa s riešeniami, ktoré na optimalizáciu takejto siete používajú metódy umelej inteligencie. Inšpirácia na použitie genetického algoritmu vychádza z článku~\cite{tang2021data}, konkrétne ide o multi-objektívny NSGA-II.\@
+  \item Preskúmajte problematiku vytvárania siete mestskej hromadnej dopravy, jej modelovania a optimalizácie pre mestá do pol milióna obyvateľov. Na návrh môjho garanta bol simulačný model navrhnutý pomocou DEVS, poznatky o tomto formalizme boli čerpané zo zborníku z konferencie WSC~\cite{tendeloo2018discrete} a príklad, ktorý pomohol k lepšiemu porozumeniu tejto témy je čerpaný z článku~\cite{seo2014devs}. 
+  \item Pre mesto veľkosti krajského mesta Českej republiky získajte alebo odhadnite dáta, z ktorých zostavíte model miestnej mestskej hromadnej dopravy. Informácie boli získané priamo z Dopravného podniku mesta Brno, podrobnejší popis je v kapitole~\ref{relevantne_vlastnosti}.
+  \item Oboznámte sa s riešeniami, ktoré na optimalizáciu takejto siete používajú metódy umelej inteligencie. Inšpirácia na použitie genetického algoritmu vychádza z vedeckého článku~\cite{tang2021data}, konkrétne ide o multi-objektívny NSGA-II.\@
   \item Vytvorte prostredie, ktoré bude slúžiť na modelovanie a optimalizáciu takejto siete. Bol vytvorený nástroj na analýzu a optimalizáciu časových rozpisov, ktorý je popísaný v kapitole~\ref{nastroj}, na zostrojenie modelu slúžia používateľské vstupy, ktoré nástroj spracuje a sám zostrojí model.
   \item Na vhodne zvolených príkladoch overte fungovanie vášho systému a diskutujte dosiahnuté výsledky. Fungovanie systému bolo otestované v rámci štyroch experimentov a priebežného testovania počas vývoja. Experimenty sú v kapitole~\ref{experimenty}. Výsledky preukázali, že algoritmus je schopný sa prispôsobiť rôznym situáciam.
 \end{enumerate}
 
-Aplikáciu by bolo možné rozšíriť napríklad o porovnanie dvoch rozpisov, alebo exportovanie analýzy vo formáte PDF, alebo export optimalizácie.
-Taktiež by bolo dobré zadať verzatilnejšie zadávanie vstupov, pretože momentálne sa informácie o zastávkach dajú nahrať len ako textový súbor.
-Pri analýze a optimalizácii sa využíva simulačný model, ktorý by sa mohol spraviť odrobnejší, aby sa viac približoval realite a dodal tak kvalitnejšie výsledky.
-V rámci optimalizácie by sa mohli niektoré výpočty sparalelizovať aby sa tak skrátila doba čakania na výsledok.
-Dalo by sa naimplementovať inteligentné ohodnocovanie rozpisov vo finálnej generácii na základe nových používateľských vstupov, aby používateľ nemusel tento krok robiť ručne.
+Aplikáciu by bolo možné rozšíriť napríklad o porovnanie dvoch rozpisov, alebo exportovanie analýzy vo formáte PDF, alebo export optimalizácie, rozšírenie nástroja o verzatilnejšie zadávanie vstupov nakoľko momentálny import údajov o zastávkach a časovom rozpise je možný len vo formáte TXT.
+Pri analýze a optimalizácii sa využíva simulačný model, ktorý je možné spraviť podrobnejší, aby sa viac približoval realite a dodal tak ešte kvalitnejšie výsledky.
+V rámci optimalizácie by sa mohli niektoré výpočty sparalelizovať tak, aby sa skrátila doba čakania na výsledok.
+Bolo by možné rozšíriť optimalizáciu o inteligentné ohodnocovanie rozpisov v poslednej generácii na základe nových používateľských vstupov, aby sa eliminoval ručný výber najvhodnejšieho rozpisu používateľom.
