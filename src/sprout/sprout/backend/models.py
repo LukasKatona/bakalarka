@@ -1,5 +1,7 @@
 """
 This file contains the Bus, BusStop, and TimeTable classes, which are used in the simulation of a bus system.
+
+:author: Lukas Katona
 """
 
 from enum import Enum

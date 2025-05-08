@@ -1,5 +1,7 @@
 """
 This file contains event calendar class and event class, both used in the simulation based on events.
+
+:author: Lukas Katona
 """
 
 class Event:

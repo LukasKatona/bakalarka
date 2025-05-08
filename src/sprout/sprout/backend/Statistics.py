@@ -1,3 +1,9 @@
+"""
+This file contains the Statistics class, which is used to gather information during simulation.
+
+:author: Lukas Katona
+"""
+
 import matplotlib.pyplot as plt
 import numpy as np
 

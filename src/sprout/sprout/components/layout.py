@@ -1,5 +1,7 @@
 """
 This file contains base layout of the web page.
+
+:author: Lukas Katona
 """
 
 import reflex as rx

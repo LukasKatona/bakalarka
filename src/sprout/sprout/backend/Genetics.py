@@ -1,5 +1,7 @@
 """
 This file contains the Genetics class and the Individual class, both used in the genetic algorithm for the optimization of the bus timetable.
+
+:author: Lukas Katona
 """
 
 from .RandomNumberGenerator import RandomNumberGenerator

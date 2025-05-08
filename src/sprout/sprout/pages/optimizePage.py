@@ -1,5 +1,7 @@
 """
 This file contians optimize page component.
+
+:author: Lukas Katona
 """
 
 import reflex as rx

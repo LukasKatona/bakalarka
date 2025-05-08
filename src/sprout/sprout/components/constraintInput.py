@@ -1,5 +1,7 @@
 """
-This file contains contraint hour input components
+This file contains contraint hour input components.
+
+:author: Lukas Katona
 """
 
 import reflex as rx

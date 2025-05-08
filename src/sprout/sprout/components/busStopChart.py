@@ -1,5 +1,7 @@
 """
-This files contains bus stop chart component
+This files contains bus stop chart component.
+
+:author: Lukas Katona
 """
 
 import reflex as rx

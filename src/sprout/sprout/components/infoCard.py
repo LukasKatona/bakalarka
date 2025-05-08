@@ -1,5 +1,7 @@
 """
 This file contains card component for displaying simple information.
+
+:author: Lukas Katona
 """
 
 import reflex as rx

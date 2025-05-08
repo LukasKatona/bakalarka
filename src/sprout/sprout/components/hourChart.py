@@ -1,5 +1,7 @@
 """
 This file contains simple column graph with statistics agregated by hour of the day.
+
+:author: Lukas Katona
 """
 
 import reflex as rx

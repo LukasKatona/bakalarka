@@ -1,5 +1,7 @@
 """
 This file contains optimize line component and its state.
+
+:author: Lukas Katona
 """
 
 import reflex as rx

@@ -1,5 +1,7 @@
 """
 This file contains analyze page component.
+
+:author: Lukas Katona
 """
 
 import reflex as rx

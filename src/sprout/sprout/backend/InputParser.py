@@ -1,5 +1,7 @@
 """
 This file contains InputParser class with static methods for parsing the input.
+
+:author: Lukas Katona
 """
 
 from .models import BusStop, TimeTable

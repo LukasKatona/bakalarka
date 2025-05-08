@@ -1,5 +1,7 @@
 """
 This file contains components for a table displaying list of bus stops.
+
+:author: Lukas Katona
 """
 
 import reflex as rx

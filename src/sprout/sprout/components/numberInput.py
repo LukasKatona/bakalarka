@@ -1,5 +1,7 @@
 """
 This file contains simple number input component.
+
+:author: Lukas Katona
 """
 
 import reflex as rx

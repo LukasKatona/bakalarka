@@ -1,5 +1,7 @@
 """
 This file contains analyze line component and its state.
+
+:author: Lukas Katona
 """
 
 import reflex as rx

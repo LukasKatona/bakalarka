@@ -67,7 +67,7 @@ Vlastnosti, ktoré sú potrebné pre správnu analýzu a optimalizáciu časové
   \item \textbf{Počet cestujúcich čakajúcich na jednotlivých zastávkach} --- časový rozpis by mal v~čo najvyššej miere uspokojiť prepravné potreby väčšiny cestujúcich. Na prvotné testovacie účely boli použité hodnoty zodpovedajúce reálnemu počtu odchádzajúcich vozidiel za hodinu a ich kapacite dlhodobo existujúcej linky DPMB, ktorá je do veľej miery praxou optimalizovaná.
   \item \textbf{Doba čakania na zastávke} --- užitočný parameter pre analytika, ktorý slúži na overenie kvality časového rozpisu, ak je doba čakania na zastávke dlhá, je to známka toho, že rozpis nie je optimálny a je potrebné ho upraviť.
   \item \textbf{Počet cestujúcich vo vozidie} --- dôležitý parameter pre optimalizáciu. Vysoká preplnenosť vozidla má za dôsledok nekomfortné cestovanie, na druhej strane, príliš prázdne vozidlo je neefektívne pre dopravný podnik.
-  \item \textbf{Kapacita vozidla} --- každé vozidlo má presne definovanú maximálnu kapacitu, zároveň sa od naplnenosti vozidla odvíja komfort cestujúcich. Informácie o~kapacite konkrétných vozidiel sú získané z~webovej stránky dopravného podniku~\cite{dpmb_vozy}.
+  \item \textbf{Kapacita vozidla} --- každé vozidlo má presne definovanú maximálnu kapacitu, zároveň sa od naplnenosti vozidla odvíja komfort cestujúcich. Informácie o~kapacite konkrétných vozidiel sú získané z~webovej stránky dopravného podniku\footnote{\url{https://www.dpmb.cz/nas-vozovy-park}}.
   \item \textbf{Miest na sedenie} --- to či cestujúci sedí alebo bude musieť počas jazdy stáť ovplyvňuje jeho spokojnosť, ktorá výrazne ovplivňuje ohodnotenie rozpisu z~pohľadu optimalizácie.
   \item \textbf{Počet cestujúcich, ktorí nenásúpia kvôli preplnenosti vozidla} --- v~extrémnych prípadoch može nastať situácia, že bude vozidlo úplne plné a nebude možné aby do neho pristúpilo viac cestujúcich. Rozpisy, pri ktorých táto situácia vznikne budú veľmi negatívne ohodnocované z~pohľadu optimalizácie aby sa táto nežiadúca situácia čo najviac eliminovala, viac v~kapitole o~optimalizácii~\ref{optimalizacia}.
   \item \textbf{Počet vystupujúcich cestujúcich na jednotlivých zastávkach} --- tento parameter je potrebný pre simuláciu, keďže do vozidla s~presne definovanou kapacitou cestujúci priebežne nastupujú aj vystupujú. Každá zastávka má pridelený koeficient dôležitosti, ktorý určuje aký podiel z~prepravovaných cestujúcich vystúpi na danej zastávke. Prvá zastávka má tento koeficient 0 (cestujúci iba nastupujú), na konečnej zastávke je koeficient 1 (cestujúci iba vystupujú). Na ostatných zastávkach sa koeficient mení podľa toho, aký podiel cestujúcich na danej zastávke priemerne vystupuje pričom prestupné zastávky majú vyšší koeficient ako neprestupné.
@@ -1663,7 +1663,7 @@ Prvým krokom implementácie je výber vhodných technológií a druhým je náv
 Ako programovací jazyk bol zvolený \texttt{Python} a to preto, lebo je veľmi verzatilný.
 Ďalšou možnosťou by bolo naprogramovať optimalizačný algoritmus v~jazyku \texttt{C} alebo \texttt{C++}, ktoré sú rýchlejšie.
 
-\texttt{Python} bol však vybraný vďaka jednoduchému použitiu a možnostiam naprogramovania ako backendu, tak aj frontendu (na programovanie frontendu bol využitý framework \texttt{Reflex}~\cite{reflex_docs}).
+\texttt{Python} bol však vybraný vďaka jednoduchému použitiu a možnostiam naprogramovania ako backendu, tak aj frontendu (na programovanie frontendu bol využitý framework \texttt{Reflex}\footnote{\url{https://reflex.dev}}).
 
 Vďaka tomuto frameworku je možné písať webové komponenty a celé stránky priamo v~jazyku \texttt{Python}.
 Každý komponent je písaný formou funkcie, ktorá vracia jeho obsah.
@@ -1676,7 +1676,7 @@ Stav okrem premenných obsahuje aj metódy, ktoré sa volajú pri danej udalosti
 Medzi udalosti patrí napríklad stlačenie konkrétneho tlačítka alebo zmena hodnoty v~jednom z~textových vstupov.
 V~týchto metódach sa môže pristupovať aj k~premenným iného stavu.               
 
-Informácie o~použítí tohoto frameworku boli čerpané z~jeho oficiálnej dokumentácie~\cite{reflex_docs}.
+Informácie o~použítí frameworku \texttt{Reflex} boli čerpané z~jeho oficiálnej dokumentácie~\cite{reflex_docs}.
 
 Takáto verzatilita jazyka a frameworku bola pri programovaní tohto nástroja veľmi vítaná,
 treba však dávať pozor na prehladnosť a previazanosť kódu aby sa v~budúcnosti dal ľahko rozširovať.
@@ -1726,11 +1726,11 @@ Adresárová štruktúra sa nachádza v prílohe~\ref{folder_structure}.
     optimizePage.py & stránka pre optimalizáciu časového rozpisu \\ \hline
     sprout.py & koreňový komponent a smerovanie \\ \hline
   \end{tabularx}
-  \caption{Zdrojové kódy}
+  \caption{Súbory obsahujúce zdrojové kódy, rozdelené na moduly}
 \end{table}
 
 V~tabuľke~\ref{tab:source_codes} je stručne popísaný obsah jednotlivých súborov zdrojových kódov a ich rozdelenie medzi jednotlivé moduly.
-Podrobnejší popis celého zdrojového kódu je dostupný v~programovej dokumentácii~\cite{sprout_docs}, ktorá bola vygenerovaná pomocou nástroja \texttt{Sphinx}~\cite{sphinx_doc}.
+Podrobnejší popis celého zdrojového kódu je dostupný v~programovej dokumentácii\footnote{\url{https://sprout.readthedocs.io}}, ktorá bola vygenerovaná pomocou nástroja \texttt{Sphinx}\footnote{\url{https://www.sphinx-doc.org}}.
 
 \subsection*{Inštalácia a spustenie aplikácie}
 Postup inštalácie a spustenia aplikácie na lokálnom počítači je nasledovný:

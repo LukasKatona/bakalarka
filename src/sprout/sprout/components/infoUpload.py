@@ -1,5 +1,7 @@
 """
 This file contains info upload component and its state.
+
+:author: Lukas Katona
 """
 
 import os

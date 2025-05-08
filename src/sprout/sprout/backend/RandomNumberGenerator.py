@@ -1,6 +1,8 @@
 """
 This file contains the RandomNumberGenerator class, which is used to generate random numbers.
 It is important to have a single static instance of the random number generator to ensure that the random numbers are generated in a consistent manner.
+
+:author: Lukas Katona
 """
 
 import numpy as np

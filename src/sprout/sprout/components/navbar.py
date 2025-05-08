@@ -1,5 +1,7 @@
 """
 This file contains components for base navigational bar of the web page.
+
+:author: Lukas Katona
 """
 
 import reflex as rx

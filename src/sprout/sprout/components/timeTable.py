@@ -1,5 +1,7 @@
 """
 This file contains components for vehicle timetable with its departures.
+
+:author: Lukas Katona
 """
 
 import reflex as rx

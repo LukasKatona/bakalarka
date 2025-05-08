@@ -1,5 +1,7 @@
 """
 This is the root file for the application. It also contains routing and root components for pages.
+
+:author: Lukas Katona
 """
 
 import reflex as rx

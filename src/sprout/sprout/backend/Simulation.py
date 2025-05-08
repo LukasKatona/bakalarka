@@ -1,5 +1,7 @@
 """
 This file contains the Simulation class, which is used to simulate the bus system.
+
+:author: Lukas Katona
 """
 
 from datetime import timedelta
