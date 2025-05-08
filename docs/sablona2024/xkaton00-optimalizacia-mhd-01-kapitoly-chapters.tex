@@ -62,15 +62,15 @@ Vlastnosti, ktoré sú potrebné pre správnu analýzu a optimalizáciu časové
 \begin{itemize}
   \item \textbf{Počet zastávok a informácie o~nich} --- potrebné pre zostavenie samotného rozpisu aj simulačného modelu, nie je dôležitý len počet, ale aj informácie o~jednotlivých zastávkach.
   \item \textbf{Čas jazdy medzi jednotlivými zastávkami} --- je to dôležitou súčasťou rozpisu, zároveň sa touto informáciou riadi plánovanie udalostí v~simulačnom modeli, viac v~kapitole~\ref{simulacny_model}.
-  \item \textbf{Počet odchodov vozidla z~jeho prvej zastávky za celý deň} --- celkový počet vozidiel, respektíve ciest, ktoré vozidlá danej linky za deň absolvujú. Tento parameter je dôležitý pre optimalizáciu, nakoľko pre dopravný podnik je výhodné mať čo najmenší počet vozidiel, ktoré vykonávajú obsluhu jednotlivých trás, šetrí to palivo, údržbu aj ľudské zdroje.
-  \item \textbf{Počet odchodov vozidla z~jeho prvej zastávky za hodinu} --- myslí sa tým jeden riadok časového rozpisu, mal by byť priamo úmerný priemernému počtu cestujúcich čakajúcich na danú linku v~danej hodine.
+  \item \textbf{Počet odchodov vozidla z~jeho počiatočnej zastávky za celý deň} --- celkový počet vozidiel, respektíve ciest, ktoré vozidlá danej linky za deň absolvujú. Tento parameter je dôležitý pre optimalizáciu, nakoľko pre dopravný podnik je výhodné mať čo najmenší počet vozidiel, ktoré vykonávajú obsluhu jednotlivých trás, šetrí to palivo, údržbu aj ľudské zdroje.
+  \item \textbf{Počet odchodov vozidla z~jeho počiatočnej zastávky za hodinu} --- myslí sa tým jeden riadok časového rozpisu, mal by byť priamo úmerný priemernému počtu cestujúcich čakajúcich na danú linku v~danej hodine.
   \item \textbf{Počet cestujúcich čakajúcich na jednotlivých zastávkach} --- časový rozpis by mal v~čo najvyššej miere uspokojiť prepravné potreby väčšiny cestujúcich. Na prvotné testovacie účely boli použité hodnoty zodpovedajúce reálnemu počtu odchádzajúcich vozidiel za hodinu a ich kapacite dlhodobo existujúcej linky DPMB, ktorá je do veľej miery praxou optimalizovaná.
   \item \textbf{Doba čakania na zastávke} --- užitočný parameter pre analytika, ktorý slúži na overenie kvality časového rozpisu, ak je doba čakania na zastávke dlhá, je to známka toho, že rozpis nie je optimálny a je potrebné ho upraviť.
   \item \textbf{Počet cestujúcich vo vozidie} --- dôležitý parameter pre optimalizáciu. Vysoká preplnenosť vozidla má za dôsledok nekomfortné cestovanie, na druhej strane, príliš prázdne vozidlo je neefektívne pre dopravný podnik.
   \item \textbf{Kapacita vozidla} --- každé vozidlo má presne definovanú maximálnu kapacitu, zároveň sa od naplnenosti vozidla odvíja komfort cestujúcich. Informácie o~kapacite konkrétných vozidiel sú získané z~webovej stránky dopravného podniku\footnote{\url{https://www.dpmb.cz/nas-vozovy-park}}.
   \item \textbf{Miest na sedenie} --- to či cestujúci sedí alebo bude musieť počas jazdy stáť ovplyvňuje jeho spokojnosť, ktorá výrazne ovplivňuje ohodnotenie rozpisu z~pohľadu optimalizácie.
   \item \textbf{Počet cestujúcich, ktorí nenásúpia kvôli preplnenosti vozidla} --- v~extrémnych prípadoch može nastať situácia, že bude vozidlo úplne plné a nebude možné aby do neho pristúpilo viac cestujúcich. Rozpisy, pri ktorých táto situácia vznikne budú veľmi negatívne ohodnocované z~pohľadu optimalizácie aby sa táto nežiadúca situácia čo najviac eliminovala, viac v~kapitole o~optimalizácii~\ref{optimalizacia}.
-  \item \textbf{Počet vystupujúcich cestujúcich na jednotlivých zastávkach} --- tento parameter je potrebný pre simuláciu, keďže do vozidla s~presne definovanou kapacitou cestujúci priebežne nastupujú aj vystupujú. Každá zastávka má pridelený koeficient dôležitosti, ktorý určuje aký podiel z~prepravovaných cestujúcich vystúpi na danej zastávke. Prvá zastávka má tento koeficient 0 (cestujúci iba nastupujú), na konečnej zastávke je koeficient 1 (cestujúci iba vystupujú). Na ostatných zastávkach sa koeficient mení podľa toho, aký podiel cestujúcich na danej zastávke priemerne vystupuje pričom prestupné zastávky majú vyšší koeficient ako neprestupné.
+  \item \textbf{Počet vystupujúcich cestujúcich na jednotlivých zastávkach} --- tento parameter je potrebný pre simuláciu, keďže do vozidla s~presne definovanou kapacitou cestujúci priebežne nastupujú aj vystupujú. Každá zastávka má pridelený koeficient dôležitosti, ktorý určuje aký podiel z~prepravovaných cestujúcich vystúpi na danej zastávke. Počiatočná zastávka má tento koeficient 0 (cestujúci iba nastupujú), na konečnej zastávke je koeficient 1 (cestujúci iba vystupujú). Na ostatných zastávkach sa koeficient mení podľa toho, aký podiel cestujúcich na danej zastávke priemerne vystupuje pričom prestupné zastávky majú vyšší koeficient ako neprestupné.
   \item \textbf{Náklady na prevádzku} --- náklady na prevádzku sú hlavným parametrom optimalizácie časových rozpisov jednotlivých liniek vyžadovaným DPMB. Náklady jednotlivých typov vozidiel sú súčasťou finančného plánu zahrnutého v~zmluve~\cite{brno_dpmb_smlouva_2023}.
   \item \textbf{Dĺžka trasy} --- parameter potrebný na výpočet celkových nákladov na prevádzku linky. Dĺžky jednotlivých liniek sú obsahom zmluvy~\cite{brno_dpmb_smlouva_2023}.
 \end{itemize}
@@ -299,7 +299,7 @@ Pôvod tohoto signálu bude popísaný v~rámci definície zloženého modelu ne
     \textbf{Stav} & \textbf{Popis} \\ \hline
     Na ceste & vozidlo sa pohybuje medzi zastávkami \\ \hline
     Na zastávke & vozidlo práve prišlo na zastávku \\ \hline
-    Nakladá cestujúcich & vozidlo nakladá cestujúcich \\ \hline % TODO zmenit nakalda cestujucich
+    Nakladá cestujúcich & vozidlo nakladá cestujúcich \\ \hline
   \end{tabularx}
   \caption{Stavy modelu vozidla}
 \end{table}
@@ -310,7 +310,7 @@ Pôvod tohoto signálu bude popísaný v~rámci definície zloženého modelu ne
     \hline
     \textbf{Výstupný signál} & \textbf{Akcia ktorú spúšťa} \\ \hline
     !Príchod & výstup cestujúcich podľa koeficientu danej zastávky, napríklad ak je koeficient 0,7, vystúpi 70 percent cestujúcich \\ \hline
-    !Nastupovanie & nástup cestujúcich do vozidla, tí ktorí sa nezmestia do vozidla sú nespokojní a následne opúšťajú systém \\ \hline % TODO zmenit nastupovanie
+    !Nastupovanie & nástup cestujúcich do vozidla, tí ktorí sa nezmestia do vozidla sú nespokojní a následne opúšťajú systém \\ \hline
     !Odchod & okrem aktivácie prepojených vstupných signálov sa nič iné nevykonáva \\ \hline
   \end{tabularx}
   \caption{Výstupné signály modelu vozidla}
@@ -318,7 +318,7 @@ Pôvod tohoto signálu bude popísaný v~rámci definície zloženého modelu ne
 
 \subsubsection*{Obsluha zastávky}
 
-Každé vozidlo začina na prvej zastávke v~rozpise a počas simulácie sa musí pohybovať medzi zastávkami.
+Každé vozidlo začina na počiatočnej zastávke v~rozpise a počas simulácie sa musí pohybovať medzi zastávkami.
 Proces, ktorý vozidlo vykoná pri príchode na každú zastávku, je popísaný v~algoritme~\ref{algoritmus_obsluha_zastavky}.
 Tento proces je vyvolaný príchodom vstupného signálu \textit{?Príchod\_vozidla}.
 
@@ -336,14 +336,15 @@ Tento proces je vyvolaný príchodom vstupného signálu \textit{?Príchod\_vozi
 Zložený simulačný model v~tejto práci pozostáva z~dvoch atomických modelov, modelu zastávky a vozidla.
 Prepojenie týchto atomických modelov je graficky znázornené na obrázku~\ref{fig:simulacny_model}.
 
-\[D = \{ \text{Zastávka}, \text{Vozidlo} \}\]
-\[M_{Zastávka} = \langle \ldots \rangle\] % TODO Zastávka Zastvka
+\[D = \{ \text{Zastavka}, \text{Vozidlo} \}\]
+\[M_{Zastavka} = \langle \ldots \rangle\]
 \[M_{Vozidlo} = \langle \ldots \rangle\]
-\[I_{Zastávka} = \emptyset\]
-\[I_{Vozidlo} = \{ \text{Zastávka} \}\]
+\[I_{Zastavka} = \emptyset\]
+\[I_{Vozidlo} = \{ \text{Zastavka} \}\]
 \[X_{self} = \emptyset\]
 \[Y_{self} = \{ \text{\textit{!Príchod\_vozidla}} \}\]
-\[\text{\textit{select}} = \{ \{Zastávka,Vozidlo\} \rightarrow Vozidlo, \{Zastávka\} \rightarrow Zastávka, \{Vozidlo\} \rightarrow Vozidlo \}\]
+\[\text{\textit{select}} = \{ \{Zastavka,Vozidlo\} \rightarrow Vozidlo,\]
+\[\{Zastavka\} \rightarrow Zastavka, \{Vozidlo\} \rightarrow Vozidlo \}\]
 \[Z_{i,j,self} = \{ \text{\textit{!Príchod\_vozidla}} \rightarrow \text{\textit{?Príchod\_vozidla}},\]
 \[\text{\textit{!Príchod}} \rightarrow \text{\textit{?Vozidlo\_prišlo}},\]
 \[\text{\textit{!Nastupovanie}} \rightarrow \text{\textit{?Začiatok\_nastupovania}},\]
@@ -379,7 +380,7 @@ V~kalendári sú uložené všetky udalosti, ktoré sa majú v~modeli vykonať.
 Vykonávané udalosti sú v~prípade tohto modelu príchody vozidiel na zastávky.
 V~rámci jednej udalosti sa vykoná rutina obslúženia cestujúcich čakajúcich na zastávke.
 Všetky udalosti sú naplánované na začiatku simulácie, pretože na základe časovému rozpisu sú presne definované všetky príchody vozidiel na jednotlivé zastávky.
-Príchody na počiatočnú zastávku sú dané hlavným časovým rozpisom, príchody na ostatné zastávky sú odvodené od času potrebného na presun z~jednej zastávky na následujúcu. % TODO zmenit prvu na pociatocnu
+Príchody na počiatočnú zastávku sú dané hlavným časovým rozpisom, príchody na ostatné zastávky sú odvodené od času potrebného na presun z~jednej zastávky na následujúcu.
 Pseudokód plánovania udalostí je uvedený v~algoritme~\ref{algoritmus_planovanie_udalosti} a spolu s~kódom v~implementácii je prevzatý zo študijnej opory predmetu Modelovanie a simulácie~\cite{peringer2022ims}, ktorý je vyučovaný na Fakulte informatiky Vysokého učení technického v~Brne.
 V~priebehu simulácie už nie je potrebné plánovať žiadne ďalšie udalosti.
 
@@ -1652,7 +1653,7 @@ Po dokončení optimalizácie by mal byť používateľ schopný prezrieť si v�
 To bude zabezpečené posuvným tiahlom a zobrazením aktuálne vybraného rozpisu.
 Tiahlo bude mať toľko krokov, koľko je rozpisov v~generácii.
 Vyplnením textového vstupu pre názov rozpisu a stlačením tlačítka \texttt{Uložiť rozpis} sa rozpis uloží.
-Nepomenovaný rozpis sa pri uložení automaticky pomenuje časom a dátumom jeho vytvorenia %TODO dopisat format
+Nepomenovaný rozpis sa pri uložení automaticky pomenuje časom a dátumom jeho vytvorenia vo formáte \texttt{Rozpis yyyy-MM-dd HH:mm:ss.SSSSSS}.
 
 \section{Implementácia nástroja}\label{nastroj_implementacia}
 
