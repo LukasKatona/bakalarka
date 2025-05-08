@@ -1738,7 +1738,8 @@ Postup inštalácie a spustenia aplikácie na lokálnom počítači je nasledovn
 \begin{enumerate}
   \item Nainštalujte si \texttt{Python} vo verzii 3.10.
   \item Nainštalujte si \texttt{pip} vo verzii 24.3.
-  \item (Volitelné) v~koreňovom adresári projektu vytvorte virtuálne prostredie príkazom \texttt{python -m venv venv}.
+  \item Skontrolujte, či máte nainštalovaný balík \texttt{tkinter} vo verzii 8.6. Na Windowse by sa mal nainštalovať automaticky v kroku 1., na Linuxe nainštalujte balík \texttt{python3-tk} pomocou vášho správcu balíkov, napríklad príkazom \texttt{sudo apt install python3-tk}.
+  \item V~koreňovom adresári projektu vytvorte virtuálne prostredie príkazom \texttt{python -m venv venv}.
   \item Aktivujte virtuálne prostredie príkazom \texttt{venv\textbackslash Scripts\textbackslash activate} na Windowse alebo \texttt{source venv/bin/activate} na Linuxe.
   \item Nainštalujte potrebné knižnice príkazom \texttt{pip install -r requirements.txt}.
   \item Pomocou príkazu \texttt{cd src/sprout} sa presuňte do adresára s~aplikáciou.
