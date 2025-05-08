@@ -165,8 +165,6 @@ class OptimizeLineState(rx.State):
                 self.bestTimeTableChromosome = genetics.generation[int(round(len(genetics.generation)/2))].chromosome
                 self.bestTimeTableString = str(TimeTable(self.bestTimeTableChromosome))
                 self.bestTimeTable = self.parseTimeTableToTuple(TimeTable(self.bestTimeTableChromosome))
-                if i == 0 or i == self.numberOfGenerations - 1:
-                    print(self.generation)
             genetics.updateGeneration()
                 
         async with self:
